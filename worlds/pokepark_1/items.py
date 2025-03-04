@@ -1,7 +1,7 @@
 from BaseClasses import Item
 
 class PokeparkItem(Item):
-    game: str = "PokéPark Wii: Pikachu's Adventure"
+    game: str = "PokéPark"
 
 FRIENDSHIP_ITEMS: dict[str, int] = {
     #Meadow Zone

@@ -1,7 +1,7 @@
 """
 Archipelago init file for Pokepark 1
 """
-from BaseClasses import ItemClassification
+from BaseClasses import ItemClassification, Tutorial
 from worlds.AutoWorld import WebWorld, World
 from worlds.LauncherComponents import components, Component, launch_subprocess
 from .items import FRIENDSHIP_ITEMS, PokeparkItem, UNLOCK_ITEMS, BERRIES, ALL_ITEMS_TABLE, PRISM_ITEM, POWERS, \
@@ -13,12 +13,21 @@ from .options import PokeparkOptions
 
 class PokeparkWebWorld(WebWorld):
     theme = "jungle"
+    tutorials = [Tutorial(
+            "Multiworld Setup Guide",
+            "A guide to setting up the Pokepark Randomizer software on your computer."
+            "This guide covers single-player, multiworld, and related software.",
+            "English",
+            "pokepark_1_en.md",
+            "pokepark_1/en",
+            [""]
+    )]
 
 class PokeparkWorld(World):
     """
     The first Pokepark game featuring 3D Gameplay controlling Pokemon. Lot of Minigames in the mission to save the Pokepark through the collection of Prism Shards.
     """
-    game = "PokéPark Wii: Pikachu's Adventure"
+    game = "PokéPark"
     web = PokeparkWebWorld()
 
     options_dataclass = PokeparkOptions

@@ -53,7 +53,7 @@ class PokeparkCommandProcessor(ClientCommandProcessor):
 
 class PokeparkContext(CommonContext):
     command_processor = PokeparkCommandProcessor
-    game = "PokéPark Wii: Pikachu's Adventure"
+    game = "PokéPark"
     items_handling = 0b111  # full remote
     hook_check = False
     hook_nagged = False
