@@ -22,6 +22,11 @@ class PokeparkWebWorld(WebWorld):
             "pokepark_1/en",
             [""]
     )]
+    options_presets = {
+        "Default": {
+            "disable_block_events": True
+        }
+    }
 
 class PokeparkWorld(World):
     """
