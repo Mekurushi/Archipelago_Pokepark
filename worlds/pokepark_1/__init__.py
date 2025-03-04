@@ -33,10 +33,10 @@ class PokeparkWorld(World):
     The first Pokepark game featuring 3D Gameplay controlling Pokemon. Lot of Minigames in the mission to save the Pokepark through the collection of Prism Shards.
     """
     game = "PokéPark"
-    web = PokeparkWebWorld()
 
     options_dataclass = PokeparkOptions
     options = PokeparkOptions
+    web = PokeparkWebWorld()
 
     item_name_to_id = ALL_ITEMS_TABLE
     location_name_to_id = ALL_LOCATIONS_TABLE
@@ -78,7 +78,8 @@ class PokeparkWorld(World):
             pool.append(self.create_item(berry_name))
 
         self.multiworld.itempool += pool
-
+        if self.options.disable_block_events:
+            print(self.options.disable_block_events.display_name)
 
     def set_rules(self):
         self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)
