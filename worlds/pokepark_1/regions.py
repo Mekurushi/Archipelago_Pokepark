@@ -1,10 +1,10 @@
 from BaseClasses import CollectionState, Region, ItemClassification
-from worlds.pokepark_1 import PokeparkItem
+from worlds.pokepark_1 import PokeparkItem, PokeparkWorld
 from worlds.pokepark_1.locations import PokeparkLocation
 from worlds.pokepark_1.logic import Requirements, PokeparkRegion, REGIONS
 
 
-def pokepark_requirements_satisfied(state: CollectionState, requirements: Requirements, world: "PokeparkWorld"):
+def pokepark_requirements_satisfied(state: CollectionState, requirements: Requirements, world: PokeparkWorld):
     has_required_unlocks = all(state.has(unlock, world.player) for unlock in requirements.unlock_names)
     has_required_friends = all(state.has(friend, world.player) for friend in requirements.friendship_names)
     has_required_prismas = all(state.has(prisma, world.player) for prisma in requirements.prisma_names)
@@ -20,7 +20,7 @@ def pokepark_requirements_satisfied(state: CollectionState, requirements: Requir
     return has_required_unlocks and has_enough_friends and has_required_friends and has_required_prismas and has_any and can_reach_required_locations
 
 
-def create_region(region: PokeparkRegion, world: "PokeparkWorld"):
+def create_region(region: PokeparkRegion, world: PokeparkWorld):
     new_region = Region(region.name, world.player, world.multiworld)
 
     def create_location(location, location_type):
@@ -53,7 +53,7 @@ def create_region(region: PokeparkRegion, world: "PokeparkWorld"):
     return new_region
 
 
-def create_regions(world: "PokeparkWorld"):
+def create_regions(world: PokeparkWorld):
     regions = {
         "Menu": Region("Menu", world.player, world.multiworld)
     }

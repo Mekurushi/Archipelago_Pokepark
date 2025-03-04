@@ -9,7 +9,6 @@ from .items import FRIENDSHIP_ITEMS, PokeparkItem, UNLOCK_ITEMS, BERRIES, ALL_IT
 from .locations import ALL_LOCATIONS_TABLE
 from .logic import REGIONS
 from .options import PokeparkOptions
-from .regions import create_regions
 
 
 class PokeparkWebWorld(WebWorld):
@@ -48,6 +47,7 @@ class PokeparkWorld(World):
 
     data_version = 1
     def create_regions(self):
+        from .regions import create_regions
         create_regions(self)
 
     def create_items(self):
