@@ -1,73 +1,57 @@
 from . import PokeparkTest
+from .. import REGIONS
+from ..logic import PowerRequirement
 
-class TestPowerItemDependencies(PokeparkTest):
-    def test_thunderbolt_upgrades(self)-> None:
-        """Test all locations that require one Thunderbolt Upgrades"""
-        locations = []
-        items = [["Progressive Thunderbolt"]]
-        self.assertAccessDependency(locations,items)
+class TestPowerItemDependenciesWithoutStartPower(PokeparkTest):
+    options = {
+        "power_randomizer": 4
+    }
 
-    def test_thunderbolt_upgrades2(self)-> None:
-        """Test all locations that require two Thunderbolt Upgrades"""
-        locations = []
-        items = [["Progressive Thunderbolt"],["Progressive Thunderbolt"]]
-        self.assertAccessDependency(locations,items)
+    def test_can_battle(self)-> None:
+        """Test all locations that use the can battle requirement"""
+        battle_locations = [region.display + " - "+location.name for region in REGIONS for location in region.friendship_locations if hasattr(location, 'requirements') and location.requirements and hasattr(location.requirements, 'powers') and location.requirements.powers == PowerRequirement.can_battle]
 
-    def test_thunderbolt_upgrades3(self)-> None:
-        """Test all locations that require three Thunderbolt Upgrades"""
-        locations = []
-        items = [["Progressive Thunderbolt"],["Progressive Thunderbolt"],["Progressive Thunderbolt"]]
-        self.assertAccessDependency(locations,items)
+        items = [["Progressive Dash"], ["Progressive Thunderbolt"], ["Progressive Iron Tail"]]
+        self.assertAccessDependency(battle_locations,items, True)
 
-    def test_dash_upgrades(self)-> None:
-        """Test all locations that require one Dash Upgrades"""
-        locations = []
+    def test_can_dash_overworld(self)-> None:
+        """Test all locations that use the can dash in the overworld requirement"""
+        battle_locations = [region.display + " - "+location.name for region in REGIONS for location in region.friendship_locations if hasattr(location, 'requirements') and location.requirements and hasattr(location.requirements, 'powers') and location.requirements.powers == PowerRequirement.can_dash_overworld]
+
         items = [["Progressive Dash"]]
-        self.assertAccessDependency(locations,items)
+        self.assertAccessDependency(battle_locations,items, True)
 
-    def test_dash_upgrades2(self)-> None:
-        """Test all locations that require two Dash Upgrades"""
-        locations = []
-        items = [["Progressive Dash"],["Progressive Dash"]]
-        self.assertAccessDependency(locations,items)
+    def test_can_play_catch(self)-> None:
+        """Test all locations that use the can play catch requirement"""
+        battle_locations = [region.display + " - "+location.name for region in REGIONS for location in region.friendship_locations if hasattr(location, 'requirements') and location.requirements and hasattr(location.requirements, 'powers') and location.requirements.powers == PowerRequirement.can_play_catch]
 
-    def test_dash_upgrades3(self)-> None:
-        """Test all locations that require three Dash Upgrades"""
-        locations = []
-        items = [["Progressive Dash"],["Progressive Dash"],["Progressive Dash"]]
-        self.assertAccessDependency(locations,items)
+        items = [["Progressive Dash"]]
+        self.assertAccessDependency(battle_locations,items, True)
 
-    def test_health_upgrades(self)-> None:
-        """Test all locations that require one Health Upgrades"""
-        locations = []
-        items = [["Progressive Health"]]
-        self.assertAccessDependency(locations,items)
+    def test_can_destroy_objects_overworld(self)-> None:
+        """Test all locations that use the can destroy objects in the overworld requirement"""
+        battle_locations = [region.display + " - "+location.name for region in REGIONS for location in region.friendship_locations if hasattr(location, 'requirements') and location.requirements and hasattr(location.requirements, 'powers') and location.requirements.powers == PowerRequirement.can_destroy_objects_overworld]
 
-    def test_health_upgrades2(self)-> None:
-        """Test all locations that require two Health Upgrades"""
-        locations = []
-        items = [["Progressive Health"],["Progressive Health"]]
-        self.assertAccessDependency(locations,items)
+        items = [["Progressive Dash"], ["Progressive Thunderbolt"]]
+        self.assertAccessDependency(battle_locations,items, True)
 
-    def test_health_upgrades3(self)-> None:
-        """Test all locations that require three Health Upgrades"""
-        locations = []
-        items = [["Progressive Health"],["Progressive Health"],["Progressive Health"]]
-        self.assertAccessDependency(locations,items)
-    def test_iron_tail_upgrades(self)-> None:
-        """Test all locations that require one Iron Tail Upgrades"""
-        locations = []
-        items = [["Progressive Iron Tail"]]
-        self.assertAccessDependency(locations,items)
+    def test_can_thunderbolt_overworld(self)-> None:
+        """Test all locations that use the can use thunderbolt in the overworld requirement"""
+        battle_locations = [region.display + " - "+location.name for region in REGIONS for location in region.friendship_locations if hasattr(location, 'requirements') and location.requirements and hasattr(location.requirements, 'powers') and location.requirements.powers == PowerRequirement.can_thunderbolt_overworld]
 
-    def test_iron_tail_upgrades2(self)-> None:
-        """Test all locations that require two Iron Tail Upgrades"""
-        locations = []
-        items = [["Progressive Iron Tail"],["Progressive Iron Tail"]]
-        self.assertAccessDependency(locations,items)
+        items = [["Progressive Thunderbolt"]]
+        self.assertAccessDependency(battle_locations,items, True)
 
-    def test_iron_tail_upgrades3(self)-> None:
-        """Test all locations that require three Iron Tail Upgrades"""
-        locations = []
-        items = [["Progressive Iron Tail"],["Progressive Iron Tail"],["Progressive Iron Tail"]]
-        self.assertAccessDependency(locations,items)
+    def test_can_battle_thunderbolt_immune(self)-> None:
+        """Test all locations that use the can battle thunderbolt immune Pokemon requirement"""
+        battle_locations = [region.display + " - "+location.name for region in REGIONS for location in region.friendship_locations if hasattr(location, 'requirements') and location.requirements and hasattr(location.requirements, 'powers') and location.requirements.powers == PowerRequirement.can_battle_thunderbolt_immune]
+
+        items = [["Progressive Dash"], ["Progressive Iron Tail"]]
+        self.assertAccessDependency(battle_locations,items, True)
+
+    def test_can_farm_berries(self)-> None:
+        """Test all locations that use the can farm berries requirement"""
+        battle_locations = [region.display + " - "+location.name for region in REGIONS for location in region.friendship_locations if hasattr(location, 'requirements') and location.requirements and hasattr(location.requirements, 'powers') and location.requirements.powers == PowerRequirement.can_farm_berries]
+
+        items = [["Progressive Dash"]]
+        self.assertAccessDependency(battle_locations,items, True)
