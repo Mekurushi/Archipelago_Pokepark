@@ -1,5 +1,5 @@
 """
-Archipelago init file for Pokepark 1
+Archipelago init file for Pokepark
 """
 from BaseClasses import ItemClassification, Tutorial
 from worlds.AutoWorld import WebWorld, World
