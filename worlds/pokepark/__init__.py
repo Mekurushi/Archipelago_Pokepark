@@ -37,7 +37,8 @@ class PokeparkWorld(World):
     game = "PokePark"
 
     options_dataclass = PokeparkOptions
-    options = PokeparkOptions
+    options: PokeparkOptions
+
     web = PokeparkWebWorld()
 
     item_name_to_id = ALL_ITEMS_TABLE
