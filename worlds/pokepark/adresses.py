@@ -2,9 +2,9 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import List
 
-from worlds.pokepark_1 import FRIENDSHIP_ITEMS, UNLOCK_ITEMS, BERRIES
-from worlds.pokepark_1.LocationIds import MinigameLocationIds, OverworldPokemonLocationIds, QuestLocationIds
-from worlds.pokepark_1.items import PRISM_ITEM, REGION_UNLOCK
+from worlds.pokepark import FRIENDSHIP_ITEMS, UNLOCK_ITEMS, BERRIES
+from worlds.pokepark.LocationIds import MinigameLocationIds, OverworldPokemonLocationIds, QuestLocationIds
+from worlds.pokepark.items import PRISM_ITEM, REGION_UNLOCK
 
 pokemon_id_address = 0x8036dc20
 stage_id_address = 0x8036AEF0  # word

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from Options import Toggle, PerGameCommonOptions, Choice, OptionGroup
+from Options import PerGameCommonOptions, Choice, OptionGroup
 
 
 class Powers(Choice):

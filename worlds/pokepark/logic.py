@@ -1,9 +1,9 @@
 from enum import Enum
 from typing import NamedTuple
 
-from worlds.pokepark_1 import FRIENDSHIP_ITEMS
-from worlds.pokepark_1.LocationIds import MinigameLocationIds, QuestLocationIds, OverworldPokemonLocationIds
-from worlds.pokepark_1.items import UNLOCK_ITEMS, PRISM_ITEM
+from worlds.pokepark import FRIENDSHIP_ITEMS
+from worlds.pokepark.LocationIds import MinigameLocationIds, QuestLocationIds, OverworldPokemonLocationIds
+from worlds.pokepark.items import UNLOCK_ITEMS, PRISM_ITEM
 
 
 

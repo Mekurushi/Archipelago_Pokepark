@@ -4,9 +4,9 @@ import traceback
 import dolphin_memory_engine as dme
 
 from CommonClient import logger
-from worlds.pokepark_1.adresses import \
+from worlds.pokepark.adresses import \
     stage_id_address, intro_stage_id, ZONESYSTEM, main_menu_stage_id, main_menu2_stage_id, main_menu3_stage_id
-from worlds.pokepark_1.dme_helper import write_memory, write_bit
+from worlds.pokepark.dme_helper import write_memory, write_bit
 
 delay_seconds = 1
 

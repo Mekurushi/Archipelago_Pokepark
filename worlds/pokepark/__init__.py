@@ -8,7 +8,7 @@ from .items import FRIENDSHIP_ITEMS, PokeparkItem, UNLOCK_ITEMS, BERRIES, ALL_IT
     REGION_UNLOCK
 from .locations import ALL_LOCATIONS_TABLE
 from .logic import REGIONS
-from .options import PokeparkOptions
+from .options import PokeparkOptions, pokepark_option_groups
 
 
 class PokeparkWebWorld(WebWorld):
@@ -18,15 +18,17 @@ class PokeparkWebWorld(WebWorld):
             "A guide to setting up the Pokepark Randomizer software on your computer."
             "This guide covers single-player, multiworld, and related software.",
             "English",
-            "pokepark_1_en.md",
-            "pokepark_1/en",
+            "pokepark_en.md",
+            "pokepark/en",
             [""]
     )]
     options_presets = {
         "Default": {
-            "disable_block_events": True
+            "power_randomizer": 3,
+            "starting_zone": 0
         }
     }
+    option_groups = pokepark_option_groups
 
 class PokeparkWorld(World):
     """

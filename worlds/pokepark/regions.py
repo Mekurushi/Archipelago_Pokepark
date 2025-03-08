@@ -1,9 +1,9 @@
 from typing import Dict, Callable
 
 from BaseClasses import CollectionState, Region, ItemClassification
-from worlds.pokepark_1 import PokeparkItem, PokeparkWorld
-from worlds.pokepark_1.locations import PokeparkLocation
-from worlds.pokepark_1.logic import Requirements, PokeparkRegion, REGIONS, PowerRequirement
+from worlds.pokepark import PokeparkItem, PokeparkWorld
+from worlds.pokepark.locations import PokeparkLocation
+from worlds.pokepark.logic import Requirements, PokeparkRegion, REGIONS, PowerRequirement
 
 POWER_REQUIREMENT_CHECKS: Dict[PowerRequirement, Callable] = {
     PowerRequirement.none: lambda state, world: True,
