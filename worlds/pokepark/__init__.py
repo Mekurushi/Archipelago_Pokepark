@@ -144,6 +144,14 @@ class PokeparkWorld(World):
                 if zone != "Meadow Zone Unlock":
                     pool.append(self.create_item(zone))
 
+        if self.options.starting_zone == self.options.starting_zone.option_ice_zone:
+            self.multiworld.push_precollected(self.create_item("Ice Zone Unlock"))
+
+            # Add remaining zones to the pool
+            for zone in all_zones:
+                if zone != "Ice Zone Unlock":
+                    pool.append(self.create_item(zone))
+
         # Drifblim is always unlocked
         self.multiworld.push_precollected(self.create_item("Drifblim Unlock"))
 

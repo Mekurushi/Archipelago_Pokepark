@@ -6,7 +6,6 @@ from worlds.pokepark.LocationIds import MinigameLocationIds, QuestLocationIds, O
 from worlds.pokepark.items import UNLOCK_ITEMS, PRISM_ITEM
 
 
-
 class PowerRequirement(Enum):
     none = 0
     can_battle = 1
@@ -43,7 +42,6 @@ class PokeparkRegion(NamedTuple):
     minigame_location: list[Location] = []
     quest_locations: list[Location] = []
     parent_regions: list[str] = ["Menu"]
-
 
 
 REGIONS: list[PokeparkRegion] = [
@@ -130,8 +128,8 @@ REGIONS: list[PokeparkRegion] = [
 
     PokeparkRegion(name="Meadow Zone - Overworld",
                    display="Meadow Zone - Overworld",
-                   requirements= Requirements(
-unlock_names=["Meadow Zone Unlock"]
+                   requirements=Requirements(
+                       unlock_names=["Meadow Zone Unlock"]
                    ),
                    friendship_locations=[
 
@@ -144,7 +142,7 @@ unlock_names=["Meadow Zone Unlock"]
                                 id=FRIENDSHIP_ITEMS["Munchlax"],
                                 requirements=Requirements(
                                     prisma_names=["Bulbasaur Prisma"],
-                                powers=PowerRequirement.can_destroy_objects_overworld
+                                    powers=PowerRequirement.can_destroy_objects_overworld
                                 )),
 
                        Location(name="Tropius",
@@ -152,7 +150,7 @@ unlock_names=["Meadow Zone Unlock"]
                                 requirements=Requirements(
                                     unlock_names=["Tropius Unlock"],
                                     prisma_names=["Bulbasaur Prisma"],
-                                powers=PowerRequirement.can_destroy_objects_overworld
+                                    powers=PowerRequirement.can_destroy_objects_overworld
                                 )),
 
                        Location(name="Turtwig",
@@ -319,7 +317,7 @@ unlock_names=["Meadow Zone Unlock"]
                        Location(name="Munchlax Friendship - Pokemon Unlock",
                                 id=UNLOCK_ITEMS["Tropius Unlock"],
                                 requirements=Requirements(
-                                can_reach_locations=["Meadow Zone - Overworld - Munchlax"]
+                                    can_reach_locations=["Meadow Zone - Overworld - Munchlax"]
                                 )),
 
                        Location(name="Turtwig Friendship - Pokemon Unlock",
@@ -426,7 +424,6 @@ unlock_names=["Meadow Zone Unlock"]
                                     can_reach_locations=["Meadow Zone - Overworld - Bidoof Housing 3"])),
                    ],
                    parent_regions=["Treehouse"]),
-
 
     PokeparkRegion(name="Meadow Zone - Bulbasaur's Daring Dash Minigame",
                    display="Meadow Zone - Bulbasaur's Daring Dash Minigame",
@@ -597,9 +594,9 @@ unlock_names=["Meadow Zone Unlock"]
                        #              friendship_names= ["Lucario"])),
 
                        Location(name="Primeape",
-                                 id=MinigameLocationIds.PRIMEAPE_VINE_SWING.value,
-                                 requirements=Requirements(
-                                     friendship_names=["Primeape"])),
+                                id=MinigameLocationIds.PRIMEAPE_VINE_SWING.value,
+                                requirements=Requirements(
+                                    friendship_names=["Primeape"])),
 
                        # Location(name="Tangrowth",
                        #          id=MinigameLocationIds.TANGROWTH_VINE_SWING.value,
@@ -719,7 +716,7 @@ unlock_names=["Meadow Zone Unlock"]
                                 requirements=Requirements(
                                     friendcount=31,
                                     powers=PowerRequirement.can_play_catch
-                                    )),  # +1 for itself
+                                )),  # +1 for itself
 
                        Location(name="Golduck",
                                 id=FRIENDSHIP_ITEMS["Golduck"],
@@ -941,9 +938,9 @@ unlock_names=["Meadow Zone Unlock"]
                                     friendship_names=["Slowpoke"])),
 
                        Location(name="Empoleon",
-                                 id=MinigameLocationIds.EMPOLEON_AQUA.value,
-                                 requirements=Requirements(
-                                     friendship_names=["Empoleon"])),
+                                id=MinigameLocationIds.EMPOLEON_AQUA.value,
+                                requirements=Requirements(
+                                    friendship_names=["Empoleon"])),
 
                        Location(name="Floatzel",
                                 id=MinigameLocationIds.FLOATZEL_AQUA.value,
@@ -966,8 +963,8 @@ unlock_names=["Meadow Zone Unlock"]
                                     friendship_names=["Vaporeon"])),
 
                        Location(name="Prinplup",
-                                 id=MinigameLocationIds.PRINPLUP_AQUA.value,
-                                 requirements=Requirements(
+                                id=MinigameLocationIds.PRINPLUP_AQUA.value,
+                                requirements=Requirements(
                                     friendship_names=["Prinplup"])),
 
                        Location(name="Bibarel",
@@ -1069,7 +1066,7 @@ unlock_names=["Meadow Zone Unlock"]
                                     powers=PowerRequirement.can_play_catch
                                 )),
                        Location(name="Prinplup",
-                                 id=FRIENDSHIP_ITEMS["Prinplup"],
+                                id=FRIENDSHIP_ITEMS["Prinplup"],
                                 requirements=Requirements(
                                     can_reach_locations=["Ice Zone - Overworld - Igloo Quest 3"],
                                     powers=PowerRequirement.can_battle
@@ -1122,7 +1119,7 @@ unlock_names=["Meadow Zone Unlock"]
                                     can_reach_locations=["Ice Zone - Overworld - Igloo Quest 1"]
                                 )),
                        Location(name="Igloo Quest 2 - Pokemon Unlock",
-                                id=UNLOCK_ITEMS["Ursaring Unlock"]                                ,
+                                id=UNLOCK_ITEMS["Ursaring Unlock"],
                                 requirements=Requirements(
                                     can_reach_locations=["Ice Zone - Overworld - Igloo Quest 2"]
                                 )),
@@ -1170,7 +1167,6 @@ unlock_names=["Meadow Zone Unlock"]
                                     can_reach_locations=["Ice Zone - Overworld - Christmas Tree Present 3"]
                                 )),
 
-
                    ],
                    parent_regions=["Treehouse", "Beach Zone - Overworld"]),
     PokeparkRegion(name="Ice Zone - Overworld - Lower Lift Region",
@@ -1200,70 +1196,70 @@ unlock_names=["Meadow Zone Unlock"]
 
     PokeparkRegion(name="Ice Zone - Empoleon's Snow Slide",
                    display="Ice Zone - Empoleon's Snow Slide",
-minigame_location=[Location(name="Prisma",
-                                id=PRISM_ITEM["Empoleon Prisma"]),
+                   minigame_location=[Location(name="Prisma",
+                                               id=PRISM_ITEM["Empoleon Prisma"]),
 
-                       Location(name="Pikachu",
-                                id=MinigameLocationIds.PIKACHU_SLIDE.value,
-                                requirements=Requirements(
-                                    unlock_names=["Pikachu Snowboard"])),
-                   Location(name="Teddiursa",
-                            id=MinigameLocationIds.TEDDIURSA_SLIDE.value,
-                            requirements=Requirements(
-                                friendship_names=["Teddiursa"])),
-                   Location(name="Magikarp",
-                            id=MinigameLocationIds.MAGIKARP_SLIDE.value,
-                            requirements=Requirements(
-                                friendship_names=["Magikarp"])),
-                   Location(name="Empoleon",
-                            id=MinigameLocationIds.EMPOLEON_SLIDE.value,
-                            requirements=Requirements(
-                                friendship_names=["Empoleon"])),
-                   Location(name="Glaceon",
-                            id=MinigameLocationIds.GLACEON_SLIDE.value,
-                            requirements=Requirements(
-                                friendship_names=["Glaceon"])),
-                   # Location(name="Blastoise",
-                   #          id=MinigameLocationIds.BLASTOISE_SLIDE.value,
-                   #          requirements=Requirements(
-                   #              friendship_names=["Blastoise"])),
-                   Location(name="Glalie",
-                            id=MinigameLocationIds.GLALIE_SLIDE.value,
-                            requirements=Requirements(
-                                friendship_names=["Glalie"])),
-                   Location(name="Lapras",
-                            id=MinigameLocationIds.LAPRAS_SLIDE.value,
-                            requirements=Requirements(
-                                friendship_names=["Lapras"])),
-                   Location(name="Delibird",
-                            id=MinigameLocationIds.DELIBIRD_SLIDE.value,
-                            requirements=Requirements(
-                                friendship_names=["Delibird"])),
-                   Location(name="Piloswine",
-                            id=MinigameLocationIds.PILOSWINE_SLIDE.value,
-                            requirements=Requirements(
-                                friendship_names=["Piloswine"])),
-                   Location(name="Prinplup",
-                            id=MinigameLocationIds.PRINPLUP_SLIDE.value,
-                            requirements=Requirements(
-                                friendship_names=["Prinplup"])),
-                   Location(name="Squirtle",
-                            id=MinigameLocationIds.SQUIRTLE_SLIDE.value,
-                            requirements=Requirements(
-                                friendship_names=["Squirtle"])),
-                   Location(name="Piplup",
-                            id=MinigameLocationIds.PIPLUP_SLIDE.value,
-                            requirements=Requirements(
-                                friendship_names=["Piplup"])),
-                   Location(name="Quagsire",
-                            id=MinigameLocationIds.QUAGSIRE_SLIDE.value,
-                            requirements=Requirements(
-                                friendship_names=["Quagsire"])),
-                   Location(name="Spheal",
-                            id=MinigameLocationIds.SPHEAL_SLIDE.value,
-                            requirements=Requirements(
-                                friendship_names=["Spheal"])),
-                   ],
+                                      Location(name="Pikachu",
+                                               id=MinigameLocationIds.PIKACHU_SLIDE.value,
+                                               requirements=Requirements(
+                                                   unlock_names=["Pikachu Snowboard"])),
+                                      Location(name="Teddiursa",
+                                               id=MinigameLocationIds.TEDDIURSA_SLIDE.value,
+                                               requirements=Requirements(
+                                                   friendship_names=["Teddiursa"])),
+                                      Location(name="Magikarp",
+                                               id=MinigameLocationIds.MAGIKARP_SLIDE.value,
+                                               requirements=Requirements(
+                                                   friendship_names=["Magikarp"])),
+                                      Location(name="Empoleon",
+                                               id=MinigameLocationIds.EMPOLEON_SLIDE.value,
+                                               requirements=Requirements(
+                                                   friendship_names=["Empoleon"])),
+                                      Location(name="Glaceon",
+                                               id=MinigameLocationIds.GLACEON_SLIDE.value,
+                                               requirements=Requirements(
+                                                   friendship_names=["Glaceon"])),
+                                      # Location(name="Blastoise",
+                                      #          id=MinigameLocationIds.BLASTOISE_SLIDE.value,
+                                      #          requirements=Requirements(
+                                      #              friendship_names=["Blastoise"])),
+                                      Location(name="Glalie",
+                                               id=MinigameLocationIds.GLALIE_SLIDE.value,
+                                               requirements=Requirements(
+                                                   friendship_names=["Glalie"])),
+                                      Location(name="Lapras",
+                                               id=MinigameLocationIds.LAPRAS_SLIDE.value,
+                                               requirements=Requirements(
+                                                   friendship_names=["Lapras"])),
+                                      Location(name="Delibird",
+                                               id=MinigameLocationIds.DELIBIRD_SLIDE.value,
+                                               requirements=Requirements(
+                                                   friendship_names=["Delibird"])),
+                                      Location(name="Piloswine",
+                                               id=MinigameLocationIds.PILOSWINE_SLIDE.value,
+                                               requirements=Requirements(
+                                                   friendship_names=["Piloswine"])),
+                                      Location(name="Prinplup",
+                                               id=MinigameLocationIds.PRINPLUP_SLIDE.value,
+                                               requirements=Requirements(
+                                                   friendship_names=["Prinplup"])),
+                                      Location(name="Squirtle",
+                                               id=MinigameLocationIds.SQUIRTLE_SLIDE.value,
+                                               requirements=Requirements(
+                                                   friendship_names=["Squirtle"])),
+                                      Location(name="Piplup",
+                                               id=MinigameLocationIds.PIPLUP_SLIDE.value,
+                                               requirements=Requirements(
+                                                   friendship_names=["Piplup"])),
+                                      Location(name="Quagsire",
+                                               id=MinigameLocationIds.QUAGSIRE_SLIDE.value,
+                                               requirements=Requirements(
+                                                   friendship_names=["Quagsire"])),
+                                      Location(name="Spheal",
+                                               id=MinigameLocationIds.SPHEAL_SLIDE.value,
+                                               requirements=Requirements(
+                                                   friendship_names=["Spheal"])),
+                                      ],
                    parent_regions=["Ice Zone - Overworld"]),
     PokeparkRegion("Victory Region", "Victory Region",
                    Requirements(prisma_names=

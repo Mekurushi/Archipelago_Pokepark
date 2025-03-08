@@ -23,12 +23,14 @@ class Powers(Choice):
 class RandomStartingZones(Choice):
     """
     Determines Starting Zone
+    Ice Zone: Start with the Ice Zone
     One: Start with one random Starting Zone
     None: Start with Meadow Zone (Default)
     """
     display = "Starting Zone"
     option_none = 0
     option_one = 1
+    option_ice_zone = 2
     default = 0
 @dataclass
 class PokeparkOptions(PerGameCommonOptions):
