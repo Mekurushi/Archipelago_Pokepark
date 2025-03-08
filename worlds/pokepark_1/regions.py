@@ -1,8 +1,30 @@
+from typing import Dict, Callable
+
 from BaseClasses import CollectionState, Region, ItemClassification
 from worlds.pokepark_1 import PokeparkItem, PokeparkWorld
 from worlds.pokepark_1.locations import PokeparkLocation
-from worlds.pokepark_1.logic import Requirements, PokeparkRegion, REGIONS
+from worlds.pokepark_1.logic import Requirements, PokeparkRegion, REGIONS, PowerRequirement
 
+POWER_REQUIREMENT_CHECKS: Dict[PowerRequirement, Callable] = {
+    PowerRequirement.none: lambda state, world: True,
+    PowerRequirement.can_battle: lambda state, world: (
+        state.has("Progressive Thunderbolt", world.player) or
+        state.has("Progressive Dash", world.player) or
+        state.has("Progressive Iron Tail", world.player)
+    ),
+    PowerRequirement.can_dash_overworld: lambda state, world: state.has("Progressive Dash", world.player),
+    PowerRequirement.can_play_catch: lambda state, world: state.has("Progressive Dash", world.player),
+    PowerRequirement.can_destroy_objects_overworld: lambda state, world: (
+        state.has("Progressive Dash", world.player) or
+        state.has("Progressive Thunderbolt", world.player)
+    ),
+    PowerRequirement.can_thunderbolt_overworld: lambda state, world: state.has("Progressive Thunderbolt", world.player),
+    PowerRequirement.can_battle_thunderbolt_immune: lambda state, world: (
+        state.has("Progressive Dash", world.player) or
+        state.has("Progressive Iron Tail", world.player)
+    ),
+    PowerRequirement.can_farm_berries: lambda state, world: state.has("Progressive Dash",world.player)
+}
 
 def pokepark_requirements_satisfied(state: CollectionState, requirements: Requirements, world: PokeparkWorld):
     has_required_unlocks = all(state.has(unlock, world.player) for unlock in requirements.unlock_names)
@@ -17,7 +39,9 @@ def pokepark_requirements_satisfied(state: CollectionState, requirements: Requir
         )
     else:
         has_any = True
-    return has_required_unlocks and has_enough_friends and has_required_friends and has_required_prismas and has_any and can_reach_required_locations
+    has_required_power = POWER_REQUIREMENT_CHECKS[requirements.powers](state, world)
+
+    return has_required_unlocks and has_enough_friends and has_required_friends and has_required_prismas and has_any and can_reach_required_locations and has_required_power
 
 
 def create_region(region: PokeparkRegion, world: PokeparkWorld):

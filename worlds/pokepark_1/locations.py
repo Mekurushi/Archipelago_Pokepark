@@ -3,7 +3,7 @@ from worlds.pokepark_1.logic import REGIONS
 
 
 class PokeparkLocation(Location):
-    game: str = "PokéPark"
+    game: str = "PokePark"
 
 ALL_LOCATIONS_TABLE: dict[str, int] = {}
 

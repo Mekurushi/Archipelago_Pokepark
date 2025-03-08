@@ -1,12 +1,43 @@
 from dataclasses import dataclass
 
-from Options import Toggle, PerGameCommonOptions
+from Options import Toggle, PerGameCommonOptions, Choice, OptionGroup
 
 
-class DisableBlockEvents(Toggle):
-    """Disable Blocking Events. Making Game more open."""
-    display_name = "Disable Blocking Events"
+class Powers(Choice):
+    """
+    Determines how Power Items are shuffled into the pool.
+    Full: Start with all Power Items
+    Thunderbolt: Start with one Thunderbolt Power
+    Dash: Start with one Dash Power
+    ThunderboltDash: Start with one Thunderbolt and Dash Power (Default)
+    None: Start with no Powers (Thunderbolt and Dash unusable)
+    """
+    display_name = "Powers"
+    option_full = 0
+    option_thunderbolt = 1
+    option_dash = 2
+    option_thunderbolt_dash = 3
+    option_none = 4
+    default = 3
 
+class RandomStartingZones(Choice):
+    """
+    Determines Starting Zone
+    One: Start with one random Starting Zone
+    None: Start with Meadow Zone (Default)
+    """
+    display = "Starting Zone"
+    option_none = 0
+    option_one = 1
+    default = 0
 @dataclass
 class PokeparkOptions(PerGameCommonOptions):
-    disable_block_events: DisableBlockEvents
+    power_randomizer: Powers
+    starting_zone: RandomStartingZones
+
+pokepark_option_groups = [
+    OptionGroup("Misc", [
+        Powers,
+        RandomStartingZones
+    ])
+]
