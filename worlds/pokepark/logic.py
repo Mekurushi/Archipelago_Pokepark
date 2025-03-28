@@ -1793,7 +1793,10 @@ PokeparkRegion(name="Magma Zone - Blaziken's Boulder Bash",
                                  "Venusaur Prisma",
                                  "Pelipper Prisma",
                                  "Gyarados Prisma",
-                                 "Empoleon Prisma"
+                                 "Empoleon Prisma",
+                                 "Bastiodon Prisma",
+                                 "Rhyperior Prisma",
+                                 "Blaziken Prisma"
                                  ]),
                    parent_regions=["Treehouse"])
     # just some Victory Requirements for Demo so that meadow zone can be tested
