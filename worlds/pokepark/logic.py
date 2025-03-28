@@ -330,11 +330,6 @@ REGIONS: list[PokeparkRegion] = [
                                     unlock_names=["Scyther Unlock"],
                                     powers=PowerRequirement.can_battle
                                 )),
-                       Location(name="Venusaur",
-                                id=FRIENDSHIP_ITEMS["Venusaur"],
-                                requirements=Requirements(
-                                    prisma_names=["Empoleon Prisma"]
-                                ))
                    ],
                    unlock_location=[
                        Location(name="Munchlax Friendship - Pokemon Unlock",
@@ -1687,10 +1682,10 @@ PokeparkRegion(name="Magma Zone - Rhyperior's Bumper Burn",
                                                  id=MinigameLocationIds.FLAREON_BUMPER.value,
                                                  requirements=Requirements(
                                                     friendship_names=["Flareon"])),
-                                      # Location(name="Venusaur",
-                                      #          id=MinigameLocationIds.VENUSAUR_BUMPER.value,
-                                      #          requirements=Requirements(
-                                      #              friendship_names=["Venusaur"])),
+                                      Location(name="Venusaur",
+                                                id=MinigameLocationIds.VENUSAUR_BUMPER.value,
+                                                requirements=Requirements(
+                                                    friendship_names=["Venusaur"])),
                                       # Location(name="Snorlax",
                                       #          id=MinigameLocationIds.SNORLAX_BUMPER.value,
                                       #          requirements=Requirements(

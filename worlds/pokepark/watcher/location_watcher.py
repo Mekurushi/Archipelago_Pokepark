@@ -10,10 +10,10 @@ from worlds.pokepark.adresses import UNLOCKS, \
 from worlds.pokepark.dme_helper import read_memory, write_memory
 
 delay_seconds = 0.3
+LAST_KNOWN_POKEMON_ID = 0
 
 
 async def location_watcher(ctx):
-    LAST_KNOWN_POKEMON_ID = 0
 
     minigame_remaining = [
         (loc.location, loc.locationId)

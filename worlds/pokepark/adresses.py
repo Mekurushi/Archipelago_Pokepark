@@ -1304,13 +1304,13 @@ MINIGAME_LOCATIONS = [
             memory_range=MemoryRange.HALFWORD,
             value=0x0001),
         stage_id=rhyperior_minigame_stage_id),
-    # MinigameLocation(
-    #     MinigameLocationIds.VENUSAUR_BUMPER.value,
-    #     MemoryAddress(
-    #         base_address=0x,
-    #         memory_range=MemoryRange.HALFWORD,
-    #         value=0x0001),
-    #     stage_id=rhyperior_minigame_stage_id),
+     MinigameLocation(
+         MinigameLocationIds.VENUSAUR_BUMPER.value,
+        MemoryAddress(
+             base_address=0x80377818,
+             memory_range=MemoryRange.HALFWORD,
+            value=0x0001),
+        stage_id=rhyperior_minigame_stage_id),
     # MinigameLocation(
     #     MinigameLocationIds.SNORLAX_BUMPER.value,
     #     MemoryAddress(
@@ -1928,17 +1928,7 @@ POKEMON_STATES = {
         ]
 ),
     FRIENDSHIP_ITEMS["Venusaur"]: PokemonStateInfo(
-        item=MemoryAddress(base_address=0x803754a4, memory_range=MemoryRange.BYTE, value=0x80),
-        locations=[
-            PokemonLocation(
-                location=MemoryAddress(base_address=0x803754a4, offset=0x0001, value=0x80,
-                                       memory_range=MemoryRange.BYTE),
-                zone_id=meadow_zone_venusaur_stage_id,
-                pokemon_ids=[0x00000001],
-                friendship_items_to_block=[FRIENDSHIP_ITEMS["Venusaur"]],
-                locationId=FRIENDSHIP_ITEMS["Venusaur"]
-            )
-        ]
+        item=MemoryAddress(base_address=0x803754a4, memory_range=MemoryRange.BYTE, value=0x80)
 ),
 
     # Beach Zone Pokemon
