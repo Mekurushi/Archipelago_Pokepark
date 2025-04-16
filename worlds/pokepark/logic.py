@@ -1,11 +1,14 @@
 from dataclasses import field, dataclass
 from enum import Enum
-from typing import NamedTuple
+from typing import NamedTuple, TYPE_CHECKING
 
 from worlds.pokepark import FRIENDSHIP_ITEMS
 from worlds.pokepark.LocationIds import MinigameLocationIds, QuestLocationIds, OverworldPokemonLocationIds, \
     UnlockLocationIds
 from worlds.pokepark.items import UNLOCK_ITEMS, PRISM_ITEM
+
+if TYPE_CHECKING:
+    from . import PokeparkWorld
 
 
 class PowerRequirement(Enum):

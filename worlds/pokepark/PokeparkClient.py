@@ -9,8 +9,7 @@ from worlds.pokepark.adresses import \
     POWER_INCREMENTS, POWER_SHARED_ADDR, prisma_blocked_itemIds, \
     UNLOCKS, MemoryRange, PRISMAS, POKEMON_STATES, \
     blocked_friendship_itemIds, \
-    blocked_friendship_unlock_itemIds, stage_id_address, main_menu_stage_id, main_menu2_stage_id, main_menu3_stage_id, \
-    BLOCKED_UNLOCKS, intro_stage_id, valid_stage_ids
+    blocked_friendship_unlock_itemIds, stage_id_address, BLOCKED_UNLOCKS, valid_stage_ids
 from worlds.pokepark.dme_helper import write_memory
 from worlds.pokepark.watcher.location_state_watcher import location_state_watcher
 from worlds.pokepark.watcher.location_watcher import location_watcher
