@@ -198,7 +198,7 @@ class PokeparkWorld(World):
 
     def _fill_remaining_slots_with_berries(self, pool):
         """Fills remaining slots with berry items."""
-        remaining_slots = len(self.multiworld.get_unfilled_locations()) - len(pool)
+        remaining_slots = len(self.multiworld.get_unfilled_locations(self.player)) - len(pool)
         berry_items = list(BERRIES.keys())
 
         for i in range(remaining_slots):

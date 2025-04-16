@@ -6,7 +6,7 @@ import dolphin_memory_engine as dme
 from CommonClient import logger
 from worlds.pokepark.adresses import stage_id_address, is_in_menu_address, pokemon_id_address, prisma_blocked_itemIds, \
     UNLOCKS, PRISMAS, PrismaItem, POKEMON_STATES, blocked_friendship_itemIds, blocked_friendship_unlock_itemIds, \
-    BLOCKED_UNLOCKS, LOADSCREEN_TO_ZONE, PokemonLocation, intro_stage_id, valid_stage_ids
+    BLOCKED_UNLOCKS, LOADSCREEN_TO_ZONE, PokemonLocation, valid_stage_ids
 from worlds.pokepark.dme_helper import write_memory, read_memory
 
 empty_pokemon_id = 0x00
@@ -14,8 +14,6 @@ empty_pokemon_id = 0x00
 delay_seconds = 0.5
 
 original_values = {}  # {address: value}
-LAST_RECEIVED_ITEMS = set()
-LAST_CHECKED_LOCATIONS = set()
 LAST_ZONE = None
 SPECIAL_UNLOCK_LOCATIONS = {
     item_id: unlock_state for item_id, unlock_state in UNLOCKS.items()
@@ -145,7 +143,7 @@ async def location_state_watcher(ctx):
                     activate_state_friendships(current_location)
 
     def handle_special_unlock_locations(current_zone: int):
-        global LAST_RECEIVED_ITEMS, LAST_CHECKED_LOCATIONS, LAST_ZONE, SPECIAL_UNLOCK_LOCATIONS
+        global LAST_ZONE, SPECIAL_UNLOCK_LOCATIONS
 
         if LAST_ZONE != current_zone:
             BLOCKED_UNLOCKS.clear()
