@@ -143,7 +143,7 @@ async def location_state_watcher(ctx):
                     activate_state_friendships(current_location)
 
     def handle_special_unlock_locations(current_zone: int):
-        global LAST_ZONE, SPECIAL_UNLOCK_LOCATIONS
+        global LAST_ZONE
 
         if LAST_ZONE != current_zone:
             BLOCKED_UNLOCKS.clear()
