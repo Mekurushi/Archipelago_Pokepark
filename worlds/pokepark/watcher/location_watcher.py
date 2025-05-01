@@ -142,5 +142,6 @@ async def location_watcher(ctx):
         except Exception as e:
             logger.error(f"Error in location_watcher: {e}")
             logger.error(f"Traceback: {traceback.format_exc()}")
+            dme.un_hook()
 
         await asyncio.sleep(delay_seconds)
