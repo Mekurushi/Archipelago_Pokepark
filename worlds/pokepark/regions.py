@@ -50,7 +50,9 @@ WORLD_STATE_REQUIREMENT_CHECKS: Dict[WorldStateRequirement, Callable] = {
     WorldStateRequirement.ice_zone_or_higher: lambda state, world: (
             state.has("Ice Zone Unlock", world.player) or
             state.has("Cavern Zone & Magma Zone Unlock", world.player) or
-            state.has("Haunted Zone Unlock", world.player)
+            state.has("Haunted Zone Unlock", world.player) or
+            state.has("Granite Zone & Flower Zone Unlock", world.player) or
+            state.has("Skygarden Unlock", world.player)
 
     ),
     WorldStateRequirement.cavern_and_magma_zone_or_higher: lambda state, world: (
@@ -639,11 +641,8 @@ def create_region(region: PokeparkRegion, world: "PokeparkWorld"):
             if new_location.name == "Skygarden - Overworld - Mew Challenge completed":
                 event_item = world.create_item("Victory")
                 new_location.place_locked_item(event_item)
-            if new_location.name == "Magma Zone - Overworld - Blaziken":
-                event_item = world.create_item("Skygarden Unlock")
-                new_location.place_locked_item(event_item)
         if world.options.goal == world.options.goal.option_aftergame:
-            if new_location.name == "Skygarden - Overworld - Completing Prisma":
+            if new_location.name == "Skygarden - Overworld - Completed Prisma Full":
                 event_item = world.create_item("Victory")
                 new_location.place_locked_item(event_item)
 
@@ -666,7 +665,7 @@ def create_regions(world: "PokeparkWorld"):
         "Menu": Region("Menu", world.player, world.multiworld)
     }
 
-    CREATEDREGIONS = generate_regions(world)
+    CREATEDREGIONS = generate_regions()
 
     for region in CREATEDREGIONS:
         regions[region.name] = create_region(region, world)
