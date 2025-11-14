@@ -5,6 +5,7 @@ from typing import Optional, Any, Type
 import dolphin_memory_engine as dme
 
 import ModuleUpdate
+import kvui
 from worlds.pokepark import PokeparkItem, LOCATION_TABLE
 from worlds.pokepark.adresses import POWER_MAP, MemoryAddress
 from worlds.pokepark.dme_helper import read_memory
