@@ -282,7 +282,7 @@ def set_rules(world: "PokeparkWorld") -> None:
                       can_destroy_objects_overworld(state, player)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Bidoof -- Beach Bidoof Unlocked",
+        "Meadow Zone Main Area - Bidoof Housing -- Beach Bidoof Unlocked",
         lambda state: state.has("Mankey Friendship", player)
     )
     set_rule_if_exists(
