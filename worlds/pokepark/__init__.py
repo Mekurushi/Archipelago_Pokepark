@@ -95,6 +95,8 @@ class PokeparkWorld(World):
 
     item_name_groups: ClassVar[dict[str, set[str]]] = item_name_groups
 
+    glitches_item_name = "Glitched Item"
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

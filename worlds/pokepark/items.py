@@ -1693,6 +1693,9 @@ ITEM_TABLE: dict[str, PokeparkItemData] = {
     ),
     "Victory": PokeparkItemData(
         "Event", IC.progression, None, 1, None
+    ),
+    "Glitched Item": PokeparkItemData(
+        "Event", IC.progression_skip_balancing, None, 1, None
     )
 }
 LOOKUP_ID_TO_NAME: dict[int, str] = {
