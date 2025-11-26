@@ -19,7 +19,7 @@ def set_rules(world: "PokeparkWorld") -> None:
     set_rule_if_exists("Treehouse - Burmy - Friendship", lambda state: True)
     set_rule_if_exists("Treehouse - Mime Jr. - Friendship", lambda state: True)
     set_rule_if_exists(
-        "Treehouse - Drifblim - Friendship", lambda state: state.count_group("Fast Travel Items", player) >= 1
+        "Treehouse - Drifblim - Friendship", lambda state: can_fast_travel(state, player)
     )
     set_rule_if_exists("Treehouse - Power Up - Thunderbolt Upgrade 1", lambda state: can_farm_berries(state, player))
     set_rule_if_exists(
@@ -2445,6 +2445,11 @@ def can_beat_all_rayquaza_balloon_panic_records(state: CollectionState, player: 
 
 
 def can_beat_any_rayquaza_balloon_panic_record(state: CollectionState, player: int, options: "PokeparkOptions"):
+    # UT glitched logic
+    if state.has("Glitched Item", player):
+        return True
+
+    # in-logic rule
     if options.remove_attraction_locations.value == options.remove_attraction_locations.option_true:
         return state.has("Deoxys Friendship", player)
     else:
@@ -2535,6 +2540,11 @@ def can_beat_all_absol_hurdle_bounde_records(state: CollectionState, player: int
 
 
 def can_beat_any_absol_hurdle_bounde_record(state: CollectionState, player: int, options: "PokeparkOptions"):
+    # UT glitched logic
+    if state.has("Glitched Item", player):
+        return True
+
+    # in-logic rule
     if options.remove_attraction_locations.value == options.remove_attraction_locations.option_true:
         return True
     else:
@@ -2578,6 +2588,11 @@ def can_beat_all_rotom_spooky_shoot_records(state: CollectionState, player: int)
 
 
 def can_beat_any_rotom_spooky_shoot_record(state: CollectionState, player: int, options: "PokeparkOptions"):
+    # UT glitched logic
+    if state.has("Glitched Item", player):
+        return True
+
+    # in-logic rule
     if options.remove_attraction_locations.value == options.remove_attraction_locations.option_true:
         return state.has("Rotom Friendship", player)
 
@@ -2621,6 +2636,11 @@ def can_beat_all_dusknoir_speed_slam_records(state: CollectionState, player: int
 
 
 def can_beat_any_dusknoir_speed_slam_record(state: CollectionState, player: int, options: "PokeparkOptions"):
+    # UT glitched logic
+    if state.has("Glitched Item", player):
+        return True
+
+    # in-logic rule
     if options.remove_attraction_locations.value == options.remove_attraction_locations.option_true:
         return True
     else:
@@ -2664,6 +2684,11 @@ def can_beat_all_tangrowth_swing_along_records(state: CollectionState, player: i
 
 
 def can_beat_any_tangrowth_swing_along_record(state: CollectionState, player: int, options: "PokeparkOptions"):
+    # UT glitched logic
+    if state.has("Glitched Item", player):
+        return True
+
+    # in-logic rule
     if options.remove_attraction_locations.value == options.remove_attraction_locations.option_true:
         return True
     else:
@@ -2706,6 +2731,11 @@ def can_beat_all_blaziken_boulder_bash_records(state: CollectionState, player: i
 
 
 def can_beat_any_blaziken_boulder_bash_record(state: CollectionState, player: int, options: "PokeparkOptions"):
+    # UT glitched logic
+    if state.has("Glitched Item", player):
+        return True
+
+    # in-logic rule
     if options.remove_attraction_locations.value == options.remove_attraction_locations.option_true:
         return True
     else:
@@ -2748,6 +2778,11 @@ def can_beat_all_rhyperior_bumper_burn_records(state: CollectionState, player: i
 
 
 def can_beat_any_rhyperior_bumper_burn_record(state: CollectionState, player: int, options: "PokeparkOptions"):
+    # UT glitched logic
+    if state.has("Glitched Item", player):
+        return True
+
+    # in-logic rule
     if options.remove_attraction_locations.value == options.remove_attraction_locations.option_true:
         return True
     else:
@@ -2790,6 +2825,11 @@ def can_beat_all_bastiodon_panel_crush_records(state: CollectionState, player: i
 
 
 def can_beat_any_bastiodon_panel_crush_record(state: CollectionState, player: int, options: "PokeparkOptions"):
+    # UT glitched logic
+    if state.has("Glitched Item", player):
+        return True
+
+    # in-logic rule
     if options.remove_attraction_locations.value == options.remove_attraction_locations.option_true:
         return True
     else:
@@ -2875,6 +2915,11 @@ def can_beat_all_gyarados_aqua_dash_records(state: CollectionState, player: int)
 
 
 def can_beat_any_gyarados_aqua_dash_record(state: CollectionState, player: int, options: "PokeparkOptions"):
+    # UT glitched logic
+    if state.has("Glitched Item", player):
+        return True
+
+    # in-logic rule
     if options.remove_attraction_locations.value == options.remove_attraction_locations.option_true:
         return state.has("Pikachu Surfboard", player)
     else:
@@ -2961,6 +3006,11 @@ def can_beat_all_venusaur_vine_swing_records(state: CollectionState, player: int
 
 
 def can_beat_any_venusaur_vine_swing_record(state: CollectionState, player: int, options: "PokeparkOptions"):
+    # UT glitched logic
+    if state.has("Glitched Item", player):
+        return True
+
+    # in-logic rule
     if options.remove_attraction_locations.value == options.remove_attraction_locations.option_true:
         return True
     else:
@@ -2984,6 +3034,11 @@ def can_beat_any_venusaur_vine_swing_record(state: CollectionState, player: int,
 
 
 def can_beat_any_bulbasaur_daring_dash_record(state: CollectionState, player: int, options: "PokeparkOptions"):
+    # UT glitched logic
+    if state.has("Glitched Item", player):
+        return True
+
+    # in-logic rule
     if options.remove_attraction_locations.value == options.remove_attraction_locations.option_true:
         return True
     else:
@@ -3017,8 +3072,12 @@ def can_beat_any_bulbasaur_daring_dash_record(state: CollectionState, player: in
 
 
 def can_battle(state: CollectionState, player: int, options: "PokeparkOptions"):
-    if options.harder_enemy_ai.value:
+    # UT glitched logic
+    if state.has("Glitched Item", player):
+        return can_battle_glitched(state, player)
 
+    # in-logic rule
+    if options.harder_enemy_ai.value:
         return (state.has("Progressive Health", player) and
                 state.has_any_count(
             {
@@ -3028,13 +3087,27 @@ def can_battle(state: CollectionState, player: int, options: "PokeparkOptions"):
                 ))
     return state.has_any_count(
         {
-         "Progressive Iron Tail": 1,
-         "Progressive Thunderbolt": 1
-         }, player
+            "Progressive Iron Tail": 1,
+            "Progressive Thunderbolt": 1
+        }, player
+    )
+
+
+def can_battle_glitched(state: CollectionState, player: int):
+    return state.has_any_count(
+        {
+            "Progressive Iron Tail": 1,
+            "Progressive Thunderbolt": 1
+        }, player
     )
 
 
 def can_battle_intermediate(state: CollectionState, player: int, options: "PokeparkOptions"):
+    # UT glitched logic
+    if state.has("Glitched Item", player):
+        return can_battle_glitched(state, player)
+
+    # in-logic rule
     if options.harder_enemy_ai.value:
         return (state.has("Progressive Health", player, 2) and
                 state.has_any_count(
@@ -3054,6 +3127,11 @@ def can_battle_intermediate(state: CollectionState, player: int, options: "Pokep
 
 
 def can_battle_advanced(state: CollectionState, player: int, options: "PokeparkOptions"):
+    # UT glitched logic
+    if state.has("Glitched Item", player):
+        return can_battle_glitched(state, player)
+
+    # in-logic rule
     if options.harder_enemy_ai.value:
         return (state.has("Progressive Health", player, 3) and
                 state.has_any_count(
@@ -3072,6 +3150,11 @@ def can_battle_advanced(state: CollectionState, player: int, options: "PokeparkO
 
 
 def can_battle_thunderbolt_immune(state: CollectionState, player: int, options: "PokeparkOptions"):
+    # UT glitched logic
+    if state.has("Glitched Item", player):
+        return can_battle_thunderbolt_immune_glitched(state, player)
+
+    # in-logic rule
     if options.harder_enemy_ai.value:
         return (state.has("Progressive Health", player) and
                 state.has_any_count(
@@ -3085,7 +3168,18 @@ def can_battle_thunderbolt_immune(state: CollectionState, player: int, options: 
             ))
 
 
+def can_battle_thunderbolt_immune_glitched(state: CollectionState, player: int):
+    return state.has_any_count(
+        {"Progressive Dash": 1,
+         "Progressive Iron Tail": 1}, player
+    )
+
 def can_battle_thunderbolt_immune_intermediate(state: CollectionState, player: int, options: "PokeparkOptions"):
+    # UT glitched logic
+    if state.has("Glitched Item", player):
+        return can_battle_thunderbolt_immune_glitched(state, player)
+
+    # in-logic rule
     if options.harder_enemy_ai.value:
         return (state.has("Progressive Health", player, 2) and
                 state.has_any_count(
@@ -3100,6 +3194,11 @@ def can_battle_thunderbolt_immune_intermediate(state: CollectionState, player: i
 
 
 def can_battle_thunderbolt_immune_advanced(state: CollectionState, player: int, options: "PokeparkOptions"):
+    # UT glitched logic
+    if state.has("Glitched Item", player):
+        return can_battle_thunderbolt_immune_glitched(state, player)
+
+    # in-logic rule
     if options.harder_enemy_ai.value:
         return (state.has("Progressive Health", player, 3) and
                 state.has_any_count(
@@ -3113,6 +3212,11 @@ def can_battle_thunderbolt_immune_advanced(state: CollectionState, player: int, 
             ))
 
 def can_farm_berries(state: CollectionState, player: int):
+    # UT glitched logic
+    if state.has("Glitched Item", player):
+        return True
+
+    # in-logic rule
     return state.has("Progressive Dash", player)
 
 
@@ -3153,10 +3257,20 @@ def can_destroy_objects_overworld(state: CollectionState, player: int):
 
 
 def can_farm_berries_intermediate(state: CollectionState, player: int):
+    # UT glitched logic
+    if state.has("Glitched Item", player):
+        return True
+
+    # in-logic rule
     return state.can_reach_region("Beach Zone Recycle Area", player)
 
 
 def can_farm_berries_advanced(state: CollectionState, player: int):
+    # UT glitched logic
+    if state.has("Glitched Item", player):
+        return True
+
+    # in-logic rule
     return (state.can_reach_region("Magma Zone Main Area", player) and
             state.has("Golem Unlock", player))
 
@@ -3207,9 +3321,27 @@ def can_clear_mew_power_competition_stage4(state: CollectionState, player: int, 
 
 
 def can_beat_mew(state: CollectionState, player: int, options: "PokeparkOptions"):
+    # UT glitched logic
+    if state.has("Glitched Item", player):
+        return can_beat_mew_glitched(state, player, options)
+
+    # in-logic rule
     return (can_clear_mew_power_competition_stage4(state, player, options) and
             maximized_dash(state, player))
 
+
+def can_beat_mew_glitched(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return (can_clear_mew_power_competition_stage4(state, player, options) and
+            state.has("Progressive Dash", player, 3))
+
+
+def can_fast_travel(state: CollectionState, player: int):
+    # UT glitched logic
+    if state.has("Glitched Item", player):
+        return True
+
+    # in-logic rule
+    return state.count_group("Fast Travel Items", player) >= 1
 
 def get_entrance_rules_dict(player: int, options: "PokeparkOptions"):
     entrance_rules: dict[str, Callable[[CollectionState], bool]] = {
