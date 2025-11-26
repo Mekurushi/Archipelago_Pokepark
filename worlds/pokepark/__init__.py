@@ -23,7 +23,7 @@ from .regions import EntranceRandomizer
 from .rules import set_rules
 from ..Files import APPlayerContainer
 
-VERSION: tuple[int, int, int] = (1, 0, 0)
+VERSION: tuple[int, int, int] = (1, 0, 1)
 
 class PokeparkWebWorld(WebWorld):
     theme = "jungle"
@@ -108,7 +108,7 @@ class PokeparkWorld(World):
         self.item_classifications: dict[str, IC] = {}
 
         self.entrances: EntranceRandomizer = EntranceRandomizer(self)
-
+        self.region_entrance_mapping: list[tuple[str, str]] = []
     def _determine_locations(self) -> set[str]:
         """
         Determine which locations included in the world based on the player's options.
@@ -340,12 +340,15 @@ class PokeparkWorld(World):
             for entrance in entrances:
                 target_region_name = ENTRANCES_TO_EXITS.get(entrance)
                 target_region = multiworld.get_region(target_region_name, player)
+                entrance_name = f"{entrance} -> {target_region_name}"
                 multiworld.get_region(region_map, player).connect(
                     target_region
-                    , f"{entrance} ->"
-                      f" {target_region_name}", ENTRANCE_RULES[entrance]
+                    , entrance_name, ENTRANCE_RULES[entrance]
                 )
-
+                # add mapping for UT Tracker
+                self.region_entrance_mapping.append(
+                    (region_map, entrance_name)
+                )
         for location_name in sorted(self.locations):
             data = LOCATION_TABLE[location_name]
 
@@ -414,24 +417,47 @@ class PokeparkWorld(World):
             self.multiworld.itempool.append(self.create_item(item))
 
     def fill_slot_data(self) -> Dict[str, Any]:
-        slot_data = self.options.as_dict(
-                "goal",
-                "num_required_prisma_count_skygarden",
-                "remove_battle_power_comp_locations",
-                "remove_chase_power_comp_locations",
-                "remove_quiz_power_comp_locations",
-                "remove_hide_and_seek_power_comp_locations",
-                "remove_errand_power_comp_locations",
-                "remove_misc_power_comp_locations",
-                "remove_legendary_pokemon_power_comp_locations",
-                "remove_power_training_locations",
-                "remove_attraction_locations",
-                "remove_attraction_prisma_locations",
-                "remove_pokemon_unlock_locations",
-                "harder_enemy_ai",
-                "randomize_attraction_entrances"
-        )
+        slot_data = {
+            **self.options.as_dict(
+            "goal",
+            "num_required_prisma_count_skygarden",
+            "remove_battle_power_comp_locations",
+            "remove_chase_power_comp_locations",
+            "remove_quiz_power_comp_locations",
+            "remove_hide_and_seek_power_comp_locations",
+            "remove_errand_power_comp_locations",
+            "remove_misc_power_comp_locations",
+            "remove_legendary_pokemon_power_comp_locations",
+            "remove_power_training_locations",
+            "remove_attraction_locations",
+            "remove_attraction_prisma_locations",
+            "remove_pokemon_unlock_locations",
+            "harder_enemy_ai",
+            "randomize_attraction_entrances"
+            ),
+            "entrances": self.region_entrance_mapping,
+        }
         return slot_data
+
+    def interpret_slot_data(self, slot_data: dict[str, Any]) -> None:
+        if "entrances" in slot_data:
+            # Update entrance connections for ER
+            entrance_lookup = {}
+            for region in self.get_regions():
+                for entrance in region.entrances:
+                    entrance_name = entrance.name.split(" -> ")[0]
+                    entrance_lookup[entrance_name] = entrance
+
+            for source_region_name, new_entrance_name in slot_data["entrances"]:
+                entrance_name, target_region_name = new_entrance_name.split(" -> ")
+
+                entrance = entrance_lookup.get(entrance_name)
+                if entrance is None:
+                    continue
+
+                entrance.name = new_entrance_name
+                entrance.parent_region = self.get_region(source_region_name)
+                entrance.connected_region = self.get_region(target_region_name)
 
 def launch_client():
     print("Running Pokepark Client")

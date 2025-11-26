@@ -1,10 +1,11 @@
 import asyncio
 import traceback
-from typing import Optional, Any
+from typing import Optional, Any, Type
 
 import dolphin_memory_engine as dme
 
 import ModuleUpdate
+import kvui
 from worlds.pokepark import PokeparkItem, LOCATION_TABLE
 from worlds.pokepark.adresses import POWER_MAP, MemoryAddress
 from worlds.pokepark.dme_helper import read_memory
@@ -17,8 +18,15 @@ ModuleUpdate.update()
 import Utils
 
 from NetUtils import ClientStatus, NetworkItem
-from CommonClient import gui_enabled, logger, get_base_parser, ClientCommandProcessor, \
-    CommonContext, server_loop
+from CommonClient import gui_enabled, logger, get_base_parser, ClientCommandProcessor, server_loop
+
+tracker_loaded = False
+try:
+    from worlds.tracker.TrackerClient import TrackerGameContext as SuperContext
+
+    tracker_loaded = True
+except ModuleNotFoundError:
+    from CommonClient import CommonContext as SuperContext
 
 
 SLOT_NAME_ADDR = 0x80001820
@@ -79,7 +87,7 @@ ATTRACTION_ID_MAP = {
 
 class PokeparkCommandProcessor(ClientCommandProcessor):
 
-    def __init__(self, ctx: CommonContext):
+    def __init__(self, ctx: SuperContext):
         """
         Initialize the command processor with the provided context.
 
@@ -95,7 +103,8 @@ class PokeparkCommandProcessor(ClientCommandProcessor):
             logger.info(f"Dolphin Status: {self.ctx.dolphin_status}")
 
 
-class PokeparkContext(CommonContext):
+class PokeparkContext(SuperContext):
+    tags = {"AP"}
     command_processor = PokeparkCommandProcessor
     game = "PokePark"
     items_handling = 0b111  # full remote
@@ -151,6 +160,7 @@ class PokeparkContext(CommonContext):
         :param cmd: The command received from the server.
         :param args: The command arguments.
         """
+        super().on_package(cmd, args)
         if cmd == "Connected":
             self.slot_data = args.get("slot_data", None)
             self.items_received_2 = []
@@ -186,11 +196,19 @@ class PokeparkContext(CommonContext):
                         Utils.async_start(self.update_visited_stages(current_stage_name))
                     self.visited_stage_names = visited_stage_names
 
+    def make_gui(self) -> Type["kvui.GameManager"]:
+        if hasattr(SuperContext, "make_gui"):
+            ui = super().make_gui()  # before the kivy imports so kvui gets loaded first
+        else:
+            from kvui import GameManager
+            ui = GameManager
+        return ui
+
     def run_gui(self):
         """Import kivy UI system and start running it as self.ui_task."""
-        from kvui import GameManager
+        ui = self.make_gui()
 
-        class PokeparkManager(GameManager):
+        class PokeparkManager(ui):
             logging_pairs = [
                 ("Client", "Archipelago")
             ]
@@ -460,6 +478,8 @@ def main(connect=None, password=None):
     async def _main(connect, password):
         ctx = PokeparkContext(connect, password)
         ctx.server_task = asyncio.create_task(server_loop(ctx), name="server loop")
+        if tracker_loaded:
+            ctx.run_generator()
         if gui_enabled:
             ctx.run_gui()
         ctx.run_cli()

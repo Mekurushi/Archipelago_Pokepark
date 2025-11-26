@@ -282,7 +282,7 @@ def set_rules(world: "PokeparkWorld") -> None:
                       can_destroy_objects_overworld(state, player)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Bidoof -- Beach Bidoof Unlocked",
+        "Meadow Zone Main Area - Bidoof Housing -- Beach Bidoof Unlocked",
         lambda state: state.has("Mankey Friendship", player)
     )
     set_rule_if_exists(
@@ -666,7 +666,10 @@ def set_rules(world: "PokeparkWorld") -> None:
         "Beach Zone Main Area - Wingull Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options)
     )
-
+    set_rule_if_exists(
+        "Beach Zone Middle Isle - Piplup Power Competition -- Friendship",
+        lambda state: can_battle(state, player, options)
+    )
     set_rule_if_exists(
         "Beach Zone Main Area - Corphish Power Competition -- Friendship",
         lambda state: can_battle(state, player, options) and
