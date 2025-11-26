@@ -434,8 +434,8 @@ class PokeparkWorld(World):
             "remove_attraction_locations",
             "remove_attraction_prisma_locations",
             "remove_pokemon_unlock_locations",
-            "harder_enemy_ai"
-
+            "harder_enemy_ai",
+            "randomize_attraction_entrances"
             ),
             "entrances": self.region_entrance_mapping,
         }

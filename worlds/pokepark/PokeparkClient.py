@@ -66,6 +66,24 @@ STAGE_NAME_MAP = {
 
 }
 
+ATTRACTION_ID_MAP = {
+    0x0: "Absol's Hurdle Bounce Attraction",
+    0x1: "Rayquaza's Balloon Panic Attraction",
+    0x2: "Venusaur's Vine Swing Attraction",
+    0x3: "Tangrowth's Swing-Along Attraction",
+    0x4: "Dusknoir's Speed Slam Attraction",
+    0x5: "Gyarados' Aqua Dash Attraction",
+    0x6: "Pelipper's Circle Circuit Attraction",
+    0x8: "Empoleon's Snow Slide Attraction",
+    0x9: "Bastiodon's Panel Crush Attraction",
+    0xa: "Rhyperior's Bumper Burn Attraction",
+    0xb: "Blaziken's Boulder Bash Attraction",
+    0xc: "Rotom's Spooky Shoot-'em-Up Attraction",
+    0xe: "Salamence's Sky Race Attraction",
+    0xF: "Bulbasaur's Daring Dash Attraction",
+
+}
+
 
 class PokeparkCommandProcessor(ClientCommandProcessor):
 
@@ -302,6 +320,11 @@ async def check_current_stage_changed(ctx: PokeparkContext) -> None:
     global_manager_data_struc_address = dme.read_word(GLOBAL_MANAGER_STRUC_POINTER)
     new_stage = dme.read_bytes(global_manager_data_struc_address + 0x5F00, 2)
     new_stage_name = STAGE_NAME_MAP.get(new_stage)
+    attraction_id = get_attraction_id(global_manager_data_struc_address)
+    attraction_name = ATTRACTION_ID_MAP.get(attraction_id)
+    if attraction_name:
+        new_stage_name = attraction_name
+
     if new_stage_name:
         current_stage_name = ctx.current_stage_name
         if new_stage_name != current_stage_name:
@@ -373,13 +396,20 @@ def check_ingame() -> bool:
     :return: `True` if the player is in-game, otherwise `False`.
     """
     global_manager_data_struc_address = dme.read_word(GLOBAL_MANAGER_STRUC_POINTER)
-    pointer = dme.read_byte(global_manager_data_struc_address + 0x1B8)
-    chapter_address = global_manager_data_struc_address + 0x2d
-    expected_idx = int.from_bytes(dme.read_bytes(chapter_address, 2), byteorder="big")
-    if pointer == 0 and expected_idx == 0:
+    is_in_field_pointer = dme.read_byte(global_manager_data_struc_address + 0x1B8)
+    attraction_id = get_attraction_id(global_manager_data_struc_address)
+
+    initialized = dme.read_byte(global_manager_data_struc_address + 0x5FF4)
+    if is_in_field_pointer == 0 and attraction_id == 0xFFFFFFFF or initialized == 0:
         return False
     return True
 
+
+def get_attraction_id(global_manager_data_struc_address):
+    attraction_id_pointer_helper = dme.read_word(global_manager_data_struc_address - 0x3da0)
+    attraction_id_address = attraction_id_pointer_helper + 0x38F0
+    attraction_id = dme.read_word(attraction_id_address)
+    return attraction_id
 
 async def dolphin_sync_task(ctx: PokeparkContext) -> None:
     """
