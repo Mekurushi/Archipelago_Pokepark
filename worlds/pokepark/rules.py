@@ -134,19 +134,19 @@ def set_rules(world: "PokeparkWorld") -> None:
     set_rule_if_exists(
         "Meadow Zone Main Area - Munchlax Errand -- Friendship",
         lambda state: state.has("Bulbasaur Prisma", player) and
-                      can_destroy_objects_overworld(state, player)
+                      state.has("Progressive Dash", player)  # crate is not destroyable by thunderbolt
     )
     set_rule_if_exists(
         "Meadow Zone Main Area - Munchlax Errand -- Tropius Unlocked",
         lambda state: state.has("Bulbasaur Prisma", player) and
-                      can_destroy_objects_overworld(state, player)
+                      state.has("Progressive Dash", player)  # crate is not destroyable by thunderbolt
 
     )
     set_rule_if_exists(
         "Meadow Zone Main Area - Tropius Errand -- Friendship",
         lambda state: state.has("Bulbasaur Prisma", player) and
-                      can_destroy_objects_overworld(state, player) and
-                      state.has("Tropius Unlock", player)
+                      state.has("Tropius Unlock", player) and
+                      state.has("Progressive Dash", player)  # crate is not destroyable by thunderbolt
     )
     set_rule_if_exists(
         "Meadow Zone Main Area - Pachirisu Power Competition -- Friendship",
