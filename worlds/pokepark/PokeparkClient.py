@@ -34,6 +34,39 @@ GLOBAL_MANGAER_PARAMETER1_ADDR = 0x80001800
 GLOBAL_MANGAER_PARAMETER2_ADDR = 0x80001804
 GLOBAL_MANAGER_OPCODE_ADDR = 0x80001808
 GLOBAL_MANAGER_STRUC_POINTER = 0x8000180c
+
+ATTRACTION_ID_ADDRESSES = {
+    b"R8AJ99": 0x8039CA48,
+    b"R8AE99": 0x8039FED8,
+    b"R8AP99": 0x803A0460
+}
+
+IS_IN_PAUSE_MENU_ADDRESSES = {
+    b"R8AJ99": 0x80482F04,
+    b"R8AE99": 0x80486380,
+    b"R8AP99": 0x80486930
+}
+IS_INITIALIZED_ADDRESSES = {
+    b"R8AJ99": 0x8037afd4,
+    b"R8AE99": 0x8037e454,
+    b"R8AP99": 0x8037e9dc
+}
+IS_IN_MAIN_MENU_ADDRESSES = {
+    b"R8AJ99": 0x80496E50,
+    b"R8AE99": 0x8049A2F0,
+    b"R8AP99": 0x8049A8D0
+}
+IS_IN_GAME_END_STATE_ADDRESSES = {
+    b"R8AJ99": 0x8036C997,
+    b"R8AE99": 0x8036EE17,
+    b"R8AP99": 0x8036F397
+}
+IS_IN_LOADING_SCREEN_ADDRESSES = {
+    b"R8AJ99": 0x80496D2F,
+    b"R8AE99": 0x8049A1CF,
+    b"R8AP99": 0x8049A7AF
+}
+
 CONNECTION_REFUSED_GAME_STATUS = (
     "Dolphin failed to connect. Please load a randomized ROM for Pokepark. Trying again in 5 seconds..."
 )
@@ -320,7 +353,7 @@ async def check_current_stage_changed(ctx: PokeparkContext) -> None:
     global_manager_data_struc_address = dme.read_word(GLOBAL_MANAGER_STRUC_POINTER)
     new_stage = dme.read_bytes(global_manager_data_struc_address + 0x5F00, 2)
     new_stage_name = STAGE_NAME_MAP.get(new_stage)
-    attraction_id = get_attraction_id(global_manager_data_struc_address)
+    attraction_id = get_attraction_id()
     attraction_name = ATTRACTION_ID_MAP.get(attraction_id)
     if attraction_name:
         new_stage_name = attraction_name
@@ -395,19 +428,23 @@ def check_ingame() -> bool:
 
     :return: `True` if the player is in-game, otherwise `False`.
     """
-    global_manager_data_struc_address = dme.read_word(GLOBAL_MANAGER_STRUC_POINTER)
-    is_in_field_pointer = dme.read_byte(global_manager_data_struc_address + 0x1B8)
-    attraction_id = get_attraction_id(global_manager_data_struc_address)
-
-    initialized = dme.read_byte(global_manager_data_struc_address + 0x5FF4)
-    if is_in_field_pointer == 0 and attraction_id == 0xFFFFFFFF or initialized == 0:
+    game_id = dme.read_bytes(0x80000000, 6)
+    if dme.read_byte(IS_INITIALIZED_ADDRESSES[game_id]) == 0:
         return False
-    return True
+
+    is_in_pause_menu = dme.read_byte(IS_IN_PAUSE_MENU_ADDRESSES[game_id]) == 0x1
+    is_in_main_menu = dme.read_byte(IS_IN_MAIN_MENU_ADDRESSES[game_id]) == 0x1
+    is_in_game_end_state = dme.read_byte(IS_IN_GAME_END_STATE_ADDRESSES[game_id]) == 0x1
+    is_in_loading_screen = dme.read_byte(IS_IN_LOADING_SCREEN_ADDRESSES[game_id]) == 0x1
+
+    return not (is_in_pause_menu or is_in_main_menu or
+                is_in_game_end_state or is_in_loading_screen)
 
 
-def get_attraction_id(global_manager_data_struc_address):
-    attraction_id_pointer_helper = dme.read_word(global_manager_data_struc_address - 0x3da0)
-    attraction_id_address = attraction_id_pointer_helper + 0x38F0
+def get_attraction_id(game_id: Optional[bytes] = None):
+    if not game_id:
+        game_id = dme.read_bytes(0x80000000, 6)
+    attraction_id_address = ATTRACTION_ID_ADDRESSES[game_id]
     attraction_id = dme.read_word(attraction_id_address)
     return attraction_id
 
