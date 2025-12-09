@@ -1746,7 +1746,7 @@ def set_rules(world: "PokeparkWorld") -> None:
         lambda state: state.has("Rotom Prisma", player)
     )
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Riolu Power Competition -- Friendship",
+        "Haunted Zone Main Area - Riolu Power Competition -- Friendship",
         lambda state: can_battle_intermediate(state, player, options)
     )
     set_rule_if_exists(
@@ -3505,8 +3505,8 @@ def get_entrance_rules_dict(player: int, options: "PokeparkOptions"):
         "Haunted Zone Aipom": lambda state: can_play_catch(state, player, options),
         "Haunted Zone Aipom Unlocks": lambda state: can_play_catch(state, player, options),
 
-        "Haunted Zone Main Area Riolu": lambda state: can_battle,
-        "Haunted Zone Mansion Area Riolu": lambda state: can_battle,
+        "Haunted Zone Main Area Riolu": lambda state: True,
+        "Haunted Zone Mansion Area Riolu": lambda state: True,
 
         "Haunted Zone Main Area Drifloon": lambda state: state.has("Rotom Prisma", player),
         "Haunted Zone Ballroom Area Drifloon": lambda state: state.has("Rotom Prisma", player),
