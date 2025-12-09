@@ -2273,7 +2273,7 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     set_rule_if_exists(
         "Flower Zone Main Area - Teddiursa Power Competition -- Friendship",
-        lambda state: True
+        lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
         "Flower Zone Main Area - Furret Power Competition -- Friendship",
@@ -3557,7 +3557,7 @@ def get_entrance_rules_dict(player: int, options: "PokeparkOptions"):
 
         "Ice Zone Teddiursa": lambda state: can_play_catch(state, player, options),
         "Cavern Zone Teddiursa": lambda state: True,
-        "Flower Zone Teddiursa": lambda state: True,
+        "Flower Zone Teddiursa": lambda state: can_play_catch(state, player, options),
 
         "Cavern Zone Aron": lambda state: can_destroy_objects_overworld(state, player),
         "Magma Zone Aron": lambda state: can_dash_overworld(state, player),
