@@ -1180,7 +1180,7 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     set_rule_if_exists(
         "Cavern Zone Main Area - Raichu Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
+        lambda state: can_play_catch_intermediate(state, player, options) and state.has("Raichu Unlock", player)
     )
     set_rule_if_exists(
         "Cavern Zone Main Area - Meowth Power Competition -- Friendship",
@@ -1279,6 +1279,7 @@ def set_rules(world: "PokeparkWorld") -> None:
         "Magma Zone Main Area - Camerupt Power Competition -- Friendship",
         lambda state: can_battle_thunderbolt_immune_intermediate(state, player, options)
     )
+    
     set_rule_if_exists(
         "Magma Zone Main Area - Magby Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options)
