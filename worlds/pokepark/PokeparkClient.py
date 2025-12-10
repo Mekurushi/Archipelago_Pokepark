@@ -6,7 +6,7 @@ import dolphin_memory_engine as dme
 
 import ModuleUpdate
 import kvui
-from worlds.pokepark import PokeparkItem, LOCATION_TABLE
+from worlds.pokepark import PokeparkItem, LOCATION_TABLE, VERSION
 from worlds.pokepark.adresses import POWER_MAP, MemoryAddress
 from worlds.pokepark.dme_helper import read_memory
 from worlds.pokepark.items import LOOKUP_ID_TO_NAME, ITEM_TABLE, PokeparkPowerItemClientData
@@ -20,9 +20,23 @@ import Utils
 from NetUtils import ClientStatus, NetworkItem
 from CommonClient import gui_enabled, logger, get_base_parser, ClientCommandProcessor, server_loop
 
+
+def _check_universal_tracker_version() -> bool:
+    import re
+    if tracker_loaded:
+        match = re.search(r"v\d+.(\d+).(\d+)", UT_VERSION)
+        if len(match.groups()) < 2:
+            return False
+        if int(match.groups()[0]) < 2:
+            return False
+        if int(match.groups()[1]) < 12:
+            return False
+        return True
+    return False
 tracker_loaded = False
 try:
     from worlds.tracker.TrackerClient import TrackerGameContext as SuperContext
+    from worlds.tracker import UT_VERSION
 
     tracker_loaded = True
 except ModuleNotFoundError:
@@ -230,25 +244,27 @@ class PokeparkContext(SuperContext):
                     self.visited_stage_names = visited_stage_names
 
     def make_gui(self) -> Type["kvui.GameManager"]:
-        if hasattr(SuperContext, "make_gui"):
-            ui = super().make_gui()  # before the kivy imports so kvui gets loaded first
-        else:
-            from kvui import GameManager
-            ui = GameManager
-        return ui
-
-    def run_gui(self):
-        """Import kivy UI system and start running it as self.ui_task."""
-        ui = self.make_gui()
-
-        class PokeparkManager(ui):
+        from kvui import GameManager
+        class PokeparkManager(GameManager):
             logging_pairs = [
                 ("Client", "Archipelago")
             ]
-            base_title = "Archipelago Pokepark Client"
+            base_title = f"Archipelago Pokepark Client v{'.'.join(map(str, VERSION))}"
 
-        self.ui = PokeparkManager(self)
-        self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
+        if not _check_universal_tracker_version():
+            Utils.messagebox(
+                "Universal Tracker needs to be updated",
+                f"The minimum version of Universal Tracker required for Pokepark is v0.2.11. The version currently "
+                f"installed is {UT_VERSION}.",
+                error=True
+            )
+            return PokeparkManager
+
+        class TrackerManager(super().make_gui()):
+            logging_pairs = [("Client", "Archipelago")]
+            base_title = f"Archipelago Pokepark Client v{'.'.join(map(str, VERSION))} with UT {UT_VERSION}"
+
+        return TrackerManager
 
     async def update_visited_stages(self, newly_visited_stage_name: str) -> None:
         """
