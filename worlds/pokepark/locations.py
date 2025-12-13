@@ -3000,7 +3000,7 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
         ),
     ),
     "Haunted Zone Mansion Area - Electrode Power Competition -- Friendship": PokeparkLocationData(
-        412, PokeparkFlag.CHASE, "Haunted Zone Mansion Ballroom Area",
+        412, PokeparkFlag.FRIENDSHIP, "Haunted Zone Mansion Ballroom Area",
         PokeparkFriendshipClientLocationData(
             structure_position=182
         ),
