@@ -1828,7 +1828,7 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     set_rule_if_exists(
         "Haunted Zone Mansion Area - Abra Power Competition -- Friendship",
-        lambda state: state.has("Rotom Prisma", player)
+        lambda state: True
     )
     set_rule_if_exists(
         "Haunted Zone Mansion Area - Dusknoir -- Friendship",
