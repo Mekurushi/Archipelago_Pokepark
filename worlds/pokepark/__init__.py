@@ -23,7 +23,7 @@ from .regions import EntranceRandomizer
 from .rules import set_rules
 from ..Files import APPlayerContainer
 
-VERSION: tuple[int, int, int] = (1, 0, 3)
+VERSION: tuple[int, int, int] = (1, 0, 4)
 
 class PokeparkWebWorld(WebWorld):
     theme = "jungle"
