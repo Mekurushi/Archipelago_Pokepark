@@ -59,9 +59,9 @@ class NumRequiredBattleCount(Range):
 
 class NumRequiredPrismaCountSkygarden(Range):
     """
-    Select the number of required Prisma Shards to enter Skygarden
+    Select the number of required Prisma Shards to enter Skygarden with piplup in the Treehouse
     """
-    display = "Number of Battle Count"
+    display = "Number of required Prismas"
     range_start = 1
     range_end = 14
     default = 14
@@ -139,7 +139,7 @@ class RemovePowerUpLocations(Toggle):
 
 class RemoveAttractionLocations(Toggle):
     """
-    Remove non-Prisma clear Attraction Locations.
+    Remove Record clearing Attraction Locations. (each Pokemon Record is a Location)
     WARNING: Removing too many location types may cause an OptionError if there aren't enough locations for progressive items.
     """
     default = True
@@ -147,7 +147,7 @@ class RemoveAttractionLocations(Toggle):
 
 class RemoveAttractionPrismaLocations(Toggle):
     """
-    Remove Attraction Prisma clear locations.
+    Remove Attraction Prisma clear locations. (Vanilla first time beating Attraction Goal)
     WARNING: Removing too many location types may cause an OptionError if there aren't enough locations for progressive items.
     """
     default = False
@@ -155,7 +155,7 @@ class RemoveAttractionPrismaLocations(Toggle):
 
 class RemovePokemonUnlockLocations(Toggle):
     """
-    Remove Pokemon Unlock Locations.
+    Remove Pokemon Unlock Locations. e.g. Caterpie Tree, Shroomish Crate etc.
     WARNING: Removing too many location types may cause an OptionError if there aren't enough locations for progressive items.
     """
     default = False
@@ -184,7 +184,8 @@ class EachZone(Toggle):
 
 class InZoneRoadBlocks(Toggle):
     """
-    Additional Road Blocks inside the Zones e.g. Beach Zone Bridges as items
+    Additional Road Blocks inside the Zones e.g. Beach Zone Bridges as items. Road Block Items are precollected when
+    this option is deactivated.
     """
     default = True
 
