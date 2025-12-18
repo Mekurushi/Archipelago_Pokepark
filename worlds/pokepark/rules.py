@@ -1127,7 +1127,7 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     set_rule_if_exists(
         "Cavern Zone Main Area - Electivire Power Competition -- Friendship",
-        lambda state: can_battle_advanced(state, player, options) and
+        lambda state: can_battle_thunderbolt_immune_advanced(state, player, options) and
                       state.has("Electivire Unlock", player)
     )
     set_rule_if_exists(

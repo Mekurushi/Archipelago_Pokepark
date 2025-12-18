@@ -110,6 +110,7 @@ STAGE_NAME_MAP = {
     0x0601.to_bytes(2): "Granite Zone Main Area",
     0x0602.to_bytes(2): "Flower Zone Main Area",
     0x0701.to_bytes(2): "Skygarden",
+    0x6301.to_bytes(2): "Pokepark Entrance",
 
 }
 
