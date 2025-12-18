@@ -86,6 +86,8 @@ The story has been removed, and some changes were made to the game’s logic to 
 - Drifblim always spawns
 - Removed Intro and Ending files
 - Increased Berry Reward from Bottle Recycling
+- Skygarden Travel is possible with Piplup. The Balloon indicates whether the requirements for reaching the
+  skygarden is fulfilled. It's also possible to leave Skygarden with Piplup again
 
 ## Feature Roadmap
 
