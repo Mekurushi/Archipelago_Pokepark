@@ -4,12 +4,12 @@ Archipelago init file for Pokepark
 import os
 import zipfile
 from base64 import b64encode
-from typing import Any, ClassVar, Dict
+from typing import Any, ClassVar, Dict, Optional
 
 import yaml
 
 from BaseClasses import ItemClassification as IC, Region, Tutorial
-from Options import OptionError
+from Options import Option, OptionError
 from worlds.AutoWorld import WebWorld, World
 from worlds.LauncherComponents import Component, Type, components, icon_paths, \
     launch_subprocess
@@ -81,7 +81,6 @@ class PokeparkWorld(World):
     options_dataclass = PokeparkOptions
     options: PokeparkOptions
     topology_present: bool = True
-
     web = PokeparkWebWorld()
     required_client_version: tuple[int, int, int] = (0, 5, 1)
 
@@ -111,6 +110,9 @@ class PokeparkWorld(World):
 
         self.entrances: EntranceRandomizer = EntranceRandomizer(self)
         self.region_entrance_mapping: list[tuple[str, str]] = []
+        self.seed: int = 0
+        self.ut_active: bool = False
+
     def _determine_locations(self) -> set[str]:
         """
         Determine which locations included in the world based on the player's options.
@@ -154,6 +156,28 @@ class PokeparkWorld(World):
         return local_locations
 
     def generate_early(self) -> None:
+        # UT
+        re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
+        if re_gen_passthrough and self.game in re_gen_passthrough:
+            self.ut_active = True
+            # Get the passed through slot data from the real generation
+            slot_data: dict[str, Any] = re_gen_passthrough[self.game]
+
+            slot_options: dict[str, Any] = slot_data.get("options", {})
+            # Set all your options here instead of getting them from the yaml
+            for key, value in slot_options.items():
+                opt: Optional[Option] = getattr(self.options, key, None)
+                if opt is not None:
+                    # You can also set .value directly but that won't work if you have OptionSets
+                    setattr(self.options, key, opt.from_any(value))
+
+            self.seed = slot_data["seed"]
+
+        if not self.ut_active:
+            self.seed = self.random.getrandbits(64)
+
+        self.random.seed(self.seed)
+
         # generate regions and entrances
         self.entrances.generate_entrance_data()
 
@@ -438,28 +462,13 @@ class PokeparkWorld(World):
             "randomize_attraction_entrances"
             ),
             "entrances": self.region_entrance_mapping,
+            "seed": self.seed
         }
         return slot_data
 
-    def interpret_slot_data(self, slot_data: dict[str, Any]) -> None:
-        if "entrances" in slot_data:
-            # Update entrance connections for ER
-            entrance_lookup = {}
-            for region in self.get_regions():
-                for entrance in region.entrances:
-                    entrance_name = entrance.name.split(" -> ")[0]
-                    entrance_lookup[entrance_name] = entrance
-
-            for source_region_name, new_entrance_name in slot_data["entrances"]:
-                entrance_name, target_region_name = new_entrance_name.split(" -> ")
-
-                entrance = entrance_lookup.get(entrance_name)
-                if entrance is None:
-                    continue
-
-                entrance.name = new_entrance_name
-                entrance.parent_region = self.get_region(source_region_name)
-                entrance.connected_region = self.get_region(target_region_name)
+    @staticmethod
+    def interpret_slot_data(slot_data: dict[str, Any]) -> dict[str, Any]:
+        return slot_data
 
 def launch_client():
     print("Running Pokepark Client")
