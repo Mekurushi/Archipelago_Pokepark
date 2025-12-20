@@ -252,6 +252,8 @@ class PokeparkContext(SuperContext):
             ]
             base_title = f"Archipelago Pokepark Client v{'.'.join(map(str, VERSION))}"
 
+        if not tracker_loaded:
+            return PokeparkManager
         if not _check_universal_tracker_version():
             Utils.messagebox(
                 "Universal Tracker needs to be updated",
