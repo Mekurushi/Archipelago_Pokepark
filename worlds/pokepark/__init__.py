@@ -312,7 +312,7 @@ class PokeparkWorld(World):
         }
 
         output_entrances = output_data["Entrances"]
-        for zone_entrance, zone_exit in self.entrances.entrance_to_exit.items():
+        for zone_entrance, zone_exit in self.entrances.final_entrance_to_exit.items():
             output_entrances[zone_entrance.name] = zone_exit.name
 
         # Output the plando details to file.
@@ -429,8 +429,13 @@ class PokeparkWorld(World):
             "harder_enemy_ai",
             "randomize_attraction_entrances"
             ),
-            "entrances": self.region_entrance_mapping,
+            "entrances": {},
         }
+        entrances = {
+            entrance.name: exit.name
+            for entrance, exit in self.entrances.final_entrance_to_exit.items()
+        }
+        slot_data["entrances"] = entrances
         return slot_data
 
     def interpret_slot_data(self, slot_data: dict[str, Any]) -> None:

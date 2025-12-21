@@ -764,6 +764,8 @@ class EntranceRandomizer:
         self.entrances_rules: dict[str, Callable[[CollectionState], bool]] = {}
         self.entrance_to_exit: dict[Entrance, Exit] = {
         }
+        self.final_entrance_to_exit: dict[Entrance, Exit] = {
+        }
         for entrance_name, exit_name in VANILLA_ENTRANCE_TO_EXIT.items():
             self.entrance_to_exit[ENTRANCES_BY_NAME[entrance_name]] = EXITS_BY_NAME[exit_name]
 
@@ -796,7 +798,6 @@ class EntranceRandomizer:
         if attractions:
             yield self.get_one_entrance_set(attractions=attractions)
         if separate_pools:
-
             if treehouse_gates:
                 yield self.get_one_entrance_set(treehouse_gates=treehouse_gates)
             if fast_travel:
@@ -817,8 +818,8 @@ class EntranceRandomizer:
             self.entrance_to_exit[entrance] = exit
             relevant_exits.remove(exit)
 
-    def add_bi_directional_mapping(self):
-        reverse_entrance_connections = {}
+    def add_bi_directional_entrance_to_exit(self):
+        reverse_entrance_connections: dict[Entrance, Exit] = {}
         for entrance, exit in self.entrance_to_exit.items():
 
             reverse_entrance = Entrance(
@@ -836,7 +837,10 @@ class EntranceRandomizer:
 
             reverse_entrance_connections[reverse_entrance] = reverse_exit
 
-        self.entrance_to_exit.update(reverse_entrance_connections)
+        self.final_entrance_to_exit = {
+            **self.entrance_to_exit,
+            **reverse_entrance_connections,
+        }
 
     def randomize_entrances(self):
         self.entrances_rules = get_entrance_rules_dict(
@@ -846,11 +850,10 @@ class EntranceRandomizer:
         for relevant_entrances, relevant_exits in self.get_randomizable_entrance_sets():
             self.randomize_set(relevant_entrances, relevant_exits)
 
-        self.add_bi_directional_mapping()
+        self.add_bi_directional_entrance_to_exit()
 
-        for entrance, exit in self.entrance_to_exit.items():
+        for entrance, exit in self.final_entrance_to_exit.items():
             entrance_name = f"{entrance.name} -> {exit.name}"
-            print(f"{entrance.name} -> {exit.name}")
             self.multiworld.get_region(entrance.parent_region, self.player).connect(
                 self.multiworld.get_region(
                     exit.region_name,
