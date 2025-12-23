@@ -145,14 +145,6 @@ STATIC_ENTRANCES: list[Entrance] = [
     # Skygarden
     Entrance("Treehouse - Piplup Skyballoon", "Treehouse"),
 
-    # Drifloon
-    Entrance("Haunted Zone Main Area - Drifloon", "Haunted Zone Main Area"),
-    Entrance("Haunted Zone Mansion Ballroom Area - Drifloon", "Haunted Zone Mansion Ballroom Area"),
-
-    # Riolu
-    Entrance("Haunted Zone Main Area - Riolu", "Haunted Zone Main Area"),
-    Entrance("Haunted Zone Mansion Area - Riolu", "Haunted Zone Mansion Area"),
-
 ]
 
 EACH_ZONE_ENTRANCES: list[Entrance] = [
@@ -244,6 +236,13 @@ EACH_ZONE_ENTRANCES: list[Entrance] = [
     Entrance("Granite Zone Main Area - Furret", "Granite Zone Main Area"),
     Entrance("Flower Zone Main Area - Furret", "Flower Zone Main Area"),
 
+    # Drifloon
+    Entrance("Haunted Zone Main Area - Drifloon", "Haunted Zone Main Area"),
+    Entrance("Haunted Zone Mansion Ballroom Area - Drifloon", "Haunted Zone Mansion Ballroom Area"),
+
+    # Riolu
+    Entrance("Haunted Zone Main Area - Riolu", "Haunted Zone Main Area"),
+    Entrance("Haunted Zone Mansion Area - Riolu", "Haunted Zone Mansion Area"),
 ]
 
 ATTRACTION_ENTRANCES: list[Entrance] = [
@@ -377,12 +376,7 @@ STATIC_EXITS: list[Exit] = [
     # Skygarden
     Exit("Skygarden - Piplup Skyballoon", "Skygarden"),
 
-    # additional
-    Exit("Haunted Drifloon - Friendship", "Drifloon"),
-    Exit("Mansion Drifloon - Friendship", "Drifloon"),
 
-    Exit("Haunted Riolu - Battle Power Competition", "Riolu"),
-    Exit("Mansion Riolu - Battle Power Competition", "Riolu"),
 ]
 
 ATTRACTION_EXITS: list[Exit] = [
@@ -491,6 +485,12 @@ EACH_ZONE_EXITS: list[Exit] = [
     Exit("Granite Furret - Hide and Seek Power Competition -- Friendship", "Furret"),
     Exit("Flower Furret - Hide and Seek Power Competition -- Friendship", "Furret"),
 
+    # additional
+    Exit("Haunted Drifloon - Friendship", "Drifloon"),
+    Exit("Mansion Drifloon - Friendship", "Drifloon"),
+
+    Exit("Haunted Riolu - Battle Power Competition", "Riolu"),
+    Exit("Mansion Riolu - Battle Power Competition", "Riolu"),
 ]
 
 ALL_ENTRANCES: list[Entrance] = (
@@ -791,23 +791,24 @@ class EntranceRandomizer:
         options = self.world.options
 
         attractions = bool(options.randomize_attraction_entrances)
-        separate_pools = False
-        treehouse_gates = False
-        fast_travel = False
-        general_entrances = False
+        mixed_pools = bool(options.mix_entrance_pools)
+        treehouse_gates = bool(options.randomize_treehouse_gates_entrances)
+        fast_travel = bool(options.randomize_fast_travel_entrances)
+        general_entrances = bool(options.randomize_general_entrances)
+
         if attractions:
             yield self.get_one_entrance_set(attractions=attractions)
-        if separate_pools:
+        if mixed_pools:
+            yield self.get_one_entrance_set(
+                general_entrances=general_entrances, fast_travel=fast_travel, treehouse_gates=treehouse_gates
+            )
+        else:
             if treehouse_gates:
                 yield self.get_one_entrance_set(treehouse_gates=treehouse_gates)
             if fast_travel:
                 yield self.get_one_entrance_set(fast_travel=fast_travel)
             if general_entrances:
                 yield self.get_one_entrance_set(general_entrances=general_entrances)
-        else:
-            yield self.get_one_entrance_set(
-                general_entrances=general_entrances, fast_travel=fast_travel, treehouse_gates=treehouse_gates
-            )
 
     def randomize_set(self, relevant_entrances: list[Entrance], relevant_exits: list[Exit]):
 
@@ -821,6 +822,11 @@ class EntranceRandomizer:
     def add_bi_directional_entrance_to_exit(self):
         reverse_entrance_connections: dict[Entrance, Exit] = {}
         for entrance, exit in self.entrance_to_exit.items():
+            # skip Pokemon Regions
+            if entrance in EACH_ZONE_ENTRANCES:
+                continue
+            if exit in EACH_ZONE_EXITS:
+                continue
 
             reverse_entrance = Entrance(
                 name=exit.name,
@@ -849,7 +855,6 @@ class EntranceRandomizer:
         )
         for relevant_entrances, relevant_exits in self.get_randomizable_entrance_sets():
             self.randomize_set(relevant_entrances, relevant_exits)
-
         self.add_bi_directional_entrance_to_exit()
 
         for entrance, exit in self.final_entrance_to_exit.items():
