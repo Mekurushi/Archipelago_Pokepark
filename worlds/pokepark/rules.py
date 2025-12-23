@@ -18,6 +18,7 @@ def set_rules(world: "PokeparkWorld") -> None:
     # Treehouse
     set_rule_if_exists("Treehouse - Burmy - Friendship", lambda state: True)
     set_rule_if_exists("Treehouse - Mime Jr. - Friendship", lambda state: True)
+    set_rule_if_exists("Treehouse - Abra - Friendship", lambda state: can_beat_treehouse_abra(state, player, options))
     set_rule_if_exists(
         "Treehouse - Drifblim - Friendship", lambda state: can_fast_travel(state, player)
     )
@@ -168,7 +169,7 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     set_rule_if_exists(
         "Meadow Zone Main Area - Spearow Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options)
+        lambda state: can_beat_meadow_spearow(state, player, options)
     )
     set_rule_if_exists(
         "Meadow Zone Main Area - Croagunk Power Competition -- Friendship",
@@ -307,38 +308,35 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     set_rule_if_exists(
         "Meadow Zone Main Area - Starly Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options) and
-                      (state.has("Starly 2 Unlock", player) or state.has("Starly Unlock", player))
+        lambda state: can_beat_meadow_starly(state, player, options)
     )
     set_rule_if_exists(
         "Meadow Zone Main Area - Bonsly Power Competition -- Friendship",
-        lambda state: state.has("Bonsly Unlock", player)
+        lambda state: can_beat_meadow_bonsly(state, player)
     )
     set_rule_if_exists(
         "Meadow Zone Main Area - Bonsly Power Competition -- Sudowoodo Unlocked",
-        lambda state: state.has("Bonsly Unlock", player)
+        lambda state: can_beat_meadow_bonsly(state, player)
     )
     set_rule_if_exists(
         "Meadow Zone Main Area - Chimchar Power Competition -- Friendship",
-        lambda state: state.has("Chimchar Unlock", player) and
-                      can_battle(state, player, options)
+        lambda state: can_beat_meadow_chimchar(state, player, options)
     )
     set_rule_if_exists(
         "Meadow Zone Main Area - Sudowoodo Power Competition -- Friendship",
-        lambda state: state.has("Sudowoodo Unlock", player)
+        lambda state: can_beat_meadow_sudowoodo(state, player, options)
     )
     set_rule_if_exists(
         "Meadow Zone Main Area - Aipom Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
+        lambda state: can_beat_meadow_aipom(state, player, options)
     )
     set_rule_if_exists(
         "Meadow Zone Main Area - Aipom Power Competition -- Ambipom Unlocked",
-        lambda state: can_play_catch(state, player, options)
+        lambda state: can_beat_meadow_aipom(state, player, options)
     )
     set_rule_if_exists(
         "Meadow Zone Main Area - Ambipom Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options) and
-                      state.has("Ambipom Unlock", player)
+        lambda state: can_beat_meadow_ambipom(state, player, options)
     )
 
     # Bulbasaur Daring Dash Minigame
@@ -602,7 +600,7 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     set_rule_if_exists(
         "Beach Zone Main Area - Spearow Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options)
+        lambda state: can_beat_beach_spearow(state, player, options)
     )
     set_rule_if_exists(
         "Beach Zone Main Area - Blastoise Power Competition -- Friendship",
@@ -643,28 +641,27 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     set_rule_if_exists(
         "Beach Zone Main Area - Krabby Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options) and
-                      state.has("Krabby Unlock", player)
+        lambda state: can_beat_beach_krabby(state, player, options)
     )
     set_rule_if_exists(
         "Beach Zone Main Area - Starly Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
+        lambda state: can_beat_beach_starly(state, player, options)
     )
     set_rule_if_exists(
         "Beach Zone Main Area - Mudkip Power Competition -- Friendship",
-        lambda state: state.has("Mudkip Unlock", player)
+        lambda state: can_beat_beach_mudkip(state, player, options)
     )
     set_rule_if_exists(
         "Beach Zone Main Area - Taillow Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
+        lambda state: can_beat_beach_taillow(state, player, options)
     )
     set_rule_if_exists(
         "Beach Zone Main Area - Staravia Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options)
+        lambda state: can_beat_beach_staravia(state, player, options)
     )
     set_rule_if_exists(
         "Beach Zone Main Area - Wingull Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
+        lambda state: can_beat_beach_wingull(state, player, options)
     )
     set_rule_if_exists(
         "Beach Zone Middle Isle - Piplup Power Competition -- Friendship",
@@ -672,8 +669,7 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     set_rule_if_exists(
         "Beach Zone Main Area - Corphish Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options) and
-                      state.has("Corphish Unlock", player)
+        lambda state: can_beat_beach_corphish(state, player, options)
     )
 
     set_rule_if_exists(
@@ -959,37 +955,35 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     set_rule_if_exists(
         "Ice Zone Main Area - Starly Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
+        lambda state: can_beat_ice_starly(state, player, options)
     )
     set_rule_if_exists(
         "Ice Zone Main Area - Krabby Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options) and
-                      state.has("Krabby Unlock", player)
+        lambda state: can_beat_ice_krabby(state, player, options)
     )
     set_rule_if_exists(
         "Ice Zone Main Area - Corphish Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options) and
-                      state.has("Corphish Unlock", player)
+        lambda state: can_beat_ice_corphish(state, player, options)
     )
     set_rule_if_exists(
         "Ice Zone Main Area - Mudkip Power Competition -- Friendship",
-        lambda state: state.has("Mudkip Unlock", player)
+        lambda state: can_beat_ice_mudkip(state, player, options)
     )
     set_rule_if_exists(
         "Ice Zone Main Area - Taillow Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
+        lambda state: can_beat_ice_taillow(state, player, options)
     )
     set_rule_if_exists(
         "Ice Zone Main Area - Staravia Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options)
+        lambda state: can_beat_ice_staravia(state, player, options)
     )
     set_rule_if_exists(
         "Ice Zone Main Area - Teddiursa Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
+        lambda state: can_beat_ice_teddiursa(state, player, options)
     )
     set_rule_if_exists(
         "Ice Zone Main Area - Wingull Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
+        lambda state: can_beat_ice_wingull(state, player, options)
     )
     # Empoleon's Snow Slide
     set_rule_if_exists(
@@ -1148,47 +1142,47 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     set_rule_if_exists(
         "Cavern Zone Main Area - Bonsly Power Competition -- Friendship",
-        lambda state: True
+        lambda state: can_beat_cavern_bonsly(state, player)
     )
     set_rule_if_exists(
         "Cavern Zone Main Area - Bonsly Power Competition -- Sudowoodo Unlocked",
-        lambda state: True
+        lambda state: can_beat_cavern_bonsly(state, player)
     )
     set_rule_if_exists(
         "Cavern Zone Main Area - Teddiursa Power Competition -- Friendship",
-        lambda state: True
+        lambda state: can_beat_cavern_teddiursa(state, player, options)
     )
     set_rule_if_exists(
         "Cavern Zone Main Area - Chimchar Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options)
+        lambda state: can_beat_cavern_chimchar(state, player, options)
     )
     set_rule_if_exists(
         "Cavern Zone Main Area - Sudowoodo Power Competition -- Friendship",
-        lambda state: state.has("Sudowoodo Unlock", player)
+        lambda state: can_beat_cavern_sudowoodo(state, player, options)
     )
     set_rule_if_exists(
         "Cavern Zone Main Area - Aron Power Competition -- Friendship",
-        lambda state: can_destroy_objects_overworld(state, player)
+        lambda state: can_beat_cavern_aron(state, player, options)
     )
     set_rule_if_exists(
         "Cavern Zone Main Area - Torchic Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options)
+        lambda state: can_beat_cavern_torchic(state, player, options)
     )
     set_rule_if_exists(
         "Cavern Zone Main Area - Geodude Power Competition -- Friendship",
-        lambda state: True
+        lambda state: can_beat_cavern_geodude(state, player, options)
     )
     set_rule_if_exists(
         "Cavern Zone Main Area - Raichu Power Competition -- Friendship",
-        lambda state: can_play_catch_intermediate(state, player, options) and state.has("Raichu Unlock", player)
+        lambda state: can_beat_cavern_raichu(state, player, options)
     )
     set_rule_if_exists(
         "Cavern Zone Main Area - Meowth Power Competition -- Friendship",
-        lambda state: True
+        lambda state: can_beat_cavern_meowth(state, player, options)
     )
     set_rule_if_exists(
         "Cavern Zone Main Area - Marowak Power Competition -- Friendship",
-        lambda state: can_battle_thunderbolt_immune_intermediate(state, player, options)
+        lambda state: can_beat_cavern_marowak(state, player, options)
     )
     set_rule_if_exists(
         "Cavern Zone Main Area - Mawile Power Competition -- Friendship",
@@ -1383,7 +1377,7 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     set_rule_if_exists(
         "Magma Zone Main Area - Bonsly Power Competition -- Friendship",
-        lambda state: True
+        lambda state: can_beat_magma_bonsly(state, player)
     )
     set_rule_if_exists(
         "Magma Zone Main Area - Chimchar Power Competition -- Friendship",
@@ -1391,39 +1385,36 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     set_rule_if_exists(
         "Magma Zone Main Area - Chimchar Power Competition -- Infernape Unlocked",
-        lambda state: can_battle(state, player, options)
+        lambda state: can_beat_magma_chimchar(state, player, options)
     )
     set_rule_if_exists(
         "Magma Zone Main Area - Aron Power Competition -- Friendship",
-        lambda state: can_dash_overworld(state, player)
+        lambda state: can_beat_magma_aron(state, player, options)
     )
     set_rule_if_exists(
         "Magma Zone Main Area - Torchic Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options)
+        lambda state: can_beat_magma_torchic(state, player, options)
     )
     set_rule_if_exists(
         "Magma Zone Main Area - Geodude Power Competition -- Friendship",
-        lambda state: True
+        lambda state: can_beat_magma_geodude(state, player, options)
     )
     set_rule_if_exists(
         "Magma Zone Main Area - Baltoy Power Competition -- Friendship",
-        lambda state: can_battle_thunderbolt_immune(state, player, options) and
-                      state.has("Baltoy Unlock", player)
+        lambda state: can_beat_magma_baltoy(state, player, options)
     )
     set_rule_if_exists(
         "Magma Zone Main Area - Baltoy Power Competition -- Claydol Unlocked",
-        lambda state: can_battle_thunderbolt_immune(state, player, options) and
-                      state.has("Baltoy Unlock", player)
+        lambda state: can_beat_magma_baltoy(state, player, options)
     )
     set_rule_if_exists(
         "Magma Zone Main Area - Claydol Power Competition -- Friendship",
-        lambda state: can_battle_thunderbolt_immune_intermediate(state, player, options) and
-                      state.has("Claydol Unlock", player)
+        lambda state: can_beat_magma_claydol(state, player, options)
     ),
 
     set_rule_if_exists(
         "Magma Zone Circle Area - Meditite Power Competition -- Friendship",
-        lambda state: True
+        lambda state: can_beat_magma_meditite(state, player, options)
     )
 
     # Rhyperior's Bumper Burn
@@ -1612,28 +1603,27 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     set_rule_if_exists(
         "Haunted Zone Main Area - Raichu Power Competition -- Friendship",
-        lambda state: can_play_catch_intermediate(state, player, options)
+        lambda state: can_beat_haunted_raichu(state, player, options)
     )
     set_rule_if_exists(
         "Haunted Zone Main Area - Meowth Power Competition -- Friendship",
-        lambda state: True
+        lambda state: can_beat_haunted_meowth(state, player, options)
     )
     set_rule_if_exists(
         "Haunted Zone Main Area - Aipom Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
+        lambda state: can_beat_haunted_aipom(state, player, options)
     )
     set_rule_if_exists(
         "Haunted Zone Main Area - Aipom Power Competition -- Ambipom Unlocked",
-        lambda state: can_play_catch(state, player, options)
+        lambda state: can_beat_haunted_aipom(state, player, options)
     )
     set_rule_if_exists(
         "Haunted Zone Main Area - Ambipom Power Competition -- Friendship",
-        lambda state: can_battle_intermediate(state, player, options) and
-                      state.has("Ambipom Unlock", player)
+        lambda state: can_beat_haunted_ambipom(state, player, options)
     )
     set_rule_if_exists(
         "Haunted Zone Main Area - Drifloon Power Competition -- Friendship",
-        lambda state: state.has("Rotom Prisma", player)
+        lambda state: can_beat_haunted_drifloon(state, player, options)
     )
     set_rule_if_exists(
         "Haunted Zone Main Area - Tangrowth -- Friendship",
@@ -1828,7 +1818,7 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     set_rule_if_exists(
         "Haunted Zone Mansion Area - Abra Power Competition -- Friendship",
-        lambda state: True
+        lambda state: can_beat_haunted_abra(state, player, options)
     )
     set_rule_if_exists(
         "Haunted Zone Mansion Area - Dusknoir -- Friendship",
@@ -2050,34 +2040,31 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     set_rule_if_exists(
         "Granite Zone Main Area - Taillow Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
+        lambda state: can_beat_granite_taillow(state, player, options)
     )
     set_rule_if_exists(
         "Granite Zone Main Area - Drifloon Power Competition -- Friendship",
-        lambda state: True
+        lambda state: can_beat_granite_drifloon(state, player, options)
     )
     set_rule_if_exists(
         "Granite Zone Main Area - Marowak Power Competition -- Friendship",
-        lambda state: can_battle_thunderbolt_immune_intermediate(state, player, options)
+        lambda state: can_beat_granite_marowak(state, player, options)
     )
     set_rule_if_exists(
         "Granite Zone Main Area - Baltoy Power Competition -- Friendship",
-        lambda state: can_battle_thunderbolt_immune(state, player, options) and
-                      state.has("Baltoy Unlock", player)
+        lambda state: can_beat_granite_baltoy(state, player, options)
     )
     set_rule_if_exists(
         "Granite Zone Main Area - Baltoy Power Competition -- Claydol Unlocked",
-        lambda state: can_battle_thunderbolt_immune(state, player, options) and
-                      state.has("Baltoy Unlock", player)
+        lambda state: can_beat_granite_baltoy(state, player, options)
     )
     set_rule_if_exists(
         "Granite Zone Main Area - Claydol Power Competition -- Friendship",
-        lambda state: can_battle_thunderbolt_immune_intermediate(state, player, options) and
-                      state.has("Claydol Unlock", player)
+        lambda state: can_beat_granite_claydol(state, player, options)
     )
     set_rule_if_exists(
         "Granite Zone Main Area - Furret Power Competition -- Friendship",
-        lambda state: True
+        lambda state: can_beat_granite_furret(state, player, options)
     )
 
     set_rule_if_exists(
@@ -2273,15 +2260,15 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     set_rule_if_exists(
         "Flower Zone Main Area - Teddiursa Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
+        lambda state: can_beat_flower_teddiursa(state, player, options)
     )
     set_rule_if_exists(
         "Flower Zone Main Area - Furret Power Competition -- Friendship",
-        lambda state: True
+        lambda state: can_beat_flower_furret(state, player, options)
     )
     set_rule_if_exists(
         "Flower Zone Main Area - Meditite Power Competition -- Friendship",
-        lambda state: True
+        lambda state: can_beat_flower_meditite(state, player, options)
     )
 
     set_rule_if_exists(
@@ -3344,6 +3331,306 @@ def can_fast_travel(state: CollectionState, player: int):
     # in-logic rule
     return state.count_group("Fast Travel Items", player) >= 1
 
+
+def can_beat_treehouse_abra(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return True
+
+
+def can_beat_haunted_abra(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return True
+
+
+def can_beat_meadow_spearow(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_battle(state, player, options)
+
+
+def can_beat_beach_spearow(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_battle(state, player, options)
+
+
+def can_beat_meadow_starly(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_play_catch(state, player, options) and (state.has(
+        "Starly Unlock", player
+    ) or state.has(
+        "Starly 2 Unlock", player
+    ))
+
+
+def can_beat_beach_starly(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_play_catch(state, player, options)
+
+
+def can_beat_ice_starly(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_play_catch(state, player, options)
+
+
+def can_beat_meadow_bonsly(state: CollectionState, player: int):
+    return state.has("Bonsly Unlock", player)
+
+
+def can_beat_cavern_bonsly(state: CollectionState, player: int):
+    return True
+
+
+def can_beat_magma_bonsly(state: CollectionState, player: int):
+    return True
+
+
+def can_beat_meadow_chimchar(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return state.has("Chimchar Unlock", player) and can_battle(
+        state, player,
+        options
+    )
+
+
+def can_beat_cavern_chimchar(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_battle(
+        state, player,
+        options
+    )
+
+
+def can_beat_magma_chimchar(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_battle(
+        state, player,
+        options
+    )
+
+
+def can_beat_meadow_sudowoodo(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return state.has("Sudowoodo Unlock", player)
+
+
+def can_beat_cavern_sudowoodo(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return state.has("Sudowoodo Unlock", player)
+
+
+def can_beat_meadow_aipom(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_play_catch(state, player, options)
+
+
+def can_beat_haunted_aipom(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_play_catch(state, player, options)
+
+
+def can_beat_meadow_ambipom(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return state.has("Ambipom Unlock", player) and can_battle(
+        state,
+        player,
+        options
+    )
+
+
+def can_beat_haunted_ambipom(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return state.has("Ambipom Unlock", player) and can_battle(
+        state,
+        player,
+        options
+    )
+
+
+def can_beat_beach_krabby(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return state.has("Krabby Unlock", player) and can_play_catch(
+        state, player, options
+    )
+
+
+def can_beat_ice_krabby(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return state.has("Krabby Unlock", player) and can_play_catch(
+        state, player, options
+    )
+
+
+def can_beat_beach_mudkip(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return state.has("Mudkip Unlock", player)
+
+
+def can_beat_ice_mudkip(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return state.has("Mudkip Unlock", player)
+
+
+def can_beat_beach_taillow(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_play_catch(
+        state, player, options
+    )
+
+
+def can_beat_ice_taillow(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_play_catch(
+        state, player, options
+    )
+
+
+def can_beat_granite_taillow(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_play_catch(
+        state, player, options
+    )
+
+
+def can_beat_beach_staravia(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_battle(
+        state, player, options
+    )
+
+
+def can_beat_ice_staravia(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_battle(
+        state, player, options
+    )
+
+
+def can_beat_beach_wingull(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_play_catch(state, player, options)
+
+
+def can_beat_ice_wingull(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_play_catch(state, player, options)
+
+
+def can_beat_beach_corphish(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return state.has("Corphish Unlock", player) and can_battle(
+        state, player, options
+    )
+
+
+def can_beat_ice_corphish(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return state.has("Corphish Unlock", player) and can_battle(
+        state, player, options
+    )
+
+
+def can_beat_ice_teddiursa(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_play_catch(state, player, options)
+
+
+def can_beat_cavern_teddiursa(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return True
+
+
+def can_beat_flower_teddiursa(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_play_catch(state, player, options)
+
+
+def can_beat_cavern_aron(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_destroy_objects_overworld(state, player)
+
+
+def can_beat_magma_aron(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_dash_overworld(state, player)
+
+
+def can_beat_cavern_torchic(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_battle(
+        state, player, options
+    )
+
+
+def can_beat_magma_torchic(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_battle(
+        state, player, options
+    )
+
+
+def can_beat_cavern_geodude(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return True
+
+
+def can_beat_magma_geodude(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return True
+
+
+def can_beat_cavern_raichu(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return state.has(
+        "Raichu Unlock", player
+    ) and can_play_catch_intermediate(
+        state,
+        player, options
+    )
+
+
+def can_beat_haunted_raichu(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_play_catch_intermediate(
+        state,
+        player, options
+    )
+
+
+def can_beat_cavern_meowth(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return True
+
+
+def can_beat_haunted_meowth(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return True
+
+
+def can_beat_cavern_marowak(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_battle_intermediate(state, player, options)
+
+
+def can_beat_granite_marowak(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_battle_intermediate(state, player, options)
+
+
+def can_beat_magma_baltoy(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return state.has(
+        "Baltoy Unlock", player
+    ) and can_battle_thunderbolt_immune(
+        state, player, options
+    )
+
+
+def can_beat_granite_baltoy(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return state.has(
+        "Baltoy Unlock", player
+    ) and can_battle_thunderbolt_immune(
+        state, player, options
+    )
+
+
+def can_beat_magma_meditite(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return True
+
+
+def can_beat_flower_meditite(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return True
+
+
+def can_beat_magma_claydol(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return state.has(
+        "Claydol Unlock", player
+    ) and can_battle_thunderbolt_immune_intermediate(
+        state, player, options
+    )
+
+
+def can_beat_granite_claydol(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return state.has(
+        "Claydol Unlock", player
+    ) and can_battle_thunderbolt_immune_intermediate(
+        state, player, options
+    )
+
+
+def can_beat_haunted_drifloon(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return state.has("Rotom Prisma", player)
+
+
+def can_beat_granite_drifloon(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return True
+
+
+def can_beat_granite_furret(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return True
+
+
+def can_beat_flower_furret(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return True
+
+
+def can_beat_haunted_riolu(state: CollectionState, player: int, options: "PokeparkOptions"):
+    return can_battle_intermediate(
+        state, player, options
+    )
 def get_entrance_rules_dict(player: int, options: "PokeparkOptions"):
     entrance_rules: dict[str, Callable[[CollectionState], bool]] = {
         "Meadow Zone Main Area - Pokepark Entrance Gate": lambda state: True,
@@ -3524,21 +3811,15 @@ def get_entrance_rules_dict(player: int, options: "PokeparkOptions"):
         "Skygarden - Piplup Skyballoon": lambda state: True,
 
         # multi area
-        "Haunted Zone Main Area - Drifloon": lambda state: state.has("Rotom Prisma", player),
-        "Haunted Drifloon - Friendship": lambda state: True,
-        "Mansion Drifloon - Friendship": lambda state: True,
-        "Haunted Zone Mansion Ballroom Area - Drifloon": lambda state: state.has(
-            "Rotom Prisma", player
+        "Haunted Zone Main Area - Drifloon": lambda state: can_beat_haunted_drifloon(state, player, options),
+
+        "Haunted Zone Mansion Ballroom Area - Drifloon": lambda state: can_beat_haunted_drifloon(
+            state, player, options
         ),
 
-        "Haunted Zone Main Area - Riolu": lambda state: can_battle_intermediate(
-            state, player, options
-        ),
-        "Haunted Riolu - Battle Power Competition": lambda state: True,
-        "Mansion Riolu - Battle Power Competition": lambda state: True,
-        "Haunted Zone Mansion Area - Riolu": lambda state: can_battle_intermediate(
-            state, player, options
-        ),
+        "Haunted Zone Main Area - Riolu": lambda state: can_beat_haunted_riolu(state, player, options),
+
+        "Haunted Zone Mansion Area - Riolu": lambda state: can_beat_haunted_riolu(state, player, options),
 
         # Fast Travel
         # Fast Travel Meadow
@@ -3747,174 +4028,96 @@ def get_entrance_rules_dict(player: int, options: "PokeparkOptions"):
         ),
 
         # Each Zone
-        "Treehouse - Abra": lambda state: True,
-        "Haunted Zone Mansion Antic Area - Abra": lambda state: True,
+        "Treehouse - Abra": lambda state: can_beat_treehouse_abra(state, player, options),
+        "Haunted Zone Mansion Antic Area - Abra": lambda state: can_beat_haunted_abra(state, player, options),
 
-        "Meadow Zone Main Area - Spearow": lambda state: can_battle(state, player, options),
-        "Beach Zone Main Area - Spearow": lambda state: can_battle(state, player, options),
+        "Meadow Zone Main Area - Spearow": lambda state: can_beat_meadow_spearow(state, player, options),
+        "Beach Zone Main Area - Spearow": lambda state: can_beat_beach_spearow(state, player, options),
 
-        "Meadow Zone Main Area - Starly": lambda state: can_play_catch(state, player, options) and
-                                                        (state.has(
-                                                            "Starly Unlock", player
-                                                        ) or
-                                                         state.has(
-                                                             "Starly 2 Unlock", player
-                                                         )),
+        "Meadow Zone Main Area - Starly": lambda state: can_beat_meadow_starly(state, player, options),
 
-        "Beach Zone Main Area - Starly": lambda state: can_play_catch(state, player, options),
+        "Beach Zone Main Area - Starly": lambda state: can_beat_beach_starly(state, player, options),
 
-        "Ice Zone Main Area - Starly": lambda state: can_play_catch(state, player, options),
+        "Ice Zone Main Area - Starly": lambda state: can_beat_ice_starly(state, player, options),
 
-        "Meadow Zone Main Area - Bonsly": lambda state: state.has("Bonsly Unlock", player),
-        "Meadow Zone Main Area - Bonsly Unlocks": lambda state: state.has("Bonsly Unlock", player),
-        "Cavern Zone Main Area - Bonsly": lambda state: True,
-        "Cavern Zone Main Area - Bonsly Unlocks": lambda state: True,
-        "Magma Zone Main Area - Bonsly": lambda state: True,
+        "Meadow Zone Main Area - Bonsly": lambda state: can_beat_meadow_bonsly(state, player),
+        "Meadow Zone Main Area - Bonsly Unlocks": lambda state: can_beat_meadow_bonsly(state, player),
+        "Cavern Zone Main Area - Bonsly": lambda state: can_beat_cavern_bonsly(state, player),
+        "Cavern Zone Main Area - Bonsly Unlocks": lambda state: can_beat_cavern_bonsly(state, player),
+        "Magma Zone Main Area - Bonsly": lambda state: can_beat_magma_bonsly(state, player),
 
-        "Meadow Zone Main Area - Chimchar": lambda state: state.has("Chimchar Unlock", player) and can_battle(
-            state, player,
-            options
-        ),
-        "Cavern Zone Main Area - Chimchar": lambda state: can_battle(
-            state, player,
-            options
-        ),
-        "Magma Zone Main Area - Chimchar": lambda state: can_battle(
-            state, player,
-            options
-        ),
+        "Meadow Zone Main Area - Chimchar": lambda state: can_beat_meadow_chimchar(state, player, options),
+        "Cavern Zone Main Area - Chimchar": lambda state: can_beat_cavern_chimchar(state, player, options),
+        "Magma Zone Main Area - Chimchar": lambda state: can_beat_magma_chimchar(state, player, options),
 
-        "Meadow Zone Main Area - Sudowoodo": lambda state: state.has("Sudowoodo Unlock", player),
-        "Cavern Zone Main Area - Sudowoodo": lambda state: state.has("Sudowoodo Unlock", player),
+        "Meadow Zone Main Area - Sudowoodo": lambda state: can_beat_meadow_sudowoodo(state, player, options),
+        "Cavern Zone Main Area - Sudowoodo": lambda state: can_beat_cavern_sudowoodo(state, player, options),
 
-        "Meadow Zone Main Area - Aipom": lambda state: can_play_catch(state, player, options),
-        "Meadow Zone Main Area - Aipom Unlocks": lambda state: can_play_catch(state, player, options),
-        "Haunted Zone Main Area - Aipom": lambda state: can_play_catch(state, player, options),
-        "Haunted Zone Main Area - Aipom Unlocks": lambda state: can_play_catch(state, player, options),
+        "Meadow Zone Main Area - Aipom": lambda state: can_beat_meadow_aipom(state, player, options),
+        "Meadow Zone Main Area - Aipom Unlocks": lambda state: can_beat_meadow_aipom(state, player, options),
+        "Haunted Zone Main Area - Aipom": lambda state: can_beat_haunted_aipom(state, player, options),
+        "Haunted Zone Main Area - Aipom Unlocks": lambda state: can_beat_haunted_aipom(state, player, options),
 
-        "Meadow Zone Main Area - Ambipom": lambda state: can_battle(
-            state,
-            player,
-            options
-        ),
-        "Haunted Zone Main Area - Ambipom": lambda state: can_battle(
-            state,
-            player,
-            options
-        ),
+        "Meadow Zone Main Area - Ambipom": lambda state: can_beat_meadow_ambipom(state, player, options),
+        "Haunted Zone Main Area - Ambipom": lambda state: can_beat_haunted_ambipom(state, player, options),
 
-        "Beach Zone Main Area - Krabby": lambda state: state.has("Krabby Unlock", player) and can_play_catch(
-            state, player, options
-        ),
+        "Beach Zone Main Area - Krabby": lambda state: can_beat_beach_krabby(state, player, options),
+        "Ice Zone Main Area - Krabby": lambda state: can_beat_ice_krabby(state, player, options),
 
-        "Ice Zone Main Area - Krabby": lambda state: state.has("Krabby Unlock", player) and can_play_catch(
-            state, player, options
-        ),
+        "Beach Zone Main Area - Mudkip": lambda state: can_beat_beach_mudkip(state, player, options),
 
-        "Beach Zone Main Area - Mudkip": lambda state: state.has("Mudkip Unlock", player),
+        "Ice Zone Main Area - Mudkip": lambda state: can_beat_ice_mudkip(state, player, options),
 
-        "Ice Zone Main Area - Mudkip": lambda state: state.has("Mudkip Unlock", player),
+        "Beach Zone Main Area - Taillow": lambda state: can_beat_beach_taillow(state, player, options),
+        "Ice Zone Main Area - Taillow": lambda state: can_beat_ice_taillow(state, player, options),
+        "Granite Zone Main Area - Taillow": lambda state: can_beat_granite_taillow(state, player, options),
 
-        "Beach Zone Main Area - Taillow": lambda state: can_play_catch(
-            state, player, options
-        ),
-        "Ice Zone Main Area - Taillow": lambda state: can_play_catch(
-            state, player, options
-        ),
-        "Granite Zone Main Area - Taillow": lambda state: can_play_catch(
-            state, player, options
-        ),
+        "Beach Zone Main Area - Staravia": lambda state: can_beat_beach_staravia(state, player, options),
+        "Ice Zone Main Area - Staravia": lambda state: can_beat_ice_staravia(state, player, options),
 
-        "Beach Zone Main Area - Staravia": lambda state: can_battle(
-            state, player, options
-        ),
-        "Ice Zone Main Area - Staravia": lambda state: can_battle(
-            state, player, options
-        ),
+        "Beach Zone Main Area - Wingull": lambda state: can_beat_beach_wingull(state, player, options),
+        "Ice Zone Lower Lift Area - Wingull": lambda state: can_beat_ice_wingull(state, player, options),
 
-        "Beach Zone Main Area - Wingull": lambda state: can_play_catch(state, player, options),
-        "Ice Zone Lower Lift Area - Wingull": lambda state: can_play_catch(state, player, options),
+        "Beach Zone Main Area - Corphish": lambda state: can_beat_beach_corphish(state, player, options),
+        "Ice Zone Lower Lift Area - Corphish": lambda state: can_beat_ice_corphish(state, player, options),
 
-        "Beach Zone Main Area - Corphish": lambda state: state.has("Corphish Unlock", player) and can_battle(
-            state, player, options
-        ),
-        "Ice Zone Lower Lift Area - Corphish": lambda state: state.has("Corphish Unlock", player) and can_battle(
-            state, player, options
-        ),
+        "Ice Zone Main Area - Teddiursa": lambda state: can_beat_ice_teddiursa(state, player, options),
+        "Cavern Zone Main Area - Teddiursa": lambda state: can_beat_cavern_teddiursa(state, player, options),
+        "Flower Zone Main Area - Teddiursa": lambda state: can_beat_flower_teddiursa(state, player, options),
 
-        "Ice Zone Main Area - Teddiursa": lambda state: can_play_catch(state, player, options),
-        "Cavern Zone Main Area - Teddiursa": lambda state: True,
-        "Flower Zone Main Area - Teddiursa": lambda state: can_play_catch(state, player, options),
+        "Cavern Zone Main Area - Aron": lambda state: can_beat_cavern_aron(state, player, options),
+        "Magma Zone Main Area - Aron": lambda state: can_beat_magma_aron(state, player, options),
 
-        "Cavern Zone Main Area - Aron": lambda state: can_destroy_objects_overworld(state, player),
-        "Magma Zone Main Area - Aron": lambda state: can_dash_overworld(state, player),
+        "Cavern Zone Main Area - Torchic": lambda state: can_beat_cavern_torchic(state, player, options),
+        "Magma Zone Main Area - Torchic": lambda state: can_beat_magma_torchic(state, player, options),
 
-        "Cavern Zone Main Area - Torchic": lambda state: can_battle(
-            state, player, options
-        ),
-        "Magma Zone Main Area - Torchic": lambda state: can_battle(
-            state, player, options
-        ),
+        "Cavern Zone Main Area - Geodude": lambda state: can_beat_cavern_geodude(state, player, options),
+        "Magma Zone Main Area - Geodude": lambda state: can_beat_magma_geodude(state, player, options),
 
-        "Cavern Zone Main Area - Geodude": lambda state: True,
-        "Magma Zone Main Area - Geodude": lambda state: True,
+        "Cavern Zone Main Area - Raichu": lambda state: can_beat_cavern_raichu(state, player, options),
+        "Haunted Zone Main Area - Raichu": lambda state: can_beat_haunted_raichu(state, player, options),
 
-        "Cavern Zone Main Area - Raichu": lambda state: state.has(
-            "Raichu Unlock", player
-        ) and can_play_catch_intermediate(
-            state,
-            player, options
-        ),
-        "Haunted Zone Main Area - Raichu": lambda state: can_play_catch_intermediate(
-            state,
-            player, options
-        ),
+        "Cavern Zone Main Area - Meowth": lambda state: can_beat_cavern_meowth(state, player, options),
+        "Haunted Zone Main Area - Meowth": lambda state: can_beat_haunted_meowth(state, player, options),
 
-        "Cavern Zone Main Area - Meowth": lambda state: True,
-        "Haunted Zone Main Area - Meowth": lambda state: True,
+        "Cavern Zone Main Area - Marowak": lambda state: can_beat_cavern_marowak(state, player, options),
+        "Granite Zone Main Area - Marowak": lambda state: can_beat_granite_marowak(state, player, options),
 
-        "Cavern Zone Main Area - Marowak": lambda state: can_battle_intermediate(state, player, options),
-        "Granite Zone Main Area - Marowak": lambda state: can_battle_intermediate(state, player, options),
+        "Magma Zone Main Area - Baltoy": lambda state: can_beat_magma_baltoy(state, player, options),
+        "Magma Zone Main Area - Baltoy Unlocks": lambda state: can_beat_magma_baltoy(state, player, options),
+        "Granite Zone Main Area - Baltoy": lambda state: can_beat_granite_baltoy(state, player, options),
+        "Granite Zone Main Area - Baltoy Unlocks": lambda state: can_beat_granite_baltoy(state, player, options),
 
-        "Magma Zone Main Area - Baltoy": lambda state: state.has(
-            "Baltoy Unlock", player
-        ) and can_battle_thunderbolt_immune(
-            state, player, options
-        ),
-        "Magma Zone Main Area - Baltoy Unlocks": lambda state: state.has(
-            "Baltoy Unlock", player
-        ) and can_battle_thunderbolt_immune(
-            state, player, options
-        ),
-        "Granite Zone Main Area - Baltoy": lambda state: state.has(
-            "Baltoy Unlock", player
-        ) and can_battle_thunderbolt_immune(
-            state, player, options
-        ),
-        "Granite Zone Main Area - Baltoy Unlocks": lambda state: state.has(
-            "Baltoy Unlock", player
-        ) and can_battle_thunderbolt_immune(
-            state, player, options
-        ),
+        "Magma Zone Circle Area - Meditite": lambda state: can_beat_magma_meditite(state, player, options),
+        "Flower Zone Main Area - Meditite": lambda state: can_beat_flower_meditite(state, player, options),
 
-        "Magma Zone Circle Area - Meditite": lambda state: True,
-        "Flower Zone Main Area - Meditite": lambda state: True,
+        "Magma Zone Main Area - Claydol": lambda state: can_beat_magma_claydol(state, player, options),
+        "Granite Zone Main Area - Claydol": lambda state: can_beat_granite_claydol(state, player, options),
 
-        "Magma Zone Main Area - Claydol": lambda state: state.has(
-            "Claydol Unlock", player
-        ) and can_battle_thunderbolt_immune_intermediate(
-            state, player, options
-        ),
-        "Granite Zone Main Area - Claydol": lambda state: state.has(
-            "Claydol Unlock", player
-        ) and can_battle_thunderbolt_immune_intermediate(
-            state, player, options
-        ),
+        "Granite Zone Main Area - Drifloon": lambda state: can_beat_granite_drifloon(state, player, options),
 
-        "Granite Zone Main Area - Drifloon": lambda state: True,
-
-        "Granite Zone Main Area - Furret": lambda state: True,
-        "Flower Zone Main Area - Furret": lambda state: True,
+        "Granite Zone Main Area - Furret": lambda state: can_beat_granite_furret(state, player, options),
+        "Flower Zone Main Area - Furret": lambda state: can_beat_flower_furret(state, player, options),
 
     }
     return entrance_rules
