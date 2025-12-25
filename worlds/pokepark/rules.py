@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Callable
+from typing import Callable, TYPE_CHECKING
 
 from BaseClasses import CollectionState
 from ..generic.Rules import set_rule
@@ -116,7 +116,7 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     set_rule_if_exists(
         "Meadow Zone Main Area - Bulbasaur -- Friendship",
-        lambda state: state.has("Bulbasaur Prisma", player)
+        lambda state: state.has("Bulbasaur Prisma", player) and can_enter_attraction_via_bulbasaur()
     )
     set_rule_if_exists(
         "Meadow Zone Main Area - Buneary Power Competition -- Friendship",
@@ -453,7 +453,8 @@ def set_rules(world: "PokeparkWorld") -> None:
         "Meadow Zone Venusaur Area - Venusaur -- Friendship",
         lambda state: state.has("Venusaur Prisma", player) and
                       state.has("Empoleon Prisma", player) and
-                      state.has("Blaziken Prisma", player)
+                      state.has("Blaziken Prisma", player) and
+                      can_enter_attraction_via_venusaur()
     )
 
     # Venusaur's Vine Swing
@@ -674,12 +675,12 @@ def set_rules(world: "PokeparkWorld") -> None:
 
     set_rule_if_exists(
         "Beach Zone Main Area - Pelipper -- Friendship",
-        lambda state: state.has("Pelipper Prisma", player)
+        lambda state: state.has("Pelipper Prisma", player) and can_enter_attraction_via_pelipper()
     )
 
     set_rule_if_exists(
         "Beach Zone Recycle Area - Gyarados -- Friendship",
-        lambda state: state.has("Gyarados Prisma", player)
+        lambda state: state.has("Gyarados Prisma", player) and can_enter_attraction_via_gyarados()
     )
 
     # Pelipper's Circle Circuit Attraction
@@ -946,7 +947,7 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     set_rule_if_exists(
         "Ice Zone Empoleon Area - Empoleon -- Friendship",
-        lambda state: state.has("Empoleon Prisma", player)
+        lambda state: state.has("Empoleon Prisma", player) and can_enter_attraction_via_empoleon()
     )
 
     set_rule_if_exists(
@@ -1191,7 +1192,7 @@ def set_rules(world: "PokeparkWorld") -> None:
     set_rule_if_exists(
         "Cavern Zone Main Area - Bastiodon -- Friendship",
         lambda state: state.has("Bastiodon Prisma", player) and
-                      has_friendship_count(state, player, 50)
+                      can_enter_attraction_via_bastiodon(state, player)
     )
     # Bastiodon's Panel Crush
 
@@ -1273,7 +1274,7 @@ def set_rules(world: "PokeparkWorld") -> None:
         "Magma Zone Main Area - Camerupt Power Competition -- Friendship",
         lambda state: can_battle_thunderbolt_immune_intermediate(state, player, options)
     )
-    
+
     set_rule_if_exists(
         "Magma Zone Main Area - Magby Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options)
@@ -1369,7 +1370,7 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     set_rule_if_exists(
         "Magma Zone Circle Area - Rhyperior -- Friendship",
-        lambda state: state.has("Rhyperior Prisma", player)
+        lambda state: state.has("Rhyperior Prisma", player) and can_enter_attraction_via_rhyperior()
     )
     set_rule_if_exists(
         "Magma Zone Main Area - Baltoy Crate -- Baltoy Unlocked",
@@ -1627,7 +1628,7 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     set_rule_if_exists(
         "Haunted Zone Main Area - Tangrowth -- Friendship",
-        lambda state: state.has("Tangrowth Prisma", player)
+        lambda state: state.has("Tangrowth Prisma", player) and can_enter_attraction_via_tangrowth()
     )
     # Tangrowth's Swing-Along
     set_rule_if_exists(
@@ -1823,7 +1824,7 @@ def set_rules(world: "PokeparkWorld") -> None:
     set_rule_if_exists(
         "Haunted Zone Mansion Area - Dusknoir -- Friendship",
         lambda state: state.has("Dusknoir Prisma", player) and
-                      state.has("Dusknoir Unlock", player)
+                      can_enter_attraction_via_dusknoir(state, player)
     )
     set_rule_if_exists(
         "Haunted Zone Mansion Area - Sableye Power Competition -- Friendship",
@@ -2070,11 +2071,11 @@ def set_rules(world: "PokeparkWorld") -> None:
     set_rule_if_exists(
         "Granite Zone Salamence Area - Salamence -- Friendship",
         lambda state: state.has("Salamence Prisma", player) and
-                      has_friendship_count(state, player, 80)
+                      can_enter_attraction_via_salamence(state, player)
     )
     set_rule_if_exists(
         "Granite Zone Main Area - Absol -- Friendship",
-        lambda state: state.has("Absol Prisma", player)
+        lambda state: state.has("Absol Prisma", player) and can_enter_attraction_via_absol()
     )
     set_rule_if_exists(
         "Granite Zone Togekiss Area - Togekiss Power Competition -- Friendship",
@@ -2274,7 +2275,7 @@ def set_rules(world: "PokeparkWorld") -> None:
     set_rule_if_exists(
         "Flower Zone Main Area - Rayquaza -- Friendship",
         lambda state: state.has("Rayquaza Prisma", player) and
-                      state.has("Rayquaza Unlock", player)
+                      can_enter_attraction_via_rayquaza(state, player)
     )
 
     # Rayquaza's Balloon Panic
@@ -2412,6 +2413,7 @@ def set_rules(world: "PokeparkWorld") -> None:
 def has_friendship_count(state: CollectionState, player: int, count: int):
     return state.count_group("Friendship Items", player) >= count
 
+
 def can_beat_all_rayquaza_balloon_panic_records(state: CollectionState, player: int):
     return (
             state.has("Lucario Friendship", player) and
@@ -2442,23 +2444,23 @@ def can_beat_any_rayquaza_balloon_panic_record(state: CollectionState, player: i
         return state.has("Deoxys Friendship", player)
     else:
         return (
-            state.has("Lucario Friendship", player) or
-            state.has("Glaceon Friendship", player) or
-            state.has("Luxray Friendship", player) or
-            state.has("Mamoswine Friendship", player) or
-            state.has("Infernape Friendship", player) or
-            state.has("Floatzel Friendship", player) or
-            state.has("Rhyperior Friendship", player) or
-            state.has("Absol Friendship", player) or
-            state.has("Breloom Friendship", player) or
-            state.has("Mareep Friendship", player) or
-            state.has("Cyndaquil Friendship", player) or
-            state.has("Totodile Friendship", player) or
-            state.has("Chikorita Friendship", player) or
-            state.has("Mime Jr. Friendship", player) or
-            state.has("Deoxys Friendship", player)
+                state.has("Lucario Friendship", player) or
+                state.has("Glaceon Friendship", player) or
+                state.has("Luxray Friendship", player) or
+                state.has("Mamoswine Friendship", player) or
+                state.has("Infernape Friendship", player) or
+                state.has("Floatzel Friendship", player) or
+                state.has("Rhyperior Friendship", player) or
+                state.has("Absol Friendship", player) or
+                state.has("Breloom Friendship", player) or
+                state.has("Mareep Friendship", player) or
+                state.has("Cyndaquil Friendship", player) or
+                state.has("Totodile Friendship", player) or
+                state.has("Chikorita Friendship", player) or
+                state.has("Mime Jr. Friendship", player) or
+                state.has("Deoxys Friendship", player)
 
-    )
+        )
 
 
 def can_beat_all_salamence_sky_race_records(state: CollectionState, player: int):
@@ -2487,24 +2489,24 @@ def can_beat_any_salamence_sky_race_record(state: CollectionState, player: int, 
         return state.has("Pikachu Balloon", player)
     else:
         return (
-            state.has("Pikachu Balloon", player) or
-            state.has("Salamence Friendship", player) or
-            state.has("Charizard Friendship", player) or
-            state.has("Dragonite Friendship", player) or
-            state.has("Flygon Friendship", player) or
-            state.has("Aerodactyl Friendship", player) or
-            state.has("Staraptor Friendship", player) or
-            state.has("Honchkrow Friendship", player) or
-            state.has("Gliscor Friendship", player) or
-            state.has("Pidgeotto Friendship", player) or
-            state.has("Togekiss Friendship", player) or
-            state.has("Golbat Friendship", player) or
-            state.has("Taillow Friendship", player) or
-            state.has("Murkrow Friendship", player) or
-            state.has("Zubat Friendship", player) or
-            state.has("Latios Friendship", player)
+                state.has("Pikachu Balloon", player) or
+                state.has("Salamence Friendship", player) or
+                state.has("Charizard Friendship", player) or
+                state.has("Dragonite Friendship", player) or
+                state.has("Flygon Friendship", player) or
+                state.has("Aerodactyl Friendship", player) or
+                state.has("Staraptor Friendship", player) or
+                state.has("Honchkrow Friendship", player) or
+                state.has("Gliscor Friendship", player) or
+                state.has("Pidgeotto Friendship", player) or
+                state.has("Togekiss Friendship", player) or
+                state.has("Golbat Friendship", player) or
+                state.has("Taillow Friendship", player) or
+                state.has("Murkrow Friendship", player) or
+                state.has("Zubat Friendship", player) or
+                state.has("Latios Friendship", player)
 
-    )
+        )
 
 
 def can_beat_all_absol_hurdle_bounde_records(state: CollectionState, player: int):
@@ -2537,23 +2539,23 @@ def can_beat_any_absol_hurdle_bounde_record(state: CollectionState, player: int,
         return True
     else:
         return (
-            state.has("Chikorita Friendship", player) or
-            state.has("Absol Friendship", player) or
-            state.has("Lucario Friendship", player) or
-            state.has("Ponyta Friendship", player) or
-            state.has("Ninetales Friendship", player) or
-            state.has("Lopunny Friendship", player) or
-            state.has("Espeon Friendship", player) or
-            state.has("Infernape Friendship", player) or
-            state.has("Breloom Friendship", player) or
-            state.has("Riolu Friendship", player) or
-            state.has("Furret Friendship", player) or
-            state.has("Mareep Friendship", player) or
-            state.has("Eevee Friendship", player) or
-            state.has("Vulpix Friendship", player) or
-            state.has("Shaymin Friendship", player)
+                state.has("Chikorita Friendship", player) or
+                state.has("Absol Friendship", player) or
+                state.has("Lucario Friendship", player) or
+                state.has("Ponyta Friendship", player) or
+                state.has("Ninetales Friendship", player) or
+                state.has("Lopunny Friendship", player) or
+                state.has("Espeon Friendship", player) or
+                state.has("Infernape Friendship", player) or
+                state.has("Breloom Friendship", player) or
+                state.has("Riolu Friendship", player) or
+                state.has("Furret Friendship", player) or
+                state.has("Mareep Friendship", player) or
+                state.has("Eevee Friendship", player) or
+                state.has("Vulpix Friendship", player) or
+                state.has("Shaymin Friendship", player)
 
-    )
+        )
 
 
 def can_beat_all_rotom_spooky_shoot_records(state: CollectionState, player: int):
@@ -2586,22 +2588,22 @@ def can_beat_any_rotom_spooky_shoot_record(state: CollectionState, player: int, 
 
     else:
         return (
-            state.has("Magnemite Friendship", player) or
-            state.has("Porygon-Z Friendship", player) or
-            state.has("Magnezone Friendship", player) or
-            state.has("Gengar Friendship", player) or
-            state.has("Magmortar Friendship", player) or
-            state.has("Electivire Friendship", player) or
-            state.has("Mismagius Friendship", player) or
-            state.has("Claydol Friendship", player) or
-            state.has("Electabuzz Friendship", player) or
-            state.has("Abra Friendship", player) or
-            state.has("Elekid Friendship", player) or
-            state.has("Mr. Mime Friendship", player) or
-            state.has("Baltoy Friendship", player) or
-            state.has("Rotom Friendship", player)
+                state.has("Magnemite Friendship", player) or
+                state.has("Porygon-Z Friendship", player) or
+                state.has("Magnezone Friendship", player) or
+                state.has("Gengar Friendship", player) or
+                state.has("Magmortar Friendship", player) or
+                state.has("Electivire Friendship", player) or
+                state.has("Mismagius Friendship", player) or
+                state.has("Claydol Friendship", player) or
+                state.has("Electabuzz Friendship", player) or
+                state.has("Abra Friendship", player) or
+                state.has("Elekid Friendship", player) or
+                state.has("Mr. Mime Friendship", player) or
+                state.has("Baltoy Friendship", player) or
+                state.has("Rotom Friendship", player)
 
-    )
+        )
 
 
 def can_beat_all_dusknoir_speed_slam_records(state: CollectionState, player: int):
@@ -2633,23 +2635,23 @@ def can_beat_any_dusknoir_speed_slam_record(state: CollectionState, player: int,
         return True
     else:
         return (
-            state.has("Stunky Friendship", player) or
-            state.has("Gengar Friendship", player) or
-            state.has("Mismagius Friendship", player) or
-            state.has("Scizor Friendship", player) or
-            state.has("Espeon Friendship", player) or
-            state.has("Dusknoir Friendship", player) or
-            state.has("Umbreon Friendship", player) or
-            state.has("Cranidos Friendship", player) or
-            state.has("Skuntank Friendship", player) or
-            state.has("Voltorb Friendship", player) or
-            state.has("Gastly Friendship", player) or
-            state.has("Duskull Friendship", player) or
-            state.has("Misdreavus Friendship", player) or
-            state.has("Krabby Friendship", player) or
-            state.has("Darkrai Friendship", player)
+                state.has("Stunky Friendship", player) or
+                state.has("Gengar Friendship", player) or
+                state.has("Mismagius Friendship", player) or
+                state.has("Scizor Friendship", player) or
+                state.has("Espeon Friendship", player) or
+                state.has("Dusknoir Friendship", player) or
+                state.has("Umbreon Friendship", player) or
+                state.has("Cranidos Friendship", player) or
+                state.has("Skuntank Friendship", player) or
+                state.has("Voltorb Friendship", player) or
+                state.has("Gastly Friendship", player) or
+                state.has("Duskull Friendship", player) or
+                state.has("Misdreavus Friendship", player) or
+                state.has("Krabby Friendship", player) or
+                state.has("Darkrai Friendship", player)
 
-    )
+        )
 
 
 def can_beat_all_tangrowth_swing_along_records(state: CollectionState, player: int):
@@ -2681,22 +2683,22 @@ def can_beat_any_tangrowth_swing_along_record(state: CollectionState, player: in
         return True
     else:
         return (
-            state.has("Meowth Friendship", player) or
-            state.has("Pichu Friendship", player) or
-            state.has("Lucario Friendship", player) or
-            state.has("Infernape Friendship", player) or
-            state.has("Blaziken Friendship", player) or
-            state.has("Riolu Friendship", player) or
-            state.has("Sneasel Friendship", player) or
-            state.has("Raichu Friendship", player) or
-            state.has("Ambipom Friendship", player) or
-            state.has("Primeape Friendship", player) or
-            state.has("Aipom Friendship", player) or
-            state.has("Electabuzz Friendship", player) or
-            state.has("Chimchar Friendship", player) or
-            state.has("Croagunk Friendship", player) or
-            state.has("Celebi Friendship", player)
-    )
+                state.has("Meowth Friendship", player) or
+                state.has("Pichu Friendship", player) or
+                state.has("Lucario Friendship", player) or
+                state.has("Infernape Friendship", player) or
+                state.has("Blaziken Friendship", player) or
+                state.has("Riolu Friendship", player) or
+                state.has("Sneasel Friendship", player) or
+                state.has("Raichu Friendship", player) or
+                state.has("Ambipom Friendship", player) or
+                state.has("Primeape Friendship", player) or
+                state.has("Aipom Friendship", player) or
+                state.has("Electabuzz Friendship", player) or
+                state.has("Chimchar Friendship", player) or
+                state.has("Croagunk Friendship", player) or
+                state.has("Celebi Friendship", player)
+        )
 
 
 def can_beat_all_blaziken_boulder_bash_records(state: CollectionState, player: int):
@@ -2728,22 +2730,22 @@ def can_beat_any_blaziken_boulder_bash_record(state: CollectionState, player: in
         return True
     else:
         return (
-            state.has("Geodude Friendship", player) or
-            state.has("Phanpy Friendship", player) or
-            state.has("Blaziken Friendship", player) or
-            state.has("Garchomp Friendship", player) or
-            state.has("Scizor Friendship", player) or
-            state.has("Magmortar Friendship", player) or
-            state.has("Hitmonchan Friendship", player) or
-            state.has("Machamp Friendship", player) or
-            state.has("Marowak Friendship", player) or
-            state.has("Farfetch'd Friendship", player) or
-            state.has("Cranidos Friendship", player) or
-            state.has("Camerupt Friendship", player) or
-            state.has("Bastiodon Friendship", player) or
-            state.has("Mawile Friendship", player) or
-            state.has("Groudon Friendship", player)
-    )
+                state.has("Geodude Friendship", player) or
+                state.has("Phanpy Friendship", player) or
+                state.has("Blaziken Friendship", player) or
+                state.has("Garchomp Friendship", player) or
+                state.has("Scizor Friendship", player) or
+                state.has("Magmortar Friendship", player) or
+                state.has("Hitmonchan Friendship", player) or
+                state.has("Machamp Friendship", player) or
+                state.has("Marowak Friendship", player) or
+                state.has("Farfetch'd Friendship", player) or
+                state.has("Cranidos Friendship", player) or
+                state.has("Camerupt Friendship", player) or
+                state.has("Bastiodon Friendship", player) or
+                state.has("Mawile Friendship", player) or
+                state.has("Groudon Friendship", player)
+        )
 
 
 def can_beat_all_rhyperior_bumper_burn_records(state: CollectionState, player: int):
@@ -2775,22 +2777,22 @@ def can_beat_any_rhyperior_bumper_burn_record(state: CollectionState, player: in
         return True
     else:
         return (
-            state.has("Magnemite Friendship", player) or
-            state.has("Rhyperior Friendship", player) or
-            state.has("Tyranitar Friendship", player) or
-            state.has("Hitmontop Friendship", player) or
-            state.has("Flareon Friendship", player) or
-            state.has("Venusaur Friendship", player) or
-            state.has("Snorlax Friendship", player) or
-            state.has("Torterra Friendship", player) or
-            state.has("Magnezone Friendship", player) or
-            state.has("Claydol Friendship", player) or
-            state.has("Quilava Friendship", player) or
-            state.has("Torkoal Friendship", player) or
-            state.has("Baltoy Friendship", player) or
-            state.has("Bonsly Friendship", player) or
-            state.has("Heatran Friendship", player)
-    )
+                state.has("Magnemite Friendship", player) or
+                state.has("Rhyperior Friendship", player) or
+                state.has("Tyranitar Friendship", player) or
+                state.has("Hitmontop Friendship", player) or
+                state.has("Flareon Friendship", player) or
+                state.has("Venusaur Friendship", player) or
+                state.has("Snorlax Friendship", player) or
+                state.has("Torterra Friendship", player) or
+                state.has("Magnezone Friendship", player) or
+                state.has("Claydol Friendship", player) or
+                state.has("Quilava Friendship", player) or
+                state.has("Torkoal Friendship", player) or
+                state.has("Baltoy Friendship", player) or
+                state.has("Bonsly Friendship", player) or
+                state.has("Heatran Friendship", player)
+        )
 
 
 def can_beat_all_bastiodon_panel_crush_records(state: CollectionState, player: int):
@@ -2822,22 +2824,22 @@ def can_beat_any_bastiodon_panel_crush_record(state: CollectionState, player: in
         return True
     else:
         return (
-            state.has("Sableye Friendship", player) or
-            state.has("Meowth Friendship", player) or
-            state.has("Torchic Friendship", player) or
-            state.has("Electivire Friendship", player) or
-            state.has("Magmortar Friendship", player) or
-            state.has("Hitmonlee Friendship", player) or
-            state.has("Ursaring Friendship", player) or
-            state.has("Mr. Mime Friendship", player) or
-            state.has("Raichu Friendship", player) or
-            state.has("Sudowoodo Friendship", player) or
-            state.has("Charmander Friendship", player) or
-            state.has("Gible Friendship", player) or
-            state.has("Chimchar Friendship", player) or
-            state.has("Magby Friendship", player) or
-            state.has("Metagross Friendship", player)
-    )
+                state.has("Sableye Friendship", player) or
+                state.has("Meowth Friendship", player) or
+                state.has("Torchic Friendship", player) or
+                state.has("Electivire Friendship", player) or
+                state.has("Magmortar Friendship", player) or
+                state.has("Hitmonlee Friendship", player) or
+                state.has("Ursaring Friendship", player) or
+                state.has("Mr. Mime Friendship", player) or
+                state.has("Raichu Friendship", player) or
+                state.has("Sudowoodo Friendship", player) or
+                state.has("Charmander Friendship", player) or
+                state.has("Gible Friendship", player) or
+                state.has("Chimchar Friendship", player) or
+                state.has("Magby Friendship", player) or
+                state.has("Metagross Friendship", player)
+        )
 
 
 def can_beat_all_empoleon_snow_slide_records(state: CollectionState, player: int):
@@ -2865,21 +2867,21 @@ def can_beat_any_empoleon_snow_slide_record(state: CollectionState, player: int,
     else:
         return (
                 state.has("Pikachu Snowboard", player) or
-            state.has("Teddiursa Friendship", player) or
-            state.has("Magikarp Friendship", player) or
-            state.has("Empoleon Friendship", player) or
-            state.has("Glaceon Friendship", player) or
-            state.has("Blastoise Friendship", player) or
-            state.has("Glalie Friendship", player) or
-            state.has("Delibird Friendship", player) or
-            state.has("Piloswine Friendship", player) or
-            state.has("Prinplup Friendship", player) or
-            state.has("Squirtle Friendship", player) or
-            state.has("Piplup Friendship", player) or
-            state.has("Quagsire Friendship", player) or
-            state.has("Spheal Friendship", player) or
-            state.has("Suicune Friendship", player)
-    )
+                state.has("Teddiursa Friendship", player) or
+                state.has("Magikarp Friendship", player) or
+                state.has("Empoleon Friendship", player) or
+                state.has("Glaceon Friendship", player) or
+                state.has("Blastoise Friendship", player) or
+                state.has("Glalie Friendship", player) or
+                state.has("Delibird Friendship", player) or
+                state.has("Piloswine Friendship", player) or
+                state.has("Prinplup Friendship", player) or
+                state.has("Squirtle Friendship", player) or
+                state.has("Piplup Friendship", player) or
+                state.has("Quagsire Friendship", player) or
+                state.has("Spheal Friendship", player) or
+                state.has("Suicune Friendship", player)
+        )
 
 
 def can_beat_all_gyarados_aqua_dash_records(state: CollectionState, player: int):
@@ -2912,23 +2914,23 @@ def can_beat_any_gyarados_aqua_dash_record(state: CollectionState, player: int, 
         return state.has("Pikachu Surfboard", player)
     else:
         return (
-            state.has("Pikachu Surfboard", player) or
-            state.has("Psyduck Friendship", player) or
-            state.has("Azurill Friendship", player) or
-            state.has("Slowpoke Friendship", player) or
-            state.has("Empoleon Friendship", player) or
-            state.has("Floatzel Friendship", player) or
-            state.has("Feraligatr Friendship", player) or
-            state.has("Golduck Friendship", player) or
-            state.has("Vaporeon Friendship", player) or
-            state.has("Prinplup Friendship", player) or
-            state.has("Bibarel Friendship", player) or
-            state.has("Buizel Friendship", player) or
-            state.has("Corsola Friendship", player) or
-            state.has("Piplup Friendship", player) or
-            state.has("Lotad Friendship", player) or
-            state.has("Manaphy Friendship", player)
-    )
+                state.has("Pikachu Surfboard", player) or
+                state.has("Psyduck Friendship", player) or
+                state.has("Azurill Friendship", player) or
+                state.has("Slowpoke Friendship", player) or
+                state.has("Empoleon Friendship", player) or
+                state.has("Floatzel Friendship", player) or
+                state.has("Feraligatr Friendship", player) or
+                state.has("Golduck Friendship", player) or
+                state.has("Vaporeon Friendship", player) or
+                state.has("Prinplup Friendship", player) or
+                state.has("Bibarel Friendship", player) or
+                state.has("Buizel Friendship", player) or
+                state.has("Corsola Friendship", player) or
+                state.has("Piplup Friendship", player) or
+                state.has("Lotad Friendship", player) or
+                state.has("Manaphy Friendship", player)
+        )
 
 
 def can_beat_all_pelipper_circle_circuit_records(state: CollectionState, player: int):
@@ -2955,23 +2957,23 @@ def can_beat_any_pelipper_circle_circuit_record(state: CollectionState, player: 
         return state.has("Pikachu Balloon", player)
     else:
         return (
-            state.has("Pikachu Balloon", player) or
-            state.has("Staraptor Friendship", player) or
-            state.has("Togekiss Friendship", player) or
-            state.has("Honchkrow Friendship", player) or
-            state.has("Gliscor Friendship", player) or
-            state.has("Pelipper Friendship", player) or
-            state.has("Staravia Friendship", player) or
-            state.has("Pidgeotto Friendship", player) or
-            state.has("Butterfree Friendship", player) or
-            state.has("Tropius Friendship", player) or
-            state.has("Murkrow Friendship", player) or
-            state.has("Taillow Friendship", player) or
-            state.has("Spearow Friendship", player) or
-            state.has("Starly Friendship", player) or
-            state.has("Wingull Friendship", player) or
-            state.has("Latias Friendship", player)
-    )
+                state.has("Pikachu Balloon", player) or
+                state.has("Staraptor Friendship", player) or
+                state.has("Togekiss Friendship", player) or
+                state.has("Honchkrow Friendship", player) or
+                state.has("Gliscor Friendship", player) or
+                state.has("Pelipper Friendship", player) or
+                state.has("Staravia Friendship", player) or
+                state.has("Pidgeotto Friendship", player) or
+                state.has("Butterfree Friendship", player) or
+                state.has("Tropius Friendship", player) or
+                state.has("Murkrow Friendship", player) or
+                state.has("Taillow Friendship", player) or
+                state.has("Spearow Friendship", player) or
+                state.has("Starly Friendship", player) or
+                state.has("Wingull Friendship", player) or
+                state.has("Latias Friendship", player)
+        )
 
 
 def can_beat_all_venusaur_vine_swing_records(state: CollectionState, player: int):
@@ -3003,22 +3005,22 @@ def can_beat_any_venusaur_vine_swing_record(state: CollectionState, player: int,
         return True
     else:
         return (
-            state.has("Munchlax Friendship", player) or
-            state.has("Magikarp Friendship", player) or
-            state.has("Blaziken Friendship", player) or
-            state.has("Infernape Friendship", player) or
-            state.has("Lucario Friendship", player) or
-            state.has("Primeape Friendship", player) or
-            state.has("Tangrowth Friendship", player) or
-            state.has("Ambipom Friendship", player) or
-            state.has("Croagunk Friendship", player) or
-            state.has("Mankey Friendship", player) or
-            state.has("Aipom Friendship", player) or
-            state.has("Chimchar Friendship", player) or
-            state.has("Treecko Friendship", player) or
-            state.has("Pachirisu Friendship", player) or
-            state.has("Jirachi Friendship", player)
-    )
+                state.has("Munchlax Friendship", player) or
+                state.has("Magikarp Friendship", player) or
+                state.has("Blaziken Friendship", player) or
+                state.has("Infernape Friendship", player) or
+                state.has("Lucario Friendship", player) or
+                state.has("Primeape Friendship", player) or
+                state.has("Tangrowth Friendship", player) or
+                state.has("Ambipom Friendship", player) or
+                state.has("Croagunk Friendship", player) or
+                state.has("Mankey Friendship", player) or
+                state.has("Aipom Friendship", player) or
+                state.has("Chimchar Friendship", player) or
+                state.has("Treecko Friendship", player) or
+                state.has("Pachirisu Friendship", player) or
+                state.has("Jirachi Friendship", player)
+        )
 
 
 def can_beat_any_bulbasaur_daring_dash_record(state: CollectionState, player: int, options: "PokeparkOptions"):
@@ -3031,32 +3033,32 @@ def can_beat_any_bulbasaur_daring_dash_record(state: CollectionState, player: in
         return True
     else:
         return (
-            state.has("Turtwig Friendship", player) or
-            state.has("Munchlax Friendship", player) or
-            state.has("Chimchar Friendship", player) or
-            state.has("Treecko Friendship", player) or
-            state.has("Bibarel Friendship", player) or
-            state.has("Bulbasaur Friendship", player) or
-            state.has("Bidoof Friendship", player) or
-            state.has("Oddish Friendship", player) or
-            state.has("Shroomish Friendship", player) or
-            state.has("Bonsly Friendship", player) or
-            state.has("Lotad Friendship", player) or
-            state.has("Weedle Friendship", player) or
-            state.has("Caterpie Friendship", player) or
-            state.has("Magikarp Friendship", player) or
-            state.has("Jolteon Friendship", player) or
-            state.has("Arcanine Friendship", player) or
-            state.has("Leafeon Friendship", player) or
-            state.has("Scyther Friendship", player) or
-            state.has("Ponyta Friendship", player) or
-            state.has("Shinx Friendship", player) or
-            state.has("Eevee Friendship", player) or
-            state.has("Pachirisu Friendship", player) or
-            state.has("Buneary Friendship", player) or
-            state.has("Croagunk Friendship", player) or
-            state.has("Mew Friendship", player)
-    )
+                state.has("Turtwig Friendship", player) or
+                state.has("Munchlax Friendship", player) or
+                state.has("Chimchar Friendship", player) or
+                state.has("Treecko Friendship", player) or
+                state.has("Bibarel Friendship", player) or
+                state.has("Bulbasaur Friendship", player) or
+                state.has("Bidoof Friendship", player) or
+                state.has("Oddish Friendship", player) or
+                state.has("Shroomish Friendship", player) or
+                state.has("Bonsly Friendship", player) or
+                state.has("Lotad Friendship", player) or
+                state.has("Weedle Friendship", player) or
+                state.has("Caterpie Friendship", player) or
+                state.has("Magikarp Friendship", player) or
+                state.has("Jolteon Friendship", player) or
+                state.has("Arcanine Friendship", player) or
+                state.has("Leafeon Friendship", player) or
+                state.has("Scyther Friendship", player) or
+                state.has("Ponyta Friendship", player) or
+                state.has("Shinx Friendship", player) or
+                state.has("Eevee Friendship", player) or
+                state.has("Pachirisu Friendship", player) or
+                state.has("Buneary Friendship", player) or
+                state.has("Croagunk Friendship", player) or
+                state.has("Mew Friendship", player)
+        )
 
 
 def can_battle(state: CollectionState, player: int, options: "PokeparkOptions"):
@@ -3068,10 +3070,10 @@ def can_battle(state: CollectionState, player: int, options: "PokeparkOptions"):
     if options.harder_enemy_ai.value:
         return (state.has("Progressive Health", player) and
                 state.has_any_count(
-            {
-             "Progressive Iron Tail": 1,
-             "Progressive Thunderbolt": 1
-             }, player
+                    {
+                        "Progressive Iron Tail": 1,
+                        "Progressive Thunderbolt": 1
+                    }, player
                 ))
     return state.has_any_count(
         {
@@ -3099,19 +3101,18 @@ def can_battle_intermediate(state: CollectionState, player: int, options: "Pokep
     if options.harder_enemy_ai.value:
         return (state.has("Progressive Health", player, 2) and
                 state.has_any_count(
-            {
-             "Progressive Iron Tail": 2,
-             "Progressive Thunderbolt": 2
-             }, player
+                    {
+                        "Progressive Iron Tail": 2,
+                        "Progressive Thunderbolt": 2
+                    }, player
                 ))
     return (state.has("Progressive Health", player, 2) and
             state.has_any_count(
-        {
-         "Progressive Iron Tail": 1,
-         "Progressive Thunderbolt": 1
-         }, player
+                {
+                    "Progressive Iron Tail": 1,
+                    "Progressive Thunderbolt": 1
+                }, player
             ))
-
 
 
 def can_battle_advanced(state: CollectionState, player: int, options: "PokeparkOptions"):
@@ -3123,17 +3124,17 @@ def can_battle_advanced(state: CollectionState, player: int, options: "PokeparkO
     if options.harder_enemy_ai.value:
         return (state.has("Progressive Health", player, 3) and
                 state.has_any_count(
-            {
-             "Progressive Iron Tail": 3,
-             "Progressive Thunderbolt": 3
-             }, player
+                    {
+                        "Progressive Iron Tail": 3,
+                        "Progressive Thunderbolt": 3
+                    }, player
                 ))
     return (state.has("Progressive Health", player, 3) and
             state.has_any_count(
-        {
-         "Progressive Iron Tail": 2,
-         "Progressive Thunderbolt": 2
-         }, player
+                {
+                    "Progressive Iron Tail": 2,
+                    "Progressive Thunderbolt": 2
+                }, player
             ))
 
 
@@ -3146,13 +3147,13 @@ def can_battle_thunderbolt_immune(state: CollectionState, player: int, options: 
     if options.harder_enemy_ai.value:
         return (state.has("Progressive Health", player) and
                 state.has_any_count(
-            {"Progressive Dash": 2,
-             "Progressive Iron Tail": 1}, player
+                    {"Progressive Dash": 2,
+                     "Progressive Iron Tail": 1}, player
                 ))
     return (state.has("Progressive Health", player) and
             state.has_any_count(
-        {"Progressive Dash": 1,
-         "Progressive Iron Tail": 1}, player
+                {"Progressive Dash": 1,
+                 "Progressive Iron Tail": 1}, player
             ))
 
 
@@ -3161,6 +3162,7 @@ def can_battle_thunderbolt_immune_glitched(state: CollectionState, player: int):
         {"Progressive Dash": 1,
          "Progressive Iron Tail": 1}, player
     )
+
 
 def can_battle_thunderbolt_immune_intermediate(state: CollectionState, player: int, options: "PokeparkOptions"):
     # UT glitched logic
@@ -3171,13 +3173,13 @@ def can_battle_thunderbolt_immune_intermediate(state: CollectionState, player: i
     if options.harder_enemy_ai.value:
         return (state.has("Progressive Health", player, 2) and
                 state.has_any_count(
-            {"Progressive Dash": 3,
-             "Progressive Iron Tail": 2}, player
+                    {"Progressive Dash": 3,
+                     "Progressive Iron Tail": 2}, player
                 ))
     return (state.has("Progressive Health", player, 2) and
             state.has_any_count(
-        {"Progressive Dash": 2,
-         "Progressive Iron Tail": 1}, player
+                {"Progressive Dash": 2,
+                 "Progressive Iron Tail": 1}, player
             ))
 
 
@@ -3190,14 +3192,15 @@ def can_battle_thunderbolt_immune_advanced(state: CollectionState, player: int, 
     if options.harder_enemy_ai.value:
         return (state.has("Progressive Health", player, 3) and
                 state.has_any_count(
-            {"Progressive Dash": 4,
-             "Progressive Iron Tail": 3}, player
+                    {"Progressive Dash": 4,
+                     "Progressive Iron Tail": 3}, player
                 ))
     return (state.has("Progressive Health", player, 3) and
             state.has_any_count(
-        {"Progressive Dash": 3,
-         "Progressive Iron Tail": 2}, player
+                {"Progressive Dash": 3,
+                 "Progressive Iron Tail": 2}, player
             ))
+
 
 def can_farm_berries(state: CollectionState, player: int):
     # UT glitched logic
@@ -3289,6 +3292,7 @@ def can_befriend_delibird(state: CollectionState, player: int, options: "Pokepar
     if options.remove_errand_power_comp_locations.value:
         return state.has("Delibird Unlock", player)
     return can_clear_christmas_tree_stage4(state, player)
+
 
 def can_clear_mew_power_competition_stage1(state: CollectionState, player: int):
     return True
@@ -3631,6 +3635,73 @@ def can_beat_haunted_riolu(state: CollectionState, player: int, options: "Pokepa
     return can_battle_intermediate(
         state, player, options
     )
+
+
+def can_enter_attraction_via_bulbasaur():
+    return True
+
+
+def can_enter_attraction_via_venusaur():
+    return True
+
+
+def can_enter_attraction_via_pelipper():
+    return True
+
+
+def can_enter_attraction_via_gyarados():
+    return True
+
+
+def can_enter_attraction_via_empoleon():
+    return True
+
+
+def can_enter_attraction_via_bastiodon(state: CollectionState, player: int):
+    return has_friendship_count(
+        state,
+        player, 50
+    )
+
+
+def can_enter_attraction_via_rhyperior():
+    return True
+
+
+def can_enter_attraction_via_blaziken():
+    return True
+
+
+def can_enter_attraction_via_tangrowth():
+    return True
+
+
+def can_enter_attraction_via_dusknoir(state: CollectionState, player: int):
+    return state.has("Dusknoir Unlock", player)
+
+
+def can_enter_attraction_via_rotom(state: CollectionState, player: int):
+    return has_friendship_count(
+        state,
+        player, 65
+    )
+
+
+def can_enter_attraction_via_absol():
+    return True
+
+
+def can_enter_attraction_via_salamence(state: CollectionState, player: int):
+    return has_friendship_count(
+        state,
+        player, 80
+    )
+
+
+def can_enter_attraction_via_rayquaza(state: CollectionState, player: int):
+    return state.has("Rayquaza Unlock", player)
+
+
 def get_entrance_rules_dict(player: int, options: "PokeparkOptions"):
     entrance_rules: dict[str, Callable[[CollectionState], bool]] = {
         "Meadow Zone Main Area - Pokepark Entrance Gate": lambda state: True,
@@ -3639,10 +3710,10 @@ def get_entrance_rules_dict(player: int, options: "PokeparkOptions"):
         "Meadow Zone Main Area - Venusaur Gate": lambda state: state.has("Bulbasaur Prisma", player),
         "Meadow Zone Venusaur Area - Meadow Zone Main Gate": lambda state: True,
 
-        "Meadow Zone Main Area - Bulbasaur Attraction": lambda state: True,
+        "Meadow Zone Main Area - Bulbasaur Attraction": lambda state: can_enter_attraction_via_bulbasaur(),
         "Bulbasaur's Daring Dash Attraction - Attraction Menu": lambda state: True,
 
-        "Meadow Zone Venusaur Area - Venusaur Attraction": lambda state: True,
+        "Meadow Zone Venusaur Area - Venusaur Attraction": lambda state: can_enter_attraction_via_venusaur(),
         "Venusaur's Vine Swing Attraction - Attraction Menu": lambda state: True,
 
         # Treehouse
@@ -3679,10 +3750,10 @@ def get_entrance_rules_dict(player: int, options: "PokeparkOptions"):
         "Beach Zone Lapras Area - Main Area Rock": lambda state: state.has("Gyarados Prisma", player),
 
         # Beach Zone Attractions
-        "Beach Zone Main Area - Pelipper Attraction": lambda state: True,
+        "Beach Zone Main Area - Pelipper Attraction": lambda state: can_enter_attraction_via_pelipper(),
         "Pelipper's Circle Circuit Attraction - Attraction Menu": lambda state: True,
 
-        "Beach Zone Recycle Area - Gyarados Attraction": lambda state: True,
+        "Beach Zone Recycle Area - Gyarados Attraction": lambda state: can_enter_attraction_via_gyarados(),
         "Gyarados' Aqua Dash Attraction - Attraction Menu": lambda state: True,
 
         # Ice Zone
@@ -3698,14 +3769,11 @@ def get_entrance_rules_dict(player: int, options: "PokeparkOptions"):
         "Ice Zone Lower Lift Area - Lower Lift": lambda state: state.has("Ice Zone Lift Unlock", player),
 
         # Ice Zone Attractions
-        "Ice Zone Empoleon Area - Empoleon Attraction": lambda state: True,
+        "Ice Zone Empoleon Area - Empoleon Attraction": lambda state: can_enter_attraction_via_empoleon(),
         "Empoleon's Snow Slide Attraction - Attraction Menu": lambda state: True,
 
         # Cavern Zone Attractions
-        "Cavern Zone Main Area - Bastiodon Attraction": lambda state: has_friendship_count(
-            state,
-            player, 50
-        ),
+        "Cavern Zone Main Area - Bastiodon Attraction": lambda state: can_enter_attraction_via_bastiodon(state, player),
         "Bastiodon's Panel Crush Attraction - Attraction Menu": lambda state: True,
 
         # Magma Zone
@@ -3721,10 +3789,10 @@ def get_entrance_rules_dict(player: int, options: "PokeparkOptions"):
         "Magma Zone Blaziken Area - Main Area Gate": lambda state: True,
 
         # Magma Zone Attractions
-        "Magma Zone Circle Area - Rhyperior Attraction": lambda state: True,
+        "Magma Zone Circle Area - Rhyperior Attraction": lambda state: can_enter_attraction_via_rhyperior(),
         "Rhyperior's Bumper Burn Attraction - Attraction Menu": lambda state: True,
 
-        "Magma Zone Blaziken Area - Blaziken Attraction": lambda state: True,
+        "Magma Zone Blaziken Area - Blaziken Attraction": lambda state: can_enter_attraction_via_blaziken(),
         "Blaziken's Boulder Bash Attraction - Attraction Menu": lambda state: True,
 
         # Haunted Zone
@@ -3775,25 +3843,24 @@ def get_entrance_rules_dict(player: int, options: "PokeparkOptions"):
         "Haunted Zone Rotom Area - Bookshelf Area Connection": lambda state: True,
 
         # Haunted Zone Attractions
-        "Haunted Zone Main Area - Tangrowth Attraction": lambda state: True,
+        "Haunted Zone Main Area - Tangrowth Attraction": lambda state: can_enter_attraction_via_tangrowth(),
         "Tangrowth's Swing-Along Attraction - Attraction Menu": lambda state: True,
 
-        "Haunted Zone Mansion Area - Dusknoir Attraction": lambda state: state.has("Dusknoir Unlock", player),
+        "Haunted Zone Mansion Area - Dusknoir Attraction": lambda state: can_enter_attraction_via_dusknoir(
+            state,
+            player
+        ),
         "Dusknoir's Speed Slam Attraction - Attraction Menu": lambda state: True,
 
-        "Haunted Zone Rotom Area - Rotom Attraction": lambda state: has_friendship_count(
-            state,
-            player, 65
-        ),
+        "Haunted Zone Rotom Area - Rotom Attraction": lambda state: can_enter_attraction_via_rotom(state, player),
         "Rotom's Spooky Shoot-'em-Up Attraction - Attraction Menu": lambda state: True,
 
         # Granite Zone Attractions
-        "Granite Zone Main Area - Absol Attraction": lambda state: True,
+        "Granite Zone Main Area - Absol Attraction": lambda state: can_enter_attraction_via_absol(),
         "Absol's Hurdle Bounce Attraction - Attraction Menu": lambda state: True,
 
-        "Granite Zone Main Area - Salamence Attraction": lambda state: has_friendship_count(
-            state,
-            player, 80
+        "Granite Zone Main Area - Salamence Attraction": lambda state: can_enter_attraction_via_salamence(
+            state, player
         ),
         "Salamence's Sky Race Attraction - Attraction Menu": lambda state: True,
 
@@ -3802,7 +3869,7 @@ def get_entrance_rules_dict(player: int, options: "PokeparkOptions"):
         "Flower Zone Main Area - Granite Zone Gate": lambda state: True,
 
         # Flower Zone Attractions
-        "Flower Zone Main Area - Rayquaza Attraction": lambda state: state.has("Rayquaza Unlock", player),
+        "Flower Zone Main Area - Rayquaza Attraction": lambda state: can_enter_attraction_via_rayquaza(state, player),
         "Rayquaza's Balloon Panic Attraction - Attraction Menu": lambda state: True,
 
         # Skygarden
