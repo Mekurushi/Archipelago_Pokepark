@@ -26,6 +26,7 @@ from ..Files import APPlayerContainer
 
 VERSION: tuple[int, int, int] = (1, 0, 5)
 
+
 class PokeparkWebWorld(WebWorld):
     theme = "jungle"
     tutorials = [Tutorial(
@@ -96,6 +97,7 @@ class PokeparkWorld(World):
     item_name_groups: ClassVar[dict[str, set[str]]] = item_name_groups
 
     glitches_item_name = "Glitched Item"
+    ut_can_gen_without_yaml = True
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -435,23 +437,34 @@ class PokeparkWorld(World):
 
     def fill_slot_data(self) -> Dict[str, Any]:
         slot_data = {
-            **self.options.as_dict(
-            "goal",
-            "num_required_prisma_count_skygarden",
-            "remove_battle_power_comp_locations",
-            "remove_chase_power_comp_locations",
-            "remove_quiz_power_comp_locations",
-            "remove_hide_and_seek_power_comp_locations",
-            "remove_errand_power_comp_locations",
-            "remove_misc_power_comp_locations",
-            "remove_legendary_pokemon_power_comp_locations",
-            "remove_power_training_locations",
-            "remove_attraction_locations",
-            "remove_attraction_prisma_locations",
-            "remove_pokemon_unlock_locations",
-            "harder_enemy_ai",
-            "randomize_attraction_entrances"
-            ),
+            "options": {
+                **self.options.as_dict(
+                    "power_randomizer",
+                    "start_fast_travel",
+                    "goal",
+                    "each_zone",
+                    "remove_battle_power_comp_locations",
+                    "remove_chase_power_comp_locations",
+                    "remove_quiz_power_comp_locations",
+                    "remove_hide_and_seek_power_comp_locations",
+                    "remove_errand_power_comp_locations",
+                    "remove_misc_power_comp_locations",
+                    "remove_legendary_pokemon_power_comp_locations",
+                    "remove_power_training_locations",
+                    "remove_attraction_locations",
+                    "remove_attraction_prisma_locations",
+                    "remove_pokemon_unlock_locations",
+                    "num_required_prisma_count_skygarden",
+                    "harder_enemy_ai",
+                    "in_zone_road_blocks",
+                    "randomize_attraction_entrances",
+                    "randomize_fast_travel_entrances",
+                    "randomize_treehouse_gates_entrances",
+                    "randomize_general_entrances",
+                    "mix_entrance_pools",
+                    "harder_enemy_ai"
+                )
+            },
             "entrances": {},
             "seed": self.seed
         }
@@ -466,6 +479,7 @@ class PokeparkWorld(World):
     def interpret_slot_data(slot_data: dict[str, Any]) -> dict[str, Any]:
         return slot_data
 
+
 def launch_client():
     print("Running Pokepark Client")
     from .PokeparkClient import main
@@ -475,7 +489,7 @@ def launch_client():
 components.append(
     Component(
         "Pokepark Client",
-                            func=launch_client, component_type=Type.CLIENT, icon="Pokepark"
-                            )
-                  )
+        func=launch_client, component_type=Type.CLIENT, icon="Pokepark"
+    )
+)
 icon_paths["Pokepark"] = "ap:worlds.pokepark/assets/icon.png"
