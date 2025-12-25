@@ -1405,7 +1405,7 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
     ),
 
     "Beach Zone Main Area - Krabby Power Competition -- Friendship": PokeparkLocationData(
-        141, PokeparkFlag.BATTLE, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
+        141, PokeparkFlag.CHASE, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=47
         ), each_zone=MultiZoneFlag.MULTI
     ),
@@ -1840,7 +1840,7 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
         ), each_zone=MultiZoneFlag.MULTI
     ),
     "Ice Zone Main Area - Krabby Power Competition -- Friendship": PokeparkLocationData(
-        215, PokeparkFlag.BATTLE, "Ice Zone Main Area", Pokepark07AttractionClientData(
+        215, PokeparkFlag.CHASE, "Ice Zone Main Area", Pokepark07AttractionClientData(
             structure_position=2
         ), each_zone=MultiZoneFlag.MULTI
     ),
@@ -2366,7 +2366,7 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
         ),
     ),
     "Magma Zone Circle Area - Magcargo Power Competition -- Friendship": PokeparkLocationData(
-        307, PokeparkFlag.FRIENDSHIP, "Magma Zone Circle Area", PokeparkFriendshipClientLocationData(
+        307, PokeparkFlag.FRIENDSHIP, "Magma Zone Magcargo Area", PokeparkFriendshipClientLocationData(
             structure_position=181
         ),
     ),
@@ -3925,7 +3925,7 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
         each_zone=MultiZoneFlag.SINGLE
     ),
     "Krabby Power Competition -- Friendship": PokeparkLocationData(
-        564, PokeparkFlag.BATTLE, "Krabby", PokeparkFriendshipClientLocationData(
+        564, PokeparkFlag.CHASE, "Krabby", PokeparkFriendshipClientLocationData(
             structure_position=47
         ),
         each_zone=MultiZoneFlag.SINGLE

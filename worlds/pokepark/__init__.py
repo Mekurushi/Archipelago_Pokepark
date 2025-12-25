@@ -4,6 +4,7 @@ Archipelago init file for Pokepark
 import os
 import zipfile
 from base64 import b64encode
+from itertools import chain
 from typing import Any, ClassVar, Dict, Optional
 
 import yaml
@@ -19,7 +20,7 @@ from .items import ITEM_TABLE, PokeparkItem, PokeparkItemData, TOTAL_FRIENDSHIP_
     road_block_items, static_progressive_items, static_useful_items
 from .locations import LOCATION_TABLE, MultiZoneFlag, PokeparkFlag, PokeparkLocation
 from .options import PokeparkOptions, RemoveBattlePowerCompLocations, pokepark_option_groups
-from .regions import EntranceRandomizer
+from .regions import ALL_ENTRANCES, ALL_EXITS, EntranceRandomizer
 from .rules import set_rules
 from ..Files import APPlayerContainer
 
@@ -178,9 +179,6 @@ class PokeparkWorld(World):
 
         self.random.seed(self.seed)
 
-        # generate regions and entrances
-        self.entrances.generate_entrance_data()
-
         # setup locations
         self.locations = self._determine_locations()
 
@@ -337,8 +335,8 @@ class PokeparkWorld(World):
         }
 
         output_entrances = output_data["Entrances"]
-        for zone_entrance, zone_exit in self.entrances.entrances_to_exits.items():
-            output_entrances[zone_entrance] = zone_exit
+        for zone_entrance, zone_exit in self.entrances.final_entrance_to_exit.items():
+            output_entrances[zone_entrance.name] = zone_exit.name
 
         # Output the plando details to file.
         appokepark = PokeparkContainer(
@@ -354,27 +352,20 @@ class PokeparkWorld(World):
     def create_regions(self):
         multiworld = self.multiworld
         player = self.player
-        ENTRANCES_TO_EXITS = self.entrances.entrances_to_exits
-        REGION_TO_ENTRANCES = self.entrances.region_to_entrances
-        ENTRANCE_RULES = self.entrances.entrances_rules
+
         treehouse = Region("Treehouse", player, multiworld)
         multiworld.regions.append(treehouse)
-        unique_region_names = set(ENTRANCES_TO_EXITS.values())
+        unique_region_names = {
+            region for region in chain(
+                (e.parent_region for e in ALL_ENTRANCES if e.parent_region != "Treehouse"),
+                (e.region_name for e in ALL_EXITS if e.region_name != "Treehouse")
+            )
+        }
         for _region_name in unique_region_names:
             multiworld.regions.append(Region(_region_name, player, multiworld))
-        for region_map, entrances in REGION_TO_ENTRANCES.items():
-            for entrance in entrances:
-                target_region_name = ENTRANCES_TO_EXITS.get(entrance)
-                target_region = multiworld.get_region(target_region_name, player)
-                entrance_name = f"{entrance} -> {target_region_name}"
-                multiworld.get_region(region_map, player).connect(
-                    target_region
-                    , entrance_name, ENTRANCE_RULES[entrance]
-                )
-                # add mapping for UT Tracker
-                self.region_entrance_mapping.append(
-                    (region_map, entrance_name)
-                )
+
+        self.entrances.randomize_entrances()
+
         for location_name in sorted(self.locations):
             data = LOCATION_TABLE[location_name]
 
@@ -461,9 +452,14 @@ class PokeparkWorld(World):
             "harder_enemy_ai",
             "randomize_attraction_entrances"
             ),
-            "entrances": self.region_entrance_mapping,
+            "entrances": {},
             "seed": self.seed
         }
+        entrances = {
+            entrance.name: exit.name
+            for entrance, exit in self.entrances.final_entrance_to_exit.items()
+        }
+        slot_data["entrances"] = entrances
         return slot_data
 
     @staticmethod

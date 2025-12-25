@@ -171,7 +171,35 @@ class HarderEnemyAI(Toggle):
 
 class RandomizeAttractionEntrances(Toggle):
     """
-    Randomize Attraction Entrances
+    Randomize Attraction Entrances with each other
+    """
+    default = False
+
+
+class RandomizeFastTravelEntrances(Toggle):
+    """
+    Randomize Fast Travel Entrances with each other
+    """
+    default = False
+
+
+class RandomizeTreehouseGatesEntrances(Toggle):
+    """
+    Randomize Treehouse Gate Entrances with each other
+    """
+    default = False
+
+
+class RandomizeGeneralEntrances(Toggle):
+    """
+    Randomize General Entrances with each other, e.g. Meadow Zone Main Area -> Meadow Zone Venusaur Area
+    """
+    default = False
+
+
+class MixRandomizedEntrancePools(Toggle):
+    """
+    Mix all toggled randomize Entrance in one Pool. Except Attraction Entrances.
     """
     default = False
 
@@ -210,6 +238,10 @@ class PokeparkOptions(PerGameCommonOptions):
     num_required_prisma_count_skygarden: NumRequiredPrismaCountSkygarden
     in_zone_road_blocks: InZoneRoadBlocks
     randomize_attraction_entrances: RandomizeAttractionEntrances
+    randomize_fast_travel_entrances: RandomizeFastTravelEntrances
+    randomize_treehouse_gates_entrances: RandomizeTreehouseGatesEntrances
+    randomize_general_entrances: RandomizeGeneralEntrances
+    mix_entrance_pools: MixRandomizedEntrancePools
     harder_enemy_ai: HarderEnemyAI
 
     def get_output_dict(self) -> dict[str, Any]:
@@ -238,7 +270,11 @@ pokepark_option_groups = [
     ]),
     OptionGroup(
         "Entrances", [
-            RandomizeAttractionEntrances
+            RandomizeAttractionEntrances,
+            RandomizeTreehouseGatesEntrances,
+            RandomizeFastTravelEntrances,
+            RandomizeGeneralEntrances,
+            MixRandomizedEntrancePools
         ]
     ),
     OptionGroup("Misc", [
