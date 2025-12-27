@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Callable, List, TYPE_CHECKING
+from typing import Callable, TYPE_CHECKING
 
 from BaseClasses import CollectionState
 

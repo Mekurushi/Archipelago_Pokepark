@@ -101,16 +101,16 @@ def set_rules(world: "PokeparkWorld") -> None:
 
     # Meadow Zone
     set_rule_if_exists(
-        "Meadow Zone Main Area - Turtwig Power Competition -- Friendship",
+        "Meadow Zone Main Area - Turtwig Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Turtwig Power Competition -- Pachirisu Unlocked",
+        "Meadow Zone Main Area - Turtwig Chase Power Competition -- Pachirisu Unlocked",
         lambda state: can_play_catch(state, player, options)
 
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Turtwig Power Competition -- Bonsly Unlocked",
+        "Meadow Zone Main Area - Turtwig Chase Power Competition -- Bonsly Unlocked",
         lambda state: can_play_catch(state, player, options)
 
     )
@@ -119,16 +119,16 @@ def set_rules(world: "PokeparkWorld") -> None:
         lambda state: state.has("Bulbasaur Prisma", player) and can_enter_attraction_via_bulbasaur()
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Buneary Power Competition -- Friendship",
+        "Meadow Zone Main Area - Buneary Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Buneary Power Competition -- Lotad Unlocked",
+        "Meadow Zone Main Area - Buneary Chase Power Competition -- Lotad Unlocked",
         lambda state: can_play_catch(state, player, options)
 
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Buneary Power Competition -- Shinx Unlocked",
+        "Meadow Zone Main Area - Buneary Chase Power Competition -- Shinx Unlocked",
         lambda state: can_play_catch(state, player, options)
 
     )
@@ -150,42 +150,42 @@ def set_rules(world: "PokeparkWorld") -> None:
                       state.has("Progressive Dash", player)  # crate is not destroyable by thunderbolt
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Pachirisu Power Competition -- Friendship",
+        "Meadow Zone Main Area - Pachirisu Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options) and
                       state.has("Pachirisu Unlock", player)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Shinx Power Competition -- Friendship",
+        "Meadow Zone Main Area - Shinx Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options) and
                       state.has("Shinx Unlock", player)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Mankey Power Competition -- Friendship",
+        "Meadow Zone Main Area - Mankey Battle Power Competition -- Friendship",
         lambda state: can_battle(state, player, options)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Mankey Power Competition -- Chimchar Unlocked",
+        "Meadow Zone Main Area - Mankey Battle Power Competition -- Chimchar Unlocked",
         lambda state: can_battle(state, player, options)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Spearow Power Competition -- Friendship",
+        "Meadow Zone Main Area - Spearow Battle Power Competition -- Friendship",
         lambda state: can_beat_meadow_spearow(state, player, options)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Croagunk Power Competition -- Friendship",
+        "Meadow Zone Main Area - Croagunk Battle Power Competition -- Friendship",
         lambda state: can_battle(state, player, options)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Croagunk Power Competition -- Scyther Unlocked",
+        "Meadow Zone Main Area - Croagunk Battle Power Competition -- Scyther Unlocked",
         lambda state: can_battle(state, player, options)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Lotad Power Competition -- Friendship",
+        "Meadow Zone Main Area - Lotad Battle Power Competition -- Friendship",
         lambda state: can_battle(state, player, options) and
                       state.has("Lotad Unlock", player)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Treecko Power Competition -- Friendship",
+        "Meadow Zone Main Area - Treecko Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
@@ -193,17 +193,17 @@ def set_rules(world: "PokeparkWorld") -> None:
         lambda state: can_dash_overworld(state, player)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Caterpie Power Competition -- Friendship",
+        "Meadow Zone Main Area - Caterpie Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options) and
                       state.has("Caterpie Unlock", player)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Caterpie Power Competition -- Butterfree Unlocked",
+        "Meadow Zone Main Area - Caterpie Chase Power Competition -- Butterfree Unlocked",
         lambda state: can_play_catch(state, player, options) and
                       state.has("Caterpie Unlock", player)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Butterfree Power Competition -- Friendship",
+        "Meadow Zone Main Area - Butterfree Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options) and
                       state.has("Butterfree Unlock", player)
     )
@@ -212,7 +212,7 @@ def set_rules(world: "PokeparkWorld") -> None:
         lambda state: can_dash_overworld(state, player)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Weedle Power Competition -- Friendship",
+        "Meadow Zone Main Area - Weedle Battle Power Competition -- Friendship",
         lambda state: can_battle(state, player, options) and
                       state.has("Weedle Unlock", player)
     )
@@ -221,7 +221,7 @@ def set_rules(world: "PokeparkWorld") -> None:
         lambda state: can_destroy_objects_overworld(state, player)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Shroomish Power Competition -- Friendship",
+        "Meadow Zone Main Area - Shroomish Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options) and
                       state.has("Shroomish Unlock", player)
     )
@@ -230,11 +230,11 @@ def set_rules(world: "PokeparkWorld") -> None:
         lambda state: can_thunderbolt_overworld(state, player)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Oddish Power Competition -- Friendship",
+        "Meadow Zone Main Area - Oddish Hide and Seek Power Competition -- Friendship",
         lambda state: True
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Magikarp Power Competition -- Friendship",
+        "Meadow Zone Main Area - Magikarp Chase Power Competition -- Friendship",
         lambda state: state.has("Magikarp Unlock", player) and can_play_catch(state, player, options)
     )
     set_rule_if_exists(
@@ -287,55 +287,55 @@ def set_rules(world: "PokeparkWorld") -> None:
         lambda state: state.has("Mankey Friendship", player)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Bibarel Power Competition -- Friendship",
+        "Meadow Zone Main Area - Bibarel Battle Power Competition -- Friendship",
         lambda state: can_battle(state, player, options) and
                       state.has("Bibarel Unlock", player)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Leafeon Power Competition -- Friendship",
+        "Meadow Zone Main Area - Leafeon Chase Power Competition -- Friendship",
         lambda state: can_play_catch_intermediate(state, player, options) and
                       has_friendship_count(state, player, 20)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Torterra Power Competition -- Friendship",
+        "Meadow Zone Main Area - Torterra Battle Power Competition -- Friendship",
         lambda state: state.has("Torterra Unlock", player) and
                       can_battle_thunderbolt_immune_intermediate(state, player, options)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Scyther Power Competition -- Friendship",
+        "Meadow Zone Main Area - Scyther Battle Power Competition -- Friendship",
         lambda state: state.has("Scyther Unlock", player) and
                       can_battle_intermediate(state, player, options)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Starly Power Competition -- Friendship",
+        "Meadow Zone Main Area - Starly Chase Power Competition -- Friendship",
         lambda state: can_beat_meadow_starly(state, player, options)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Bonsly Power Competition -- Friendship",
+        "Meadow Zone Main Area - Bonsly Hide and Seek Power Competition -- Friendship",
         lambda state: can_beat_meadow_bonsly(state, player)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Bonsly Power Competition -- Sudowoodo Unlocked",
+        "Meadow Zone Main Area - Bonsly Hide and Seek Power Competition -- Sudowoodo Unlocked",
         lambda state: can_beat_meadow_bonsly(state, player)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Chimchar Power Competition -- Friendship",
+        "Meadow Zone Main Area - Chimchar Battle Power Competition -- Friendship",
         lambda state: can_beat_meadow_chimchar(state, player, options)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Sudowoodo Power Competition -- Friendship",
+        "Meadow Zone Main Area - Sudowoodo Hide and Seek Power Competition -- Friendship",
         lambda state: can_beat_meadow_sudowoodo(state, player, options)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Aipom Power Competition -- Friendship",
+        "Meadow Zone Main Area - Aipom Chase Power Competition -- Friendship",
         lambda state: can_beat_meadow_aipom(state, player, options)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Aipom Power Competition -- Ambipom Unlocked",
+        "Meadow Zone Main Area - Aipom Chase Power Competition -- Ambipom Unlocked",
         lambda state: can_beat_meadow_aipom(state, player, options)
     )
     set_rule_if_exists(
-        "Meadow Zone Main Area - Ambipom Power Competition -- Friendship",
+        "Meadow Zone Main Area - Ambipom Battle Power Competition -- Friendship",
         lambda state: can_beat_meadow_ambipom(state, player, options)
     )
 
@@ -532,79 +532,79 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     # Beach Zone
     set_rule_if_exists(
-        "Beach Zone Main Area - Buizel Power Competition -- Friendship",
+        "Beach Zone Main Area - Buizel Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
-        "Beach Zone Main Area - Buizel Power Competition -- Floatzel Unlocked",
+        "Beach Zone Main Area - Buizel Chase Power Competition -- Floatzel Unlocked",
         lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
-        "Beach Zone Main Area - Psyduck Power Competition -- Friendship",
+        "Beach Zone Main Area - Psyduck Hide and Seek Power Competition -- Friendship",
         lambda state: True
     )
     set_rule_if_exists(
-        "Beach Zone Main Area - Psyduck Power Competition -- Golduck Unlocked",
+        "Beach Zone Main Area - Psyduck Hide and Seek Power Competition -- Golduck Unlocked",
         lambda state: True
     )
     set_rule_if_exists(
-        "Beach Zone Main Area - Slowpoke Power Competition -- Friendship",
+        "Beach Zone Main Area - Slowpoke Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
-        "Beach Zone Main Area - Slowpoke Power Competition -- Mudkip Unlocked",
+        "Beach Zone Main Area - Slowpoke Chase Power Competition -- Mudkip Unlocked",
         lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
-        "Beach Zone Main Area - Azurill Power Competition -- Friendship",
+        "Beach Zone Main Area - Azurill Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
-        "Beach Zone Main Area - Azurill Power Competition -- Totodile Unlocked",
+        "Beach Zone Main Area - Azurill Chase Power Competition -- Totodile Unlocked",
         lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
-        "Beach Zone Main Area - Totodile Power Competition -- Friendship",
+        "Beach Zone Main Area - Totodile Battle Power Competition -- Friendship",
         lambda state: can_battle(state, player, options) and
                       state.has("Totodile Unlock", player)
     )
     set_rule_if_exists(
-        "Beach Zone Main Area - Pidgeotto Power Competition -- Friendship",
+        "Beach Zone Main Area - Pidgeotto Battle Power Competition -- Friendship",
         lambda state: can_battle(state, player, options)
     )
     set_rule_if_exists(
-        "Beach Zone Main Area - Corsola Power Competition -- Friendship",
+        "Beach Zone Main Area - Corsola Quiz Power Competition -- Friendship",
         lambda state: True
     )
     set_rule_if_exists(
-        "Beach Zone Main Area - Floatzel Power Competition -- Friendship",
+        "Beach Zone Main Area - Floatzel Battle Power Competition -- Friendship",
         lambda state: can_battle(state, player, options) and
                       state.has("Floatzel Unlock", player)
     )
     set_rule_if_exists(
-        "Beach Zone Main Area - Vaporeon Power Competition -- Friendship",
+        "Beach Zone Main Area - Vaporeon Chase Power Competition -- Friendship",
         lambda state: can_play_catch_intermediate(state, player, options) and
                       has_friendship_count(state, player, 30)
     )
     set_rule_if_exists(
-        "Beach Zone Main Area - Golduck Power Competition -- Friendship",
+        "Beach Zone Main Area - Golduck Battle Power Competition -- Friendship",
         lambda state: can_battle(state, player, options) and
                       state.has("Golduck Unlock", player)
     )
     set_rule_if_exists(
-        "Beach Zone Main Area - Wailord Power Competition -- Friendship",
+        "Beach Zone Main Area - Wailord Errand -- Friendship",
         lambda state: state.can_reach_region("Beach Zone Recycle Area", player)
     )
     set_rule_if_exists(
-        "Beach Zone Main Area - Feraligatr Power Competition -- Friendship",
+        "Beach Zone Main Area - Feraligatr Battle Power Competition -- Friendship",
         lambda state: can_battle_intermediate(state, player, options)
     )
     set_rule_if_exists(
-        "Beach Zone Main Area - Spearow Power Competition -- Friendship",
+        "Beach Zone Main Area - Spearow Battle Power Competition -- Friendship",
         lambda state: can_beat_beach_spearow(state, player, options)
     )
     set_rule_if_exists(
-        "Beach Zone Main Area - Blastoise Power Competition -- Friendship",
+        "Beach Zone Main Area - Blastoise Battle Power Competition -- Friendship",
         lambda state: can_battle_intermediate(state, player, options) and
                       state.has("Blastoise Unlock", player)
     )
@@ -641,35 +641,35 @@ def set_rules(world: "PokeparkWorld") -> None:
         lambda state: True
     )
     set_rule_if_exists(
-        "Beach Zone Main Area - Krabby Power Competition -- Friendship",
+        "Beach Zone Main Area - Krabby Chase Power Competition -- Friendship",
         lambda state: can_beat_beach_krabby(state, player, options)
     )
     set_rule_if_exists(
-        "Beach Zone Main Area - Starly Power Competition -- Friendship",
+        "Beach Zone Main Area - Starly Chase Power Competition -- Friendship",
         lambda state: can_beat_beach_starly(state, player, options)
     )
     set_rule_if_exists(
-        "Beach Zone Main Area - Mudkip Power Competition -- Friendship",
+        "Beach Zone Main Area - Mudkip Hide and Seek Power Competition -- Friendship",
         lambda state: can_beat_beach_mudkip(state, player, options)
     )
     set_rule_if_exists(
-        "Beach Zone Main Area - Taillow Power Competition -- Friendship",
+        "Beach Zone Main Area - Taillow Chase Power Competition -- Friendship",
         lambda state: can_beat_beach_taillow(state, player, options)
     )
     set_rule_if_exists(
-        "Beach Zone Main Area - Staravia Power Competition -- Friendship",
+        "Beach Zone Main Area - Staravia Battle Power Competition -- Friendship",
         lambda state: can_beat_beach_staravia(state, player, options)
     )
     set_rule_if_exists(
-        "Beach Zone Main Area - Wingull Power Competition -- Friendship",
+        "Beach Zone Main Area - Wingull Chase Power Competition -- Friendship",
         lambda state: can_beat_beach_wingull(state, player, options)
     )
     set_rule_if_exists(
-        "Beach Zone Middle Isle - Piplup Power Competition -- Friendship",
+        "Beach Zone Middle Isle - Piplup Battle Power Competition -- Friendship",
         lambda state: can_battle(state, player, options)
     )
     set_rule_if_exists(
-        "Beach Zone Main Area - Corphish Power Competition -- Friendship",
+        "Beach Zone Main Area - Corphish Battle Power Competition -- Friendship",
         lambda state: can_beat_beach_corphish(state, player, options)
     )
 
@@ -836,66 +836,66 @@ def set_rules(world: "PokeparkWorld") -> None:
         lambda state: True
     )
     set_rule_if_exists(
-        "Ice Zone Main Area - Spheal Power Competition -- Friendship",
+        "Ice Zone Main Area - Spheal Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
-        "Ice Zone Main Area - Octillery Power Competition -- Friendship",
+        "Ice Zone Main Area - Octillery Battle Power Competition -- Friendship",
         lambda state: can_battle(state, player, options)
     )
     set_rule_if_exists(
-        "Ice Zone Main Area - Delibird -- Friendship",
+        "Ice Zone Main Area - Delibird Quiz Power Competition -- Friendship",
         lambda state: can_befriend_delibird(state, player, options)
     )
     set_rule_if_exists(
-        "Ice Zone Main Area - Smoochum Power Competition -- Friendship",
+        "Ice Zone Main Area - Smoochum Battle Power Competition -- Friendship",
         lambda state: can_battle(state, player, options) and
                       state.has("Smoochum Unlock", player)
     )
     set_rule_if_exists(
-        "Ice Zone Main Area - Squirtle Power Competition -- Friendship",
+        "Ice Zone Main Area - Squirtle Battle Power Competition -- Friendship",
         lambda state: can_battle(state, player, options) and
                       state.has("Squirtle Unlock", player)
     )
     set_rule_if_exists(
-        "Ice Zone Main Area - Glaceon Power Competition -- Friendship",
+        "Ice Zone Main Area - Glaceon Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options) and
                       has_friendship_count(state, player, 50)
     )
     set_rule_if_exists(
-        "Ice Zone Main Area - Prinplup Power Competition -- Friendship",
+        "Ice Zone Main Area - Prinplup Battle Power Competition -- Friendship",
         lambda state: can_battle(state, player, options)
     )
     set_rule_if_exists(
-        "Ice Zone Main Area - Sneasel Power Competition -- Friendship",
+        "Ice Zone Main Area - Sneasel Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options) and
                       state.has("Sneasel Unlock", player)
     )
     set_rule_if_exists(
-        "Ice Zone Main Area - Piloswine Power Competition -- Friendship",
+        "Ice Zone Main Area - Piloswine Battle Power Competition -- Friendship",
         lambda state: can_battle_thunderbolt_immune(state, player, options)
     )
     set_rule_if_exists(
-        "Ice Zone Main Area - Glalie -- Friendship",
+        "Ice Zone Main Area - Glalie Battle Power Competition -- Friendship",
         lambda state: state.has("Glalie Unlock", player)
     )
     set_rule_if_exists(
-        "Ice Zone Main Area - Primeape Power Competition -- Friendship",
+        "Ice Zone Main Area - Primeape Battle Power Competition -- Friendship",
         lambda state: can_battle_intermediate(state, player, options) and
                       state.has("Primeape Unlock", player)
     )
     set_rule_if_exists(
-        "Ice Zone Main Area - Ursaring Power Competition -- Friendship",
+        "Ice Zone Main Area - Ursaring Battle Power Competition -- Friendship",
         lambda state: can_battle(state, player, options) and
                       state.has("Ursaring Unlock", player)
     )
     set_rule_if_exists(
-        "Ice Zone Main Area - Mamoswine Power Competition -- Friendship",
+        "Ice Zone Main Area - Mamoswine Battle Power Competition -- Friendship",
         lambda state: can_battle_thunderbolt_immune_intermediate(state, player, options) and
                       state.has("Mamoswine Unlock", player)
     )
     set_rule_if_exists(
-        "Ice Zone Main Area - Kirlia -- Friendship",
+        "Ice Zone Main Area - Kirlia Errand -- Friendship",
         lambda state: can_clear_christmas_tree_stage4(state, player)
     )
     set_rule_if_exists(
@@ -941,9 +941,8 @@ def set_rules(world: "PokeparkWorld") -> None:
                       can_dash_overworld(state, player)
     )
     set_rule_if_exists(
-        "Ice Zone Lower Lift Area - Froslass Power Competition -- Friendship",
-        lambda state: state.has("Ice Zone Lift Unlock", player) and
-                      can_battle(state, player, options)
+        "Ice Zone Lower Lift Area - Froslass Battle Power Competition -- Friendship",
+        lambda state: can_battle(state, player, options)
     )
     set_rule_if_exists(
         "Ice Zone Empoleon Area - Empoleon -- Friendship",
@@ -951,39 +950,39 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
 
     set_rule_if_exists(
-        "Ice Zone Lower Lift Area - Quagsire -- Friendship",
+        "Ice Zone Lower Lift Area - Quagsire Errand -- Friendship",
         lambda state: can_destroy_objects_overworld(state, player)
     )
     set_rule_if_exists(
-        "Ice Zone Main Area - Starly Power Competition -- Friendship",
+        "Ice Zone Main Area - Starly Chase Power Competition -- Friendship",
         lambda state: can_beat_ice_starly(state, player, options)
     )
     set_rule_if_exists(
-        "Ice Zone Main Area - Krabby Power Competition -- Friendship",
+        "Ice Zone Main Area - Krabby Chase Power Competition -- Friendship",
         lambda state: can_beat_ice_krabby(state, player, options)
     )
     set_rule_if_exists(
-        "Ice Zone Main Area - Corphish Power Competition -- Friendship",
+        "Ice Zone Main Area - Corphish Battle Power Competition -- Friendship",
         lambda state: can_beat_ice_corphish(state, player, options)
     )
     set_rule_if_exists(
-        "Ice Zone Main Area - Mudkip Power Competition -- Friendship",
+        "Ice Zone Main Area - Mudkip Hide and Seek Power Competition -- Friendship",
         lambda state: can_beat_ice_mudkip(state, player, options)
     )
     set_rule_if_exists(
-        "Ice Zone Main Area - Taillow Power Competition -- Friendship",
+        "Ice Zone Main Area - Taillow Chase Power Competition -- Friendship",
         lambda state: can_beat_ice_taillow(state, player, options)
     )
     set_rule_if_exists(
-        "Ice Zone Main Area - Staravia Power Competition -- Friendship",
+        "Ice Zone Main Area - Staravia Battle Power Competition -- Friendship",
         lambda state: can_beat_ice_staravia(state, player, options)
     )
     set_rule_if_exists(
-        "Ice Zone Main Area - Teddiursa Power Competition -- Friendship",
+        "Ice Zone Main Area - Teddiursa Chase Power Competition -- Friendship",
         lambda state: can_beat_ice_teddiursa(state, player, options)
     )
     set_rule_if_exists(
-        "Ice Zone Main Area - Wingull Power Competition -- Friendship",
+        "Ice Zone Main Area - Wingull Chase Power Competition -- Friendship",
         lambda state: can_beat_ice_wingull(state, player, options)
     )
     # Empoleon's Snow Slide
@@ -1068,60 +1067,60 @@ def set_rules(world: "PokeparkWorld") -> None:
                       state.has("Magnemite 3 Unlock", player)
     )
     set_rule_if_exists(
-        "Cavern Zone Main Area - Machamp Power Competition -- Friendship",
+        "Cavern Zone Main Area - Machamp -- Friendship",
         lambda state: True
     )
 
     set_rule_if_exists(
-        "Cavern Zone Main Area - Machamp Power Competition -- Machamp Unlocked",
+        "Cavern Zone Main Area - Machamp -- Machamp Unlocked",
         lambda state: True
     )
     set_rule_if_exists(
-        "Cavern Zone Main Area - Cranidos Power Competition -- Friendship",
+        "Cavern Zone Main Area - Cranidos Battle Power Competition -- Friendship",
         lambda state: can_battle_intermediate(state, player, options)
     )
     set_rule_if_exists(
-        "Cavern Zone Main Area - Zubat Power Competition -- Friendship",
+        "Cavern Zone Main Area - Zubat Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
-        "Cavern Zone Main Area - Golbat Power Competition -- Friendship",
+        "Cavern Zone Main Area - Golbat Chase Power Competition -- Friendship",
         lambda state: can_play_catch_intermediate(state, player, options)
     )
     set_rule_if_exists(
-        "Cavern Zone Main Area - Magnezone Power Competition -- Friendship",
+        "Cavern Zone Main Area - Magnezone Battle Power Competition -- Friendship",
         lambda state: state.has("Magnezone Unlock", player) and
                       can_battle_thunderbolt_immune_intermediate(state, player, options)
     )
     set_rule_if_exists(
-        "Cavern Zone Main Area - Scizor Power Competition -- Friendship",
+        "Cavern Zone Main Area - Scizor Battle Power Competition -- Friendship",
         lambda state: can_battle_intermediate(state, player, options)
     )
     set_rule_if_exists(
-        "Cavern Zone Main Area - Dugtrio Power Competition -- Friendship",
+        "Cavern Zone Main Area - Dugtrio -- Friendship",
         lambda state: state.has("Bastiodon Prisma", player)
     )
     set_rule_if_exists(
-        "Cavern Zone Main Area - Diglett Power Competition -- Friendship",
+        "Cavern Zone Main Area - Diglett -- Friendship",
         lambda state: state.has("Bastiodon Prisma", player) and
                       state.has("Diglett Unlock", player)
     )
     set_rule_if_exists(
-        "Cavern Zone Main Area - Gible Power Competition -- Friendship",
+        "Cavern Zone Main Area - Gible Battle Power Competition -- Friendship",
         lambda state: can_battle_thunderbolt_immune(state, player, options)
     )
     set_rule_if_exists(
-        "Cavern Zone Main Area - Phanpy Power Competition -- Friendship",
+        "Cavern Zone Main Area - Phanpy Errand -- Friendship",
         lambda state: can_destroy_objects_overworld(state, player) and
                       state.has("Phanpy Unlock", player)
     )
     set_rule_if_exists(
-        "Cavern Zone Main Area - Hitmonlee Power Competition -- Friendship",
+        "Cavern Zone Main Area - Hitmonlee Battle Power Competition -- Friendship",
         lambda state: can_battle_intermediate(state, player, options) and
                       state.has("Hitmonlee Unlock", player)
     )
     set_rule_if_exists(
-        "Cavern Zone Main Area - Electivire Power Competition -- Friendship",
+        "Cavern Zone Main Area - Electivire Battle Power Competition -- Friendship",
         lambda state: can_battle_thunderbolt_immune_advanced(state, player, options) and
                       state.has("Electivire Unlock", player)
     )
@@ -1142,51 +1141,51 @@ def set_rules(world: "PokeparkWorld") -> None:
         lambda state: can_destroy_objects_overworld(state, player)
     )
     set_rule_if_exists(
-        "Cavern Zone Main Area - Bonsly Power Competition -- Friendship",
+        "Cavern Zone Main Area - Bonsly Hide and Seek Power Competition -- Friendship",
         lambda state: can_beat_cavern_bonsly(state, player)
     )
     set_rule_if_exists(
-        "Cavern Zone Main Area - Bonsly Power Competition -- Sudowoodo Unlocked",
+        "Cavern Zone Main Area - Bonsly Hide and Seek Power Competition -- Sudowoodo Unlocked",
         lambda state: can_beat_cavern_bonsly(state, player)
     )
     set_rule_if_exists(
-        "Cavern Zone Main Area - Teddiursa Power Competition -- Friendship",
+        "Cavern Zone Main Area - Teddiursa Quiz Power Competition -- Friendship",
         lambda state: can_beat_cavern_teddiursa(state, player, options)
     )
     set_rule_if_exists(
-        "Cavern Zone Main Area - Chimchar Power Competition -- Friendship",
+        "Cavern Zone Main Area - Chimchar Battle Power Competition -- Friendship",
         lambda state: can_beat_cavern_chimchar(state, player, options)
     )
     set_rule_if_exists(
-        "Cavern Zone Main Area - Sudowoodo Power Competition -- Friendship",
+        "Cavern Zone Main Area - Sudowoodo Hide and Seek Power Competition -- Friendship",
         lambda state: can_beat_cavern_sudowoodo(state, player, options)
     )
     set_rule_if_exists(
-        "Cavern Zone Main Area - Aron Power Competition -- Friendship",
+        "Cavern Zone Main Area - Aron Errand -- Friendship",
         lambda state: can_beat_cavern_aron(state, player, options)
     )
     set_rule_if_exists(
-        "Cavern Zone Main Area - Torchic Power Competition -- Friendship",
+        "Cavern Zone Main Area - Torchic Battle Power Competition -- Friendship",
         lambda state: can_beat_cavern_torchic(state, player, options)
     )
     set_rule_if_exists(
-        "Cavern Zone Main Area - Geodude Power Competition -- Friendship",
+        "Cavern Zone Main Area - Geodude Hide and Seek Power Competition -- Friendship",
         lambda state: can_beat_cavern_geodude(state, player, options)
     )
     set_rule_if_exists(
-        "Cavern Zone Main Area - Raichu Power Competition -- Friendship",
+        "Cavern Zone Main Area - Raichu Chase Power Competition -- Friendship",
         lambda state: can_beat_cavern_raichu(state, player, options)
     )
     set_rule_if_exists(
-        "Cavern Zone Main Area - Meowth Power Competition -- Friendship",
+        "Cavern Zone Main Area - Meowth Quiz Power Competition -- Friendship",
         lambda state: can_beat_cavern_meowth(state, player, options)
     )
     set_rule_if_exists(
-        "Cavern Zone Main Area - Marowak Power Competition -- Friendship",
+        "Cavern Zone Main Area - Marowak Battle Power Competition -- Friendship",
         lambda state: can_beat_cavern_marowak(state, player, options)
     )
     set_rule_if_exists(
-        "Cavern Zone Main Area - Mawile Power Competition -- Friendship",
+        "Cavern Zone Main Area - Mawile Chase Power Competition -- Friendship",
         lambda state: can_play_catch_intermediate(state, player, options)
     )
     set_rule_if_exists(
@@ -1271,20 +1270,20 @@ def set_rules(world: "PokeparkWorld") -> None:
 
     # Magma Zone
     set_rule_if_exists(
-        "Magma Zone Main Area - Camerupt Power Competition -- Friendship",
+        "Magma Zone Main Area - Camerupt Battle Power Competition -- Friendship",
         lambda state: can_battle_thunderbolt_immune_intermediate(state, player, options)
     )
 
     set_rule_if_exists(
-        "Magma Zone Main Area - Magby Power Competition -- Friendship",
+        "Magma Zone Main Area - Magby Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
-        "Magma Zone Main Area - Vulpix Power Competition -- Friendship",
+        "Magma Zone Main Area - Vulpix Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
-        "Magma Zone Main Area - Vulpix Power Competition -- Ninetales Unlocked",
+        "Magma Zone Main Area - Vulpix Chase Power Competition -- Ninetales Unlocked",
         lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
@@ -1296,62 +1295,62 @@ def set_rules(world: "PokeparkWorld") -> None:
         lambda state: can_dash_overworld(state, player)
     )
     set_rule_if_exists(
-        "Magma Zone Circle Area - Charmander Power Competition -- Friendship",
+        "Magma Zone Circle Area - Charmander Battle Power Competition -- Friendship",
         lambda state: can_battle(state, player, options)
     )
     set_rule_if_exists(
-        "Magma Zone Circle Area - Ninetales Power Competition -- Friendship",
+        "Magma Zone Circle Area - Ninetales Chase Power Competition -- Friendship",
         lambda state: can_play_catch_intermediate(state, player, options) and
                       state.has("Ninetales Unlock", player)
     )
     set_rule_if_exists(
-        "Magma Zone Circle Area - Quilava Power Competition -- Friendship",
+        "Magma Zone Circle Area - Quilava Battle Power Competition -- Friendship",
         lambda state: can_battle_intermediate(state, player, options)
     )
     set_rule_if_exists(
-        "Magma Zone Circle Area - Flareon Power Competition -- Friendship",
+        "Magma Zone Circle Area - Flareon Battle Power Competition -- Friendship",
         lambda state: can_battle_intermediate(state, player, options) and
                       has_friendship_count(state, player, 60)
     )
     set_rule_if_exists(
-        "Magma Zone Circle Area - Infernape Power Competition -- Friendship",
+        "Magma Zone Circle Area - Infernape Battle Power Competition -- Friendship",
         lambda state: can_battle_intermediate(state, player, options) and
                       state.has("Infernape Unlock", player)
     )
     set_rule_if_exists(
-        "Magma Zone Circle Area - Farfetch'd Power Competition -- Friendship",
+        "Magma Zone Circle Area - Farfetch'd Battle Power Competition -- Friendship",
         lambda state: can_battle_intermediate(state, player, options)
     )
     set_rule_if_exists(
-        "Magma Zone Circle Area - Ponyta Power Competition -- Friendship",
+        "Magma Zone Circle Area - Ponyta Chase Power Competition -- Friendship",
         lambda state: can_play_catch_intermediate(state, player, options) and
                       state.has("Ponyta Unlock", player)
     )
     set_rule_if_exists(
-        "Magma Zone Main Area - Torkoal Power Competition -- Friendship",
+        "Magma Zone Main Area - Torkoal Battle Power Competition -- Friendship",
         lambda state: can_battle_intermediate(state, player, options) and
                       state.has("Torkoal Unlock", player)
     )
     set_rule_if_exists(
-        "Magma Zone Main Area - Golem Power Competition -- Friendship",
+        "Magma Zone Main Area - Golem -- Friendship",
         lambda state: state.has("Golem Unlock", player)
     )
     set_rule_if_exists(
-        "Magma Zone Circle Area - Hitmonchan Power Competition -- Friendship",
+        "Magma Zone Circle Area - Hitmonchan Battle Power Competition -- Friendship",
         lambda state: can_battle_intermediate(state, player, options) and
                       state.has("Hitmonchan Unlock", player)
     )
     set_rule_if_exists(
-        "Magma Zone Circle Area - Hitmonchan Power Competition -- Hitmonlee Unlocked",
+        "Magma Zone Circle Area - Hitmonchan Battle Power Competition -- Hitmonlee Unlocked",
         lambda state: can_battle_intermediate(state, player, options) and
                       state.has("Hitmonchan Unlock", player)
     )
     set_rule_if_exists(
-        "Magma Zone Main Area - Hitmontop Power Competition -- Friendship",
+        "Magma Zone Main Area - Hitmontop Errand -- Friendship",
         lambda state: can_dash_overworld(state, player)
     )
     set_rule_if_exists(
-        "Magma Zone Circle Area - Magmortar Power Competition -- Friendship",
+        "Magma Zone Circle Area - Magmortar Battle Power Competition -- Friendship",
         lambda state: can_battle_advanced(state, player, options) and
                       state.has("Magmortar Unlock", player)
     )
@@ -1360,7 +1359,7 @@ def set_rules(world: "PokeparkWorld") -> None:
         lambda state: state.has("Rayquaza Prisma", player)
     )
     set_rule_if_exists(
-        "Magma Zone Circle Area - Magcargo Power Competition -- Friendship",
+        "Magma Zone Circle Area - Magcargo -- Friendship",
         lambda state: state.has("Rhyperior Prisma", player) and
                       state.has("Bastiodon Prisma", player)
     )
@@ -1377,44 +1376,44 @@ def set_rules(world: "PokeparkWorld") -> None:
         lambda state: can_destroy_objects_overworld(state, player)
     )
     set_rule_if_exists(
-        "Magma Zone Main Area - Bonsly Power Competition -- Friendship",
+        "Magma Zone Main Area - Bonsly Hide and Seek Power Competition -- Friendship",
         lambda state: can_beat_magma_bonsly(state, player)
     )
     set_rule_if_exists(
-        "Magma Zone Main Area - Chimchar Power Competition -- Friendship",
+        "Magma Zone Main Area - Chimchar Battle Power Competition -- Friendship",
         lambda state: can_battle(state, player, options)
     )
     set_rule_if_exists(
-        "Magma Zone Main Area - Chimchar Power Competition -- Infernape Unlocked",
+        "Magma Zone Main Area - Chimchar Battle Power Competition -- Infernape Unlocked",
         lambda state: can_beat_magma_chimchar(state, player, options)
     )
     set_rule_if_exists(
-        "Magma Zone Main Area - Aron Power Competition -- Friendship",
+        "Magma Zone Main Area - Aron Errand -- Friendship",
         lambda state: can_beat_magma_aron(state, player, options)
     )
     set_rule_if_exists(
-        "Magma Zone Main Area - Torchic Power Competition -- Friendship",
+        "Magma Zone Main Area - Torchic Battle Power Competition -- Friendship",
         lambda state: can_beat_magma_torchic(state, player, options)
     )
     set_rule_if_exists(
-        "Magma Zone Main Area - Geodude Power Competition -- Friendship",
+        "Magma Zone Main Area - Geodude Hide and Seek Power Competition -- Friendship",
         lambda state: can_beat_magma_geodude(state, player, options)
     )
     set_rule_if_exists(
-        "Magma Zone Main Area - Baltoy Power Competition -- Friendship",
+        "Magma Zone Main Area - Baltoy Battle Power Competition -- Friendship",
         lambda state: can_beat_magma_baltoy(state, player, options)
     )
     set_rule_if_exists(
-        "Magma Zone Main Area - Baltoy Power Competition -- Claydol Unlocked",
+        "Magma Zone Main Area - Baltoy Battle Power Competition -- Claydol Unlocked",
         lambda state: can_beat_magma_baltoy(state, player, options)
     )
     set_rule_if_exists(
-        "Magma Zone Main Area - Claydol Power Competition -- Friendship",
+        "Magma Zone Main Area - Claydol Battle Power Competition -- Friendship",
         lambda state: can_beat_magma_claydol(state, player, options)
     ),
 
     set_rule_if_exists(
-        "Magma Zone Circle Area - Meditite Power Competition -- Friendship",
+        "Magma Zone Circle Area - Meditite Quiz Power Competition -- Friendship",
         lambda state: can_beat_magma_meditite(state, player, options)
     )
 
@@ -1568,29 +1567,29 @@ def set_rules(world: "PokeparkWorld") -> None:
 
     # Haunted Zone
     set_rule_if_exists(
-        "Haunted Zone Main Area - Murkrow Power Competition -- Friendship",
+        "Haunted Zone Main Area - Murkrow Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
-        "Haunted Zone Main Area - Murkrow Power Competition -- Honchkrow Unlocked",
+        "Haunted Zone Main Area - Murkrow Chase Power Competition -- Honchkrow Unlocked",
         lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
-        "Haunted Zone Main Area - Honchkrow Power Competition -- Friendship",
+        "Haunted Zone Main Area - Honchkrow Battle Power Competition -- Friendship",
         lambda state: can_battle_intermediate(state, player, options) and
                       state.has("Honchkrow Unlock", player)
     )
     set_rule_if_exists(
-        "Haunted Zone Main Area - Gliscor Power Competition -- Friendship",
+        "Haunted Zone Main Area - Gliscor Battle Power Competition -- Friendship",
         lambda state: can_battle_thunderbolt_immune_intermediate(state, player, options)
     )
     set_rule_if_exists(
-        "Haunted Zone Main Area - Metapod Power Competition -- Friendship",
+        "Haunted Zone Main Area - Metapod -- Friendship",
         lambda state: state.has("Rotom Prisma", player) and
                       state.has("Metapod Unlock", player)
     )
     set_rule_if_exists(
-        "Haunted Zone Main Area - Kakuna Power Competition -- Friendship",
+        "Haunted Zone Main Area - Kakuna -- Friendship",
         lambda state: state.has("Rotom Prisma", player) and
                       state.has("Kakuna Unlock", player)
     )
@@ -1603,27 +1602,27 @@ def set_rules(world: "PokeparkWorld") -> None:
         lambda state: can_dash_overworld(state, player)
     )
     set_rule_if_exists(
-        "Haunted Zone Main Area - Raichu Power Competition -- Friendship",
+        "Haunted Zone Main Area - Raichu Chase Power Competition -- Friendship",
         lambda state: can_beat_haunted_raichu(state, player, options)
     )
     set_rule_if_exists(
-        "Haunted Zone Main Area - Meowth Power Competition -- Friendship",
+        "Haunted Zone Main Area - Meowth Quiz Power Competition -- Friendship",
         lambda state: can_beat_haunted_meowth(state, player, options)
     )
     set_rule_if_exists(
-        "Haunted Zone Main Area - Aipom Power Competition -- Friendship",
+        "Haunted Zone Main Area - Aipom Chase Power Competition -- Friendship",
         lambda state: can_beat_haunted_aipom(state, player, options)
     )
     set_rule_if_exists(
-        "Haunted Zone Main Area - Aipom Power Competition -- Ambipom Unlocked",
+        "Haunted Zone Main Area - Aipom Chase Power Competition -- Ambipom Unlocked",
         lambda state: can_beat_haunted_aipom(state, player, options)
     )
     set_rule_if_exists(
-        "Haunted Zone Main Area - Ambipom Power Competition -- Friendship",
+        "Haunted Zone Main Area - Ambipom Battle Power Competition -- Friendship",
         lambda state: can_beat_haunted_ambipom(state, player, options)
     )
     set_rule_if_exists(
-        "Haunted Zone Main Area - Drifloon Power Competition -- Friendship",
+        "Haunted Zone Main Area - Drifloon -- Friendship",
         lambda state: can_beat_haunted_drifloon(state, player, options)
     )
     set_rule_if_exists(
@@ -1706,106 +1705,106 @@ def set_rules(world: "PokeparkWorld") -> None:
     # Haunted Zone Mansion
 
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Duskull Power Competition -- Friendship",
+        "Haunted Zone Mansion Area - Duskull Chase Power Competition -- Friendship",
         lambda state: state.has("Dusknoir Prisma", player)
     )
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Misdreavus Power Competition -- Friendship",
+        "Haunted Zone Mansion Area - Misdreavus Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Pichu Power Competition -- Friendship",
+        "Haunted Zone Mansion Area - Pichu Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Umbreon Power Competition -- Friendship",
+        "Haunted Zone Mansion Area - Umbreon Chase Power Competition -- Friendship",
         lambda state: can_play_catch_intermediate(state, player, options) and
                       has_friendship_count(state, player, 75)
     )
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Umbreon Power Competition -- Espeon Unlocked",
+        "Haunted Zone Mansion Area - Umbreon Chase Power Competition -- Espeon Unlocked",
         lambda state: can_play_catch_intermediate(state, player, options) and
                       has_friendship_count(state, player, 75)
     )
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Espeon Power Competition -- Friendship",
+        "Haunted Zone Mansion Area - Espeon Chase Power Competition -- Friendship",
         lambda state: can_play_catch_intermediate(state, player, options) and
                       state.has("Espeon Unlock", player)
     )
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Spinarak Power Competition -- Friendship",
+        "Haunted Zone Mansion Area - Spinarak -- Friendship",
         lambda state: state.has("Rotom Prisma", player)
     )
     set_rule_if_exists(
-        "Haunted Zone Main Area - Riolu Power Competition -- Friendship",
+        "Haunted Zone Main Area - Riolu Battle Power Competition -- Friendship",
         lambda state: can_battle_intermediate(state, player, options)
     )
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Voltorb Power Competition -- Friendship",
+        "Haunted Zone Mansion Area - Voltorb Battle Power Competition -- Friendship",
         lambda state: can_battle_thunderbolt_immune(state, player, options) and
                       state.has("Voltorb Unlock", player)
     )
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Elekid Power Competition -- Friendship",
+        "Haunted Zone Mansion Area - Elekid Hide and Seek Power Competition -- Friendship",
         lambda state: state.has("Elekid Unlock", player)
     )
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Elekid Power Competition -- Electabuzz Unlocked",
+        "Haunted Zone Mansion Area - Elekid Hide and Seek Power Competition -- Electabuzz Unlocked",
         lambda state: state.has("Elekid Unlock", player)
     )
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Electabuzz Power Competition -- Friendship",
+        "Haunted Zone Mansion Area - Electabuzz Battle Power Competition -- Friendship",
         lambda state: can_battle_thunderbolt_immune_intermediate(state, player, options) and
                       state.has("Electabuzz Unlock", player)
     )
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Luxray Power Competition -- Friendship",
+        "Haunted Zone Mansion Area - Luxray Chase Power Competition -- Friendship",
         lambda state: can_play_catch_intermediate(state, player, options) and
                       state.has("Luxray Unlock", player)
     )
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Stunky Power Competition -- Friendship",
+        "Haunted Zone Mansion Area - Stunky Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options) and
                       state.has("Stunky Unlock", player)
     )
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Stunky Power Competition -- Skuntank Unlocked",
+        "Haunted Zone Mansion Area - Stunky Chase Power Competition -- Skuntank Unlocked",
         lambda state: can_play_catch(state, player, options) and
                       state.has("Stunky Unlock", player)
     )
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Skuntank Power Competition -- Friendship",
+        "Haunted Zone Mansion Area - Skuntank Battle Power Competition -- Friendship",
         lambda state: can_battle_intermediate(state, player, options) and
                       state.has("Skuntank Unlock", player)
     )
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Breloom Power Competition -- Friendship",
+        "Haunted Zone Mansion Area - Breloom Battle Power Competition -- Friendship",
         lambda state: can_battle_thunderbolt_immune_intermediate(state, player, options) and
                       state.has("Breloom Unlock", player)
     )
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Mismagius Power Competition -- Friendship",
+        "Haunted Zone Mansion Area - Mismagius Battle Power Competition -- Friendship",
         lambda state: can_battle_intermediate(state, player, options) and
                       state.has("Mismagius Unlock", player)
     )
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Electrode Power Competition -- Friendship",
+        "Haunted Zone Mansion Area - Electrode -- Friendship",
         lambda state: state.has("Rotom Prisma", player) and
                       state.has("Electrode Unlock", player)
     )
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Haunter Power Competition -- Friendship",
+        "Haunted Zone Mansion Area - Haunter Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options) and
                       state.has("Haunter Unlock", player)
     )
 
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Gastly Power Competition -- Friendship",
+        "Haunted Zone Mansion Area - Gastly Chase Power Competition -- Friendship",
         lambda state: state.has("Gastly Unlock", player) or
                       state.has("Gastly 2 Unlock", player)
     )
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Gengar Power Competition -- Friendship",
+        "Haunted Zone Mansion Area - Gengar Battle Power Competition -- Friendship",
         lambda state: can_battle_intermediate(state, player, options) and
                       state.has("Gengar Unlock", player)
     )
@@ -1818,7 +1817,7 @@ def set_rules(world: "PokeparkWorld") -> None:
         lambda state: can_destroy_objects_overworld(state, player)
     )
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Abra Power Competition -- Friendship",
+        "Haunted Zone Mansion Area - Abra -- Friendship",
         lambda state: can_beat_haunted_abra(state, player, options)
     )
     set_rule_if_exists(
@@ -1827,7 +1826,7 @@ def set_rules(world: "PokeparkWorld") -> None:
                       can_enter_attraction_via_dusknoir(state, player)
     )
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Sableye Power Competition -- Friendship",
+        "Haunted Zone Mansion Area - Sableye Quiz Power Competition -- Friendship",
         lambda state: True
     )
     # Dusknoir's Speed Slam
@@ -1979,92 +1978,92 @@ def set_rules(world: "PokeparkWorld") -> None:
 
     # Granite Zone
     set_rule_if_exists(
-        "Granite Zone Main Area - Lopunny Power Competition -- Friendship",
+        "Granite Zone Main Area - Lopunny Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
-        "Granite Zone Main Area - Eevee Power Competition -- Friendship",
+        "Granite Zone Main Area - Eevee Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
-        "Granite Zone Main Area - Eevee Power Competition -- Jolteon Unlocked",
+        "Granite Zone Main Area - Eevee Chase Power Competition -- Jolteon Unlocked",
         lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
-        "Granite Zone Main Area - Charizard Power Competition -- Friendship",
+        "Granite Zone Main Area - Charizard Battle Power Competition -- Friendship",
         lambda state: can_battle_advanced(state, player, options)
     )
     set_rule_if_exists(
-        "Granite Zone Main Area - Flygon Power Competition -- Friendship",
+        "Granite Zone Main Area - Flygon Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
-        "Granite Zone Main Area - Staraptor Power Competition -- Friendship",
+        "Granite Zone Main Area - Staraptor Battle Power Competition -- Friendship",
         lambda state: can_battle_advanced(state, player, options)
     )
     set_rule_if_exists(
-        "Granite Zone Main Area - Staraptor Power Competition -- Aerodactyl Unlocked",
+        "Granite Zone Main Area - Staraptor Battle Power Competition -- Aerodactyl Unlocked",
         lambda state: can_battle_advanced(state, player, options)
     )
     set_rule_if_exists(
-        "Granite Zone Main Area - Aerodactyl Power Competition -- Friendship",
+        "Granite Zone Main Area - Aerodactyl Battle Power Competition -- Friendship",
         lambda state: can_battle_advanced(state, player, options) and
                       state.has("Aerodactyl Unlock", player)
     )
     set_rule_if_exists(
-        "Granite Zone Main Area - Arcanine Power Competition -- Friendship",
+        "Granite Zone Main Area - Arcanine Chase Power Competition -- Friendship",
         lambda state: can_play_catch_intermediate(state, player, options)
     )
     set_rule_if_exists(
-        "Granite Zone Main Area - Jolteon Power Competition -- Friendship",
+        "Granite Zone Main Area - Jolteon Chase Power Competition -- Friendship",
         lambda state: can_play_catch_intermediate(state, player, options) and
                       has_friendship_count(state, player, 90) and
                       state.has("Jolteon Unlock", player)
     )
     set_rule_if_exists(
-        "Granite Zone Main Area - Skorupi Power Competition -- Friendship",
+        "Granite Zone Main Area - Skorupi -- Friendship",
         lambda state: can_dash_overworld(state, player)
     )
     set_rule_if_exists(
-        "Granite Zone Main Area - Porygon-Z Power Competition -- Friendship",
+        "Granite Zone Main Area - Porygon-Z Quiz Power Competition -- Friendship",
         lambda state: True
     )
     set_rule_if_exists(
-        "Granite Zone Main Area - Tyranitar Power Competition -- Friendship",
+        "Granite Zone Main Area - Tyranitar Battle Power Competition -- Friendship",
         lambda state: can_battle_advanced(state, player, options) and
                       state.has("Tyranitar Unlock", player)
     )
     set_rule_if_exists(
-        "Granite Zone Main Area - Garchomp Power Competition -- Friendship",
+        "Granite Zone Main Area - Garchomp Battle Power Competition -- Friendship",
         lambda state: can_battle_thunderbolt_immune_advanced(state, player, options) and
                       state.has("Garchomp Unlock", player)
     )
     set_rule_if_exists(
-        "Granite Zone Main Area - Taillow Power Competition -- Friendship",
+        "Granite Zone Main Area - Taillow Chase Power Competition -- Friendship",
         lambda state: can_beat_granite_taillow(state, player, options)
     )
     set_rule_if_exists(
-        "Granite Zone Main Area - Drifloon Power Competition -- Friendship",
+        "Granite Zone Main Area - Drifloon -- Friendship",
         lambda state: can_beat_granite_drifloon(state, player, options)
     )
     set_rule_if_exists(
-        "Granite Zone Main Area - Marowak Power Competition -- Friendship",
+        "Granite Zone Main Area - Marowak Battle Power Competition -- Friendship",
         lambda state: can_beat_granite_marowak(state, player, options)
     )
     set_rule_if_exists(
-        "Granite Zone Main Area - Baltoy Power Competition -- Friendship",
+        "Granite Zone Main Area - Baltoy Battle Power Competition -- Friendship",
         lambda state: can_beat_granite_baltoy(state, player, options)
     )
     set_rule_if_exists(
-        "Granite Zone Main Area - Baltoy Power Competition -- Claydol Unlocked",
+        "Granite Zone Main Area - Baltoy Battle Power Competition -- Claydol Unlocked",
         lambda state: can_beat_granite_baltoy(state, player, options)
     )
     set_rule_if_exists(
-        "Granite Zone Main Area - Claydol Power Competition -- Friendship",
+        "Granite Zone Main Area - Claydol Battle Power Competition -- Friendship",
         lambda state: can_beat_granite_claydol(state, player, options)
     )
     set_rule_if_exists(
-        "Granite Zone Main Area - Furret Power Competition -- Friendship",
+        "Granite Zone Main Area - Furret Hide and Seek Power Competition -- Friendship",
         lambda state: can_beat_granite_furret(state, player, options)
     )
 
@@ -2078,7 +2077,7 @@ def set_rules(world: "PokeparkWorld") -> None:
         lambda state: state.has("Absol Prisma", player) and can_enter_attraction_via_absol()
     )
     set_rule_if_exists(
-        "Granite Zone Togekiss Area - Togekiss Power Competition -- Friendship",
+        "Granite Zone Togekiss Area - Togekiss -- Friendship",
         lambda state: can_dash_overworld(state, player)
     )
     # Absol Hurdle Dash
@@ -2231,44 +2230,44 @@ def set_rules(world: "PokeparkWorld") -> None:
     # Flower Zone
 
     set_rule_if_exists(
-        "Flower Zone Main Area - Skiploom Power Competition -- Friendship",
+        "Flower Zone Main Area - Skiploom -- Friendship",
         lambda state: True
     )
     set_rule_if_exists(
-        "Flower Zone Main Area - Budew Power Competition -- Friendship",
+        "Flower Zone Main Area - Budew -- Friendship",
         lambda state: True
     )
     set_rule_if_exists(
-        "Flower Zone Main Area - Cyndaquil Power Competition -- Friendship",
+        "Flower Zone Main Area - Cyndaquil Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
-        "Flower Zone Main Area - Lucario Power Competition -- Friendship",
+        "Flower Zone Main Area - Lucario Chase Power Competition -- Friendship",
         lambda state: can_play_catch_intermediate(state, player, options) and
                       has_friendship_count(state, player, 100)
     )
     set_rule_if_exists(
-        "Flower Zone Main Area - Dragonite Power Competition -- Friendship",
+        "Flower Zone Main Area - Dragonite Chase Power Competition -- Friendship",
         lambda state: can_play_catch_intermediate(state, player, options)
     )
     set_rule_if_exists(
-        "Flower Zone Main Area - Mareep Power Competition -- Friendship",
+        "Flower Zone Main Area - Mareep Chase Power Competition -- Friendship",
         lambda state: can_play_catch(state, player, options)
     )
     set_rule_if_exists(
-        "Flower Zone Main Area - Bellossom Power Competition -- Friendship",
+        "Flower Zone Main Area - Bellossom Errand -- Friendship",
         lambda state: True
     )
     set_rule_if_exists(
-        "Flower Zone Main Area - Teddiursa Power Competition -- Friendship",
+        "Flower Zone Main Area - Teddiursa Chase Power Competition -- Friendship",
         lambda state: can_beat_flower_teddiursa(state, player, options)
     )
     set_rule_if_exists(
-        "Flower Zone Main Area - Furret Power Competition -- Friendship",
+        "Flower Zone Main Area - Furret Hide and Seek Power Competition -- Friendship",
         lambda state: can_beat_flower_furret(state, player, options)
     )
     set_rule_if_exists(
-        "Flower Zone Main Area - Meditite Power Competition -- Friendship",
+        "Flower Zone Main Area - Meditite Quiz Power Competition -- Friendship",
         lambda state: can_beat_flower_meditite(state, player, options)
     )
 
@@ -2386,23 +2385,23 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
 
     set_rule_if_exists(
-        "Pokepark Entrance - Celebi Power Competition -- Friendship",
+        "Pokepark Entrance - Celebi Chase Power Competition -- Friendship",
         lambda state: state.has("Celebi Unlock", player) and can_play_catch_advanced(state, player, options)
     )
     set_rule_if_exists(
-        "Magma Zone Main Area - Groudon Power Competition -- Friendship",
+        "Magma Zone Main Area - Groudon Battle Power Competition -- Friendship",
         lambda state: state.has("Groudon Unlock", player) and can_battle_thunderbolt_immune_advanced(
             state, player, options
         )
     )
     set_rule_if_exists(
-        "Haunted Zone Mansion Area - Darkrai Power Competition -- Friendship",
+        "Haunted Zone Mansion Area - Darkrai Battle Power Competition -- Friendship",
         lambda state: state.has("Darkrai Unlock", player) and can_battle_advanced(
             state, player, options
         )
     )
     set_rule_if_exists(
-        "Granite Zone Main Area - Jirachi Power Competition -- Friendship",
+        "Granite Zone Main Area - Jirachi Chase Power Competition -- Friendship",
         lambda state: state.has("Jirachi Unlock", player) and can_play_catch_advanced(
             state, player, options
         )
@@ -3243,8 +3242,10 @@ def can_thunderbolt_overworld(state: CollectionState, player: int):
 
 
 def can_destroy_objects_overworld(state: CollectionState, player: int):
-    return (state.has("Progressive Dash", player) or
-            state.has("Progressive Thunderbolt", player))
+    return state.has_any_count(
+        {"Progressive Dash": 1,
+         "Progressive Iron Tail": 1}, player
+    )
 
 
 def can_farm_berries_intermediate(state: CollectionState, player: int):
@@ -3800,35 +3801,35 @@ def get_entrance_rules_dict(player: int, options: "PokeparkOptions"):
         "Haunted Zone Mansion Area - Main Area Gate": lambda state: True,
 
         "Haunted Zone Mansion Area - White Gem Door": lambda state: state.has(
-            "Haunted Zone Mansion Doors Unlock",
+            "Haunted Zone Mansion Gem Doors Unlock",
             player
         ),
         "Haunted Zone Mansion Ballroom Area - White Gem Door": lambda state: state.has(
-            "Haunted Zone Mansion Doors Unlock",
+            "Haunted Zone Mansion Gem Doors Unlock",
             player
         ),
         "Haunted Zone Mansion Area - Red Gem Door": lambda state: state.has(
-            "Haunted Zone Mansion Doors Unlock",
+            "Haunted Zone Mansion Gem Doors Unlock",
             player
         ),
         "Haunted Zone Mansion Study Area - Red Gem Door": lambda state: state.has(
-            "Haunted Zone Mansion Doors Unlock",
+            "Haunted Zone Mansion Gem Doors Unlock",
             player
         ),
         "Haunted Zone Mansion Area - Blue Gem Door": lambda state: state.has(
-            "Haunted Zone Mansion Doors Unlock",
+            "Haunted Zone Mansion Gem Doors Unlock",
             player
         ),
         "Haunted Zone Mansion Gengar Area - Blue Gem Door": lambda state: state.has(
-            "Haunted Zone Mansion Doors Unlock",
+            "Haunted Zone Mansion Gem Doors Unlock",
             player
         ),
         "Haunted Zone Mansion Area - Green Gem Door": lambda state: state.has(
-            "Haunted Zone Mansion Doors Unlock",
+            "Haunted Zone Mansion Gem Doors Unlock",
             player
         ),
         "Haunted Zone Mansion Antic Area - Green Gem Door": lambda state: state.has(
-            "Haunted Zone Mansion Doors Unlock",
+            "Haunted Zone Mansion Gem Doors Unlock",
             player
         ),
         "Haunted Zone Mansion Study Area - Hidden Bookshelf": lambda state: state.has(
