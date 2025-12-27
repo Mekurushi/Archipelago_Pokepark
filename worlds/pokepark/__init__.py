@@ -176,6 +176,10 @@ class PokeparkWorld(World):
 
             self.seed = slot_data["seed"]
 
+        # update options
+        if self.options.randomize_fast_travel_entrances.value:
+            self.options.unlock_fast_travel_with_taxi_stop.value = 0
+
         if not self.ut_active:
             self.seed = self.random.getrandbits(64)
 

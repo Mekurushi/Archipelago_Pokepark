@@ -217,6 +217,14 @@ class InZoneRoadBlocks(Toggle):
     """
     default = True
 
+
+class UnlockFastTravelWithTaxiStop(Toggle):
+    """
+    Unlocks Fast Travel to reachable zones when interacting with Taxi Stops beside Drifblim. This option is
+    automatically disabled when the Randomized Fast Travel Entrances option is enabled.
+    """
+    default = True
+
 @dataclass
 class PokeparkOptions(PerGameCommonOptions):
     power_randomizer: Powers
@@ -243,6 +251,7 @@ class PokeparkOptions(PerGameCommonOptions):
     randomize_general_entrances: RandomizeGeneralEntrances
     mix_entrance_pools: MixRandomizedEntrancePools
     harder_enemy_ai: HarderEnemyAI
+    unlock_fast_travel_with_taxi_stop: UnlockFastTravelWithTaxiStop
 
     def get_output_dict(self) -> dict[str, Any]:
         """
@@ -260,7 +269,8 @@ class PokeparkOptions(PerGameCommonOptions):
             "num_required_prisma_count_skygarden",
             "remove_errand_power_comp_locations",
             "harder_enemy_ai",
-            "each_zone"
+            "each_zone",
+            "unlock_fast_travel_with_taxi_stop"
         )
 
 
@@ -283,7 +293,8 @@ pokepark_option_groups = [
         NumRequiredBattleCount,
         NumRequiredPrismaCountSkygarden,
         InZoneRoadBlocks,
-        HarderEnemyAI
+        HarderEnemyAI,
+        UnlockFastTravelWithTaxiStop
     ]
                 ),
     OptionGroup(
