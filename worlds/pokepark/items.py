@@ -1673,7 +1673,7 @@ ITEM_TABLE: dict[str, PokeparkItemData] = {
             parameter1=0x80001860
         )
     ),
-    "Haunted Zone Mansion Doors Unlock": PokeparkItemData(
+    "Haunted Zone Mansion Gem Doors Unlock": PokeparkItemData(
         "Item", IC.progression, 313, 1, PokeparkFlagItemClientData(
             flag_name=generate_flagname("f0502DoorA"),
             parameter1=0x80001860
@@ -1748,7 +1748,7 @@ static_progressive_items = [
     "Beach Bridge 1 Unlock",
     "Beach Bridge 2 Unlock",
     "Magma Zone Fire Wall Unlock",
-    "Haunted Zone Mansion Doors Unlock",
+    "Haunted Zone Mansion Gem Doors Unlock",
     "Ice Zone Lift Unlock",
     "Ice Zone Frozen Lake Unlock",
 
@@ -1776,7 +1776,7 @@ road_block_items = [
     "Beach Bridge 1 Unlock",
     "Beach Bridge 2 Unlock",
     "Magma Zone Fire Wall Unlock",
-    "Haunted Zone Mansion Doors Unlock",
+    "Haunted Zone Mansion Gem Doors Unlock",
     "Ice Zone Lift Unlock",
     "Ice Zone Frozen Lake Unlock",
 ]
