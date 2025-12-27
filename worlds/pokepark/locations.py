@@ -2106,8 +2106,7 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
     "Cavern Zone Main Area - Teddiursa Quiz Power Competition -- Friendship": PokeparkLocationData(
         261, PokeparkFlag.QUIZ, "Cavern Zone Main Area", Pokepark07AttractionClientData(
             structure_position=9
-        ),
-        each_zone=MultiZoneFlag.MULTI
+        )
     ),
     "Cavern Zone Main Area - Chimchar Battle Power Competition -- Friendship": PokeparkLocationData(
         262, PokeparkFlag.BATTLE, "Cavern Zone Main Area", Pokepark07AttractionClientData(
@@ -4058,11 +4057,5 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
         586, PokeparkFlag.LEGENDARY, "Granite Zone Main Area", Pokepark13AttractionClientData(
             structure_position=7
         ),
-    ),
-    "Teddiursa Quiz Power Competition -- Friendship": PokeparkLocationData(
-        587, PokeparkFlag.QUIZ, "Teddiursa", Pokepark07AttractionClientData(
-            structure_position=9
-        ),
-        each_zone=MultiZoneFlag.SINGLE
     ),
 }

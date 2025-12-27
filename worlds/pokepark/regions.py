@@ -199,7 +199,6 @@ EACH_ZONE_ENTRANCES: list[Entrance] = [
     Entrance("Ice Zone Lower Lift Area - Corphish", "Ice Zone Lower Lift Area"),
 
     Entrance("Ice Zone Main Area - Teddiursa", "Ice Zone Main Area"),
-    Entrance("Cavern Zone Main Area - Teddiursa", "Cavern Zone Main Area"),
     Entrance("Flower Zone Main Area - Teddiursa", "Flower Zone Main Area"),
 
     Entrance("Cavern Zone Main Area - Aron", "Cavern Zone Main Area"),
@@ -448,7 +447,6 @@ EACH_ZONE_EXITS: list[Exit] = [
     Exit("Ice Corphish - Battle Power Competition -- Friendship", "Corphish"),
 
     Exit("Ice Teddiursa - Chase Power Competition -- Friendship", "Teddiursa"),
-    Exit("Cavern Teddiursa - Quiz Power Competition -- Friendship", "Teddiursa"),
     Exit("Flower Teddiursa - Chase Power Competition -- Friendship", "Teddiursa"),
 
     Exit("Cavern Aron - Errand -- Friendship", "Aron"),
@@ -714,7 +712,6 @@ VANILLA_ENTRANCE_TO_EXIT: dict[str, str] = {
     "Ice Zone Lower Lift Area - Corphish": "Ice Corphish - Battle Power Competition -- Friendship",
 
     "Ice Zone Main Area - Teddiursa": "Ice Teddiursa - Chase Power Competition -- Friendship",
-    "Cavern Zone Main Area - Teddiursa": "Cavern Teddiursa - Quiz Power Competition -- Friendship",
     "Flower Zone Main Area - Teddiursa": "Flower Teddiursa - Chase Power Competition -- Friendship",
 
     "Cavern Zone Main Area - Aron": "Cavern Aron - Errand -- Friendship",
