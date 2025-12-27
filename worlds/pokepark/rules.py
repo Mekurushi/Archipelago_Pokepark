@@ -3741,8 +3741,8 @@ def get_entrance_rules_dict(player: int, options: "PokeparkOptions"):
         "Treehouse Granite Passage - Granite Zone Gate": lambda state: state.has("Rotom Prisma", player),
 
         # Beach Zone
-        "Beach Zone Main Area - Recycle Bridge": lambda state: state.has("Beach Bridge 1 Unlock", player),
-        "Beach Zone Recycle Area - Main Bridge": lambda state: state.has("Beach Bridge 1 Unlock", player),
+        "Beach Zone Main Area - Recycle Bridge": lambda state: state.has("Beach Bridge 2 Unlock", player),
+        "Beach Zone Recycle Area - Main Bridge": lambda state: state.has("Beach Bridge 2 Unlock", player),
         "Beach Zone Main Area - Middle Bridge": lambda state: state.has("Beach Bridge 1 Unlock", player) or
                                                               state.has("Beach Bridge 2 Unlock", player),
         "Beach Zone Middle Isle - Main Bridge": lambda state: state.has("Beach Bridge 1 Unlock", player) or

@@ -722,7 +722,7 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
             structure_position=18
         )
     ),
-    "Meadow Zone Main Area - Buneary Power Competition -- Shinx Unlocked": PokeparkLocationData(
+    "Meadow Zone Main Area - Buneary Chase Power Competition -- Shinx Unlocked": PokeparkLocationData(
         24, PokeparkFlag.CHASE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=18
         )

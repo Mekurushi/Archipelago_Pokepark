@@ -213,9 +213,9 @@ class PokeparkContext(SuperContext):
             self.slot_data = args.get("slot_data", None)
             self.items_received_2 = []
             self.last_rcvd_index = -1
-            if self.slot_data["goal"] == Goal.option_mew:
+            if self.slot_data["options"]["goal"] == Goal.option_mew:
                 self.goal_code = MEW_GOAL_CODE
-            if self.slot_data["goal"] == Goal.option_postgame:
+            if self.slot_data["options"]["goal"] == Goal.option_postgame:
                 self.goal_code = POSTGAME_PRISMA_GOAL_CODE
             # Request the connected slot's dictionary (used as a set) of visited stages.
             visited_stages_key = AP_VISITED_STAGE_NAMES_KEY_FORMAT % self.slot
