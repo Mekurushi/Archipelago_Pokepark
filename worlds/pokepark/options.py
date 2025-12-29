@@ -225,6 +225,12 @@ class UnlockFastTravelWithTaxiStop(Toggle):
     """
     default = True
 
+
+class DeathLink(Toggle):
+    """When you die, everyone who enabled death link dies. Of course, the reverse is true too."""
+    display_name = "Death Link"
+    rich_text_doc = True
+
 @dataclass
 class PokeparkOptions(PerGameCommonOptions):
     power_randomizer: Powers
@@ -252,6 +258,7 @@ class PokeparkOptions(PerGameCommonOptions):
     mix_entrance_pools: MixRandomizedEntrancePools
     harder_enemy_ai: HarderEnemyAI
     unlock_fast_travel_with_taxi_stop: UnlockFastTravelWithTaxiStop
+    death_link: DeathLink
 
     def get_output_dict(self) -> dict[str, Any]:
         """

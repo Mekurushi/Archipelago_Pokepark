@@ -1,4 +1,5 @@
 import asyncio
+import time
 import traceback
 from typing import Optional, Any, Type
 
@@ -48,6 +49,38 @@ GLOBAL_MANGAER_PARAMETER1_ADDR = 0x80001800
 GLOBAL_MANGAER_PARAMETER2_ADDR = 0x80001804
 GLOBAL_MANAGER_OPCODE_ADDR = 0x80001808
 GLOBAL_MANAGER_STRUC_POINTER = 0x8000180c
+
+BATTLE_COMP_DEATH_CHECK_ADDRESSES = {
+    b"R8AJ99": 0x804A6CDB,
+}
+
+HIDE_AND_SEEK_COMP_DEATH_CHECK_ADDRESSES = {
+    b"R8AJ99": 0x804AF4B3,
+}
+
+CHASE_COMP_DEATH_CHECK_ADDRESSES = {
+    b"R8AJ99": 0x8049E4EB,
+}
+
+ATHLETIC_COMP_DEATH_CHECK_ADDRESSES = {
+    b"R8AJ99": 0x804B7B5B,
+}
+
+BATTLE_COMP_GIVE_DEATH_ADDRESSES = {
+    b"R8AJ99": 0x804af1d2,
+}
+
+HIDE_AND_SEEK_COMP_GIVE_DEATH_ADDRESSES = {
+    b"R8AJ99": 0x804b79a6,
+}
+
+CHASE_COMP_GIVE_DEATH_ADDRESSES = {
+    b"R8AJ99": 0x804a69e2,
+}
+
+ATHLETIC_COMP_GIVE_DEATH_ADDRESSES = {
+    b"R8AJ99": 0x804b80ee,
+}
 
 ATTRACTION_ID_ADDRESSES = {
     b"R8AJ99": 0x8039CA48,
@@ -168,10 +201,9 @@ class PokeparkContext(SuperContext):
         self.awaiting_rom: bool = False
         self.last_rcvd_index: int = -1
         self.visited_stage_names: Optional[set[str]] = None
-        self.dash_index = 0
-        self.thunderbolt_index = 0
-        self.health_index = 0
-        self.iron_tail_index = 0
+        self.has_send_death: bool = False
+        self.game_id: Optional[bytes] = None
+
 
     async def disconnect(self, allow_autoreconnect: bool = False) -> None:
         """
@@ -213,9 +245,11 @@ class PokeparkContext(SuperContext):
             self.slot_data = args.get("slot_data", None)
             self.items_received_2 = []
             self.last_rcvd_index = -1
-            if self.slot_data["options"]["goal"] == Goal.option_mew:
+            if self.slot_data and self.slot_data.get("options", {}).get("death_link"):
+                Utils.async_start(self.update_death_link(bool(self.slot_data["options"]["death_link"])))
+            if self.slot_data and self.slot_data.get("options", {}).get("goal") == Goal.option_mew:
                 self.goal_code = MEW_GOAL_CODE
-            if self.slot_data["options"]["goal"] == Goal.option_postgame:
+            if self.slot_data and self.slot_data.get("options", {}).get("goal") == Goal.option_postgame:
                 self.goal_code = POSTGAME_PRISMA_GOAL_CODE
             # Request the connected slot's dictionary (used as a set) of visited stages.
             visited_stages_key = AP_VISITED_STAGE_NAMES_KEY_FORMAT % self.slot
@@ -269,6 +303,15 @@ class PokeparkContext(SuperContext):
 
         return TrackerManager
 
+    def on_deathlink(self, data: dict[str, Any]) -> None:
+        """
+        Handle a DeathLink event.
+
+        :param data: The data associated with the DeathLink event.
+        """
+        super().on_deathlink(data)
+        _give_death(self)
+
     async def update_visited_stages(self, newly_visited_stage_name: str) -> None:
         """
         Update the server's data storage of the visited stage names to include the newly visited stage name.
@@ -298,7 +341,7 @@ def _give_item(ctx: PokeparkContext, item_name: str) -> bool:
     :param parameter1: Id of the item to give.
     :return: Whether the item was successfully given.
     """
-    if not check_ingame():
+    if not check_ingame(ctx.game_id):
         return False
 
     item_slot = dme.read_word(GLOBAL_MANGAER_PARAMETER1_ADDR)
@@ -333,6 +376,35 @@ def _give_item(ctx: PokeparkContext, item_name: str) -> bool:
     return False
 
 
+def _give_death(ctx: PokeparkContext) -> None:
+    """
+    Trigger the player's death in-game by failing the current active Power Competition
+
+    :param ctx: The Pokepark client context.
+    """
+
+    if (
+            ctx.slot is not None
+            and dme.is_hooked()
+            and ctx.dolphin_status == CONNECTION_CONNECTED_STATUS
+            and check_ingame(ctx.game_id)
+    ):
+        competitions = [
+            (HIDE_AND_SEEK_COMP_GIVE_DEATH_ADDRESSES, 0x0000),
+            (CHASE_COMP_GIVE_DEATH_ADDRESSES, 0x0000),
+            (BATTLE_COMP_GIVE_DEATH_ADDRESSES, 0x0000),
+            (ATHLETIC_COMP_GIVE_DEATH_ADDRESSES, 0xFFFF),
+        ]
+
+        for addresses, fail_value in competitions:
+            address = addresses[ctx.game_id]
+            current_value = int.from_bytes(dme.read_bytes(address, 2), byteorder='big')
+
+            if current_value != fail_value:
+                ctx.has_send_death = True
+                dme.write_bytes(address, fail_value.to_bytes(2, byteorder='big'))
+                return
+
 async def give_items(ctx: PokeparkContext) -> None:
     """
     Give the player all outstanding items they have yet to receive.
@@ -341,7 +413,7 @@ async def give_items(ctx: PokeparkContext) -> None:
     """
     global_manager_data_struc_address = dme.read_word(GLOBAL_MANAGER_STRUC_POINTER)
     chapter_address = global_manager_data_struc_address + 0x2d
-    if check_ingame():
+    if check_ingame(ctx.game_id):
         # Read the expected index of the player, which is the index of the latest item they've received.
         expected_idx = int.from_bytes(dme.read_bytes(chapter_address, 2), byteorder="big")
 
@@ -372,7 +444,7 @@ async def check_current_stage_changed(ctx: PokeparkContext) -> None:
     global_manager_data_struc_address = dme.read_word(GLOBAL_MANAGER_STRUC_POINTER)
     new_stage = dme.read_bytes(global_manager_data_struc_address + 0x5F00, 2)
     new_stage_name = STAGE_NAME_MAP.get(new_stage)
-    attraction_id = get_attraction_id()
+    attraction_id = get_attraction_id(ctx.game_id)
     attraction_name = ATTRACTION_ID_MAP.get(attraction_id)
     if attraction_name:
         new_stage_name = attraction_name
@@ -441,13 +513,12 @@ def read_string(console_address: int, strlen: int) -> str:
     return dme.read_bytes(console_address, strlen).split(b"\0", 1)[0].decode()
 
 
-def check_ingame() -> bool:
+def check_ingame(game_id: bytes) -> bool:
     """
     Check if the player is currently in-game.
 
     :return: `True` if the player is in-game, otherwise `False`.
     """
-    game_id = dme.read_bytes(0x80000000, 6)
     if dme.read_byte(IS_INITIALIZED_ADDRESSES[game_id]) == 0:
         return False
 
@@ -460,12 +531,30 @@ def check_ingame() -> bool:
                 is_in_game_end_state or is_in_loading_screen)
 
 
-def get_attraction_id(game_id: Optional[bytes] = None):
-    if not game_id:
-        game_id = dme.read_bytes(0x80000000, 6)
+def get_attraction_id(game_id: bytes):
     attraction_id_address = ATTRACTION_ID_ADDRESSES[game_id]
     attraction_id = dme.read_word(attraction_id_address)
     return attraction_id
+
+
+async def check_death(ctx: PokeparkContext) -> None:
+    """
+    Check if the player is currently dead in-game.
+    If DeathLink is on, notify the server of the player's death.
+
+    :return: `True` if the player is dead, otherwise `False`.
+    """
+    if ctx.slot is not None and check_ingame(ctx.game_id):
+        battle_comp = dme.read_byte(BATTLE_COMP_DEATH_CHECK_ADDRESSES[ctx.game_id])
+        hide_and_seek_comp = dme.read_byte(HIDE_AND_SEEK_COMP_DEATH_CHECK_ADDRESSES[ctx.game_id])
+        chase_comp = dme.read_byte(CHASE_COMP_DEATH_CHECK_ADDRESSES[ctx.game_id])
+        athletic_comp = dme.read_byte(ATHLETIC_COMP_DEATH_CHECK_ADDRESSES[ctx.game_id])
+        if battle_comp == 0x3 or hide_and_seek_comp == 0x3 or chase_comp == 0x3 or athletic_comp == 0x3:
+            if not ctx.has_send_death and time.time() >= ctx.last_death_link + 3:
+                ctx.has_send_death = True
+                await ctx.send_death(ctx.player_names[ctx.slot] + " lost a friend.")
+        else:
+            ctx.has_send_death = False
 
 async def dolphin_sync_task(ctx: PokeparkContext) -> None:
     """
@@ -480,13 +569,14 @@ async def dolphin_sync_task(ctx: PokeparkContext) -> None:
     while not ctx.exit_event.is_set():
         try:
             if dme.is_hooked() and ctx.dolphin_status == CONNECTION_CONNECTED_STATUS:
-                if not check_ingame():
+                if not check_ingame(ctx.game_id):
                     # Reset the give item array while not in the game.
                     dme.write_bytes(GLOBAL_MANGAER_PARAMETER1_ADDR, bytes([0xFF] * 0xC))
                     await asyncio.sleep(0.1)
                     continue
                 if ctx.slot is not None:
-
+                    if "DeathLink" in ctx.tags:
+                        await check_death(ctx)
                     await give_items(ctx)
                     await check_locations(ctx)
                     await check_current_stage_changed(ctx)
@@ -511,6 +601,7 @@ async def dolphin_sync_task(ctx: PokeparkContext) -> None:
                         await asyncio.sleep(5)
                     else:
                         logger.info(CONNECTION_CONNECTED_STATUS)
+                        ctx.game_id = value
                         ctx.dolphin_status = CONNECTION_CONNECTED_STATUS
                         ctx.locations_checked = set()
                 else:
