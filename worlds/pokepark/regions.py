@@ -808,11 +808,20 @@ class EntranceRandomizer:
                 yield self.get_one_entrance_set(general_entrances=general_entrances)
 
     def randomize_set(self, relevant_entrances: list[Entrance], relevant_exits: list[Exit]):
-
+        # prototype version until entrance randomization focused update
+        def get_region(name):
+            if name.startswith('Treehouse'):
+                return 'Treehouse'
+            return ' '.join(name.split(' ', 2)[:2])
         self.world.random.shuffle(relevant_exits)
 
-        for entrance in relevant_entrances.copy():  # WIP TODO: real logic
-            exit = self.world.random.sample(relevant_exits, 1).pop()
+        for entrance in relevant_entrances.copy():
+            valid = [e for e in relevant_exits if get_region(e.region_name) != get_region(entrance.parent_region)]
+
+            if not valid:
+                exit = self.world.random.choice(relevant_exits)
+            else:
+                exit = self.world.random.choice(valid)
             self.entrance_to_exit[entrance] = exit
             relevant_exits.remove(exit)
 
