@@ -34,6 +34,8 @@ def _check_universal_tracker_version() -> bool:
             return False
         return True
     return False
+
+
 tracker_loaded = False
 try:
     from worlds.tracker.TrackerClient import TrackerGameContext as SuperContext
@@ -43,7 +45,6 @@ try:
 except ModuleNotFoundError:
     from CommonClient import CommonContext as SuperContext
 
-
 SLOT_NAME_ADDR = 0x80001820
 GLOBAL_MANGAER_PARAMETER1_ADDR = 0x80001800
 GLOBAL_MANGAER_PARAMETER2_ADDR = 0x80001804
@@ -52,34 +53,58 @@ GLOBAL_MANAGER_STRUC_POINTER = 0x8000180c
 
 BATTLE_COMP_DEATH_CHECK_ADDRESSES = {
     b"R8AJ99": 0x804A6CDB,
+    b"R8AE99": 0x804aa493,
+    b"R8AP99": 0x804aaa73
+
 }
 
 HIDE_AND_SEEK_COMP_DEATH_CHECK_ADDRESSES = {
     b"R8AJ99": 0x804AF4B3,
+    b"R8AE99": 0x804B2C73,
+    b"R8AP99": 0x804b3253
+
 }
 
 CHASE_COMP_DEATH_CHECK_ADDRESSES = {
     b"R8AJ99": 0x8049E4EB,
+    b"R8AE99": 0x804a1ca3,
+    b"R8AP99": 0x804a2283,
+
 }
 
 ATHLETIC_COMP_DEATH_CHECK_ADDRESSES = {
     b"R8AJ99": 0x804B7B5B,
+    b"R8AE99": 0x804bb31b,
+    b"R8AP99": 0x804bb8fb,
+
 }
 
 BATTLE_COMP_GIVE_DEATH_ADDRESSES = {
     b"R8AJ99": 0x804af1d2,
+    b"R8AE99": 0x804b298a,
+    b"R8AP99": 0x804b2f6a,
+
 }
 
 HIDE_AND_SEEK_COMP_GIVE_DEATH_ADDRESSES = {
     b"R8AJ99": 0x804b79a6,
+    b"R8AE99": 0x804bb166,
+    b"R8AP99": 0x804bb746,
+
 }
 
 CHASE_COMP_GIVE_DEATH_ADDRESSES = {
     b"R8AJ99": 0x804a69e2,
+    b"R8AE99": 0x804aa19a,
+    b"R8AP99": 0x804aa77a,
+
 }
 
 ATHLETIC_COMP_GIVE_DEATH_ADDRESSES = {
-    b"R8AJ99": 0x804b80ee,
+    b"R8AJ99": 0x804b80ea,
+    b"R8AE99": 0x804BB8AA,
+    b"R8AP99": 0x804bbe8a,
+
 }
 
 ATTRACTION_ID_ADDRESSES = {
@@ -89,9 +114,9 @@ ATTRACTION_ID_ADDRESSES = {
 }
 
 IS_IN_PAUSE_MENU_ADDRESSES = {
-    b"R8AJ99": 0x80482F04,
-    b"R8AE99": 0x80486380,
-    b"R8AP99": 0x80486930
+    b"R8AJ99": 0x804b8303,
+    b"R8AE99": 0x804bbac3,
+    b"R8AP99": 0x804bc0a3
 }
 IS_INITIALIZED_ADDRESSES = {
     b"R8AJ99": 0x8037afd4,
@@ -203,7 +228,6 @@ class PokeparkContext(SuperContext):
         self.visited_stage_names: Optional[set[str]] = None
         self.has_send_death: bool = False
         self.game_id: Optional[bytes] = None
-
 
     async def disconnect(self, allow_autoreconnect: bool = False) -> None:
         """
@@ -389,21 +413,21 @@ def _give_death(ctx: PokeparkContext) -> None:
             and ctx.dolphin_status == CONNECTION_CONNECTED_STATUS
             and check_ingame(ctx.game_id)
     ):
-        competitions = [
-            (HIDE_AND_SEEK_COMP_GIVE_DEATH_ADDRESSES, 0x0000),
-            (CHASE_COMP_GIVE_DEATH_ADDRESSES, 0x0000),
-            (BATTLE_COMP_GIVE_DEATH_ADDRESSES, 0x0000),
-            (ATHLETIC_COMP_GIVE_DEATH_ADDRESSES, 0xFFFF),
+        DEATH_SIGNAL = 0x0001.to_bytes(2, byteorder='big')
+        ACTIVE_STATUS = 0x1
+
+        COMP_MAPPINGS = [
+            (BATTLE_COMP_DEATH_CHECK_ADDRESSES, BATTLE_COMP_GIVE_DEATH_ADDRESSES),
+            (HIDE_AND_SEEK_COMP_DEATH_CHECK_ADDRESSES, HIDE_AND_SEEK_COMP_GIVE_DEATH_ADDRESSES),
+            (CHASE_COMP_DEATH_CHECK_ADDRESSES, CHASE_COMP_GIVE_DEATH_ADDRESSES),
+            (ATHLETIC_COMP_DEATH_CHECK_ADDRESSES, ATHLETIC_COMP_GIVE_DEATH_ADDRESSES),
         ]
 
-        for addresses, fail_value in competitions:
-            address = addresses[ctx.game_id]
-            current_value = int.from_bytes(dme.read_bytes(address, 2), byteorder='big')
-
-            if current_value != fail_value:
+        for check_addr, give_addr in COMP_MAPPINGS:
+            if dme.read_byte(check_addr[ctx.game_id]) == ACTIVE_STATUS:
                 ctx.has_send_death = True
-                dme.write_bytes(address, fail_value.to_bytes(2, byteorder='big'))
-                return
+                dme.write_bytes(give_addr[ctx.game_id], DEATH_SIGNAL)
+
 
 async def give_items(ctx: PokeparkContext) -> None:
     """
@@ -483,10 +507,11 @@ async def check_locations(ctx: PokeparkContext) -> None:
     for location, data in LOCATION_TABLE.items():
         client_data = data.client_data
         expected_value = client_data.expected_value
-        memory = MemoryAddress(global_manager_data_struc_address,
-                               client_data.final_offset,
-                               memory_range=client_data.memory_range
-                               )
+        memory = MemoryAddress(
+            global_manager_data_struc_address,
+            client_data.final_offset,
+            memory_range=client_data.memory_range
+        )
         current_value = read_memory(dme, memory)
         if (current_value & client_data.bit_mask) == expected_value:
             if data.code == ctx.goal_code:
@@ -545,16 +570,19 @@ async def check_death(ctx: PokeparkContext) -> None:
     :return: `True` if the player is dead, otherwise `False`.
     """
     if ctx.slot is not None and check_ingame(ctx.game_id):
+        failed_status = {0x3, 0x4}
         battle_comp = dme.read_byte(BATTLE_COMP_DEATH_CHECK_ADDRESSES[ctx.game_id])
         hide_and_seek_comp = dme.read_byte(HIDE_AND_SEEK_COMP_DEATH_CHECK_ADDRESSES[ctx.game_id])
         chase_comp = dme.read_byte(CHASE_COMP_DEATH_CHECK_ADDRESSES[ctx.game_id])
         athletic_comp = dme.read_byte(ATHLETIC_COMP_DEATH_CHECK_ADDRESSES[ctx.game_id])
-        if battle_comp == 0x3 or hide_and_seek_comp == 0x3 or chase_comp == 0x3 or athletic_comp == 0x3:
-            if not ctx.has_send_death and time.time() >= ctx.last_death_link + 3:
+        if (battle_comp in failed_status or hide_and_seek_comp in failed_status or
+                chase_comp in failed_status or athletic_comp in failed_status):
+            if not ctx.has_send_death and time.time() >= ctx.last_death_link + 5:
                 ctx.has_send_death = True
                 await ctx.send_death(ctx.player_names[ctx.slot] + " lost a friend.")
         else:
             ctx.has_send_death = False
+
 
 async def dolphin_sync_task(ctx: PokeparkContext) -> None:
     """
@@ -618,6 +646,7 @@ async def dolphin_sync_task(ctx: PokeparkContext) -> None:
             await ctx.disconnect()
             await asyncio.sleep(5)
             continue
+
 
 def main(connect=None, password=None):
     Utils.init_logging("PokeparkClient", exception_logger="Client")
