@@ -171,35 +171,36 @@ class HarderEnemyAI(Toggle):
 
 class RandomizeAttractionEntrances(Toggle):
     """
-    Randomize Attraction Entrances with each other
+    Randomize attraction entrances among themselves.
     """
     default = False
 
 
 class RandomizeFastTravelEntrances(Toggle):
     """
-    Randomize Fast Travel Entrances with each other
+    Randomize fast travel entrances among themselves.
     """
     default = False
 
 
 class RandomizeTreehouseGatesEntrances(Toggle):
     """
-    Randomize Treehouse Gate Entrances with each other
+    Randomize Treehouse gate entrances among themselves.
     """
     default = False
 
 
 class RandomizeGeneralEntrances(Toggle):
     """
-    Randomize General Entrances with each other, e.g. Meadow Zone Main Area -> Meadow Zone Venusaur Area
+    Randomize general entrances among themselves (e.g., Meadow Zone Main Area → Meadow Zone Venusaur Area).
     """
     default = False
 
 
 class MixRandomizedEntrancePools(Toggle):
     """
-    Mix all toggled randomize Entrance in one Pool. Except Attraction Entrances.
+    Mix all enabled randomized entrances into a single pool, except attraction entrances.
+    WARNING: Mixing Entrance Pool is still experimental; expect breaking issues.
     """
     default = False
 
@@ -227,7 +228,8 @@ class UnlockFastTravelWithTaxiStop(Toggle):
 
 
 class DeathLink(Toggle):
-    """When you die, everyone who enabled death link dies. Of course, the reverse is true too."""
+    """When you die, everyone who enabled death link dies. Of course, the reverse is true too.
+    WARNING: Experimental feature; issues and instability are to be expected. Only Power Competition implemented."""
     display_name = "Death Link"
     rich_text_doc = True
 
