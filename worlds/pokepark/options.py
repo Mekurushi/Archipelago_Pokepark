@@ -171,7 +171,36 @@ class HarderEnemyAI(Toggle):
 
 class RandomizeAttractionEntrances(Toggle):
     """
-    Randomize Attraction Entrances
+    Randomize attraction entrances among themselves.
+    """
+    default = False
+
+
+class RandomizeFastTravelEntrances(Toggle):
+    """
+    Randomize fast travel entrances among themselves.
+    """
+    default = False
+
+
+class RandomizeTreehouseGatesEntrances(Toggle):
+    """
+    Randomize Treehouse gate entrances among themselves.
+    """
+    default = False
+
+
+class RandomizeGeneralEntrances(Toggle):
+    """
+    Randomize general entrances among themselves (e.g., Meadow Zone Main Area → Meadow Zone Venusaur Area).
+    """
+    default = False
+
+
+class MixRandomizedEntrancePools(Toggle):
+    """
+    Mix all enabled randomized entrances into a single pool, except attraction entrances.
+    WARNING: Mixing Entrance Pool is still experimental; expect breaking issues.
     """
     default = False
 
@@ -188,6 +217,21 @@ class InZoneRoadBlocks(Toggle):
     this option is deactivated.
     """
     default = True
+
+
+class UnlockFastTravelWithTaxiStop(Toggle):
+    """
+    Unlocks Fast Travel to reachable zones when interacting with Taxi Stops beside Drifblim. This option is
+    automatically disabled when the Randomized Fast Travel Entrances option is enabled.
+    """
+    default = True
+
+
+class DeathLink(Toggle):
+    """When you die, everyone who enabled death link dies. Of course, the reverse is true too.
+    WARNING: Experimental feature; issues and instability are to be expected. Only Power Competition implemented."""
+    display_name = "Death Link"
+    rich_text_doc = True
 
 @dataclass
 class PokeparkOptions(PerGameCommonOptions):
@@ -210,7 +254,13 @@ class PokeparkOptions(PerGameCommonOptions):
     num_required_prisma_count_skygarden: NumRequiredPrismaCountSkygarden
     in_zone_road_blocks: InZoneRoadBlocks
     randomize_attraction_entrances: RandomizeAttractionEntrances
+    randomize_fast_travel_entrances: RandomizeFastTravelEntrances
+    randomize_treehouse_gates_entrances: RandomizeTreehouseGatesEntrances
+    randomize_general_entrances: RandomizeGeneralEntrances
+    mix_entrance_pools: MixRandomizedEntrancePools
     harder_enemy_ai: HarderEnemyAI
+    unlock_fast_travel_with_taxi_stop: UnlockFastTravelWithTaxiStop
+    death_link: DeathLink
 
     def get_output_dict(self) -> dict[str, Any]:
         """
@@ -228,7 +278,8 @@ class PokeparkOptions(PerGameCommonOptions):
             "num_required_prisma_count_skygarden",
             "remove_errand_power_comp_locations",
             "harder_enemy_ai",
-            "each_zone"
+            "each_zone",
+            "unlock_fast_travel_with_taxi_stop"
         )
 
 
@@ -238,7 +289,11 @@ pokepark_option_groups = [
     ]),
     OptionGroup(
         "Entrances", [
-            RandomizeAttractionEntrances
+            RandomizeAttractionEntrances,
+            RandomizeTreehouseGatesEntrances,
+            RandomizeFastTravelEntrances,
+            RandomizeGeneralEntrances,
+            MixRandomizedEntrancePools
         ]
     ),
     OptionGroup("Misc", [
@@ -247,7 +302,8 @@ pokepark_option_groups = [
         NumRequiredBattleCount,
         NumRequiredPrismaCountSkygarden,
         InZoneRoadBlocks,
-        HarderEnemyAI
+        HarderEnemyAI,
+        UnlockFastTravelWithTaxiStop
     ]
                 ),
     OptionGroup(

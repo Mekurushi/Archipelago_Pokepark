@@ -4,12 +4,13 @@ Archipelago init file for Pokepark
 import os
 import zipfile
 from base64 import b64encode
-from typing import Any, ClassVar, Dict
+from itertools import chain
+from typing import Any, ClassVar, Dict, Optional
 
 import yaml
 
 from BaseClasses import ItemClassification as IC, Region, Tutorial
-from Options import OptionError
+from Options import Option, OptionError
 from worlds.AutoWorld import WebWorld, World
 from worlds.LauncherComponents import Component, Type, components, icon_paths, \
     launch_subprocess
@@ -19,11 +20,12 @@ from .items import ITEM_TABLE, PokeparkItem, PokeparkItemData, TOTAL_FRIENDSHIP_
     road_block_items, static_progressive_items, static_useful_items
 from .locations import LOCATION_TABLE, MultiZoneFlag, PokeparkFlag, PokeparkLocation
 from .options import PokeparkOptions, RemoveBattlePowerCompLocations, pokepark_option_groups
-from .regions import EntranceRandomizer
+from .regions import ALL_ENTRANCES, ALL_EXITS, EntranceRandomizer
 from .rules import set_rules
 from ..Files import APPlayerContainer
 
-VERSION: tuple[int, int, int] = (1, 0, 5)
+VERSION: tuple[int, int, int] = (1, 1, 0)
+
 
 class PokeparkWebWorld(WebWorld):
     theme = "jungle"
@@ -81,7 +83,6 @@ class PokeparkWorld(World):
     options_dataclass = PokeparkOptions
     options: PokeparkOptions
     topology_present: bool = True
-
     web = PokeparkWebWorld()
     required_client_version: tuple[int, int, int] = (0, 5, 1)
 
@@ -96,6 +97,7 @@ class PokeparkWorld(World):
     item_name_groups: ClassVar[dict[str, set[str]]] = item_name_groups
 
     glitches_item_name = "Glitched Item"
+    ut_can_gen_without_yaml = True
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -111,6 +113,9 @@ class PokeparkWorld(World):
 
         self.entrances: EntranceRandomizer = EntranceRandomizer(self)
         self.region_entrance_mapping: list[tuple[str, str]] = []
+        self.seed: int = 0
+        self.ut_active: bool = False
+
     def _determine_locations(self) -> set[str]:
         """
         Determine which locations included in the world based on the player's options.
@@ -154,8 +159,31 @@ class PokeparkWorld(World):
         return local_locations
 
     def generate_early(self) -> None:
-        # generate regions and entrances
-        self.entrances.generate_entrance_data()
+        # UT
+        re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
+        if re_gen_passthrough and self.game in re_gen_passthrough:
+            self.ut_active = True
+            # Get the passed through slot data from the real generation
+            slot_data: dict[str, Any] = re_gen_passthrough[self.game]
+
+            slot_options: dict[str, Any] = slot_data.get("options", {})
+            # Set all your options here instead of getting them from the yaml
+            for key, value in slot_options.items():
+                opt: Optional[Option] = getattr(self.options, key, None)
+                if opt is not None:
+                    # You can also set .value directly but that won't work if you have OptionSets
+                    setattr(self.options, key, opt.from_any(value))
+
+            self.seed = slot_data["seed"]
+
+        # update options
+        if self.options.randomize_fast_travel_entrances.value:
+            self.options.unlock_fast_travel_with_taxi_stop.value = 0
+
+        if not self.ut_active:
+            self.seed = self.random.getrandbits(64)
+
+        self.random.seed(self.seed)
 
         # setup locations
         self.locations = self._determine_locations()
@@ -313,8 +341,8 @@ class PokeparkWorld(World):
         }
 
         output_entrances = output_data["Entrances"]
-        for zone_entrance, zone_exit in self.entrances.entrances_to_exits.items():
-            output_entrances[zone_entrance] = zone_exit
+        for zone_entrance, zone_exit in self.entrances.final_entrance_to_exit.items():
+            output_entrances[zone_entrance.name] = zone_exit.name
 
         # Output the plando details to file.
         appokepark = PokeparkContainer(
@@ -330,27 +358,20 @@ class PokeparkWorld(World):
     def create_regions(self):
         multiworld = self.multiworld
         player = self.player
-        ENTRANCES_TO_EXITS = self.entrances.entrances_to_exits
-        REGION_TO_ENTRANCES = self.entrances.region_to_entrances
-        ENTRANCE_RULES = self.entrances.entrances_rules
+
         treehouse = Region("Treehouse", player, multiworld)
         multiworld.regions.append(treehouse)
-        unique_region_names = set(ENTRANCES_TO_EXITS.values())
+        unique_region_names = {
+            region for region in chain(
+                (e.parent_region for e in ALL_ENTRANCES if e.parent_region != "Treehouse"),
+                (e.region_name for e in ALL_EXITS if e.region_name != "Treehouse")
+            )
+        }
         for _region_name in unique_region_names:
             multiworld.regions.append(Region(_region_name, player, multiworld))
-        for region_map, entrances in REGION_TO_ENTRANCES.items():
-            for entrance in entrances:
-                target_region_name = ENTRANCES_TO_EXITS.get(entrance)
-                target_region = multiworld.get_region(target_region_name, player)
-                entrance_name = f"{entrance} -> {target_region_name}"
-                multiworld.get_region(region_map, player).connect(
-                    target_region
-                    , entrance_name, ENTRANCE_RULES[entrance]
-                )
-                # add mapping for UT Tracker
-                self.region_entrance_mapping.append(
-                    (region_map, entrance_name)
-                )
+
+        self.entrances.randomize_entrances()
+
         for location_name in sorted(self.locations):
             data = LOCATION_TABLE[location_name]
 
@@ -420,46 +441,48 @@ class PokeparkWorld(World):
 
     def fill_slot_data(self) -> Dict[str, Any]:
         slot_data = {
-            **self.options.as_dict(
-            "goal",
-            "num_required_prisma_count_skygarden",
-            "remove_battle_power_comp_locations",
-            "remove_chase_power_comp_locations",
-            "remove_quiz_power_comp_locations",
-            "remove_hide_and_seek_power_comp_locations",
-            "remove_errand_power_comp_locations",
-            "remove_misc_power_comp_locations",
-            "remove_legendary_pokemon_power_comp_locations",
-            "remove_power_training_locations",
-            "remove_attraction_locations",
-            "remove_attraction_prisma_locations",
-            "remove_pokemon_unlock_locations",
-            "harder_enemy_ai",
-            "randomize_attraction_entrances"
-            ),
-            "entrances": self.region_entrance_mapping,
+            "options": {
+                **self.options.as_dict(
+                    "power_randomizer",
+                    "start_fast_travel",
+                    "goal",
+                    "each_zone",
+                    "remove_battle_power_comp_locations",
+                    "remove_chase_power_comp_locations",
+                    "remove_quiz_power_comp_locations",
+                    "remove_hide_and_seek_power_comp_locations",
+                    "remove_errand_power_comp_locations",
+                    "remove_misc_power_comp_locations",
+                    "remove_legendary_pokemon_power_comp_locations",
+                    "remove_power_training_locations",
+                    "remove_attraction_locations",
+                    "remove_attraction_prisma_locations",
+                    "remove_pokemon_unlock_locations",
+                    "num_required_prisma_count_skygarden",
+                    "harder_enemy_ai",
+                    "in_zone_road_blocks",
+                    "randomize_attraction_entrances",
+                    "randomize_fast_travel_entrances",
+                    "randomize_treehouse_gates_entrances",
+                    "randomize_general_entrances",
+                    "mix_entrance_pools",
+                    "harder_enemy_ai"
+                )
+            },
+            "entrances": {},
+            "seed": self.seed
         }
+        entrances = {
+            entrance.name: exit.name
+            for entrance, exit in self.entrances.final_entrance_to_exit.items()
+        }
+        slot_data["entrances"] = entrances
         return slot_data
 
-    def interpret_slot_data(self, slot_data: dict[str, Any]) -> None:
-        if "entrances" in slot_data:
-            # Update entrance connections for ER
-            entrance_lookup = {}
-            for region in self.get_regions():
-                for entrance in region.entrances:
-                    entrance_name = entrance.name.split(" -> ")[0]
-                    entrance_lookup[entrance_name] = entrance
+    @staticmethod
+    def interpret_slot_data(slot_data: dict[str, Any]) -> dict[str, Any]:
+        return slot_data
 
-            for source_region_name, new_entrance_name in slot_data["entrances"]:
-                entrance_name, target_region_name = new_entrance_name.split(" -> ")
-
-                entrance = entrance_lookup.get(entrance_name)
-                if entrance is None:
-                    continue
-
-                entrance.name = new_entrance_name
-                entrance.parent_region = self.get_region(source_region_name)
-                entrance.connected_region = self.get_region(target_region_name)
 
 def launch_client():
     print("Running Pokepark Client")
@@ -470,7 +493,7 @@ def launch_client():
 components.append(
     Component(
         "Pokepark Client",
-                            func=launch_client, component_type=Type.CLIENT, icon="Pokepark"
-                            )
-                  )
+        func=launch_client, component_type=Type.CLIENT, icon="Pokepark"
+    )
+)
 icon_paths["Pokepark"] = "ap:worlds.pokepark/assets/icon.png"

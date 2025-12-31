@@ -692,17 +692,17 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
         )
     ),
     # Meadow Zone Main Area
-    "Meadow Zone Main Area - Turtwig Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Turtwig Chase Power Competition -- Friendship": PokeparkLocationData(
         18, PokeparkFlag.CHASE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=0
         )
     ),
-    "Meadow Zone Main Area - Turtwig Power Competition -- Pachirisu Unlocked": PokeparkLocationData(
+    "Meadow Zone Main Area - Turtwig Chase Power Competition -- Pachirisu Unlocked": PokeparkLocationData(
         19, PokeparkFlag.CHASE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=0
         )
     ),
-    "Meadow Zone Main Area - Turtwig Power Competition -- Bonsly Unlocked": PokeparkLocationData(
+    "Meadow Zone Main Area - Turtwig Chase Power Competition -- Bonsly Unlocked": PokeparkLocationData(
         20, PokeparkFlag.CHASE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=0
         )
@@ -712,17 +712,17 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
             structure_position=35
         )
     ),
-    "Meadow Zone Main Area - Buneary Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Buneary Chase Power Competition -- Friendship": PokeparkLocationData(
         22, PokeparkFlag.CHASE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=18
         )
     ),
-    "Meadow Zone Main Area - Buneary Power Competition -- Lotad Unlocked": PokeparkLocationData(
+    "Meadow Zone Main Area - Buneary Chase Power Competition -- Lotad Unlocked": PokeparkLocationData(
         23, PokeparkFlag.CHASE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=18
         )
     ),
-    "Meadow Zone Main Area - Buneary Power Competition -- Shinx Unlocked": PokeparkLocationData(
+    "Meadow Zone Main Area - Buneary Chase Power Competition -- Shinx Unlocked": PokeparkLocationData(
         24, PokeparkFlag.CHASE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=18
         )
@@ -742,47 +742,47 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
             structure_position=26
         )
     ),
-    "Meadow Zone Main Area - Pachirisu Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Pachirisu Chase Power Competition -- Friendship": PokeparkLocationData(
         28, PokeparkFlag.CHASE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=3
         )
     ),
-    "Meadow Zone Main Area - Shinx Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Shinx Chase Power Competition -- Friendship": PokeparkLocationData(
         29, PokeparkFlag.CHASE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=27
         )
     ),
-    "Meadow Zone Main Area - Mankey Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Mankey Battle Power Competition -- Friendship": PokeparkLocationData(
         30, PokeparkFlag.BATTLE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=16
         )
     ),
-    "Meadow Zone Main Area - Mankey Power Competition -- Chimchar Unlocked": PokeparkLocationData(
+    "Meadow Zone Main Area - Mankey Battle Power Competition -- Chimchar Unlocked": PokeparkLocationData(
         31, PokeparkFlag.BATTLE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=16
         )
     ),
-    "Meadow Zone Main Area - Spearow Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Spearow Battle Power Competition -- Friendship": PokeparkLocationData(
         32, PokeparkFlag.BATTLE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=25
         ), each_zone=MultiZoneFlag.MULTI
     ),
-    "Meadow Zone Main Area - Croagunk Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Croagunk Battle Power Competition -- Friendship": PokeparkLocationData(
         33, PokeparkFlag.BATTLE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=34
         )
     ),
-    "Meadow Zone Main Area - Croagunk Power Competition -- Scyther Unlocked": PokeparkLocationData(
+    "Meadow Zone Main Area - Croagunk Battle Power Competition -- Scyther Unlocked": PokeparkLocationData(
         34, PokeparkFlag.BATTLE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=34
         )
     ),
-    "Meadow Zone Main Area - Lotad Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Lotad Battle Power Competition -- Friendship": PokeparkLocationData(
         35, PokeparkFlag.BATTLE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=4
         )
     ),
-    "Meadow Zone Main Area - Treecko Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Treecko Chase Power Competition -- Friendship": PokeparkLocationData(
         36, PokeparkFlag.CHASE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=2
         )
@@ -793,17 +793,17 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
             _bit_mask=0b00000001
         ),
     ),
-    "Meadow Zone Main Area - Caterpie Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Caterpie Chase Power Competition -- Friendship": PokeparkLocationData(
         38, PokeparkFlag.CHASE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=8
         )
     ),
-    "Meadow Zone Main Area - Caterpie Power Competition -- Butterfree Unlocked": PokeparkLocationData(
+    "Meadow Zone Main Area - Caterpie Chase Power Competition -- Butterfree Unlocked": PokeparkLocationData(
         39, PokeparkFlag.CHASE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=8
         )
     ),
-    "Meadow Zone Main Area - Butterfree Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Butterfree Chase Power Competition -- Friendship": PokeparkLocationData(
         40, PokeparkFlag.CHASE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=9
         )
@@ -814,7 +814,7 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
             _bit_mask=0b00001000
         ),
     ),
-    "Meadow Zone Main Area - Weedle Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Weedle Battle Power Competition -- Friendship": PokeparkLocationData(
         42, PokeparkFlag.BATTLE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=7
         )
@@ -827,7 +827,7 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
             _bit_mask=0b10000000
         ),
     ),
-    "Meadow Zone Main Area - Shroomish Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Shroomish Chase Power Competition -- Friendship": PokeparkLocationData(
         44, PokeparkFlag.CHASE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=14
         )
@@ -838,7 +838,7 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
             _bit_mask=0b10000000
         ),
     ),
-    "Meadow Zone Main Area - Oddish Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Oddish Hide and Seek Power Competition -- Friendship": PokeparkLocationData(
         46, PokeparkFlag.HIDEANDSEEK, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=23
         )
@@ -914,71 +914,71 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
             _bit_mask=0b00000001
         )
     ),
-    "Meadow Zone Main Area - Bibarel Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Bibarel Battle Power Competition -- Friendship": PokeparkLocationData(
         57, PokeparkFlag.BATTLE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=6
         )
     ),
-    "Meadow Zone Main Area - Leafeon Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Leafeon Chase Power Competition -- Friendship": PokeparkLocationData(
         58, PokeparkFlag.CHASE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=38
         )
     ),
-    "Meadow Zone Main Area - Torterra Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Torterra Battle Power Competition -- Friendship": PokeparkLocationData(
         59, PokeparkFlag.BATTLE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=1
         )
     ),
-    "Meadow Zone Main Area - Scyther Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Scyther Battle Power Competition -- Friendship": PokeparkLocationData(
         60, PokeparkFlag.BATTLE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=32
         )
     ),
-    "Meadow Zone Main Area - Starly Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Starly Chase Power Competition -- Friendship": PokeparkLocationData(
         61, PokeparkFlag.CHASE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=20
         ), each_zone=MultiZoneFlag.MULTI
     ),
-    "Meadow Zone Main Area - Bonsly Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Bonsly Hide and Seek Power Competition -- Friendship": PokeparkLocationData(
         62, PokeparkFlag.HIDEANDSEEK, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=12
         ), each_zone=MultiZoneFlag.MULTI
     ),
-    "Meadow Zone Main Area - Bonsly Power Competition -- Sudowoodo Unlocked": PokeparkLocationData(
+    "Meadow Zone Main Area - Bonsly Hide and Seek Power Competition -- Sudowoodo Unlocked": PokeparkLocationData(
         63, PokeparkFlag.HIDEANDSEEK, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=12
         ), each_zone=MultiZoneFlag.MULTI
     ),
 
-    "Meadow Zone Main Area - Chimchar Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Chimchar Battle Power Competition -- Friendship": PokeparkLocationData(
         64, PokeparkFlag.BATTLE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=112
         ), each_zone=MultiZoneFlag.MULTI
     ),
 
-    "Meadow Zone Main Area - Sudowoodo Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Sudowoodo Hide and Seek Power Competition -- Friendship": PokeparkLocationData(
         65, PokeparkFlag.HIDEANDSEEK, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=13
         ), each_zone=MultiZoneFlag.MULTI
     ),
 
-    "Meadow Zone Main Area - Aipom Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Aipom Chase Power Competition -- Friendship": PokeparkLocationData(
         66, PokeparkFlag.CHASE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=30
         ), each_zone=MultiZoneFlag.MULTI
     ),
 
-    "Meadow Zone Main Area - Aipom Power Competition -- Ambipom Unlocked": PokeparkLocationData(
+    "Meadow Zone Main Area - Aipom Chase Power Competition -- Ambipom Unlocked": PokeparkLocationData(
         67, PokeparkFlag.CHASE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=30
         ), each_zone=MultiZoneFlag.MULTI
     ),
-    "Meadow Zone Main Area - Ambipom Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Ambipom Battle Power Competition -- Friendship": PokeparkLocationData(
         68, PokeparkFlag.BATTLE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=31
         ), each_zone=MultiZoneFlag.MULTI
     ),
-    "Meadow Zone Main Area - Magikarp Power Competition -- Friendship": PokeparkLocationData(
+    "Meadow Zone Main Area - Magikarp Chase Power Competition -- Friendship": PokeparkLocationData(
         69, PokeparkFlag.CHASE, "Meadow Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=64
         )
@@ -1262,87 +1262,87 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
         ),
     ),
     # Beach Zone
-    "Beach Zone Main Area - Buizel Power Competition -- Friendship": PokeparkLocationData(
+    "Beach Zone Main Area - Buizel Chase Power Competition -- Friendship": PokeparkLocationData(
         116, PokeparkFlag.CHASE, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=51
         ),
     ),
-    "Beach Zone Main Area - Buizel Power Competition -- Floatzel Unlocked": PokeparkLocationData(
+    "Beach Zone Main Area - Buizel Chase Power Competition -- Floatzel Unlocked": PokeparkLocationData(
         117, PokeparkFlag.CHASE, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=51
         ),
     ),
-    "Beach Zone Main Area - Psyduck Power Competition -- Friendship": PokeparkLocationData(
+    "Beach Zone Main Area - Psyduck Hide and Seek Power Competition -- Friendship": PokeparkLocationData(
         118, PokeparkFlag.HIDEANDSEEK, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=53
         ),
     ),
-    "Beach Zone Main Area - Psyduck Power Competition -- Golduck Unlocked": PokeparkLocationData(
+    "Beach Zone Main Area - Psyduck Hide and Seek Power Competition -- Golduck Unlocked": PokeparkLocationData(
         119, PokeparkFlag.HIDEANDSEEK, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=53
         ),
     ),
-    "Beach Zone Main Area - Slowpoke Power Competition -- Friendship": PokeparkLocationData(
+    "Beach Zone Main Area - Slowpoke Chase Power Competition -- Friendship": PokeparkLocationData(
         120, PokeparkFlag.CHASE, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=50
         ),
     ),
-    "Beach Zone Main Area - Slowpoke Power Competition -- Mudkip Unlocked": PokeparkLocationData(
+    "Beach Zone Main Area - Slowpoke Chase Power Competition -- Mudkip Unlocked": PokeparkLocationData(
         121, PokeparkFlag.CHASE, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=50
         ),
     ),
-    "Beach Zone Main Area - Azurill Power Competition -- Friendship": PokeparkLocationData(
+    "Beach Zone Main Area - Azurill Chase Power Competition -- Friendship": PokeparkLocationData(
         122, PokeparkFlag.CHASE, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=45
         ),
     ),
-    "Beach Zone Main Area - Azurill Power Competition -- Totodile Unlocked": PokeparkLocationData(
+    "Beach Zone Main Area - Azurill Chase Power Competition -- Totodile Unlocked": PokeparkLocationData(
         123, PokeparkFlag.CHASE, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=45
         ),
     ),
-    "Beach Zone Main Area - Totodile Power Competition -- Friendship": PokeparkLocationData(
+    "Beach Zone Main Area - Totodile Battle Power Competition -- Friendship": PokeparkLocationData(
         124, PokeparkFlag.BATTLE, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=59
         ),
     ),
-    "Beach Zone Main Area - Pidgeotto Power Competition -- Friendship": PokeparkLocationData(
+    "Beach Zone Main Area - Pidgeotto Battle Power Competition -- Friendship": PokeparkLocationData(
         125, PokeparkFlag.BATTLE, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=56
         ),
     ),
-    "Beach Zone Main Area - Corsola Power Competition -- Friendship": PokeparkLocationData(
+    "Beach Zone Main Area - Corsola Quiz Power Competition -- Friendship": PokeparkLocationData(
         126, PokeparkFlag.QUIZ, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=49
         ),
     ),
-    "Beach Zone Main Area - Floatzel Power Competition -- Friendship": PokeparkLocationData(
+    "Beach Zone Main Area - Floatzel Battle Power Competition -- Friendship": PokeparkLocationData(
         127, PokeparkFlag.BATTLE, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=52
         ),
     ),
-    "Beach Zone Main Area - Vaporeon Power Competition -- Friendship": PokeparkLocationData(
+    "Beach Zone Main Area - Vaporeon Chase Power Competition -- Friendship": PokeparkLocationData(
         128, PokeparkFlag.CHASE, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=39
         ),
     ),
-    "Beach Zone Main Area - Golduck Power Competition -- Friendship": PokeparkLocationData(
+    "Beach Zone Main Area - Golduck Battle Power Competition -- Friendship": PokeparkLocationData(
         129, PokeparkFlag.BATTLE, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=54
         ),
     ),
-    "Beach Zone Main Area - Wailord Power Competition -- Friendship": PokeparkLocationData(
+    "Beach Zone Main Area - Wailord Errand -- Friendship": PokeparkLocationData(
         130, PokeparkFlag.ERRAND, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=190
         ),
     ),
-    "Beach Zone Main Area - Feraligatr Power Competition -- Friendship": PokeparkLocationData(
+    "Beach Zone Main Area - Feraligatr Battle Power Competition -- Friendship": PokeparkLocationData(
         131, PokeparkFlag.BATTLE, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=60
         ),
     ),
-    "Beach Zone Main Area - Blastoise Power Competition -- Friendship": PokeparkLocationData(
+    "Beach Zone Main Area - Blastoise Battle Power Competition -- Friendship": PokeparkLocationData(
         132, PokeparkFlag.BATTLE, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=58
         ),
@@ -1404,48 +1404,48 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
         ),
     ),
 
-    "Beach Zone Main Area - Krabby Power Competition -- Friendship": PokeparkLocationData(
-        141, PokeparkFlag.BATTLE, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
+    "Beach Zone Main Area - Krabby Chase Power Competition -- Friendship": PokeparkLocationData(
+        141, PokeparkFlag.CHASE, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=47
         ), each_zone=MultiZoneFlag.MULTI
     ),
-    "Beach Zone Main Area - Starly Power Competition -- Friendship": PokeparkLocationData(
+    "Beach Zone Main Area - Starly Chase Power Competition -- Friendship": PokeparkLocationData(
         142, PokeparkFlag.CHASE, "Beach Zone Main Area", Pokepark07AttractionClientData(
             structure_position=0
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Beach Zone Main Area - Mudkip Power Competition -- Friendship": PokeparkLocationData(
+    "Beach Zone Main Area - Mudkip Hide and Seek Power Competition -- Friendship": PokeparkLocationData(
         143, PokeparkFlag.HIDEANDSEEK, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=46
         ), each_zone=MultiZoneFlag.MULTI
     ),
-    "Beach Zone Main Area - Taillow Power Competition -- Friendship": PokeparkLocationData(
+    "Beach Zone Main Area - Taillow Chase Power Competition -- Friendship": PokeparkLocationData(
         144, PokeparkFlag.CHASE, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=55
         ), each_zone=MultiZoneFlag.MULTI
     ),
-    "Beach Zone Main Area - Staravia Power Competition -- Friendship": PokeparkLocationData(
+    "Beach Zone Main Area - Staravia Battle Power Competition -- Friendship": PokeparkLocationData(
         145, PokeparkFlag.BATTLE, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=21
         ), each_zone=MultiZoneFlag.MULTI
     ),
-    "Beach Zone Main Area - Wingull Power Competition -- Friendship": PokeparkLocationData(
+    "Beach Zone Main Area - Wingull Chase Power Competition -- Friendship": PokeparkLocationData(
         146, PokeparkFlag.CHASE, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=62
         ), each_zone=MultiZoneFlag.MULTI
     ),
-    "Beach Zone Middle Isle - Piplup Power Competition -- Friendship": PokeparkLocationData(
+    "Beach Zone Middle Isle - Piplup Battle Power Competition -- Friendship": PokeparkLocationData(
         147, PokeparkFlag.BATTLE, "Beach Zone Middle Isle", PokeparkFriendshipClientLocationData(
             structure_position=78
         )
     ),
-    "Beach Zone Main Area - Corphish Power Competition -- Friendship": PokeparkLocationData(
+    "Beach Zone Main Area - Corphish Battle Power Competition -- Friendship": PokeparkLocationData(
         148, PokeparkFlag.BATTLE, "Beach Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=48
         ), each_zone=MultiZoneFlag.MULTI
     ),
-    "Beach Zone Main Area - Spearow Power Competition -- Friendship": PokeparkLocationData(
+    "Beach Zone Main Area - Spearow Battle Power Competition -- Friendship": PokeparkLocationData(
         149, PokeparkFlag.BATTLE, "Beach Zone Main Area", Pokepark13AttractionClientData(
             structure_position=5
         ), each_zone=MultiZoneFlag.MULTI
@@ -1685,72 +1685,72 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
             structure_position=61
         ),
     ),
-    "Ice Zone Main Area - Spheal Power Competition -- Friendship": PokeparkLocationData(
+    "Ice Zone Main Area - Spheal Chase Power Competition -- Friendship": PokeparkLocationData(
         189, PokeparkFlag.CHASE, "Ice Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=68
         ),
     ),
-    "Ice Zone Main Area - Octillery Power Competition -- Friendship": PokeparkLocationData(
+    "Ice Zone Main Area - Octillery Battle Power Competition -- Friendship": PokeparkLocationData(
         190, PokeparkFlag.BATTLE, "Ice Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=73
         ),
     ),
-    "Ice Zone Main Area - Delibird -- Friendship": PokeparkLocationData(
+    "Ice Zone Main Area - Delibird Quiz Power Competition -- Friendship": PokeparkLocationData(
         191, PokeparkFlag.QUIZ, "Ice Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=72
         ),
     ),
-    "Ice Zone Main Area - Smoochum Power Competition -- Friendship": PokeparkLocationData(
+    "Ice Zone Main Area - Smoochum Battle Power Competition -- Friendship": PokeparkLocationData(
         192, PokeparkFlag.BATTLE, "Ice Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=69
         ),
     ),
-    "Ice Zone Main Area - Squirtle Power Competition -- Friendship": PokeparkLocationData(
+    "Ice Zone Main Area - Squirtle Battle Power Competition -- Friendship": PokeparkLocationData(
         193, PokeparkFlag.BATTLE, "Ice Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=57
         ),
     ),
-    "Ice Zone Main Area - Glaceon Power Competition -- Friendship": PokeparkLocationData(
+    "Ice Zone Main Area - Glaceon Chase Power Competition -- Friendship": PokeparkLocationData(
         194, PokeparkFlag.CHASE, "Ice Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=40
         ),
     ),
-    "Ice Zone Main Area - Prinplup Power Competition -- Friendship": PokeparkLocationData(
+    "Ice Zone Main Area - Prinplup Battle Power Competition -- Friendship": PokeparkLocationData(
         195, PokeparkFlag.BATTLE, "Ice Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=79
         ),
     ),
-    "Ice Zone Main Area - Sneasel Power Competition -- Friendship": PokeparkLocationData(
+    "Ice Zone Main Area - Sneasel Chase Power Competition -- Friendship": PokeparkLocationData(
         196, PokeparkFlag.CHASE, "Ice Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=70
         ),
     ),
-    "Ice Zone Main Area - Piloswine Power Competition -- Friendship": PokeparkLocationData(
+    "Ice Zone Main Area - Piloswine Battle Power Competition -- Friendship": PokeparkLocationData(
         197, PokeparkFlag.BATTLE, "Ice Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=76
         ),
     ),
-    "Ice Zone Main Area - Glalie -- Friendship": PokeparkLocationData(
+    "Ice Zone Main Area - Glalie Battle Power Competition -- Friendship": PokeparkLocationData(
         198, PokeparkFlag.BATTLE, "Ice Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=74
         ),
     ),
-    "Ice Zone Main Area - Primeape Power Competition -- Friendship": PokeparkLocationData(
+    "Ice Zone Main Area - Primeape Battle Power Competition -- Friendship": PokeparkLocationData(
         199, PokeparkFlag.BATTLE, "Ice Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=17
         ),
     ),
-    "Ice Zone Main Area - Ursaring Power Competition -- Friendship": PokeparkLocationData(
+    "Ice Zone Main Area - Ursaring Battle Power Competition -- Friendship": PokeparkLocationData(
         200, PokeparkFlag.BATTLE, "Ice Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=67
         ),
     ),
-    "Ice Zone Main Area - Mamoswine Power Competition -- Friendship": PokeparkLocationData(
+    "Ice Zone Main Area - Mamoswine Battle Power Competition -- Friendship": PokeparkLocationData(
         201, PokeparkFlag.BATTLE, "Ice Zone Frozen Lake Area", PokeparkFriendshipClientLocationData(
             structure_position=77
         ),
     ),
-    "Ice Zone Main Area - Kirlia -- Friendship": PokeparkLocationData(
+    "Ice Zone Main Area - Kirlia Errand -- Friendship": PokeparkLocationData(
         202, PokeparkFlag.ERRAND, "Ice Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=153
         ),
@@ -1828,53 +1828,53 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
     ),
 
     # lower lift region
-    "Ice Zone Lower Lift Area - Quagsire -- Friendship": PokeparkLocationData(
+    "Ice Zone Lower Lift Area - Quagsire Errand -- Friendship": PokeparkLocationData(
         213, PokeparkFlag.ERRAND, "Ice Zone Lower Lift Area", PokeparkFriendshipClientLocationData(
             structure_position=71
         ),
     ),
 
-    "Ice Zone Main Area - Starly Power Competition -- Friendship": PokeparkLocationData(
+    "Ice Zone Main Area - Starly Chase Power Competition -- Friendship": PokeparkLocationData(
         214, PokeparkFlag.CHASE, "Ice Zone Main Area", Pokepark07AttractionClientData(
             structure_position=1
         ), each_zone=MultiZoneFlag.MULTI
     ),
-    "Ice Zone Main Area - Krabby Power Competition -- Friendship": PokeparkLocationData(
-        215, PokeparkFlag.BATTLE, "Ice Zone Main Area", Pokepark07AttractionClientData(
+    "Ice Zone Main Area - Krabby Chase Power Competition -- Friendship": PokeparkLocationData(
+        215, PokeparkFlag.CHASE, "Ice Zone Main Area", Pokepark07AttractionClientData(
             structure_position=2
         ), each_zone=MultiZoneFlag.MULTI
     ),
-    "Ice Zone Main Area - Corphish Power Competition -- Friendship": PokeparkLocationData(
+    "Ice Zone Main Area - Corphish Battle Power Competition -- Friendship": PokeparkLocationData(
         216, PokeparkFlag.BATTLE, "Ice Zone Lower Lift Area", Pokepark07AttractionClientData(
             structure_position=3
         ), each_zone=MultiZoneFlag.MULTI
     ),
-    "Ice Zone Main Area - Mudkip Power Competition -- Friendship": PokeparkLocationData(
+    "Ice Zone Main Area - Mudkip Hide and Seek Power Competition -- Friendship": PokeparkLocationData(
         217, PokeparkFlag.HIDEANDSEEK, "Ice Zone Main Area", Pokepark07AttractionClientData(
             structure_position=4
         ), each_zone=MultiZoneFlag.MULTI
     ),
-    "Ice Zone Main Area - Taillow Power Competition -- Friendship": PokeparkLocationData(
+    "Ice Zone Main Area - Taillow Chase Power Competition -- Friendship": PokeparkLocationData(
         218, PokeparkFlag.CHASE, "Ice Zone Main Area", Pokepark07AttractionClientData(
             structure_position=5
         ), each_zone=MultiZoneFlag.MULTI
     ),
-    "Ice Zone Main Area - Staravia Power Competition -- Friendship": PokeparkLocationData(
+    "Ice Zone Main Area - Staravia Battle Power Competition -- Friendship": PokeparkLocationData(
         219, PokeparkFlag.BATTLE, "Ice Zone Main Area", Pokepark07AttractionClientData(
             structure_position=6
         ), each_zone=MultiZoneFlag.MULTI
     ),
-    "Ice Zone Main Area - Teddiursa Power Competition -- Friendship": PokeparkLocationData(
+    "Ice Zone Main Area - Teddiursa Chase Power Competition -- Friendship": PokeparkLocationData(
         220, PokeparkFlag.CHASE, "Ice Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=66
         ), each_zone=MultiZoneFlag.MULTI
     ),
-    "Ice Zone Lower Lift Area - Wingull Power Competition -- Friendship": PokeparkLocationData(
+    "Ice Zone Lower Lift Area - Wingull Chase Power Competition -- Friendship": PokeparkLocationData(
         221, PokeparkFlag.CHASE, "Ice Zone Lower Lift Area", Pokepark07AttractionClientData(
             structure_position=7
         ), each_zone=MultiZoneFlag.MULTI
     ),
-    "Ice Zone Lower Lift Area - Froslass Power Competition -- Friendship": PokeparkLocationData(
+    "Ice Zone Lower Lift Area - Froslass Battle Power Competition -- Friendship": PokeparkLocationData(
         222, PokeparkFlag.BATTLE, "Ice Zone Lower Lift Area", PokeparkFriendshipClientLocationData(
             structure_position=75
         )
@@ -2002,62 +2002,62 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
             structure_position=105
         ),
     ),
-    "Cavern Zone Main Area - Machamp Power Competition -- Friendship": PokeparkLocationData(
+    "Cavern Zone Main Area - Machamp -- Friendship": PokeparkLocationData(
         243, PokeparkFlag.FRIENDSHIP, "Cavern Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=89
         ),
     ),
-    "Cavern Zone Main Area - Machamp Power Competition -- Machamp Unlocked": PokeparkLocationData(
+    "Cavern Zone Main Area - Machamp -- Machamp Unlocked": PokeparkLocationData(
         244, PokeparkFlag.FRIENDSHIP, "Cavern Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=89
         ),
     ),
-    "Cavern Zone Main Area - Cranidos Power Competition -- Friendship": PokeparkLocationData(
+    "Cavern Zone Main Area - Cranidos Battle Power Competition -- Friendship": PokeparkLocationData(
         245, PokeparkFlag.BATTLE, "Cavern Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=87
         ),
     ),
-    "Cavern Zone Main Area - Zubat Power Competition -- Friendship": PokeparkLocationData(
+    "Cavern Zone Main Area - Zubat Chase Power Competition -- Friendship": PokeparkLocationData(
         246, PokeparkFlag.CHASE, "Cavern Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=84
         ),
     ),
-    "Cavern Zone Main Area - Golbat Power Competition -- Friendship": PokeparkLocationData(
+    "Cavern Zone Main Area - Golbat Chase Power Competition -- Friendship": PokeparkLocationData(
         247, PokeparkFlag.CHASE, "Cavern Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=85
         ),
     ),
-    "Cavern Zone Main Area - Magnezone Power Competition -- Friendship": PokeparkLocationData(
+    "Cavern Zone Main Area - Magnezone Battle Power Competition -- Friendship": PokeparkLocationData(
         248, PokeparkFlag.BATTLE, "Cavern Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=106
         ),
     ),
-    "Cavern Zone Main Area - Scizor Power Competition -- Friendship": PokeparkLocationData(
+    "Cavern Zone Main Area - Scizor Battle Power Competition -- Friendship": PokeparkLocationData(
         249, PokeparkFlag.BATTLE, "Cavern Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=33
         ),
     ),
-    "Cavern Zone Main Area - Dugtrio Power Competition -- Friendship": PokeparkLocationData(
+    "Cavern Zone Main Area - Dugtrio -- Friendship": PokeparkLocationData(
         250, PokeparkFlag.FRIENDSHIP, "Cavern Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=174
         ),
     ),
-    "Cavern Zone Main Area - Gible Power Competition -- Friendship": PokeparkLocationData(
+    "Cavern Zone Main Area - Gible Battle Power Competition -- Friendship": PokeparkLocationData(
         251, PokeparkFlag.BATTLE, "Cavern Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=82
         ),
     ),
-    "Cavern Zone Main Area - Phanpy Power Competition -- Friendship": PokeparkLocationData(
+    "Cavern Zone Main Area - Phanpy Errand -- Friendship": PokeparkLocationData(
         252, PokeparkFlag.ERRAND, "Cavern Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=86
         ),
     ),
-    "Cavern Zone Main Area - Hitmonlee Power Competition -- Friendship": PokeparkLocationData(
+    "Cavern Zone Main Area - Hitmonlee Battle Power Competition -- Friendship": PokeparkLocationData(
         253, PokeparkFlag.BATTLE, "Cavern Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=107
         ),
     ),
-    "Cavern Zone Main Area - Electivire Power Competition -- Friendship": PokeparkLocationData(
+    "Cavern Zone Main Area - Electivire Battle Power Competition -- Friendship": PokeparkLocationData(
         254, PokeparkFlag.BATTLE, "Cavern Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=94
         ),
@@ -2091,78 +2091,77 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
             _bit_mask=0b00000010
         )
     ),
-    "Cavern Zone Main Area - Bonsly Power Competition -- Friendship": PokeparkLocationData(
+    "Cavern Zone Main Area - Bonsly Hide and Seek Power Competition -- Friendship": PokeparkLocationData(
         259, PokeparkFlag.HIDEANDSEEK, "Cavern Zone Main Area", Pokepark07AttractionClientData(
             structure_position=8
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Cavern Zone Main Area - Bonsly Power Competition -- Sudowoodo Unlocked": PokeparkLocationData(
+    "Cavern Zone Main Area - Bonsly Hide and Seek Power Competition -- Sudowoodo Unlocked": PokeparkLocationData(
         260, PokeparkFlag.HIDEANDSEEK, "Cavern Zone Main Area", Pokepark07AttractionClientData(
             structure_position=8
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Cavern Zone Main Area - Teddiursa Power Competition -- Friendship": PokeparkLocationData(
+    "Cavern Zone Main Area - Teddiursa Quiz Power Competition -- Friendship": PokeparkLocationData(
         261, PokeparkFlag.QUIZ, "Cavern Zone Main Area", Pokepark07AttractionClientData(
             structure_position=9
-        ),
-        each_zone=MultiZoneFlag.MULTI
+        )
     ),
-    "Cavern Zone Main Area - Chimchar Power Competition -- Friendship": PokeparkLocationData(
+    "Cavern Zone Main Area - Chimchar Battle Power Competition -- Friendship": PokeparkLocationData(
         262, PokeparkFlag.BATTLE, "Cavern Zone Main Area", Pokepark07AttractionClientData(
             structure_position=10
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Cavern Zone Main Area - Sudowoodo Power Competition -- Friendship": PokeparkLocationData(
+    "Cavern Zone Main Area - Sudowoodo Hide and Seek Power Competition -- Friendship": PokeparkLocationData(
         263, PokeparkFlag.HIDEANDSEEK, "Cavern Zone Main Area", Pokepark07AttractionClientData(
             structure_position=11
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Cavern Zone Main Area - Aron Power Competition -- Friendship": PokeparkLocationData(
+    "Cavern Zone Main Area - Aron Errand -- Friendship": PokeparkLocationData(
         264, PokeparkFlag.ERRAND, "Cavern Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=171
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Cavern Zone Main Area - Torchic Power Competition -- Friendship": PokeparkLocationData(
+    "Cavern Zone Main Area - Torchic Battle Power Competition -- Friendship": PokeparkLocationData(
         265, PokeparkFlag.BATTLE, "Cavern Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=115
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Cavern Zone Main Area - Geodude Power Competition -- Friendship": PokeparkLocationData(
+    "Cavern Zone Main Area - Geodude Hide and Seek Power Competition -- Friendship": PokeparkLocationData(
         266, PokeparkFlag.HIDEANDSEEK, "Cavern Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=81
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Cavern Zone Main Area - Raichu Power Competition -- Friendship": PokeparkLocationData(
+    "Cavern Zone Main Area - Raichu Chase Power Competition -- Friendship": PokeparkLocationData(
         267, PokeparkFlag.CHASE, "Cavern Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=91
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Cavern Zone Main Area - Meowth Power Competition -- Friendship": PokeparkLocationData(
+    "Cavern Zone Main Area - Meowth Quiz Power Competition -- Friendship": PokeparkLocationData(
         268, PokeparkFlag.QUIZ, "Cavern Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=117
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Cavern Zone Main Area - Marowak Power Competition -- Friendship": PokeparkLocationData(
+    "Cavern Zone Main Area - Marowak Battle Power Competition -- Friendship": PokeparkLocationData(
         269, PokeparkFlag.BATTLE, "Cavern Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=88
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Cavern Zone Main Area - Diglett Power Competition -- Friendship": PokeparkLocationData(
+    "Cavern Zone Main Area - Diglett -- Friendship": PokeparkLocationData(
         270, PokeparkFlag.FRIENDSHIP, "Cavern Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=172
         ),
     ),
-    "Cavern Zone Main Area - Mawile Power Competition -- Friendship": PokeparkLocationData(
+    "Cavern Zone Main Area - Mawile Chase Power Competition -- Friendship": PokeparkLocationData(
         271, PokeparkFlag.CHASE, "Cavern Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=83
         )
@@ -2285,88 +2284,88 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
 
     # Magma Zone
 
-    "Magma Zone Main Area - Camerupt Power Competition -- Friendship": PokeparkLocationData(
+    "Magma Zone Main Area - Camerupt Battle Power Competition -- Friendship": PokeparkLocationData(
         291, PokeparkFlag.BATTLE, "Magma Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=101
         ),
     ),
-    "Magma Zone Main Area - Magby Power Competition -- Friendship": PokeparkLocationData(
+    "Magma Zone Main Area - Magby Chase Power Competition -- Friendship": PokeparkLocationData(
         292, PokeparkFlag.CHASE, "Magma Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=110
         ),
     ),
-    "Magma Zone Main Area - Vulpix Power Competition -- Friendship": PokeparkLocationData(
+    "Magma Zone Main Area - Vulpix Chase Power Competition -- Friendship": PokeparkLocationData(
         293, PokeparkFlag.CHASE, "Magma Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=119
         ),
     ),
-    "Magma Zone Main Area - Vulpix Power Competition -- Ninetales Unlocked": PokeparkLocationData(
+    "Magma Zone Main Area - Vulpix Chase Power Competition -- Ninetales Unlocked": PokeparkLocationData(
         294, PokeparkFlag.CHASE, "Magma Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=119
         ),
     ),
-    "Magma Zone Circle Area - Ninetales Power Competition -- Friendship": PokeparkLocationData(
+    "Magma Zone Circle Area - Ninetales Chase Power Competition -- Friendship": PokeparkLocationData(
         295, PokeparkFlag.CHASE, "Magma Zone Circle Area", PokeparkFriendshipClientLocationData(
             structure_position=120
         ),
     ),
-    "Magma Zone Circle Area - Quilava Power Competition -- Friendship": PokeparkLocationData(
+    "Magma Zone Circle Area - Quilava Battle Power Competition -- Friendship": PokeparkLocationData(
         296, PokeparkFlag.BATTLE, "Magma Zone Circle Area", PokeparkFriendshipClientLocationData(
             structure_position=100
         ),
     ),
-    "Magma Zone Circle Area - Flareon Power Competition -- Friendship": PokeparkLocationData(
+    "Magma Zone Circle Area - Flareon Battle Power Competition -- Friendship": PokeparkLocationData(
         297, PokeparkFlag.BATTLE, "Magma Zone Circle Area", PokeparkFriendshipClientLocationData(
             structure_position=41
         ),
     ),
-    "Magma Zone Circle Area - Infernape Power Competition -- Friendship": PokeparkLocationData(
+    "Magma Zone Circle Area - Infernape Battle Power Competition -- Friendship": PokeparkLocationData(
         298, PokeparkFlag.BATTLE, "Magma Zone Circle Area", PokeparkFriendshipClientLocationData(
             structure_position=113
         ),
     ),
-    "Magma Zone Circle Area - Farfetch'd Power Competition -- Friendship": PokeparkLocationData(
+    "Magma Zone Circle Area - Farfetch'd Battle Power Competition -- Friendship": PokeparkLocationData(
         299, PokeparkFlag.BATTLE, "Magma Zone Circle Area", PokeparkFriendshipClientLocationData(
             structure_position=102
         ),
     ),
-    "Magma Zone Circle Area - Ponyta Power Competition -- Friendship": PokeparkLocationData(
+    "Magma Zone Circle Area - Ponyta Chase Power Competition -- Friendship": PokeparkLocationData(
         300, PokeparkFlag.CHASE, "Magma Zone Circle Area", PokeparkFriendshipClientLocationData(
             structure_position=29
         ),
     ),
-    "Magma Zone Main Area - Torkoal Power Competition -- Friendship": PokeparkLocationData(
+    "Magma Zone Main Area - Torkoal Battle Power Competition -- Friendship": PokeparkLocationData(
         301, PokeparkFlag.BATTLE, "Magma Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=98
         ),
     ),
-    "Magma Zone Main Area - Golem Power Competition -- Friendship": PokeparkLocationData(
+    "Magma Zone Main Area - Golem -- Friendship": PokeparkLocationData(
         302, PokeparkFlag.FRIENDSHIP, "Magma Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=177
         ),
     ),
-    "Magma Zone Circle Area - Hitmonchan Power Competition -- Friendship": PokeparkLocationData(
+    "Magma Zone Circle Area - Hitmonchan Battle Power Competition -- Friendship": PokeparkLocationData(
         303, PokeparkFlag.BATTLE, "Magma Zone Circle Area", PokeparkFriendshipClientLocationData(
             structure_position=108
         ),
     ),
-    "Magma Zone Circle Area - Hitmonchan Power Competition -- Hitmonlee Unlocked": PokeparkLocationData(
+    "Magma Zone Circle Area - Hitmonchan Battle Power Competition -- Hitmonlee Unlocked": PokeparkLocationData(
         304, PokeparkFlag.BATTLE, "Magma Zone Circle Area", PokeparkFriendshipClientLocationData(
             structure_position=108
         ),
     ),
-    "Magma Zone Main Area - Hitmontop Power Competition -- Friendship": PokeparkLocationData(
+    "Magma Zone Main Area - Hitmontop Errand -- Friendship": PokeparkLocationData(
         305, PokeparkFlag.ERRAND, "Magma Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=109
         ),
     ),
-    "Magma Zone Circle Area - Magmortar Power Competition -- Friendship": PokeparkLocationData(
+    "Magma Zone Circle Area - Magmortar Battle Power Competition -- Friendship": PokeparkLocationData(
         306, PokeparkFlag.BATTLE, "Magma Zone Circle Area", PokeparkFriendshipClientLocationData(
             structure_position=111
         ),
     ),
-    "Magma Zone Circle Area - Magcargo Power Competition -- Friendship": PokeparkLocationData(
-        307, PokeparkFlag.FRIENDSHIP, "Magma Zone Circle Area", PokeparkFriendshipClientLocationData(
+    "Magma Zone Circle Area - Magcargo -- Friendship": PokeparkLocationData(
+        307, PokeparkFlag.FRIENDSHIP, "Magma Zone Magcargo Area", PokeparkFriendshipClientLocationData(
             structure_position=181
         ),
     ),
@@ -2397,55 +2396,55 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
             _bit_mask=0b00000001
         )
     ),
-    "Magma Zone Main Area - Bonsly Power Competition -- Friendship": PokeparkLocationData(
+    "Magma Zone Main Area - Bonsly Hide and Seek Power Competition -- Friendship": PokeparkLocationData(
         312, PokeparkFlag.HIDEANDSEEK, "Magma Zone Main Area", Pokepark07AttractionClientData(
             structure_position=12
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Magma Zone Main Area - Chimchar Power Competition -- Friendship": PokeparkLocationData(
+    "Magma Zone Main Area - Chimchar Battle Power Competition -- Friendship": PokeparkLocationData(
         313, PokeparkFlag.BATTLE, "Magma Zone Main Area", Pokepark07AttractionClientData(
             structure_position=13
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Magma Zone Main Area - Chimchar Power Competition -- Infernape Unlocked": PokeparkLocationData(
+    "Magma Zone Main Area - Chimchar Battle Power Competition -- Infernape Unlocked": PokeparkLocationData(
         314, PokeparkFlag.BATTLE, "Magma Zone Main Area", Pokepark07AttractionClientData(
             structure_position=13
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Magma Zone Main Area - Aron Power Competition -- Friendship": PokeparkLocationData(
+    "Magma Zone Main Area - Aron Errand -- Friendship": PokeparkLocationData(
         315, PokeparkFlag.ERRAND, "Magma Zone Main Area", Pokepark07AttractionClientData(
             structure_position=14
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Magma Zone Main Area - Torchic Power Competition -- Friendship": PokeparkLocationData(
+    "Magma Zone Main Area - Torchic Battle Power Competition -- Friendship": PokeparkLocationData(
         316, PokeparkFlag.BATTLE, "Magma Zone Main Area", Pokepark07AttractionClientData(
             structure_position=15
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Magma Zone Main Area - Geodude Power Competition -- Friendship": PokeparkLocationData(
+    "Magma Zone Main Area - Geodude Hide and Seek Power Competition -- Friendship": PokeparkLocationData(
         317, PokeparkFlag.HIDEANDSEEK, "Magma Zone Main Area", Pokepark07AttractionClientData(
             structure_position=16
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Magma Zone Main Area - Baltoy Power Competition -- Friendship": PokeparkLocationData(
+    "Magma Zone Main Area - Baltoy Battle Power Competition -- Friendship": PokeparkLocationData(
         318, PokeparkFlag.BATTLE, "Magma Zone Main Area", Pokepark07AttractionClientData(
             structure_position=17
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Magma Zone Main Area - Baltoy Power Competition -- Claydol Unlocked": PokeparkLocationData(
+    "Magma Zone Main Area - Baltoy Battle Power Competition -- Claydol Unlocked": PokeparkLocationData(
         319, PokeparkFlag.BATTLE, "Magma Zone Main Area", Pokepark07AttractionClientData(
             structure_position=17
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Magma Zone Circle Area - Meditite Power Competition -- Friendship": PokeparkLocationData(
+    "Magma Zone Circle Area - Meditite Quiz Power Competition -- Friendship": PokeparkLocationData(
         320, PokeparkFlag.QUIZ, "Magma Zone Circle Area", PokeparkFriendshipClientLocationData(
             structure_position=139
         ),
@@ -2467,12 +2466,12 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
             _bit_mask=0b00010000
         )
     ),
-    "Magma Zone Circle Area - Charmander Power Competition -- Friendship": PokeparkLocationData(
+    "Magma Zone Circle Area - Charmander Battle Power Competition -- Friendship": PokeparkLocationData(
         323, PokeparkFlag.BATTLE, "Magma Zone Circle Area", PokeparkFriendshipClientLocationData(
             structure_position=145
         ),
     ),
-    "Magma Zone Main Area - Claydol Power Competition -- Friendship": PokeparkLocationData(
+    "Magma Zone Main Area - Claydol Battle Power Competition -- Friendship": PokeparkLocationData(
         324, PokeparkFlag.BATTLE, "Magma Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=104
         ),
@@ -2702,32 +2701,32 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
 
     # Haunted Zone
 
-    "Haunted Zone Main Area - Murkrow Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Main Area - Murkrow Chase Power Competition -- Friendship": PokeparkLocationData(
         361, PokeparkFlag.CHASE, "Haunted Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=121
         ),
     ),
-    "Haunted Zone Main Area - Murkrow Power Competition -- Honchkrow Unlocked": PokeparkLocationData(
+    "Haunted Zone Main Area - Murkrow Chase Power Competition -- Honchkrow Unlocked": PokeparkLocationData(
         362, PokeparkFlag.CHASE, "Haunted Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=121
         ),
     ),
-    "Haunted Zone Main Area - Honchkrow Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Main Area - Honchkrow Battle Power Competition -- Friendship": PokeparkLocationData(
         363, PokeparkFlag.BATTLE, "Haunted Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=122
         ),
     ),
-    "Haunted Zone Main Area - Gliscor Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Main Area - Gliscor Battle Power Competition -- Friendship": PokeparkLocationData(
         364, PokeparkFlag.BATTLE, "Haunted Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=118
         ),
     ),
-    "Haunted Zone Main Area - Metapod Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Main Area - Metapod -- Friendship": PokeparkLocationData(
         365, PokeparkFlag.FRIENDSHIP, "Haunted Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=188
         ),
     ),
-    "Haunted Zone Main Area - Kakuna Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Main Area - Kakuna -- Friendship": PokeparkLocationData(
         366, PokeparkFlag.FRIENDSHIP, "Haunted Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=170
         ),
@@ -2748,38 +2747,38 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
         )
     ),
 
-    "Haunted Zone Main Area - Raichu Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Main Area - Raichu Chase Power Competition -- Friendship": PokeparkLocationData(
         369, PokeparkFlag.CHASE, "Haunted Zone Main Area", Pokepark07AttractionClientData(
             structure_position=18
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Haunted Zone Main Area - Meowth Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Main Area - Meowth Quiz Power Competition -- Friendship": PokeparkLocationData(
         370, PokeparkFlag.QUIZ, "Haunted Zone Main Area", Pokepark07AttractionClientData(
             structure_position=19
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Haunted Zone Main Area - Aipom Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Main Area - Aipom Chase Power Competition -- Friendship": PokeparkLocationData(
         371, PokeparkFlag.CHASE, "Haunted Zone Main Area", Pokepark07AttractionClientData(
             structure_position=20
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
 
-    "Haunted Zone Main Area - Aipom Power Competition -- Ambipom Unlocked": PokeparkLocationData(
+    "Haunted Zone Main Area - Aipom Chase Power Competition -- Ambipom Unlocked": PokeparkLocationData(
         372, PokeparkFlag.CHASE, "Haunted Zone Main Area", Pokepark07AttractionClientData(
             structure_position=20
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Haunted Zone Main Area - Ambipom Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Main Area - Ambipom Battle Power Competition -- Friendship": PokeparkLocationData(
         373, PokeparkFlag.BATTLE, "Haunted Zone Main Area", Pokepark07AttractionClientData(
             structure_position=21
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Haunted Zone Main Area - Drifloon Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Main Area - Drifloon -- Friendship": PokeparkLocationData(
         374, PokeparkFlag.FRIENDSHIP, "Drifloon", PokeparkFriendshipClientLocationData(
             structure_position=175
         ),
@@ -2905,117 +2904,117 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
 
     # Haunted Zone Mansion
 
-    "Haunted Zone Mansion Area - Duskull Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Mansion Area - Duskull Chase Power Competition -- Friendship": PokeparkLocationData(
         394, PokeparkFlag.CHASE, "Haunted Zone Mansion Area", PokeparkFriendshipClientLocationData(
             structure_position=134
         ),
     ),
-    "Haunted Zone Mansion Area - Misdreavus Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Mansion Area - Misdreavus Chase Power Competition -- Friendship": PokeparkLocationData(
         395, PokeparkFlag.CHASE, "Haunted Zone Mansion Ballroom Area",
         PokeparkFriendshipClientLocationData(
             structure_position=128
         ),
     ),
-    "Haunted Zone Mansion Area - Pichu Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Mansion Area - Pichu Chase Power Competition -- Friendship": PokeparkLocationData(
         396, PokeparkFlag.CHASE, "Haunted Zone Mansion Ballroom Area",
         PokeparkFriendshipClientLocationData(
             structure_position=90
         ),
     ),
-    "Haunted Zone Mansion Area - Umbreon Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Mansion Area - Umbreon Chase Power Competition -- Friendship": PokeparkLocationData(
         397, PokeparkFlag.CHASE, "Haunted Zone Mansion Area", PokeparkFriendshipClientLocationData(
             structure_position=42
         ),
     ),
-    "Haunted Zone Mansion Area - Umbreon Power Competition -- Espeon Unlocked": PokeparkLocationData(
+    "Haunted Zone Mansion Area - Umbreon Chase Power Competition -- Espeon Unlocked": PokeparkLocationData(
         398, PokeparkFlag.CHASE, "Haunted Zone Mansion Area", PokeparkFriendshipClientLocationData(
             structure_position=42
         ),
     ),
-    "Haunted Zone Mansion Area - Espeon Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Mansion Area - Espeon Chase Power Competition -- Friendship": PokeparkLocationData(
         399, PokeparkFlag.CHASE, "Haunted Zone Mansion Area", PokeparkFriendshipClientLocationData(
             structure_position=43
         ),
     ),
-    "Haunted Zone Mansion Area - Spinarak Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Mansion Area - Spinarak -- Friendship": PokeparkLocationData(
         400, PokeparkFlag.FRIENDSHIP, "Haunted Zone Mansion Antic Area", PokeparkFriendshipClientLocationData(
             structure_position=179
         ),
     ),
-    "Haunted Zone Main Area - Riolu Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Main Area - Riolu Battle Power Competition -- Friendship": PokeparkLocationData(
         401, PokeparkFlag.BATTLE, "Riolu", PokeparkFriendshipClientLocationData(
             structure_position=151
         ),
     ),
-    "Haunted Zone Mansion Area - Voltorb Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Mansion Area - Voltorb Battle Power Competition -- Friendship": PokeparkLocationData(
         402, PokeparkFlag.BATTLE, "Haunted Zone Mansion Gengar Area", PokeparkFriendshipClientLocationData(
             structure_position=127
         ),
     ),
-    "Haunted Zone Mansion Area - Elekid Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Mansion Area - Elekid Hide and Seek Power Competition -- Friendship": PokeparkLocationData(
         403, PokeparkFlag.HIDEANDSEEK, "Haunted Zone Mansion Area", PokeparkFriendshipClientLocationData(
             structure_position=92
         ),
     ),
-    "Haunted Zone Mansion Area - Elekid Power Competition -- Electabuzz Unlocked": PokeparkLocationData(
+    "Haunted Zone Mansion Area - Elekid Hide and Seek Power Competition -- Electabuzz Unlocked": PokeparkLocationData(
         404, PokeparkFlag.HIDEANDSEEK, "Haunted Zone Mansion Area", PokeparkFriendshipClientLocationData(
             structure_position=92
         ),
     ),
-    "Haunted Zone Mansion Area - Electabuzz Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Mansion Area - Electabuzz Battle Power Competition -- Friendship": PokeparkLocationData(
         405, PokeparkFlag.BATTLE, "Haunted Zone Mansion Area", PokeparkFriendshipClientLocationData(
             structure_position=93
         ),
     ),
-    "Haunted Zone Mansion Area - Luxray Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Mansion Area - Luxray Chase Power Competition -- Friendship": PokeparkLocationData(
         406, PokeparkFlag.CHASE, "Haunted Zone Mansion Ballroom Area",
         PokeparkFriendshipClientLocationData(
             structure_position=28
         ),
     ),
-    "Haunted Zone Mansion Area - Stunky Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Mansion Area - Stunky Chase Power Competition -- Friendship": PokeparkLocationData(
         407, PokeparkFlag.CHASE, "Haunted Zone Mansion Area", PokeparkFriendshipClientLocationData(
             structure_position=125
         ),
     ),
-    "Haunted Zone Mansion Area - Stunky Power Competition -- Skuntank Unlocked": PokeparkLocationData(
+    "Haunted Zone Mansion Area - Stunky Chase Power Competition -- Skuntank Unlocked": PokeparkLocationData(
         408, PokeparkFlag.CHASE, "Haunted Zone Mansion Area", PokeparkFriendshipClientLocationData(
             structure_position=125
         ),
     ),
-    "Haunted Zone Mansion Area - Skuntank Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Mansion Area - Skuntank Battle Power Competition -- Friendship": PokeparkLocationData(
         409, PokeparkFlag.BATTLE, "Haunted Zone Mansion Area", PokeparkFriendshipClientLocationData(
             structure_position=126
         ),
     ),
-    "Haunted Zone Mansion Area - Breloom Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Mansion Area - Breloom Battle Power Competition -- Friendship": PokeparkLocationData(
         410, PokeparkFlag.BATTLE, "Haunted Zone Mansion Antic Area", PokeparkFriendshipClientLocationData(
             structure_position=15
         ),
     ),
-    "Haunted Zone Mansion Area - Mismagius Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Mansion Area - Mismagius Battle Power Competition -- Friendship": PokeparkLocationData(
         411, PokeparkFlag.BATTLE, "Haunted Zone Mansion Ballroom Area",
         PokeparkFriendshipClientLocationData(
             structure_position=129
         ),
     ),
-    "Haunted Zone Mansion Area - Electrode Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Mansion Area - Electrode -- Friendship": PokeparkLocationData(
         412, PokeparkFlag.FRIENDSHIP, "Haunted Zone Mansion Ballroom Area",
         PokeparkFriendshipClientLocationData(
             structure_position=182
         ),
     ),
-    "Haunted Zone Mansion Area - Haunter Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Mansion Area - Haunter Chase Power Competition -- Friendship": PokeparkLocationData(
         413, PokeparkFlag.CHASE, "Haunted Zone Mansion Area", PokeparkFriendshipClientLocationData(
             structure_position=131
         ),
     ),
-    "Haunted Zone Mansion Area - Gastly Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Mansion Area - Gastly Chase Power Competition -- Friendship": PokeparkLocationData(
         414, PokeparkFlag.CHASE, "Haunted Zone Mansion Area", PokeparkFriendshipClientLocationData(
             structure_position=130
         ),
     ),
-    "Haunted Zone Mansion Area - Gengar Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Mansion Area - Gengar Battle Power Competition -- Friendship": PokeparkLocationData(
         415, PokeparkFlag.BATTLE, "Haunted Zone Mansion Gengar Area", PokeparkFriendshipClientLocationData(
             structure_position=132
         ),
@@ -3036,7 +3035,7 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
             _bit_mask=0b00001000
         )
     ),
-    "Haunted Zone Mansion Area - Abra Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Mansion Area - Abra -- Friendship": PokeparkLocationData(
         418, PokeparkFlag.FRIENDSHIP, "Haunted Zone Mansion Antic Area", Pokepark07AttractionClientData(
             structure_position=22
         ),
@@ -3049,7 +3048,7 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
         ),
     ),
 
-    "Haunted Zone Mansion Area - Sableye Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Mansion Area - Sableye Quiz Power Competition -- Friendship": PokeparkLocationData(
         420, PokeparkFlag.QUIZ, "Haunted Zone Mansion Study Area", PokeparkFriendshipClientLocationData(
             structure_position=133
         ),
@@ -3279,113 +3278,113 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
 
     # Granite Zone
 
-    "Granite Zone Main Area - Lopunny Power Competition -- Friendship": PokeparkLocationData(
+    "Granite Zone Main Area - Lopunny Chase Power Competition -- Friendship": PokeparkLocationData(
         457, PokeparkFlag.CHASE, "Granite Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=19
         ),
     ),
-    "Granite Zone Main Area - Eevee Power Competition -- Friendship": PokeparkLocationData(
+    "Granite Zone Main Area - Eevee Chase Power Competition -- Friendship": PokeparkLocationData(
         458, PokeparkFlag.CHASE, "Granite Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=37
         ),
     ),
-    "Granite Zone Main Area - Eevee Power Competition -- Jolteon Unlocked": PokeparkLocationData(
+    "Granite Zone Main Area - Eevee Chase Power Competition -- Jolteon Unlocked": PokeparkLocationData(
         459, PokeparkFlag.CHASE, "Granite Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=37
         ),
     ),
-    "Granite Zone Main Area - Charizard Power Competition -- Friendship": PokeparkLocationData(
+    "Granite Zone Main Area - Charizard Battle Power Competition -- Friendship": PokeparkLocationData(
         460, PokeparkFlag.BATTLE, "Granite Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=146
         ),
     ),
-    "Granite Zone Main Area - Flygon Power Competition -- Friendship": PokeparkLocationData(
+    "Granite Zone Main Area - Flygon Chase Power Competition -- Friendship": PokeparkLocationData(
         461, PokeparkFlag.CHASE, "Granite Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=142
         ),
     ),
-    "Granite Zone Main Area - Staraptor Power Competition -- Friendship": PokeparkLocationData(
+    "Granite Zone Main Area - Staraptor Battle Power Competition -- Friendship": PokeparkLocationData(
         462, PokeparkFlag.BATTLE, "Granite Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=22
         ),
     ),
-    "Granite Zone Main Area - Staraptor Power Competition -- Aerodactyl Unlocked": PokeparkLocationData(
+    "Granite Zone Main Area - Staraptor Battle Power Competition -- Aerodactyl Unlocked": PokeparkLocationData(
         463, PokeparkFlag.BATTLE, "Granite Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=22
         ),
     ),
-    "Granite Zone Main Area - Aerodactyl Power Competition -- Friendship": PokeparkLocationData(
+    "Granite Zone Main Area - Aerodactyl Battle Power Competition -- Friendship": PokeparkLocationData(
         464, PokeparkFlag.BATTLE, "Granite Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=141
         ),
     ),
-    "Granite Zone Main Area - Arcanine Power Competition -- Friendship": PokeparkLocationData(
+    "Granite Zone Main Area - Arcanine Chase Power Competition -- Friendship": PokeparkLocationData(
         465, PokeparkFlag.CHASE, "Granite Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=144
         ),
     ),
-    "Granite Zone Main Area - Jolteon Power Competition -- Friendship": PokeparkLocationData(
+    "Granite Zone Main Area - Jolteon Chase Power Competition -- Friendship": PokeparkLocationData(
         466, PokeparkFlag.CHASE, "Granite Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=44
         ),
     ),
-    "Granite Zone Main Area - Skorupi Power Competition -- Friendship": PokeparkLocationData(
+    "Granite Zone Main Area - Skorupi -- Friendship": PokeparkLocationData(
         467, PokeparkFlag.FRIENDSHIP, "Granite Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=186
         ),
     ),
-    "Granite Zone Main Area - Porygon-Z Power Competition -- Friendship": PokeparkLocationData(
+    "Granite Zone Main Area - Porygon-Z Quiz Power Competition -- Friendship": PokeparkLocationData(
         468, PokeparkFlag.QUIZ, "Granite Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=147
         ),
     ),
-    "Granite Zone Main Area - Tyranitar Power Competition -- Friendship": PokeparkLocationData(
+    "Granite Zone Main Area - Tyranitar Battle Power Competition -- Friendship": PokeparkLocationData(
         469, PokeparkFlag.BATTLE, "Granite Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=149
         ),
     ),
-    "Granite Zone Main Area - Garchomp Power Competition -- Friendship": PokeparkLocationData(
+    "Granite Zone Main Area - Garchomp Battle Power Competition -- Friendship": PokeparkLocationData(
         470, PokeparkFlag.BATTLE, "Granite Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=148
         ),
     ),
-    "Granite Zone Main Area - Taillow Power Competition -- Friendship": PokeparkLocationData(
+    "Granite Zone Main Area - Taillow Chase Power Competition -- Friendship": PokeparkLocationData(
         471, PokeparkFlag.CHASE, "Granite Zone Main Area", Pokepark07AttractionClientData(
             structure_position=24
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Granite Zone Main Area - Drifloon Power Competition -- Friendship": PokeparkLocationData(
+    "Granite Zone Main Area - Drifloon -- Friendship": PokeparkLocationData(
         472, PokeparkFlag.FRIENDSHIP, "Granite Zone Main Area", Pokepark07AttractionClientData(
             structure_position=23
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Granite Zone Main Area - Marowak Power Competition -- Friendship": PokeparkLocationData(
+    "Granite Zone Main Area - Marowak Battle Power Competition -- Friendship": PokeparkLocationData(
         473, PokeparkFlag.BATTLE, "Granite Zone Main Area", Pokepark07AttractionClientData(
             structure_position=25
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Granite Zone Main Area - Baltoy Power Competition -- Friendship": PokeparkLocationData(
+    "Granite Zone Main Area - Baltoy Battle Power Competition -- Friendship": PokeparkLocationData(
         474, PokeparkFlag.BATTLE, "Granite Zone Main Area", Pokepark13AttractionClientData(
             structure_position=0
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Granite Zone Main Area - Baltoy Power Competition -- Claydol Unlocked": PokeparkLocationData(
+    "Granite Zone Main Area - Baltoy Battle Power Competition -- Claydol Unlocked": PokeparkLocationData(
         475, PokeparkFlag.BATTLE, "Granite Zone Main Area", Pokepark13AttractionClientData(
             structure_position=0
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Granite Zone Main Area - Furret Power Competition -- Friendship": PokeparkLocationData(
+    "Granite Zone Main Area - Furret Hide and Seek Power Competition -- Friendship": PokeparkLocationData(
         476, PokeparkFlag.HIDEANDSEEK, "Granite Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=140
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Granite Zone Main Area - Claydol Power Competition -- Friendship": PokeparkLocationData(
+    "Granite Zone Main Area - Claydol Battle Power Competition -- Friendship": PokeparkLocationData(
         477, PokeparkFlag.BATTLE, "Granite Zone Main Area", Pokepark13AttractionClientData(
             structure_position=4
         ),
@@ -3401,7 +3400,7 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
             structure_position=155
         ),
     ),
-    "Granite Zone Togekiss Area - Togekiss Power Competition -- Friendship": PokeparkLocationData(
+    "Granite Zone Togekiss Area - Togekiss -- Friendship": PokeparkLocationData(
         480, PokeparkFlag.FRIENDSHIP, "Granite Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=143
         ),
@@ -3630,54 +3629,54 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
 
     # Flower Zone
 
-    "Flower Zone Main Area - Skiploom Power Competition -- Friendship": PokeparkLocationData(
+    "Flower Zone Main Area - Skiploom -- Friendship": PokeparkLocationData(
         517, PokeparkFlag.FRIENDSHIP, "Flower Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=191
         ),
     ),
-    "Flower Zone Main Area - Budew Power Competition -- Friendship": PokeparkLocationData(
+    "Flower Zone Main Area - Budew -- Friendship": PokeparkLocationData(
         518, PokeparkFlag.FRIENDSHIP, "Flower Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=187
         ),
     ),
-    "Flower Zone Main Area - Cyndaquil Power Competition -- Friendship": PokeparkLocationData(
+    "Flower Zone Main Area - Cyndaquil Chase Power Competition -- Friendship": PokeparkLocationData(
         519, PokeparkFlag.CHASE, "Flower Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=99
         ),
     ),
-    "Flower Zone Main Area - Lucario Power Competition -- Friendship": PokeparkLocationData(
+    "Flower Zone Main Area - Lucario Chase Power Competition -- Friendship": PokeparkLocationData(
         520, PokeparkFlag.CHASE, "Flower Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=152
         ),
     ),
-    "Flower Zone Main Area - Dragonite Power Competition -- Friendship": PokeparkLocationData(
+    "Flower Zone Main Area - Dragonite Chase Power Competition -- Friendship": PokeparkLocationData(
         521, PokeparkFlag.CHASE, "Flower Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=150
         ),
     ),
-    "Flower Zone Main Area - Mareep Power Competition -- Friendship": PokeparkLocationData(
+    "Flower Zone Main Area - Mareep Chase Power Competition -- Friendship": PokeparkLocationData(
         522, PokeparkFlag.CHASE, "Flower Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=138
         ),
     ),
-    "Flower Zone Main Area - Bellossom Power Competition -- Friendship": PokeparkLocationData(
+    "Flower Zone Main Area - Bellossom Errand -- Friendship": PokeparkLocationData(
         523, PokeparkFlag.ERRAND, "Flower Zone Main Area", PokeparkFriendshipClientLocationData(
             structure_position=24
         ),
     ),
-    "Flower Zone Main Area - Teddiursa Power Competition -- Friendship": PokeparkLocationData(
+    "Flower Zone Main Area - Teddiursa Chase Power Competition -- Friendship": PokeparkLocationData(
         524, PokeparkFlag.CHASE, "Flower Zone Main Area", Pokepark13AttractionClientData(
             structure_position=1
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Flower Zone Main Area - Furret Power Competition -- Friendship": PokeparkLocationData(
+    "Flower Zone Main Area - Furret Hide and Seek Power Competition -- Friendship": PokeparkLocationData(
         525, PokeparkFlag.HIDEANDSEEK, "Flower Zone Main Area", Pokepark13AttractionClientData(
             structure_position=2
         ),
         each_zone=MultiZoneFlag.MULTI
     ),
-    "Flower Zone Main Area - Meditite Power Competition -- Friendship": PokeparkLocationData(
+    "Flower Zone Main Area - Meditite Quiz Power Competition -- Friendship": PokeparkLocationData(
         526, PokeparkFlag.QUIZ, "Flower Zone Main Area", Pokepark13AttractionClientData(
             structure_position=3
         ),
@@ -3870,191 +3869,191 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Spearow Power Competition -- Friendship": PokeparkLocationData(
+    "Spearow Battle Power Competition -- Friendship": PokeparkLocationData(
         555, PokeparkFlag.BATTLE, "Spearow", PokeparkFriendshipClientLocationData(
             structure_position=25
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Starly Power Competition -- Friendship": PokeparkLocationData(
+    "Starly Chase Power Competition -- Friendship": PokeparkLocationData(
         556, PokeparkFlag.CHASE, "Starly", PokeparkFriendshipClientLocationData(
             structure_position=20
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Bonsly Power Competition -- Friendship": PokeparkLocationData(
+    "Bonsly Hide and Seek Power Competition -- Friendship": PokeparkLocationData(
         557, PokeparkFlag.HIDEANDSEEK, "Bonsly", PokeparkFriendshipClientLocationData(
             structure_position=12
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Bonsly Power Competition -- Sudowoodo Unlocked": PokeparkLocationData(
+    "Bonsly Hide and Seek Power Competition -- Sudowoodo Unlocked": PokeparkLocationData(
         558, PokeparkFlag.HIDEANDSEEK, "Bonsly Unlocks", PokeparkFriendshipClientLocationData(
             structure_position=12
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Chimchar Power Competition -- Friendship": PokeparkLocationData(
+    "Chimchar Battle Power Competition -- Friendship": PokeparkLocationData(
         559, PokeparkFlag.BATTLE, "Chimchar", PokeparkFriendshipClientLocationData(
             structure_position=112
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Sudowoodo Power Competition -- Friendship": PokeparkLocationData(
+    "Sudowoodo Hide and Seek Power Competition -- Friendship": PokeparkLocationData(
         560, PokeparkFlag.HIDEANDSEEK, "Sudowoodo", PokeparkFriendshipClientLocationData(
             structure_position=13
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Aipom Power Competition -- Friendship": PokeparkLocationData(
+    "Aipom Chase Power Competition -- Friendship": PokeparkLocationData(
         561, PokeparkFlag.CHASE, "Aipom", PokeparkFriendshipClientLocationData(
             structure_position=30
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Aipom Power Competition -- Ambipom Unlocked": PokeparkLocationData(
+    "Aipom Chase Power Competition -- Ambipom Unlocked": PokeparkLocationData(
         562, PokeparkFlag.CHASE, "Aipom Unlocks", PokeparkFriendshipClientLocationData(
             structure_position=30
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Ambipom Power Competition -- Friendship": PokeparkLocationData(
+    "Ambipom Battle Power Competition -- Friendship": PokeparkLocationData(
         563, PokeparkFlag.BATTLE, "Ambipom", PokeparkFriendshipClientLocationData(
             structure_position=31
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Krabby Power Competition -- Friendship": PokeparkLocationData(
-        564, PokeparkFlag.BATTLE, "Krabby", PokeparkFriendshipClientLocationData(
+    "Krabby Chase Power Competition -- Friendship": PokeparkLocationData(
+        564, PokeparkFlag.CHASE, "Krabby", PokeparkFriendshipClientLocationData(
             structure_position=47
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Mudkip Power Competition -- Friendship": PokeparkLocationData(
+    "Mudkip Hide and Seek Power Competition -- Friendship": PokeparkLocationData(
         565, PokeparkFlag.HIDEANDSEEK, "Mudkip", PokeparkFriendshipClientLocationData(
             structure_position=46
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Taillow Power Competition -- Friendship": PokeparkLocationData(
+    "Taillow Chase Power Competition -- Friendship": PokeparkLocationData(
         566, PokeparkFlag.CHASE, "Taillow", PokeparkFriendshipClientLocationData(
             structure_position=55
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Staravia Power Competition -- Friendship": PokeparkLocationData(
+    "Staravia Battle Power Competition -- Friendship": PokeparkLocationData(
         567, PokeparkFlag.BATTLE, "Staravia", PokeparkFriendshipClientLocationData(
             structure_position=21
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Wingull Power Competition -- Friendship": PokeparkLocationData(
+    "Wingull Chase Power Competition -- Friendship": PokeparkLocationData(
         568, PokeparkFlag.CHASE, "Wingull", PokeparkFriendshipClientLocationData(
             structure_position=62
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Corphish Power Competition -- Friendship": PokeparkLocationData(
+    "Corphish Battle Power Competition -- Friendship": PokeparkLocationData(
         569, PokeparkFlag.BATTLE, "Corphish", PokeparkFriendshipClientLocationData(
             structure_position=48
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Teddiursa Power Competition -- Friendship": PokeparkLocationData(
-        570, PokeparkFlag.FRIENDSHIP, "Teddiursa", PokeparkFriendshipClientLocationData(
+    "Teddiursa Chase Power Competition -- Friendship": PokeparkLocationData(
+        570, PokeparkFlag.CHASE, "Teddiursa", PokeparkFriendshipClientLocationData(
             structure_position=66
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Aron Power Competition -- Friendship": PokeparkLocationData(
+    "Aron Errand -- Friendship": PokeparkLocationData(
         571, PokeparkFlag.ERRAND, "Aron", PokeparkFriendshipClientLocationData(
             structure_position=171
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Torchic Power Competition -- Friendship": PokeparkLocationData(
+    "Torchic Battle Power Competition -- Friendship": PokeparkLocationData(
         572, PokeparkFlag.BATTLE, "Torchic", PokeparkFriendshipClientLocationData(
             structure_position=115
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Geodude Power Competition -- Friendship": PokeparkLocationData(
+    "Geodude Hide and Seek Power Competition -- Friendship": PokeparkLocationData(
         573, PokeparkFlag.HIDEANDSEEK, "Geodude", PokeparkFriendshipClientLocationData(
             structure_position=81
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Raichu Power Competition -- Friendship": PokeparkLocationData(
+    "Raichu Chase Power Competition -- Friendship": PokeparkLocationData(
         574, PokeparkFlag.CHASE, "Raichu", PokeparkFriendshipClientLocationData(
             structure_position=91
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Meowth Power Competition -- Friendship": PokeparkLocationData(
+    "Meowth Quiz Power Competition -- Friendship": PokeparkLocationData(
         575, PokeparkFlag.QUIZ, "Meowth", PokeparkFriendshipClientLocationData(
             structure_position=117
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Marowak Power Competition -- Friendship": PokeparkLocationData(
+    "Marowak Battle Power Competition -- Friendship": PokeparkLocationData(
         576, PokeparkFlag.BATTLE, "Marowak", PokeparkFriendshipClientLocationData(
             structure_position=88
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Baltoy Power Competition -- Friendship": PokeparkLocationData(
+    "Baltoy Battle Power Competition -- Friendship": PokeparkLocationData(
         577, PokeparkFlag.BATTLE, "Baltoy", PokeparkFriendshipClientLocationData(
             structure_position=103
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Baltoy Power Competition -- Claydol Unlocked": PokeparkLocationData(
+    "Baltoy Battle Power Competition -- Claydol Unlocked": PokeparkLocationData(
         578, PokeparkFlag.BATTLE, "Baltoy Unlocks", PokeparkFriendshipClientLocationData(
             structure_position=103
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Meditite Power Competition -- Friendship": PokeparkLocationData(
+    "Meditite Quiz Power Competition -- Friendship": PokeparkLocationData(
         579, PokeparkFlag.QUIZ, "Meditite", PokeparkFriendshipClientLocationData(
             structure_position=139
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Drifloon Power Competition -- Friendship": PokeparkLocationData(
+    "Drifloon -- Friendship": PokeparkLocationData(
         580, PokeparkFlag.FRIENDSHIP, "Drifloon", PokeparkFriendshipClientLocationData(
             structure_position=175
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Furret Power Competition -- Friendship": PokeparkLocationData(
+    "Furret Hide and Seek Power Competition -- Friendship": PokeparkLocationData(
         581, PokeparkFlag.HIDEANDSEEK, "Furret", PokeparkFriendshipClientLocationData(
             structure_position=140
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Claydol Power Competition -- Friendship": PokeparkLocationData(
+    "Claydol Battle Power Competition -- Friendship": PokeparkLocationData(
         582, PokeparkFlag.BATTLE, "Claydol", PokeparkFriendshipClientLocationData(
             structure_position=104
         ),
         each_zone=MultiZoneFlag.SINGLE
     ),
-    "Pokepark Entrance - Celebi Power Competition -- Friendship": PokeparkLocationData(
+    "Pokepark Entrance - Celebi Chase Power Competition -- Friendship": PokeparkLocationData(
         583, PokeparkFlag.LEGENDARY, "Pokepark Entrance", PokeparkWeedleTreeClientData(
             _expected_value=0b00000100,
             _bit_mask=0b00000100
         ),
     ),
-    "Magma Zone Main Area - Groudon Power Competition -- Friendship": PokeparkLocationData(
+    "Magma Zone Main Area - Groudon Battle Power Competition -- Friendship": PokeparkLocationData(
         584, PokeparkFlag.LEGENDARY, "Pokepark Entrance", Pokepark13AttractionClientData(
             structure_position=5
         ),
     ),
-    "Haunted Zone Mansion Area - Darkrai Power Competition -- Friendship": PokeparkLocationData(
+    "Haunted Zone Mansion Area - Darkrai Battle Power Competition -- Friendship": PokeparkLocationData(
         585, PokeparkFlag.LEGENDARY, "Haunted Zone Mansion Ballroom Area", Pokepark13AttractionClientData(
             structure_position=6
         ),
     ),
-    "Granite Zone Main Area - Jirachi Power Competition -- Friendship": PokeparkLocationData(
+    "Granite Zone Main Area - Jirachi Chase Power Competition -- Friendship": PokeparkLocationData(
         586, PokeparkFlag.LEGENDARY, "Granite Zone Main Area", Pokepark13AttractionClientData(
             structure_position=7
         ),
