@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import Callable, TYPE_CHECKING
 
 from BaseClasses import CollectionState
+from Fill import FillError
 
 if TYPE_CHECKING:
     from worlds.pokepark import PokeparkWorld
@@ -808,22 +809,43 @@ class EntranceRandomizer:
                 yield self.get_one_entrance_set(general_entrances=general_entrances)
 
     def randomize_set(self, relevant_entrances: list[Entrance], relevant_exits: list[Exit]):
-        # prototype version until entrance randomization focused update
+        assert len(relevant_entrances) == len(relevant_exits)
+
         def get_region(name):
             if name.startswith('Treehouse'):
                 return 'Treehouse'
-            return ' '.join(name.split(' ', 2)[:2])
-        self.world.random.shuffle(relevant_exits)
+            if name.startswith("Beach Zone"):
+                return 'Beach Zone Main Area'
+            if name.startswith("Magma Zone Circle Area"):
+                return 'Magma Zone Main Area'
+            if name.startswith("Magma Zone Magcargo Area"):
+                return 'Magma Zone Main Area'
+            if name.startswith("Haunted Zone Bookshelf Area"):
+                return 'Haunted Zone Mansion Area'
+            return name
 
-        for entrance in relevant_entrances.copy():
-            valid = [e for e in relevant_exits if get_region(e.region_name) != get_region(entrance.parent_region)]
+        remaining_entrances = relevant_entrances.copy()
+        remaining_exits = relevant_exits.copy()
 
-            if not valid:
-                exit = self.world.random.choice(relevant_exits)
-            else:
-                exit = self.world.random.choice(valid)
+        while remaining_entrances:
+            # Pick the entrance with fewest valid exits
+            def count_valid_exits(entrance):
+                entrance_region = get_region(entrance.parent_region)
+                return sum(1 for e in remaining_exits if get_region(e.region_name) != entrance_region)
+
+            entrance = min(remaining_entrances, key=count_valid_exits)
+            entrance_region = get_region(entrance.parent_region)
+
+            valid_exits = [e for e in remaining_exits if get_region(e.region_name) != entrance_region]
+
+            if not valid_exits:
+                raise FillError(f"No valid Exit found for: {entrance.name} from {entrance_region}")
+
+            exit = self.world.random.choice(valid_exits)
             self.entrance_to_exit[entrance] = exit
-            relevant_exits.remove(exit)
+
+            remaining_entrances.remove(entrance)
+            remaining_exits.remove(exit)
 
     def add_bi_directional_entrance_to_exit(self):
         reverse_entrance_connections: dict[Entrance, Exit] = {}

@@ -1737,6 +1737,7 @@ static_progressive_items = [
     "Salamence Prisma",
     "Rayquaza Prisma",
 
+    "Meadow Zone Fast Travel",
     "Beach Zone Fast Travel",
     "Ice Zone Fast Travel",
     "Cavern Zone Fast Travel",
@@ -1755,7 +1756,6 @@ static_progressive_items = [
 ]
 static_useful_items = {
     "Double Dash",
-    "Meadow Zone Fast Travel",
     "Progressive Dash",
     "Progressive Thunderbolt",
     "Progressive Iron Tail",
