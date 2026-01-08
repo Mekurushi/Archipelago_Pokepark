@@ -513,7 +513,11 @@ async def check_locations(ctx: PokeparkContext) -> None:
             memory_range=client_data.memory_range
         )
         current_value = read_memory(dme, memory)
-        if (current_value & client_data.bit_mask) == expected_value:
+        if client_data.is_progressive:
+            is_checked = (current_value & client_data.bit_mask) >= expected_value
+        else:
+            is_checked = (current_value & client_data.bit_mask) == expected_value
+        if is_checked:
             if data.code == ctx.goal_code:
                 if not ctx.victory:
                     await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])

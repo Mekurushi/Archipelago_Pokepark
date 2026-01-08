@@ -32,6 +32,7 @@ class MultiZoneFlag(Flag):
 @dataclass
 class PokeparkBaseClientLocationData:
     structure_position: int = 0x0  # position of the specific data structure together used with structure_address_intervall to find wanted data struc address
+    is_progressive: bool = False
 
     # These will be set by subclasses
     memory_range: MemoryRange = field(init=False)
@@ -298,7 +299,7 @@ class PokeparkChristmasTreeClientData(PokeparkBaseClientLocationData):
     def __post_init__(self):
         assert self._expected_value is not None
         assert self._bit_mask is not None
-        self.global_manager_data_struc_offset = 0x43
+        self.global_manager_data_struc_offset = 0x32
         self.in_structure_offset = 0x0
         self.expected_value = self._expected_value
         self.bit_mask = self._bit_mask
@@ -845,61 +846,61 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
     ),
     "Meadow Zone Main Area - Bidoof Housing -- Stage 1": PokeparkLocationData(
         47, PokeparkFlag.ERRAND, "Meadow Zone Main Area", PokeparkBidoofHousingClientData(
-
+            is_progressive=True,
             _expected_value=0b00000110,
-            _bit_mask=0b00000110
+            _bit_mask=0b00011110
         )
     ),
     "Meadow Zone Main Area - Bidoof Housing -- Bidoof 1 Unlocked": PokeparkLocationData(
         48, PokeparkFlag.ERRAND, "Meadow Zone Main Area", PokeparkBidoofHousingClientData(
-
+            is_progressive=True,
             _expected_value=0b00000110,
-            _bit_mask=0b00000110
+            _bit_mask=0b00011110
         )
     ),
 
     "Meadow Zone Main Area - Bidoof Housing -- Stage 2": PokeparkLocationData(
         49, PokeparkFlag.ERRAND, "Meadow Zone Main Area", PokeparkBidoofHousingClientData(
-
+            is_progressive=True,
             _expected_value=0b00001010,
-            _bit_mask=0b00001010
+            _bit_mask=0b00011110
         )
     ),
     "Meadow Zone Main Area - Bidoof Housing -- Bidoof 2 Unlocked": PokeparkLocationData(
         50, PokeparkFlag.ERRAND, "Meadow Zone Main Area", PokeparkBidoofHousingClientData(
-
+            is_progressive=True,
             _expected_value=0b00001010,
-            _bit_mask=0b00001010
+            _bit_mask=0b00011110
         )
     ),
 
     "Meadow Zone Main Area - Bidoof Housing -- Stage 3": PokeparkLocationData(
         51, PokeparkFlag.ERRAND, "Meadow Zone Main Area", PokeparkBidoofHousingClientData(
-
+            is_progressive=True,
             _expected_value=0b00001110,
-            _bit_mask=0b00001110
+            _bit_mask=0b00011110
         )
     ),
     "Meadow Zone Main Area - Bidoof Housing -- Bidoof 3 Unlocked": PokeparkLocationData(
         52, PokeparkFlag.ERRAND, "Meadow Zone Main Area", PokeparkBidoofHousingClientData(
-
+            is_progressive=True,
             _expected_value=0b00001110,
-            _bit_mask=0b00001110
+            _bit_mask=0b00011110
         )
     ),
 
     "Meadow Zone Main Area - Bidoof Housing -- Stage 4": PokeparkLocationData(
         53, PokeparkFlag.ERRAND, "Meadow Zone Main Area", PokeparkBidoofHousingClientData(
-
+            is_progressive=True,
             _expected_value=0b00010010,
-            _bit_mask=0b00010010
+            _bit_mask=0b00011110
         )
     ),
     "Meadow Zone Main Area - Bidoof Housing -- Bibarel Unlocked": PokeparkLocationData(
         54, PokeparkFlag.ERRAND, "Meadow Zone Main Area", PokeparkBidoofHousingClientData(
-
+            is_progressive=True,
             _expected_value=0b00010010,
-            _bit_mask=0b00010010
+            _bit_mask=0b00011110
         )
     ),
     "Meadow Zone Main Area - Bidoof Housing Completed -- Friendship": PokeparkLocationData(
@@ -1349,58 +1350,58 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
     ),
     "Beach Zone Recycle Area - Bottle Recycling -- Stage 1": PokeparkLocationData(
         133, PokeparkFlag.ERRAND, "Beach Zone Recycle Area", PokeparkBottleIgloHousingClientData(
-
+            is_progressive=True,
             _expected_value=0b00010000,
-            _bit_mask=0b00010000
+            _bit_mask=0b01110000
         ),
     ),
     "Beach Zone Recycle Area - Bottle Recycling -- Stage 2": PokeparkLocationData(
         134, PokeparkFlag.ERRAND, "Beach Zone Recycle Area", PokeparkBottleIgloHousingClientData(
-
+            is_progressive=True,
             _expected_value=0b00100000,
-            _bit_mask=0b00100000
+            _bit_mask=0b01110000
         ),
     ),
     "Beach Zone Recycle Area - Bottle Recycling -- Stage 2 --- Krabby Unlocked": PokeparkLocationData(
         135, PokeparkFlag.ERRAND, "Beach Zone Recycle Area", PokeparkBottleIgloHousingClientData(
-
+            is_progressive=True,
             _expected_value=0b00100000,
-            _bit_mask=0b00100000
+            _bit_mask=0b01110000
         ),
     ),
     "Beach Zone Recycle Area - Bottle Recycling -- Stage 3": PokeparkLocationData(
         136, PokeparkFlag.ERRAND, "Beach Zone Recycle Area", PokeparkBottleIgloHousingClientData(
-
+            is_progressive=True,
             _expected_value=0b00110000,
-            _bit_mask=0b00110000
+            _bit_mask=0b01110000
         ),
     ),
     "Beach Zone Recycle Area - Bottle Recycling -- Stage 4": PokeparkLocationData(
         137, PokeparkFlag.ERRAND, "Beach Zone Recycle Area", PokeparkBottleIgloHousingClientData(
-
+            is_progressive=True,
             _expected_value=0b01000000,
-            _bit_mask=0b01000000
+            _bit_mask=0b01110000
         ),
     ),
     "Beach Zone Recycle Area - Bottle Recycling -- Stage 4 --- Corphish Unlocked": PokeparkLocationData(
         138, PokeparkFlag.ERRAND, "Beach Zone Recycle Area", PokeparkBottleIgloHousingClientData(
-
+            is_progressive=True,
             _expected_value=0b01000000,
-            _bit_mask=0b01000000
+            _bit_mask=0b01110000
         ),
     ),
     "Beach Zone Recycle Area - Bottle Recycling -- Stage 5": PokeparkLocationData(
         139, PokeparkFlag.ERRAND, "Beach Zone Recycle Area", PokeparkBottleIgloHousingClientData(
-
+            is_progressive=True,
             _expected_value=0b01010000,
-            _bit_mask=0b01010000
+            _bit_mask=0b01110000
         ),
     ),
     "Beach Zone Recycle Area - Bottle Recycling -- Stage 6": PokeparkLocationData(
         140, PokeparkFlag.ERRAND, "Beach Zone Recycle Area", PokeparkBottleIgloHousingClientData(
-
+            is_progressive=True,
             _expected_value=0b01100000,
-            _bit_mask=0b01100000
+            _bit_mask=0b01110000
         ),
     ),
 
@@ -1757,71 +1758,70 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
     ),
     "Ice Zone Main Area - Igloo Housing -- Stage 1": PokeparkLocationData(
         203, PokeparkFlag.ERRAND, "Ice Zone Main Area", PokeparkBottleIgloHousingClientData(
-
+            is_progressive=True,
             _expected_value=0b00000010,
-            _bit_mask=0b00000010
+            _bit_mask=0b00000110
         )
     ),
     "Ice Zone Main Area - Igloo Housing -- Stage 1 -- Primeape Unlocked": PokeparkLocationData(
         204, PokeparkFlag.ERRAND, "Ice Zone Main Area", PokeparkBottleIgloHousingClientData(
-
+            is_progressive=True,
             _expected_value=0b00000010,
-            _bit_mask=0b00000010
+            _bit_mask=0b00000110
         )
     ),
     "Ice Zone Main Area - Igloo Housing -- Stage 2": PokeparkLocationData(
         205, PokeparkFlag.ERRAND, "Ice Zone Main Area", PokeparkBottleIgloHousingClientData(
-
+            is_progressive=True,
             _expected_value=0b00000100,
-            _bit_mask=0b00000100
+            _bit_mask=0b00000110
         )
     ),
     "Ice Zone Main Area - Igloo Housing -- Stage 2 -- Ursaring Unlocked": PokeparkLocationData(
         206, PokeparkFlag.ERRAND, "Ice Zone Main Area", PokeparkBottleIgloHousingClientData(
-
+            is_progressive=True,
             _expected_value=0b00000100,
-            _bit_mask=0b00000100
+            _bit_mask=0b00000110
         )
     ),
     "Ice Zone Main Area - Igloo Housing -- Stage 3": PokeparkLocationData(
         207, PokeparkFlag.ERRAND, "Ice Zone Main Area", PokeparkBottleIgloHousingClientData(
-
+            is_progressive=True,
             _expected_value=0b00000110,
             _bit_mask=0b00000110
         )
     ),
     "Ice Zone Main Area - Christmas Tree Present -- Stage 1": PokeparkLocationData(
         208, PokeparkFlag.ERRAND, "Ice Zone Main Area", PokeparkChristmasTreeClientData(
-
-            _expected_value=0b00010110,
-            _bit_mask=0b00010110
+            is_progressive=True,
+            _expected_value=0b00100000,
+            _bit_mask=0b11100000
         )
     ),
     "Ice Zone Main Area - Christmas Tree Present -- Stage 2": PokeparkLocationData(
         209, PokeparkFlag.ERRAND, "Ice Zone Main Area", PokeparkChristmasTreeClientData(
-
-            _expected_value=0b00100111,
-            _bit_mask=0b00100111
+            is_progressive=True,
+            _expected_value=0b01000000,
+            _bit_mask=0b11100000
         )
     ),
     "Ice Zone Main Area - Christmas Tree Present -- Stage 3": PokeparkLocationData(
         210, PokeparkFlag.ERRAND, "Ice Zone Main Area", PokeparkChristmasTreeClientData(
-
-            _expected_value=0b00110111,
-            _bit_mask=0b00110111
+            is_progressive=True,
+            _expected_value=0b01100000,
+            _bit_mask=0b11100000
         )
     ),
     "Ice Zone Main Area - Christmas Tree Present -- Stage 4": PokeparkLocationData(
         211, PokeparkFlag.ERRAND, "Ice Zone Main Area", PokeparkChristmasTreeClientData(
-
-            _expected_value=0b01001111,
-            _bit_mask=0b01001111
+            is_progressive=True,
+            _expected_value=0b10000000,
+            _bit_mask=0b11100000
         )
     ),
     "Ice Zone Frozen Lake Area - Frozen Mamoswine -- Ice Rescue": PokeparkLocationData(
         212, PokeparkFlag.POKEMON_UNLOCK, "Ice Zone Frozen Lake Area",
         PokeparkMewChallengeGengarPaintingClientData(
-
             _expected_value=0b00100000,
             _bit_mask=0b00100000
         )
