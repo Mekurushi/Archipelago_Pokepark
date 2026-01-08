@@ -24,7 +24,7 @@ from .regions import ALL_ENTRANCES, ALL_EXITS, EntranceRandomizer
 from .rules import set_rules
 from ..Files import APPlayerContainer
 
-VERSION: tuple[int, int, int] = (1, 1, 0)
+VERSION: tuple[int, int, int] = (1, 1, 1)
 
 
 class PokeparkWebWorld(WebWorld):
