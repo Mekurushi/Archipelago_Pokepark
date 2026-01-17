@@ -1506,7 +1506,7 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     set_rule_if_exists(
         "Blaziken's Boulder Bash Attraction -- Phanpy",
-        lambda state: state.has("Geodude Friendship", player)
+        lambda state: state.has("Phanpy Friendship", player)
     )
     set_rule_if_exists(
         "Blaziken's Boulder Bash Attraction -- Blaziken",
