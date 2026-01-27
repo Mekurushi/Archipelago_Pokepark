@@ -12,8 +12,8 @@ from worlds.pokepark.adresses import ATHLETIC_COMP_DEATH_CHECK_ADDRESSES, ATHLET
     ATTRACTION_ID_ADDRESSES, BATTLE_COMP_DEATH_CHECK_ADDRESSES, \
     BATTLE_COMP_GIVE_DEATH_ADDRESSES, CHASE_COMP_DEATH_CHECK_ADDRESSES, \
     CHASE_COMP_GIVE_DEATH_ADDRESSES, GLOBAL_MANAGER_DATA_STRUC_ADDRESS, GLOBAL_MANAGER_OPCODE_ADDR, \
-    GLOBAL_MANGAER_PARAMETER1_ADDR, \
-    GLOBAL_MANGAER_PARAMETER2_ADDR, HIDE_AND_SEEK_COMP_DEATH_CHECK_ADDRESSES, HIDE_AND_SEEK_COMP_GIVE_DEATH_ADDRESSES, \
+    GLOBAL_MANAGER_PARAMETER1_ADDR, \
+    GLOBAL_MANAGER_PARAMETER2_ADDR, HIDE_AND_SEEK_COMP_DEATH_CHECK_ADDRESSES, HIDE_AND_SEEK_COMP_GIVE_DEATH_ADDRESSES, \
     IS_INITIALIZED_ADDRESSES, IS_IN_GAME_END_STATE_ADDRESSES, IS_IN_LOADING_SCREEN_ADDRESSES, IS_IN_MAIN_MENU_ADDRESSES, \
     IS_IN_PAUSE_MENU_ADDRESSES, \
     POWER_MAP, \
@@ -278,13 +278,13 @@ def _give_item(ctx: PokeparkContext, item_name: str) -> bool:
     Give an item to the player in-game.
 
     :param ctx: The Pokepark client context.
-    :param parameter1: Id of the item to give.
+    :param item_name: Name of the item to give.
     :return: Whether the item was successfully given.
     """
     if not check_ingame(ctx.game_id):
         return False
 
-    item_slot = dme.read_word(GLOBAL_MANGAER_PARAMETER1_ADDR[ctx.game_id])
+    item_slot = dme.read_word(GLOBAL_MANAGER_PARAMETER1_ADDR[ctx.game_id])
     opcode_slot = dme.read_word(GLOBAL_MANAGER_OPCODE_ADDR[ctx.game_id])
     item = ITEM_TABLE[item_name].client_data
     if item_slot == 0xFFFFFFFF and opcode_slot == 0xFFFFFFFF:
@@ -308,10 +308,10 @@ def _give_item(ctx: PokeparkContext, item_name: str) -> bool:
             opcode = item.opcode
 
         dme.write_bytes(item.flag_address, item.flag_name)
-        dme.write_word(GLOBAL_MANGAER_PARAMETER2_ADDR[ctx.game_id], parameter2)
+        dme.write_word(GLOBAL_MANAGER_PARAMETER2_ADDR[ctx.game_id], parameter2)
         # parameter 1 and opcode are trigger
         dme.write_word(
-            GLOBAL_MANGAER_PARAMETER1_ADDR[ctx.game_id], parameter1
+            GLOBAL_MANAGER_PARAMETER1_ADDR[ctx.game_id], parameter1
         )
         dme.write_word(GLOBAL_MANAGER_OPCODE_ADDR[ctx.game_id], opcode)
 
@@ -523,7 +523,7 @@ async def dolphin_sync_task(ctx: PokeparkContext) -> None:
             if dme.is_hooked() and ctx.dolphin_status == CONNECTION_CONNECTED_STATUS:
                 if not check_ingame(ctx.game_id):
                     # Reset the give item array while not in the game.
-                    dme.write_bytes(GLOBAL_MANGAER_PARAMETER1_ADDR[ctx.game_id], bytes([0xFF] * 0xC))
+                    dme.write_bytes(GLOBAL_MANAGER_PARAMETER1_ADDR[ctx.game_id], bytes([0xFF] * 0xC))
                     await asyncio.sleep(0.1)
                     continue
                 if ctx.slot is not None:
