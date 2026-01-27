@@ -8,7 +8,16 @@ import dolphin_memory_engine as dme
 import ModuleUpdate
 import kvui
 from worlds.pokepark import PokeparkItem, LOCATION_TABLE, VERSION
-from worlds.pokepark.adresses import POWER_MAP, MemoryAddress
+from worlds.pokepark.adresses import ATHLETIC_COMP_DEATH_CHECK_ADDRESSES, ATHLETIC_COMP_GIVE_DEATH_ADDRESSES, \
+    ATTRACTION_ID_ADDRESSES, BATTLE_COMP_DEATH_CHECK_ADDRESSES, \
+    BATTLE_COMP_GIVE_DEATH_ADDRESSES, CHASE_COMP_DEATH_CHECK_ADDRESSES, \
+    CHASE_COMP_GIVE_DEATH_ADDRESSES, GLOBAL_MANAGER_DATA_STRUC_ADDRESS, GLOBAL_MANAGER_OPCODE_ADDR, \
+    GLOBAL_MANGAER_PARAMETER1_ADDR, \
+    GLOBAL_MANGAER_PARAMETER2_ADDR, HIDE_AND_SEEK_COMP_DEATH_CHECK_ADDRESSES, HIDE_AND_SEEK_COMP_GIVE_DEATH_ADDRESSES, \
+    IS_INITIALIZED_ADDRESSES, IS_IN_GAME_END_STATE_ADDRESSES, IS_IN_LOADING_SCREEN_ADDRESSES, IS_IN_MAIN_MENU_ADDRESSES, \
+    IS_IN_PAUSE_MENU_ADDRESSES, \
+    POWER_MAP, \
+    MemoryAddress, SLOT_NAME_ADDR
 from worlds.pokepark.dme_helper import read_memory
 from worlds.pokepark.items import LOOKUP_ID_TO_NAME, ITEM_TABLE, PokeparkPowerItemClientData
 from worlds.pokepark.locations import MEW_GOAL_CODE, POSTGAME_PRISMA_GOAL_CODE
@@ -45,99 +54,6 @@ try:
 except ModuleNotFoundError:
     from CommonClient import CommonContext as SuperContext
 
-SLOT_NAME_ADDR = 0x80001820
-GLOBAL_MANGAER_PARAMETER1_ADDR = 0x80001800
-GLOBAL_MANGAER_PARAMETER2_ADDR = 0x80001804
-GLOBAL_MANAGER_OPCODE_ADDR = 0x80001808
-GLOBAL_MANAGER_STRUC_POINTER = 0x8000180c
-
-BATTLE_COMP_DEATH_CHECK_ADDRESSES = {
-    b"R8AJ99": 0x804A6CDB,
-    b"R8AE99": 0x804aa493,
-    b"R8AP99": 0x804aaa73
-
-}
-
-HIDE_AND_SEEK_COMP_DEATH_CHECK_ADDRESSES = {
-    b"R8AJ99": 0x804AF4B3,
-    b"R8AE99": 0x804B2C73,
-    b"R8AP99": 0x804b3253
-
-}
-
-CHASE_COMP_DEATH_CHECK_ADDRESSES = {
-    b"R8AJ99": 0x8049E4EB,
-    b"R8AE99": 0x804a1ca3,
-    b"R8AP99": 0x804a2283,
-
-}
-
-ATHLETIC_COMP_DEATH_CHECK_ADDRESSES = {
-    b"R8AJ99": 0x804B7B5B,
-    b"R8AE99": 0x804bb31b,
-    b"R8AP99": 0x804bb8fb,
-
-}
-
-BATTLE_COMP_GIVE_DEATH_ADDRESSES = {
-    b"R8AJ99": 0x804af1d2,
-    b"R8AE99": 0x804b298a,
-    b"R8AP99": 0x804b2f6a,
-
-}
-
-HIDE_AND_SEEK_COMP_GIVE_DEATH_ADDRESSES = {
-    b"R8AJ99": 0x804b79a6,
-    b"R8AE99": 0x804bb166,
-    b"R8AP99": 0x804bb746,
-
-}
-
-CHASE_COMP_GIVE_DEATH_ADDRESSES = {
-    b"R8AJ99": 0x804a69e2,
-    b"R8AE99": 0x804aa19a,
-    b"R8AP99": 0x804aa77a,
-
-}
-
-ATHLETIC_COMP_GIVE_DEATH_ADDRESSES = {
-    b"R8AJ99": 0x804b80ea,
-    b"R8AE99": 0x804BB8AA,
-    b"R8AP99": 0x804bbe8a,
-
-}
-
-ATTRACTION_ID_ADDRESSES = {
-    b"R8AJ99": 0x8039CA48,
-    b"R8AE99": 0x8039FED8,
-    b"R8AP99": 0x803A0460
-}
-
-IS_IN_PAUSE_MENU_ADDRESSES = {
-    b"R8AJ99": 0x80482F04,
-    b"R8AE99": 0x80486380,
-    b"R8AP99": 0x80486930
-}
-IS_INITIALIZED_ADDRESSES = {
-    b"R8AJ99": 0x8037afd4,
-    b"R8AE99": 0x8037e454,
-    b"R8AP99": 0x8037e9dc
-}
-IS_IN_MAIN_MENU_ADDRESSES = {
-    b"R8AJ99": 0x80496E50,
-    b"R8AE99": 0x8049A2F0,
-    b"R8AP99": 0x8049A8D0
-}
-IS_IN_GAME_END_STATE_ADDRESSES = {
-    b"R8AJ99": 0x8036C997,
-    b"R8AE99": 0x8036EE17,
-    b"R8AP99": 0x8036F397
-}
-IS_IN_LOADING_SCREEN_ADDRESSES = {
-    b"R8AJ99": 0x80496D2F,
-    b"R8AE99": 0x8049A1CF,
-    b"R8AP99": 0x8049A7AF
-}
 
 CONNECTION_REFUSED_GAME_STATUS = (
     "Dolphin failed to connect. Please load a randomized ROM for Pokepark. Trying again in 5 seconds..."
@@ -368,8 +284,8 @@ def _give_item(ctx: PokeparkContext, item_name: str) -> bool:
     if not check_ingame(ctx.game_id):
         return False
 
-    item_slot = dme.read_word(GLOBAL_MANGAER_PARAMETER1_ADDR)
-    opcode_slot = dme.read_word(GLOBAL_MANAGER_OPCODE_ADDR)
+    item_slot = dme.read_word(GLOBAL_MANGAER_PARAMETER1_ADDR[ctx.game_id])
+    opcode_slot = dme.read_word(GLOBAL_MANAGER_OPCODE_ADDR[ctx.game_id])
     item = ITEM_TABLE[item_name].client_data
     if item_slot == 0xFFFFFFFF and opcode_slot == 0xFFFFFFFF:
 
@@ -391,10 +307,14 @@ def _give_item(ctx: PokeparkContext, item_name: str) -> bool:
             parameter2 = item.parameter2
             opcode = item.opcode
 
-        dme.write_word(GLOBAL_MANAGER_OPCODE_ADDR, opcode)
         dme.write_bytes(item.flag_address, item.flag_name)
-        dme.write_word(GLOBAL_MANGAER_PARAMETER2_ADDR, parameter2)
-        dme.write_word(GLOBAL_MANGAER_PARAMETER1_ADDR, parameter1)  # parameter1 last because it is the trigger
+        dme.write_word(GLOBAL_MANGAER_PARAMETER2_ADDR[ctx.game_id], parameter2)
+        # parameter 1 and opcode are trigger
+        dme.write_word(
+            GLOBAL_MANGAER_PARAMETER1_ADDR[ctx.game_id], parameter1
+        )
+        dme.write_word(GLOBAL_MANAGER_OPCODE_ADDR[ctx.game_id], opcode)
+
         return True
 
     return False
@@ -435,7 +355,7 @@ async def give_items(ctx: PokeparkContext) -> None:
 
     :param ctx: Pokepark client context.
     """
-    global_manager_data_struc_address = dme.read_word(GLOBAL_MANAGER_STRUC_POINTER)
+    global_manager_data_struc_address = GLOBAL_MANAGER_DATA_STRUC_ADDRESS[ctx.game_id]
     chapter_address = global_manager_data_struc_address + 0x2d
     if check_ingame(ctx.game_id):
         # Read the expected index of the player, which is the index of the latest item they've received.
@@ -465,7 +385,7 @@ async def check_current_stage_changed(ctx: PokeparkContext) -> None:
 
     :param ctx: The Pokepark client context.
     """
-    global_manager_data_struc_address = dme.read_word(GLOBAL_MANAGER_STRUC_POINTER)
+    global_manager_data_struc_address = GLOBAL_MANAGER_DATA_STRUC_ADDRESS[ctx.game_id]
     new_stage = dme.read_bytes(global_manager_data_struc_address + 0x5F00, 2)
     new_stage_name = STAGE_NAME_MAP.get(new_stage)
     attraction_id = get_attraction_id(ctx.game_id)
@@ -503,7 +423,7 @@ async def check_locations(ctx: PokeparkContext) -> None:
     :param ctx: The Pokepark client context.
     """
 
-    global_manager_data_struc_address = dme.read_word(GLOBAL_MANAGER_STRUC_POINTER)
+    global_manager_data_struc_address = GLOBAL_MANAGER_DATA_STRUC_ADDRESS[ctx.game_id]
     for location, data in LOCATION_TABLE.items():
         client_data = data.client_data
         expected_value = client_data.expected_value
@@ -603,7 +523,7 @@ async def dolphin_sync_task(ctx: PokeparkContext) -> None:
             if dme.is_hooked() and ctx.dolphin_status == CONNECTION_CONNECTED_STATUS:
                 if not check_ingame(ctx.game_id):
                     # Reset the give item array while not in the game.
-                    dme.write_bytes(GLOBAL_MANGAER_PARAMETER1_ADDR, bytes([0xFF] * 0xC))
+                    dme.write_bytes(GLOBAL_MANGAER_PARAMETER1_ADDR[ctx.game_id], bytes([0xFF] * 0xC))
                     await asyncio.sleep(0.1)
                     continue
                 if ctx.slot is not None:
@@ -614,7 +534,7 @@ async def dolphin_sync_task(ctx: PokeparkContext) -> None:
                     await check_current_stage_changed(ctx)
                 else:
                     if not ctx.auth:
-                        ctx.auth = read_string(SLOT_NAME_ADDR, 0x40)
+                        ctx.auth = read_string(SLOT_NAME_ADDR[ctx.game_id], 0x40)
                     if ctx.awaiting_rom:
                         await ctx.server_auth()
                 await asyncio.sleep(0.1)
