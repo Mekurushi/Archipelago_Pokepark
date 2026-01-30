@@ -11,13 +11,14 @@ from worlds.pokepark import PokeparkItem, LOCATION_TABLE, VERSION
 from worlds.pokepark.adresses import ATHLETIC_COMP_DEATH_CHECK_ADDRESSES, ATHLETIC_COMP_GIVE_DEATH_ADDRESSES, \
     ATTRACTION_ID_ADDRESSES, BATTLE_COMP_DEATH_CHECK_ADDRESSES, \
     BATTLE_COMP_GIVE_DEATH_ADDRESSES, CHASE_COMP_DEATH_CHECK_ADDRESSES, \
-    CHASE_COMP_GIVE_DEATH_ADDRESSES, GLOBAL_MANAGER_DATA_STRUC_ADDRESS, GLOBAL_MANAGER_OPCODE_ADDR, \
+    CHASE_COMP_GIVE_DEATH_ADDRESSES, CURRENT_STAGE_ADDRESSES, GLOBAL_MANAGER_DATA_STRUC_ADDRESS, \
+    GLOBAL_MANAGER_OPCODE_ADDR, \
     GLOBAL_MANAGER_PARAMETER1_ADDR, \
     GLOBAL_MANAGER_PARAMETER2_ADDR, HIDE_AND_SEEK_COMP_DEATH_CHECK_ADDRESSES, HIDE_AND_SEEK_COMP_GIVE_DEATH_ADDRESSES, \
     IS_INITIALIZED_ADDRESSES, IS_IN_GAME_END_STATE_ADDRESSES, IS_IN_LOADING_SCREEN_ADDRESSES, IS_IN_MAIN_MENU_ADDRESSES, \
     IS_IN_PAUSE_MENU_ADDRESSES, \
-    POWER_MAP, \
-    MemoryAddress, SLOT_NAME_ADDR
+    NEXT_STAGE_ADDRESSES, POWER_MAP, \
+    MemoryAddress, SCENE_NAME_ADDR, SCENE_PARAM1_ADDR, SLOT_NAME_ADDR
 from worlds.pokepark.dme_helper import read_memory
 from worlds.pokepark.items import LOOKUP_ID_TO_NAME, ITEM_TABLE, PokeparkPowerItemClientData
 from worlds.pokepark.locations import MEW_GOAL_CODE, POSTGAME_PRISMA_GOAL_CODE
@@ -123,7 +124,6 @@ class PokeparkCommandProcessor(ClientCommandProcessor):
         """
         if isinstance(self.ctx, PokeparkContext):
             logger.info(f"Dolphin Status: {self.ctx.dolphin_status}")
-
 
 class PokeparkContext(SuperContext):
     tags = {"AP"}
@@ -320,7 +320,7 @@ def _give_item(ctx: PokeparkContext, item_name: str) -> bool:
     return False
 
 
-def _give_death(ctx: PokeparkContext) -> None:
+async def _give_death(ctx: PokeparkContext) -> None:
     """
     Trigger the player's death in-game by failing the current active Power Competition
 
@@ -345,8 +345,21 @@ def _give_death(ctx: PokeparkContext) -> None:
 
         for check_addr, give_addr in COMP_MAPPINGS:
             if dme.read_byte(check_addr[ctx.game_id]) == ACTIVE_STATUS:
-                ctx.has_send_death = True
                 dme.write_bytes(give_addr[ctx.game_id], DEATH_SIGNAL)
+
+        await asyncio.sleep(1)
+
+        if dme.read_word(SCENE_PARAM1_ADDR[ctx.game_id]) == 0xFFFFFFFF and check_ingame(ctx.game_id):
+            if get_attraction_id(ctx.game_id) != 0xFFFFFFFF:
+                dme.write_bytes(SCENE_NAME_ADDR[ctx.game_id], "Challenge".encode('ascii') + b'\x00')
+                dme.write_word(SCENE_PARAM1_ADDR[ctx.game_id], 0)
+                ctx.has_send_death = True
+            else:
+                current_stage = dme.read_word(CURRENT_STAGE_ADDRESSES[ctx.game_id])
+                dme.write_word(NEXT_STAGE_ADDRESSES[ctx.game_id], current_stage)
+                dme.write_bytes(SCENE_NAME_ADDR[ctx.game_id], "ZoneChange".encode('ascii') + b'\x00')
+                dme.write_word(SCENE_PARAM1_ADDR[ctx.game_id], 1)
+                ctx.has_send_death = True
 
 
 async def give_items(ctx: PokeparkContext) -> None:
