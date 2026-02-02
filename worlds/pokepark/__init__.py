@@ -466,7 +466,8 @@ class PokeparkWorld(World):
                     "randomize_treehouse_gates_entrances",
                     "randomize_general_entrances",
                     "mix_entrance_pools",
-                    "harder_enemy_ai"
+                    "harder_enemy_ai",
+                    "death_link"
                 )
             },
             "entrances": {},

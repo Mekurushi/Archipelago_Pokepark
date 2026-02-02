@@ -11,13 +11,14 @@ from worlds.pokepark import PokeparkItem, LOCATION_TABLE, VERSION
 from worlds.pokepark.adresses import ATHLETIC_COMP_DEATH_CHECK_ADDRESSES, ATHLETIC_COMP_GIVE_DEATH_ADDRESSES, \
     ATTRACTION_ID_ADDRESSES, BATTLE_COMP_DEATH_CHECK_ADDRESSES, \
     BATTLE_COMP_GIVE_DEATH_ADDRESSES, CHASE_COMP_DEATH_CHECK_ADDRESSES, \
-    CHASE_COMP_GIVE_DEATH_ADDRESSES, GLOBAL_MANAGER_DATA_STRUC_ADDRESS, GLOBAL_MANAGER_OPCODE_ADDR, \
+    CHASE_COMP_GIVE_DEATH_ADDRESSES, CURRENT_STAGE_ADDRESSES, GLOBAL_MANAGER_DATA_STRUC_ADDRESS, \
+    GLOBAL_MANAGER_OPCODE_ADDR, \
     GLOBAL_MANAGER_PARAMETER1_ADDR, \
     GLOBAL_MANAGER_PARAMETER2_ADDR, HIDE_AND_SEEK_COMP_DEATH_CHECK_ADDRESSES, HIDE_AND_SEEK_COMP_GIVE_DEATH_ADDRESSES, \
     IS_INITIALIZED_ADDRESSES, IS_IN_GAME_END_STATE_ADDRESSES, IS_IN_LOADING_SCREEN_ADDRESSES, IS_IN_MAIN_MENU_ADDRESSES, \
     IS_IN_PAUSE_MENU_ADDRESSES, \
-    POWER_MAP, \
-    MemoryAddress, SLOT_NAME_ADDR
+    NEXT_STAGE_ADDRESSES, POWER_MAP, \
+    MemoryAddress, SCENE_NAME_ADDR, SCENE_PARAM1_ADDR, SLOT_NAME_ADDR
 from worlds.pokepark.dme_helper import read_memory
 from worlds.pokepark.items import LOOKUP_ID_TO_NAME, ITEM_TABLE, PokeparkPowerItemClientData
 from worlds.pokepark.locations import MEW_GOAL_CODE, POSTGAME_PRISMA_GOAL_CODE
@@ -124,6 +125,18 @@ class PokeparkCommandProcessor(ClientCommandProcessor):
         if isinstance(self.ctx, PokeparkContext):
             logger.info(f"Dolphin Status: {self.ctx.dolphin_status}")
 
+    def _cmd_deathlink(self):
+        """Toggle deathlink from client. Overrides default setting."""
+        if isinstance(self.ctx, PokeparkContext):
+            self.ctx.death_link_enabled = not self.ctx.death_link_enabled
+            self.ctx.death_link_just_changed = True
+            Utils.async_start(
+                self.ctx.update_death_link(
+                    self.ctx.death_link_enabled
+                ), name="Update Deathlink"
+            )
+            logger.info(f"Deathlink is now {'enabled' if self.ctx.death_link_enabled else 'disabled'}")
+
 
 class PokeparkContext(SuperContext):
     tags = {"AP"}
@@ -133,6 +146,9 @@ class PokeparkContext(SuperContext):
     victory = False
     goal_code = None
     slot_data: dict[str, Any] | None = None
+    death_link_enabled = False
+    death_link_just_changed = False
+
 
     def __init__(self, server_address, password):
         super(PokeparkContext, self).__init__(server_address, password)
@@ -186,6 +202,7 @@ class PokeparkContext(SuperContext):
             self.items_received_2 = []
             self.last_rcvd_index = -1
             if self.slot_data and self.slot_data.get("options", {}).get("death_link"):
+                self.death_link_enabled = bool(self.slot_data["options"]["death_link"])
                 Utils.async_start(self.update_death_link(bool(self.slot_data["options"]["death_link"])))
             if self.slot_data and self.slot_data.get("options", {}).get("goal") == Goal.option_mew:
                 self.goal_code = MEW_GOAL_CODE
@@ -250,7 +267,7 @@ class PokeparkContext(SuperContext):
         :param data: The data associated with the DeathLink event.
         """
         super().on_deathlink(data)
-        _give_death(self)
+        Utils.async_start(_give_death(self))
 
     async def update_visited_stages(self, newly_visited_stage_name: str) -> None:
         """
@@ -320,7 +337,7 @@ def _give_item(ctx: PokeparkContext, item_name: str) -> bool:
     return False
 
 
-def _give_death(ctx: PokeparkContext) -> None:
+async def _give_death(ctx: PokeparkContext) -> None:
     """
     Trigger the player's death in-game by failing the current active Power Competition
 
@@ -345,8 +362,21 @@ def _give_death(ctx: PokeparkContext) -> None:
 
         for check_addr, give_addr in COMP_MAPPINGS:
             if dme.read_byte(check_addr[ctx.game_id]) == ACTIVE_STATUS:
-                ctx.has_send_death = True
                 dme.write_bytes(give_addr[ctx.game_id], DEATH_SIGNAL)
+
+        await asyncio.sleep(1)
+
+        if dme.read_word(SCENE_PARAM1_ADDR[ctx.game_id]) == 0xFFFFFFFF and check_ingame(ctx.game_id):
+            if get_attraction_id(ctx.game_id) != 0xFFFFFFFF:
+                dme.write_bytes(SCENE_NAME_ADDR[ctx.game_id], "Challenge".encode('ascii') + b'\x00')
+                dme.write_word(SCENE_PARAM1_ADDR[ctx.game_id], 0)
+                ctx.has_send_death = True
+            else:
+                current_stage = dme.read_word(CURRENT_STAGE_ADDRESSES[ctx.game_id])
+                dme.write_word(NEXT_STAGE_ADDRESSES[ctx.game_id], current_stage)
+                dme.write_bytes(SCENE_NAME_ADDR[ctx.game_id], "ZoneChange".encode('ascii') + b'\x00')
+                dme.write_word(SCENE_PARAM1_ADDR[ctx.game_id], 1)
+                ctx.has_send_death = True
 
 
 async def give_items(ctx: PokeparkContext) -> None:
@@ -493,6 +523,9 @@ async def check_death(ctx: PokeparkContext) -> None:
 
     :return: `True` if the player is dead, otherwise `False`.
     """
+    if ctx.death_link_just_changed:
+        ctx.death_link_just_changed = False
+        return
     if ctx.slot is not None and check_ingame(ctx.game_id):
         failed_status = {0x3, 0x4}
         battle_comp = dme.read_byte(BATTLE_COMP_DEATH_CHECK_ADDRESSES[ctx.game_id])
@@ -518,16 +551,25 @@ async def dolphin_sync_task(ctx: PokeparkContext) -> None:
     """
 
     logger.info("Starting Dolphin connector. Use /dolphin for status information.")
+    sleep_time = 0.0
     while not ctx.exit_event.is_set():
+        if sleep_time > 0.0:
+            try:
+                # ctx.watcher_event gets set when receiving ReceivedItems or LocationInfo, or when shutting down.
+                await asyncio.wait_for(ctx.watcher_event.wait(), sleep_time)
+            except asyncio.TimeoutError:
+                pass
+            sleep_time = 0.0
+        ctx.watcher_event.clear()
         try:
             if dme.is_hooked() and ctx.dolphin_status == CONNECTION_CONNECTED_STATUS:
                 if not check_ingame(ctx.game_id):
                     # Reset the give item array while not in the game.
                     dme.write_bytes(GLOBAL_MANAGER_PARAMETER1_ADDR[ctx.game_id], bytes([0xFF] * 0xC))
-                    await asyncio.sleep(0.1)
+                    sleep_time = 0.1
                     continue
                 if ctx.slot is not None:
-                    if "DeathLink" in ctx.tags:
+                    if ctx.death_link_enabled:
                         await check_death(ctx)
                     await give_items(ctx)
                     await check_locations(ctx)
@@ -537,7 +579,7 @@ async def dolphin_sync_task(ctx: PokeparkContext) -> None:
                         ctx.auth = read_string(SLOT_NAME_ADDR[ctx.game_id], 0x40)
                     if ctx.awaiting_rom:
                         await ctx.server_auth()
-                await asyncio.sleep(0.1)
+                sleep_time = 0.1
             else:
                 if ctx.dolphin_status == CONNECTION_CONNECTED_STATUS:
                     logger.info("Connection to Dolphin lost, reconnecting...")
@@ -550,7 +592,7 @@ async def dolphin_sync_task(ctx: PokeparkContext) -> None:
                         logger.info(CONNECTION_REFUSED_GAME_STATUS)
                         ctx.dolphin_status = CONNECTION_REFUSED_GAME_STATUS
                         dme.un_hook()
-                        await asyncio.sleep(5)
+                        sleep_time = 5
                     else:
                         logger.info(CONNECTION_CONNECTED_STATUS)
                         ctx.game_id = value
@@ -560,7 +602,7 @@ async def dolphin_sync_task(ctx: PokeparkContext) -> None:
                     logger.info("Connection to Dolphin failed, attempting again in 5 seconds...")
                     ctx.dolphin_status = CONNECTION_LOST_STATUS
                     await ctx.disconnect()
-                    await asyncio.sleep(5)
+                    sleep_time = 5
                     continue
         except Exception:
             dme.un_hook()
@@ -568,7 +610,7 @@ async def dolphin_sync_task(ctx: PokeparkContext) -> None:
             logger.error(traceback.format_exc())
             ctx.dolphin_status = CONNECTION_LOST_STATUS
             await ctx.disconnect()
-            await asyncio.sleep(5)
+            sleep_time = 5
             continue
 
 
@@ -586,13 +628,16 @@ def main(connect=None, password=None):
         await asyncio.sleep(1)
 
         ctx.dolphin_sync_task = asyncio.create_task(dolphin_sync_task(ctx), name="DolphinSync")
+
+        # Wake the sync task, if it is currently sleeping, so it can start shutting down when it sees that the
+        # exit_event is set.
         await ctx.exit_event.wait()
+        ctx.watcher_event.set()
         ctx.server_address = None
 
         await ctx.shutdown()
 
         if ctx.dolphin_sync_task:
-            await asyncio.sleep(3)
             await ctx.dolphin_sync_task
 
     import colorama
