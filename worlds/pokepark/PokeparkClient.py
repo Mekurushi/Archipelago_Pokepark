@@ -125,6 +125,19 @@ class PokeparkCommandProcessor(ClientCommandProcessor):
         if isinstance(self.ctx, PokeparkContext):
             logger.info(f"Dolphin Status: {self.ctx.dolphin_status}")
 
+    def _cmd_deathlink(self):
+        """Toggle deathlink from client. Overrides default setting."""
+        if isinstance(self.ctx, PokeparkContext):
+            self.ctx.death_link_enabled = not self.ctx.death_link_enabled
+            self.ctx.death_link_just_changed = True
+            Utils.async_start(
+                self.ctx.update_death_link(
+                    self.ctx.death_link_enabled
+                ), name="Update Deathlink"
+            )
+            logger.info(f"Deathlink is now {'enabled' if self.ctx.death_link_enabled else 'disabled'}")
+
+
 class PokeparkContext(SuperContext):
     tags = {"AP"}
     command_processor = PokeparkCommandProcessor
@@ -133,6 +146,9 @@ class PokeparkContext(SuperContext):
     victory = False
     goal_code = None
     slot_data: dict[str, Any] | None = None
+    death_link_enabled = False
+    death_link_just_changed = False
+
 
     def __init__(self, server_address, password):
         super(PokeparkContext, self).__init__(server_address, password)
@@ -186,6 +202,7 @@ class PokeparkContext(SuperContext):
             self.items_received_2 = []
             self.last_rcvd_index = -1
             if self.slot_data and self.slot_data.get("options", {}).get("death_link"):
+                self.death_link_enabled = bool(self.slot_data["options"]["death_link"])
                 Utils.async_start(self.update_death_link(bool(self.slot_data["options"]["death_link"])))
             if self.slot_data and self.slot_data.get("options", {}).get("goal") == Goal.option_mew:
                 self.goal_code = MEW_GOAL_CODE
@@ -250,7 +267,7 @@ class PokeparkContext(SuperContext):
         :param data: The data associated with the DeathLink event.
         """
         super().on_deathlink(data)
-        _give_death(self)
+        Utils.async_start(_give_death(self))
 
     async def update_visited_stages(self, newly_visited_stage_name: str) -> None:
         """
@@ -506,6 +523,9 @@ async def check_death(ctx: PokeparkContext) -> None:
 
     :return: `True` if the player is dead, otherwise `False`.
     """
+    if ctx.death_link_just_changed:
+        ctx.death_link_just_changed = False
+        return
     if ctx.slot is not None and check_ingame(ctx.game_id):
         failed_status = {0x3, 0x4}
         battle_comp = dme.read_byte(BATTLE_COMP_DEATH_CHECK_ADDRESSES[ctx.game_id])
@@ -549,7 +569,7 @@ async def dolphin_sync_task(ctx: PokeparkContext) -> None:
                     sleep_time = 0.1
                     continue
                 if ctx.slot is not None:
-                    if "DeathLink" in ctx.tags:
+                    if ctx.death_link_enabled:
                         await check_death(ctx)
                     await give_items(ctx)
                     await check_locations(ctx)
