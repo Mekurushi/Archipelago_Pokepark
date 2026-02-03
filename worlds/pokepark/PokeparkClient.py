@@ -471,6 +471,9 @@ async def check_locations(ctx: PokeparkContext) -> None:
             if data.code == ctx.goal_code:
                 if not ctx.victory:
                     await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
+                    if check_ingame(ctx.game_id):
+                        dme.write_bytes(SCENE_NAME_ADDR[ctx.game_id], "Ending".encode('ascii') + b'\x00')
+                        dme.write_word(SCENE_PARAM1_ADDR[ctx.game_id], 1)
                     ctx.victory = True
             else:
                 ctx.locations_checked.add(PokeparkItem.get_apid(data.code))
