@@ -1,4 +1,7 @@
 import asyncio
+import copy
+import random
+import textwrap
 import time
 import traceback
 from typing import Optional, Any, Type
@@ -11,14 +14,16 @@ from worlds.pokepark import PokeparkItem, LOCATION_TABLE, VERSION
 from worlds.pokepark.adresses import ATHLETIC_COMP_DEATH_CHECK_ADDRESSES, ATHLETIC_COMP_GIVE_DEATH_ADDRESSES, \
     ATTRACTION_ID_ADDRESSES, BATTLE_COMP_DEATH_CHECK_ADDRESSES, \
     BATTLE_COMP_GIVE_DEATH_ADDRESSES, CHASE_COMP_DEATH_CHECK_ADDRESSES, \
-    CHASE_COMP_GIVE_DEATH_ADDRESSES, CURRENT_STAGE_ADDRESSES, GLOBAL_MANAGER_DATA_STRUC_ADDRESS, \
+    CHASE_COMP_GIVE_DEATH_ADDRESSES, CLIENT_TEXT_BUFFER_SIZE, CLIENT_TEXT_TIMEOUT, CURRENT_STAGE_ADDRESSES, \
+    GLOBAL_MANAGER_DATA_STRUC_ADDRESS, \
     GLOBAL_MANAGER_OPCODE_ADDR, \
     GLOBAL_MANAGER_PARAMETER1_ADDR, \
     GLOBAL_MANAGER_PARAMETER2_ADDR, HIDE_AND_SEEK_COMP_DEATH_CHECK_ADDRESSES, HIDE_AND_SEEK_COMP_GIVE_DEATH_ADDRESSES, \
-    IS_INITIALIZED_ADDRESSES, IS_IN_GAME_END_STATE_ADDRESSES, IS_IN_LOADING_SCREEN_ADDRESSES, IS_IN_MAIN_MENU_ADDRESSES, \
+    INGAME_LINE_LENGTH, IS_INITIALIZED_ADDRESSES, IS_IN_GAME_END_STATE_ADDRESSES, IS_IN_LOADING_SCREEN_ADDRESSES, \
+    IS_IN_MAIN_MENU_ADDRESSES, \
     IS_IN_PAUSE_MENU_ADDRESSES, \
     NEXT_STAGE_ADDRESSES, POWER_MAP, \
-    MemoryAddress, SCENE_NAME_ADDR, SCENE_PARAM1_ADDR, SLOT_NAME_ADDR
+    MemoryAddress, SCENE_NAME_ADDR, SCENE_PARAM1_ADDR, SLOT_NAME_ADDR, TEXT_BUFFER_ADDR
 from worlds.pokepark.dme_helper import read_memory
 from worlds.pokepark.items import LOOKUP_ID_TO_NAME, ITEM_TABLE, PokeparkPowerItemClientData
 from worlds.pokepark.locations import MEW_GOAL_CODE, POSTGAME_PRISMA_GOAL_CODE
@@ -160,6 +165,7 @@ class PokeparkContext(SuperContext):
         self.visited_stage_names: Optional[set[str]] = None
         self.has_send_death: bool = False
         self.game_id: Optional[bytes] = None
+        self.ingame_client_messages: list[tuple[float, str]] = []
 
     async def disconnect(self, allow_autoreconnect: bool = False) -> None:
         """
@@ -288,6 +294,63 @@ class PokeparkContext(SuperContext):
                     }
                 ]
             )
+
+    def forward_client_message(self, msg: str):
+        lines = []
+        for raw_line in msg.split("\n"):
+            lines.extend(
+                textwrap.wrap(
+                    raw_line,
+                    INGAME_LINE_LENGTH,
+                )
+            )
+
+        timestamp = time.time()
+        # We want to stagger the messages so large amounts of text can "scroll"
+        # if they go over the character limit
+        for line in lines:
+            self.ingame_client_messages.append(
+                (timestamp + len(self.ingame_client_messages) * 0.5, line)
+            )
+
+    async def show_messages_ingame(self) -> None:
+        # Filter out old messages
+        line_list = []
+        filtered_msgs = []
+        curr_timestamp = time.time()
+        for tup in self.ingame_client_messages:
+            if curr_timestamp - tup[0] > CLIENT_TEXT_TIMEOUT:
+                continue
+
+            filtered_msgs.append(tup)
+            line_list.append(tup[1])
+
+        self.ingame_client_messages = filtered_msgs
+
+        if len(line_list) == 0:
+            await self.write_string_to_buffer("")
+        else:
+            # Want to cap it at 16 lines so the text doesn't get too obtrusive
+            # (which could happen if each line is quite short)
+            await self.write_string_to_buffer("\n".join(line_list[:16]))
+
+    def on_print_json(self, args: dict):
+        # Don't show messages in-game for item sends irrelevant to this slot
+        if not self.is_uninteresting_item_send(args):
+            self.forward_client_message(
+                self.rawjsontotextparser(copy.deepcopy(args["data"]))
+            )
+
+        super().on_print_json(args)
+
+    async def write_string_to_buffer(self, text: str):
+        if TEXT_BUFFER_ADDR[self.game_id] != 0x0:
+            # Truncate text to fit in the buffer, then write to buffer
+            text_bytes = text.encode("utf-8")[: CLIENT_TEXT_BUFFER_SIZE -
+                                                1].ljust(
+                CLIENT_TEXT_BUFFER_SIZE, b"\x00"
+            )
+            dme.write_bytes(TEXT_BUFFER_ADDR[self.game_id], text_bytes)
 
 
 def _give_item(ctx: PokeparkContext, item_name: str) -> bool:
@@ -472,8 +535,9 @@ async def check_locations(ctx: PokeparkContext) -> None:
                 if not ctx.victory:
                     await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
                     if check_ingame(ctx.game_id):
-                        dme.write_bytes(SCENE_NAME_ADDR[ctx.game_id], "Ending".encode('ascii') + b'\x00')
-                        dme.write_word(SCENE_PARAM1_ADDR[ctx.game_id], 1)
+                        pass
+                        # dme.write_bytes(SCENE_NAME_ADDR[ctx.game_id], "Ending".encode('ascii') + b'\x00')
+                        # dme.write_word(SCENE_PARAM1_ADDR[ctx.game_id], 1)
                     ctx.victory = True
             else:
                 ctx.locations_checked.add(PokeparkItem.get_apid(data.code))
@@ -566,6 +630,7 @@ async def dolphin_sync_task(ctx: PokeparkContext) -> None:
         ctx.watcher_event.clear()
         try:
             if dme.is_hooked() and ctx.dolphin_status == CONNECTION_CONNECTED_STATUS:
+                await ctx.show_messages_ingame()
                 if not check_ingame(ctx.game_id):
                     # Reset the give item array while not in the game.
                     dme.write_bytes(GLOBAL_MANAGER_PARAMETER1_ADDR[ctx.game_id], bytes([0xFF] * 0xC))

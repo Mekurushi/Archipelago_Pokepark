@@ -178,3 +178,19 @@ SCENE_PARAM1_ADDR = {
     b"R8AE99": 0x80368B0C,
     b"R8AP99": 0x8036902C
 }
+
+# An array at the address pointed to here holds text to be displayed by the game
+# CLIENT_TEXT_BUFFER_PTR = 0x8005526C  # Pointer to STRING[512]
+CLIENT_TEXT_BUFFER_SIZE = 512
+
+# Time for a client message to disappear in-game (in seconds, not including stagger time for multiple lines in the queue)
+CLIENT_TEXT_TIMEOUT = 6
+
+# Max number of characters in a line for in-game client text
+INGAME_LINE_LENGTH = 64
+
+TEXT_BUFFER_ADDR = {
+    b"R8AJ99": 0x80365010,
+    b"R8AE99": 0x80367490,
+    b"R8AP99": 0x803679b0
+}
