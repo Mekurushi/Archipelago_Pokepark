@@ -3244,7 +3244,7 @@ def can_thunderbolt_overworld(state: CollectionState, player: int):
 def can_destroy_objects_overworld(state: CollectionState, player: int):
     return state.has_any_count(
         {"Progressive Dash": 1,
-         "Progressive Iron Tail": 1}, player
+         "Progressive Thunderbolt": 1}, player
     )
 
 
