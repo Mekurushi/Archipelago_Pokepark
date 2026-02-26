@@ -135,19 +135,19 @@ def set_rules(world: "PokeparkWorld") -> None:
     set_rule_if_exists(
         "Meadow Zone Main Area - Munchlax Errand -- Friendship",
         lambda state: state.has("Bulbasaur Prisma", player) and
-                      state.has("Progressive Dash", player)  # crate is not destroyable by thunderbolt
+                      can_dash(state, player)  # crate is not destroyable by thunderbolt
     )
     set_rule_if_exists(
         "Meadow Zone Main Area - Munchlax Errand -- Tropius Unlocked",
         lambda state: state.has("Bulbasaur Prisma", player) and
-                      state.has("Progressive Dash", player)  # crate is not destroyable by thunderbolt
+                      can_dash(state, player)  # crate is not destroyable by thunderbolt
 
     )
     set_rule_if_exists(
         "Meadow Zone Main Area - Tropius Errand -- Friendship",
         lambda state: state.has("Bulbasaur Prisma", player) and
                       state.has("Tropius Unlock", player) and
-                      state.has("Progressive Dash", player)  # crate is not destroyable by thunderbolt
+                      can_dash(state, player)  # crate is not destroyable by thunderbolt
     )
     set_rule_if_exists(
         "Meadow Zone Main Area - Pachirisu Chase Power Competition -- Friendship",
@@ -3152,6 +3152,7 @@ def can_battle_thunderbolt_immune(state: CollectionState, player: int, options: 
     return (state.has("Progressive Health", player) and
             state.has_any_count(
                 {"Progressive Dash": 1,
+                 "Double Dash": 1,
                  "Progressive Iron Tail": 1}, player
             ))
 
@@ -3159,6 +3160,7 @@ def can_battle_thunderbolt_immune(state: CollectionState, player: int, options: 
 def can_battle_thunderbolt_immune_glitched(state: CollectionState, player: int):
     return state.has_any_count(
         {"Progressive Dash": 1,
+         "Double Dash": 1,
          "Progressive Iron Tail": 1}, player
     )
 
@@ -3207,14 +3209,17 @@ def can_farm_berries(state: CollectionState, player: int):
         return True
 
     # in-logic rule
-    return state.has("Progressive Dash", player)
+    return can_dash(state, player)
 
+
+def can_dash(state: CollectionState, player: int):
+    return state.has("Progressive Dash", player) or state.has("Double Dash", player)
 
 def can_play_catch(state: CollectionState, player: int, options: "PokeparkOptions"):
     if options.harder_enemy_ai.value:
         return state.has("Progressive Dash", player, 2)
 
-    return state.has("Progressive Dash", player)
+    return can_dash(state, player)
 
 
 def can_play_catch_intermediate(state: CollectionState, player: int, options: "PokeparkOptions"):
@@ -3234,7 +3239,7 @@ def maximized_dash(state: CollectionState, player: int):
 
 
 def can_dash_overworld(state: CollectionState, player: int):
-    return state.has("Progressive Dash", player)
+    return can_dash(state, player)
 
 
 def can_thunderbolt_overworld(state: CollectionState, player: int):
@@ -3244,6 +3249,7 @@ def can_thunderbolt_overworld(state: CollectionState, player: int):
 def can_destroy_objects_overworld(state: CollectionState, player: int):
     return state.has_any_count(
         {"Progressive Dash": 1,
+         "Double Dash": 1,
          "Progressive Iron Tail": 1}, player
     )
 
