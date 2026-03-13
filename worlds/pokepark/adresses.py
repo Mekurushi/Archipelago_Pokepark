@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from enum import Enum
 
+import dolphin_memory_engine
+
 
 class MemoryRange(Enum):
     BYTE = 1  # 1 Byte
@@ -28,159 +30,40 @@ class MemoryAddress:
         return self.base_address + self.offset
 
 
-POWER_MAP = {
-    "Progressive Dash": [0x01, 0x04, 0x08, 0x4000],
-    "Progressive Thunderbolt": [0x10, 0x20, 0x40, 0x80],
-    "Progressive Health": [0x100, 0x200, 0x400],
-    "Progressive Iron Tail": [0x800, 0x1000, 0x2000],
-    "Double Dash": [0x02]
-}
+class PointerTableOffsets:
+    PATCHER_VERSION_OFFSET = 0x0
+    PLAYER_NAME_OFFSET = 0x4
+    GIVE_ITEM_ARRAY_OFFSET = 0x8
+    SHOULD_PRINT_AP_BUFFER_OFFSET = 0xC
+    ARCHIPELAGO_TEXT_BUFFER_OFFSET = 0x10
+    IS_DEATH_OFFSET = 0x14
+    DEATH_TRIGGER_OFFSET = 0x18
+    GLOBAL_MANAGER_DATA_OFFSET = 0x1C
+    IS_IN_TITLE_SCREEN_OFFSET = 0x20
+    GAME_BOOTED_UP_OFFSET = 0x24
+    ATTRACTION_ID_OFFSET = 0x28
+    POINTER_TABLE_ADDR = {
+        b"R8AJ99": 0x80366348,
+        b"R8AE99": 0x80366348,
+        b"R8AP99": 0x80366348,
+    }
 
-SLOT_NAME_ADDR = {
-    b"R8AJ99": 0x803663D0,
-    b"R8AE99": 0x80368850,
-    b"R8AP99": 0x80368D70
-}
 
-GLOBAL_MANAGER_OPCODE_ADDR = {
-    b"R8AJ99": 0x80366274,
-    b"R8AE99": 0x803686F4,
-    b"R8AP99": 0x80368C14
-}
+class ClientAddresses:
+    def __init__(self, dme: dolphin_memory_engine, game_id: bytes):
+        base = PointerTableOffsets.POINTER_TABLE_ADDR[game_id]
+        self.PATCHER_VERSION_ADDRESS = dme.read_word(base + PointerTableOffsets.PATCHER_VERSION_OFFSET)
+        self.PLAYER_NAME_ADDRESS = dme.read_word(base + PointerTableOffsets.PLAYER_NAME_OFFSET)
+        self.GIVE_ITEM_ARRAY_ADDRESS = dme.read_word(base + PointerTableOffsets.GIVE_ITEM_ARRAY_OFFSET)
+        self.SHOULD_PRINT_AP_BUFFER_ADDRESS = dme.read_word(base + PointerTableOffsets.SHOULD_PRINT_AP_BUFFER_OFFSET)
+        self.ARCHIPELAGO_TEXT_BUFFER_ADDRESS = dme.read_word(base + PointerTableOffsets.ARCHIPELAGO_TEXT_BUFFER_OFFSET)
+        self.IS_DEATH_ADDRESS = dme.read_word(base + PointerTableOffsets.IS_DEATH_OFFSET)
+        self.DEATH_TRIGGER_ADDRESS = dme.read_word(base + PointerTableOffsets.DEATH_TRIGGER_OFFSET)
+        self.GLOBAL_MANAGER_DATA_ADDRESS = dme.read_word(base + PointerTableOffsets.GLOBAL_MANAGER_DATA_OFFSET)
+        self.IS_IN_TITLE_SCREEN_ADDRESS = dme.read_word(base + PointerTableOffsets.IS_IN_TITLE_SCREEN_OFFSET)
+        self.GAME_BOOTED_UP_ADDRESS = dme.read_word(base + PointerTableOffsets.GAME_BOOTED_UP_OFFSET)
+        self.ATTRACTION_ID_ADDRESS = dme.read_word(base + PointerTableOffsets.ATTRACTION_ID_OFFSET)
 
-GLOBAL_MANAGER_PARAMETER1_ADDR = {
-    b"R8AJ99": 0x80366278,
-    b"R8AE99": 0x803686F8,
-    b"R8AP99": 0x80368C18
-}
-
-GLOBAL_MANAGER_PARAMETER2_ADDR = {
-    b"R8AJ99": 0x8036627c,
-    b"R8AE99": 0x803686Fc,
-    b"R8AP99": 0x80368C1c
-}
-
-GLOBAL_MANAGER_DATA_STRUC_ADDRESS = {
-    b"R8AJ99": 0x80374fe0,
-    b"R8AE99": 0x80378460,
-    b"R8AP99": 0x803789e8
-}
-
-BATTLE_COMP_DEATH_CHECK_ADDRESSES = {
-    b"R8AJ99": 0x804A6CDB,
-    b"R8AE99": 0x804aa493,
-    b"R8AP99": 0x804aaa73
-}
-
-HIDE_AND_SEEK_COMP_DEATH_CHECK_ADDRESSES = {
-    b"R8AJ99": 0x804AF4B3,
-    b"R8AE99": 0x804B2C73,
-    b"R8AP99": 0x804b3253
-
-}
-
-CHASE_COMP_DEATH_CHECK_ADDRESSES = {
-    b"R8AJ99": 0x8049E4EB,
-    b"R8AE99": 0x804a1ca3,
-    b"R8AP99": 0x804a2283,
-
-}
-
-ATHLETIC_COMP_DEATH_CHECK_ADDRESSES = {
-    b"R8AJ99": 0x804B7B5B,
-    b"R8AE99": 0x804bb31b,
-    b"R8AP99": 0x804bb8fb,
-
-}
-
-BATTLE_COMP_GIVE_DEATH_ADDRESSES = {
-    b"R8AJ99": 0x804af1d2,
-    b"R8AE99": 0x804b298a,
-    b"R8AP99": 0x804b2f6a,
-
-}
-
-HIDE_AND_SEEK_COMP_GIVE_DEATH_ADDRESSES = {
-    b"R8AJ99": 0x804b79a6,
-    b"R8AE99": 0x804bb166,
-    b"R8AP99": 0x804bb746,
-
-}
-
-CHASE_COMP_GIVE_DEATH_ADDRESSES = {
-    b"R8AJ99": 0x804a69e2,
-    b"R8AE99": 0x804aa19a,
-    b"R8AP99": 0x804aa77a,
-
-}
-
-ATHLETIC_COMP_GIVE_DEATH_ADDRESSES = {
-    b"R8AJ99": 0x804b80ea,
-    b"R8AE99": 0x804BB8AA,
-    b"R8AP99": 0x804bbe8a,
-
-}
-
-ATTRACTION_ID_ADDRESSES = {
-    b"R8AJ99": 0x8039CA48,
-    b"R8AE99": 0x8039FED8,
-    b"R8AP99": 0x803A0460
-}
-
-IS_IN_PAUSE_MENU_ADDRESSES = {
-    b"R8AJ99": 0x80482F04,
-    b"R8AE99": 0x80486380,
-    b"R8AP99": 0x80486930
-}
-
-IS_INITIALIZED_ADDRESSES = {
-    b"R8AJ99": 0x8037afd4,
-    b"R8AE99": 0x8037e454,
-    b"R8AP99": 0x8037e9dc
-}
-
-IS_IN_MAIN_MENU_ADDRESSES = {
-    b"R8AJ99": 0x80496E50,
-    b"R8AE99": 0x8049A2F0,
-    b"R8AP99": 0x8049A8D0
-}
-
-IS_IN_GAME_END_STATE_ADDRESSES = {
-    b"R8AJ99": 0x8036C997,
-    b"R8AE99": 0x8036EE17,
-    b"R8AP99": 0x8036F397
-}
-
-IS_IN_LOADING_SCREEN_ADDRESSES = {
-    b"R8AJ99": 0x80496D2F,
-    b"R8AE99": 0x8049A1CF,
-    b"R8AP99": 0x8049A7AF
-}
-
-CURRENT_STAGE_ADDRESSES = {
-    b"R8AJ99": 0x8037AEE0,
-    b"R8AE99": 0x0,
-    b"R8AP99": 0x0
-}
-NEXT_STAGE_ADDRESSES = {
-    b"R8AJ99": 0x8037AF20,
-    b"R8AE99": 0x0,
-    b"R8AP99": 0x0
-}
-
-SCENE_NAME_ADDR = {
-    b"R8AJ99": 0x803663C0,
-    b"R8AE99": 0x80368840,
-    b"R8AP99": 0x80368D60
-}
-SCENE_PARAM1_ADDR = {
-    b"R8AJ99": 0x8036668C,
-    b"R8AE99": 0x80368B0C,
-    b"R8AP99": 0x8036902C
-}
-
-# An array at the address pointed to here holds text to be displayed by the game
-# CLIENT_TEXT_BUFFER_PTR = 0x8005526C  # Pointer to STRING[512]
 CLIENT_TEXT_BUFFER_SIZE = 512
 
 # Time for a client message to disappear in-game (in seconds, not including stagger time for multiple lines in the queue)
@@ -188,9 +71,3 @@ CLIENT_TEXT_TIMEOUT = 6
 
 # Max number of characters in a line for in-game client text
 INGAME_LINE_LENGTH = 64
-
-TEXT_BUFFER_ADDR = {
-    b"R8AJ99": 0x80365010,
-    b"R8AE99": 0x80367490,
-    b"R8AP99": 0x803679b0
-}
