@@ -1,5 +1,6 @@
 import asyncio
 import copy
+import re
 import textwrap
 import time
 import traceback
@@ -23,7 +24,7 @@ ModuleUpdate.update()
 
 import Utils
 
-from NetUtils import ClientStatus
+from NetUtils import ClientStatus, JSONtoTextParser
 from CommonClient import gui_enabled, logger, get_base_parser, ClientCommandProcessor, server_loop
 
 
@@ -102,6 +103,30 @@ ATTRACTION_ID_MAP = {
 
 }
 
+COLOR_CONTROL_SEQUENCES = {
+    # closest equivalents available in SS
+    "black": "\x0e\x00\x03\x02\x00",
+    "red": "\x0e\x00\x03\x02\x01",
+    "orange": "\x0e\x00\x03\x02\x02",
+    "blue": "\x0e\x00\x03\x02\x03",
+    "green": "\x0e\x00\x03\x02\x04",
+    "yellow": "\x0e\x00\x03\x02\x05",
+    "plum": "\x0e\x00\x03\x02\x06",
+    "cyan": "\x0e\x00\x03\x02\x07",
+    "salmon": "\x0e\x00\x03\x02\x08",
+    "magenta": "\x0e\x00\x03\x02\x09",
+    "slateblue": "\x0e\x00\x03\x02\x0a",
+    # "white": "\x0e\x00\x03\x02\x0b", # just ignore since text is already white by default
+    # ">>": "\x0e\x00\x03\x02\uffff",  # end color
+}
+
+
+class SSIngameJSONParser(JSONtoTextParser):
+    def _handle_color(self, node):
+        codes = node["color"].split(";")
+        buffer = "".join(COLOR_CONTROL_SEQUENCES[code] for code in codes if code in COLOR_CONTROL_SEQUENCES)
+        return buffer + self._handle_text(node) + "\x0e\x00\x03\x02\uffff"
+
 
 class PokeparkCommandProcessor(ClientCommandProcessor):
 
@@ -132,6 +157,14 @@ class PokeparkCommandProcessor(ClientCommandProcessor):
             )
             logger.info(f"Deathlink is now {'enabled' if self.ctx.death_link_enabled else 'disabled'}")
 
+    def _cmd_print_client_text(self):
+        """Toggle client text ingame. Overrides default setting."""
+        if isinstance(self.ctx, PokeparkContext):
+            current: bool = dme.read_byte(self.ctx.addresses.SHOULD_PRINT_AP_BUFFER_ADDRESS)
+            dme.write_byte(self.ctx.addresses.SHOULD_PRINT_AP_BUFFER_ADDRESS, int(not current))
+
+            logger.info(f"In-game client text is now {'enabled' if not current else 'disabled'}")
+
 
 class PokeparkContext(SuperContext):
     tags = {"AP"}
@@ -155,6 +188,9 @@ class PokeparkContext(SuperContext):
         self.game_id: Optional[bytes] = None
         self.addresses: Optional[ClientAddresses] = None
         self.ingame_client_messages: list[tuple[float, str]] = []
+
+        self.ingame_json_parser = SSIngameJSONParser(self)
+        self.is_text_buffer_empty = True
 
     async def disconnect(self, allow_autoreconnect: bool = False) -> None:
         """
@@ -276,14 +312,23 @@ class PokeparkContext(SuperContext):
             )
 
     def forward_client_message(self, msg: str):
+        # Replace control sequences with placeholders before wrapping
+        placeholders = {}
+
+        def replace(m):
+            key = f"\x01{len(placeholders)}\x01"
+            placeholders[key] = m.group(0)
+            return key
+
+        safe = re.sub(r'\x0e[\x00-\xff]{4}', replace, msg)
+
         lines = []
-        for raw_line in msg.split("\n"):
-            lines.extend(
-                textwrap.wrap(
-                    raw_line,
-                    INGAME_LINE_LENGTH,
-                )
-            )
+        for raw_line in safe.split("\n"):
+            lines.extend(textwrap.wrap(raw_line, INGAME_LINE_LENGTH))
+
+        # Restore placeholders
+        lines = [re.sub(r'\x01\d+\x01', lambda m: placeholders[m.group(0)], line)
+                 for line in lines]
 
         timestamp = time.time()
         # We want to stagger the messages so large amounts of text can "scroll"
@@ -308,7 +353,7 @@ class PokeparkContext(SuperContext):
         self.ingame_client_messages = filtered_msgs
 
         if len(line_list) == 0:
-            await self.write_string_to_buffer("")
+            await self.clear_buffer()
         else:
             # Want to cap it at 16 lines so the text doesn't get too obtrusive
             # (which could happen if each line is quite short)
@@ -318,19 +363,33 @@ class PokeparkContext(SuperContext):
         # Don't show messages in-game for item sends irrelevant to this slot
         if not self.is_uninteresting_item_send(args):
             self.forward_client_message(
-                self.rawjsontotextparser(copy.deepcopy(args["data"]))
+                self.ingame_json_parser(copy.deepcopy(args["data"]))
             )
 
         super().on_print_json(args)
 
     async def write_string_to_buffer(self, text: str):
+        # Truncate text to fit in the buffer, then write to buffer
+        text_bytes = text.encode("utf-8")
+        if len(text_bytes) >= CLIENT_TEXT_BUFFER_SIZE:
+            for i in range(CLIENT_TEXT_BUFFER_SIZE - 7, CLIENT_TEXT_BUFFER_SIZE + 1):
+                if text_bytes[i] == 0x0e:  # color control sequence, don't want to truncate!
+                    break
+            text_bytes = text_bytes[: i - 1]
+
         if self.addresses.ARCHIPELAGO_TEXT_BUFFER_ADDRESS != 0x0:
-            # Truncate text to fit in the buffer, then write to buffer
-            text_bytes = text.encode("utf-8")[: CLIENT_TEXT_BUFFER_SIZE -
-                                                1].ljust(
-                CLIENT_TEXT_BUFFER_SIZE, b"\x00"
+            dme.write_bytes(
+                self.addresses.ARCHIPELAGO_TEXT_BUFFER_ADDRESS, text_bytes.ljust(CLIENT_TEXT_BUFFER_SIZE, b'\x00')
             )
-            dme.write_bytes(self.addresses.ARCHIPELAGO_TEXT_BUFFER_ADDRESS, text_bytes)
+            self.is_text_buffer_empty = False
+
+    async def clear_buffer(self):
+        if self.is_text_buffer_empty:
+            return
+
+        if self.addresses.ARCHIPELAGO_TEXT_BUFFER_ADDRESS != 0x0:
+            dme.write_bytes(self.addresses.ARCHIPELAGO_TEXT_BUFFER_ADDRESS, b"\x00")
+            self.is_text_buffer_empty = True
 
 
 def _give_item(ctx: PokeparkContext, item_name: str) -> bool:
