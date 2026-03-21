@@ -1448,7 +1448,7 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
     ),
     "Beach Zone Main Area - Spearow Battle Power Competition -- Friendship": PokeparkLocationData(
         149, PokeparkFlag.BATTLE, "Beach Zone Main Area", Pokepark13AttractionClientData(
-            structure_position=5
+            structure_position=8
         ), each_zone=MultiZoneFlag.MULTI
     ),
     "Beach Zone Main Area - Pelipper -- Friendship": PokeparkLocationData(
