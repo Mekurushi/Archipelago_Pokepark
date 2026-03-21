@@ -1,4 +1,4 @@
-from worlds.pokepark.adresses import MemoryAddress, MemoryRange
+from worlds.pokepark.client_utils import MemoryAddress, MemoryRange
 
 
 def read_memory(dme, mem: MemoryAddress) -> int:

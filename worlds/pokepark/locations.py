@@ -3,7 +3,7 @@ from enum import Flag, auto
 from typing import Optional
 
 from BaseClasses import Location, Region
-from worlds.pokepark.adresses import MemoryRange
+from worlds.pokepark.client_utils import MemoryRange
 
 
 class PokeparkFlag(Flag):
