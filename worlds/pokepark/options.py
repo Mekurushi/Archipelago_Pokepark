@@ -233,6 +233,13 @@ class DeathLink(Toggle):
     display_name = "Death Link"
     rich_text_doc = True
 
+
+class ShowClientTextInGame(Toggle):
+    """
+    Toggles whether client text is displayed in-game.
+    """
+    default = True
+
 @dataclass
 class PokeparkOptions(PerGameCommonOptions):
     power_randomizer: Powers
@@ -261,6 +268,7 @@ class PokeparkOptions(PerGameCommonOptions):
     harder_enemy_ai: HarderEnemyAI
     unlock_fast_travel_with_taxi_stop: UnlockFastTravelWithTaxiStop
     death_link: DeathLink
+    show_client_text_ingame: ShowClientTextInGame
 
     def get_output_dict(self) -> dict[str, Any]:
         """
@@ -279,7 +287,8 @@ class PokeparkOptions(PerGameCommonOptions):
             "remove_errand_power_comp_locations",
             "harder_enemy_ai",
             "each_zone",
-            "unlock_fast_travel_with_taxi_stop"
+            "unlock_fast_travel_with_taxi_stop",
+            "show_client_text_ingame"
         )
 
 
@@ -303,7 +312,8 @@ pokepark_option_groups = [
         NumRequiredPrismaCountSkygarden,
         InZoneRoadBlocks,
         HarderEnemyAI,
-        UnlockFastTravelWithTaxiStop
+        UnlockFastTravelWithTaxiStop,
+        ShowClientTextInGame
     ]
                 ),
     OptionGroup(

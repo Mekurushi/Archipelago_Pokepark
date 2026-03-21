@@ -1,6 +1,5 @@
 import asyncio
 import copy
-import textwrap
 import time
 import traceback
 from typing import Any, Optional, Type
@@ -10,10 +9,10 @@ import dolphin_memory_engine as dme
 import ModuleUpdate
 import kvui
 from worlds.pokepark import LOCATION_TABLE, PokeparkItem, VERSION
-from worlds.pokepark.adresses import (
-    CLIENT_TEXT_BUFFER_SIZE, CLIENT_TEXT_TIMEOUT, \
-    ClientAddresses, INGAME_LINE_LENGTH, MemoryAddress,
-    PointerTableOffsets)
+from worlds.pokepark.client_utils import (
+    ATTRACTION_ID_MAP, CLIENT_TEXT_BUFFER_SIZE, CLIENT_TEXT_TIMEOUT, \
+    COLOR_CONTROL_SEQUENCES, COLOR_RESET, ClientAddresses, INGAME_LINE_LENGTH, MemoryAddress,
+    PointerTableOffsets, STAGE_NAME_MAP, wrap_line)
 from worlds.pokepark.dme_helper import read_memory
 from worlds.pokepark.items import ITEM_TABLE, LOOKUP_ID_TO_NAME
 from worlds.pokepark.locations import MEW_GOAL_CODE, POSTGAME_PRISMA_GOAL_CODE
@@ -23,7 +22,7 @@ ModuleUpdate.update()
 
 import Utils
 
-from NetUtils import ClientStatus
+from NetUtils import ClientStatus, JSONtoTextParser
 from CommonClient import gui_enabled, logger, get_base_parser, ClientCommandProcessor, server_loop
 
 
@@ -64,43 +63,12 @@ CONNECTION_CONNECTED_STATUS = "Dolphin connected successfully."
 CONNECTION_INITIAL_STATUS = "Dolphin connection has not been initiated."
 AP_VISITED_STAGE_NAMES_KEY_FORMAT = "pokepark_visited_stages_%i"
 
-STAGE_NAME_MAP = {
-    0x0101.to_bytes(2): "Meadow Zone Main Area",
-    0x0102.to_bytes(2): "Meadow Zone Venusaur Area",
-    0x0201.to_bytes(2): "Treehouse",
-    0x0301.to_bytes(2): "Beach Zone Main Area",
-    0x0302.to_bytes(2): "Ice Zone Main Area",
-    0x0303.to_bytes(2): "Ice Zone Empoleon Area",
-    0x0401.to_bytes(2): "Cavern Zone Main Area",
-    0x0402.to_bytes(2): "Magma Zone Main Area",
-    0x0403.to_bytes(2): "Magma Zone Blaziken Area",
-    0x0501.to_bytes(2): "Haunted Zone Main Area",
-    0x0502.to_bytes(2): "Haunted Zone Mansion Area",
-    0x0503.to_bytes(2): "Haunted Zone Rotom Area",
-    0x0601.to_bytes(2): "Granite Zone Main Area",
-    0x0602.to_bytes(2): "Flower Zone Main Area",
-    0x0701.to_bytes(2): "Skygarden",
-    0x6301.to_bytes(2): "Pokepark Entrance",
 
-}
-
-ATTRACTION_ID_MAP = {
-    0x0: "Absol's Hurdle Bounce Attraction",
-    0x1: "Rayquaza's Balloon Panic Attraction",
-    0x2: "Venusaur's Vine Swing Attraction",
-    0x3: "Tangrowth's Swing-Along Attraction",
-    0x4: "Dusknoir's Speed Slam Attraction",
-    0x5: "Gyarados' Aqua Dash Attraction",
-    0x6: "Pelipper's Circle Circuit Attraction",
-    0x8: "Empoleon's Snow Slide Attraction",
-    0x9: "Bastiodon's Panel Crush Attraction",
-    0xa: "Rhyperior's Bumper Burn Attraction",
-    0xb: "Blaziken's Boulder Bash Attraction",
-    0xc: "Rotom's Spooky Shoot-'em-Up Attraction",
-    0xe: "Salamence's Sky Race Attraction",
-    0xF: "Bulbasaur's Daring Dash Attraction",
-
-}
+class IngameJSONParser(JSONtoTextParser):
+    def _handle_color(self, node):
+        codes = node["color"].split(";")
+        buffer = "".join(COLOR_CONTROL_SEQUENCES[code] for code in codes if code in COLOR_CONTROL_SEQUENCES)
+        return buffer + self._handle_text(node) + COLOR_RESET
 
 
 class PokeparkCommandProcessor(ClientCommandProcessor):
@@ -132,6 +100,14 @@ class PokeparkCommandProcessor(ClientCommandProcessor):
             )
             logger.info(f"Deathlink is now {'enabled' if self.ctx.death_link_enabled else 'disabled'}")
 
+    def _cmd_print_client_text(self):
+        """Toggle client text ingame. Overrides default setting."""
+        if isinstance(self.ctx, PokeparkContext):
+            current: bytes = dme.read_byte(self.ctx.addresses.SHOULD_PRINT_AP_BUFFER_ADDRESS)
+            dme.write_byte(self.ctx.addresses.SHOULD_PRINT_AP_BUFFER_ADDRESS, int(not current))
+
+            logger.info(f"In-game client text is now {'enabled' if not current else 'disabled'}")
+
 
 class PokeparkContext(SuperContext):
     tags = {"AP"}
@@ -151,10 +127,14 @@ class PokeparkContext(SuperContext):
         self.dolphin_status: str = CONNECTION_INITIAL_STATUS
         self.awaiting_rom: bool = False
         self.visited_stage_names: Optional[set[str]] = None
+        self.current_stage_name: Optional[str] = None
         self.has_send_death: bool = False
         self.game_id: Optional[bytes] = None
         self.addresses: Optional[ClientAddresses] = None
         self.ingame_client_messages: list[tuple[float, str]] = []
+
+        self.ingame_json_parser = IngameJSONParser(self)
+        self.is_text_buffer_empty = True
 
     async def disconnect(self, allow_autoreconnect: bool = False) -> None:
         """
@@ -278,12 +258,7 @@ class PokeparkContext(SuperContext):
     def forward_client_message(self, msg: str):
         lines = []
         for raw_line in msg.split("\n"):
-            lines.extend(
-                textwrap.wrap(
-                    raw_line,
-                    INGAME_LINE_LENGTH,
-                )
-            )
+            lines.extend(wrap_line(raw_line, INGAME_LINE_LENGTH))
 
         timestamp = time.time()
         # We want to stagger the messages so large amounts of text can "scroll"
@@ -308,7 +283,7 @@ class PokeparkContext(SuperContext):
         self.ingame_client_messages = filtered_msgs
 
         if len(line_list) == 0:
-            await self.write_string_to_buffer("")
+            await self.clear_buffer()
         else:
             # Want to cap it at 16 lines so the text doesn't get too obtrusive
             # (which could happen if each line is quite short)
@@ -318,19 +293,33 @@ class PokeparkContext(SuperContext):
         # Don't show messages in-game for item sends irrelevant to this slot
         if not self.is_uninteresting_item_send(args):
             self.forward_client_message(
-                self.rawjsontotextparser(copy.deepcopy(args["data"]))
+                self.ingame_json_parser(copy.deepcopy(args["data"]))
             )
 
         super().on_print_json(args)
 
     async def write_string_to_buffer(self, text: str):
+        # Truncate text to fit in the buffer, then write to buffer
+        text_bytes = text.encode("utf-8")
+        if len(text_bytes) >= CLIENT_TEXT_BUFFER_SIZE:
+            for i in range(CLIENT_TEXT_BUFFER_SIZE - 7, CLIENT_TEXT_BUFFER_SIZE + 1):
+                if text_bytes[i] == 0x0e:  # color control sequence, don't want to truncate!
+                    break
+            text_bytes = text_bytes[: i - 1]
+
         if self.addresses.ARCHIPELAGO_TEXT_BUFFER_ADDRESS != 0x0:
-            # Truncate text to fit in the buffer, then write to buffer
-            text_bytes = text.encode("utf-8")[: CLIENT_TEXT_BUFFER_SIZE -
-                                                1].ljust(
-                CLIENT_TEXT_BUFFER_SIZE, b"\x00"
+            dme.write_bytes(
+                self.addresses.ARCHIPELAGO_TEXT_BUFFER_ADDRESS, text_bytes.ljust(CLIENT_TEXT_BUFFER_SIZE, b'\x00')
             )
-            dme.write_bytes(self.addresses.ARCHIPELAGO_TEXT_BUFFER_ADDRESS, text_bytes)
+            self.is_text_buffer_empty = False
+
+    async def clear_buffer(self):
+        if self.is_text_buffer_empty:
+            return
+
+        if self.addresses.ARCHIPELAGO_TEXT_BUFFER_ADDRESS != 0x0:
+            dme.write_bytes(self.addresses.ARCHIPELAGO_TEXT_BUFFER_ADDRESS, b"\x00")
+            self.is_text_buffer_empty = True
 
 
 def _give_item(ctx: PokeparkContext, item_name: str) -> bool:
