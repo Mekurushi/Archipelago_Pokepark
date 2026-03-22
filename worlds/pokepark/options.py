@@ -8,7 +8,7 @@ class PowerStartingMode(Choice):
     """
     Determines which Power Items are added to the starting inventory.
 
-    For fully custom starting inventories, set this to 'None' and use the StartInventoryPool option instead
+    For fully custom starting Powers, set this to 'None' and use the StartInventoryPool option instead
 
     Full: Start with all available Power Items
     None: Start with no Power Items
