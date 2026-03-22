@@ -211,22 +211,32 @@ class PokeparkWorld(World):
     def _update_pool_with_precollected_items(self):
         """Move items to precollected pool based on game options."""
         options = self.options
-        if options.power_randomizer.value == options.power_randomizer.option_dash:
+        if options.power_starting_mode.value == options.power_starting_mode.option_iron_tail:
+            self._precollect_item("Progressive Iron Tail", 1)
+
+        if options.power_starting_mode.value == options.power_starting_mode.option_dash:
             self._precollect_item("Progressive Dash", 1)
 
-        if options.power_randomizer.value == options.power_randomizer.option_thunderbolt:
+        if options.power_starting_mode.value == options.power_starting_mode.option_thunderbolt:
             self._precollect_item("Progressive Thunderbolt", 1)
 
-        if options.power_randomizer.value == options.power_randomizer.option_thunderbolt_dash:
+        if options.power_starting_mode.value == options.power_starting_mode.option_vanilla:
             self._precollect_item("Progressive Thunderbolt", 1)
             self._precollect_item("Progressive Dash", 1)
 
-        if options.power_randomizer.value == options.power_randomizer.option_full:
+        if options.power_starting_mode.value == options.power_starting_mode.option_full:
             self._precollect_item("Progressive Thunderbolt", 4)
             self._precollect_item("Progressive Dash", 4)
             self._precollect_item("Progressive Iron Tail", 3)
             self._precollect_item("Progressive Health", 3)
             self._precollect_item("Double Dash", 1)
+
+        if options.power_starting_mode.value == options.power_starting_mode.option_randomize:
+            self._precollect_item("Progressive Thunderbolt", self.random.randint(0, 4))
+            self._precollect_item("Progressive Dash", self.random.randint(0, 4))
+            self._precollect_item("Progressive Iron Tail", self.random.randint(0, 3))
+            self._precollect_item("Progressive Health", self.random.randint(0, 3))
+            self._precollect_item("Double Dash", self.random.randint(0, 1))
 
         if options.start_fast_travel.value == options.start_fast_travel.option_one:
             self.random.shuffle(fast_travel_items)

@@ -1,24 +1,31 @@
 from dataclasses import dataclass
 from typing import Any
 
-from Options import PerGameCommonOptions, Choice, OptionGroup, Range, Toggle
+from Options import Choice, OptionGroup, PerGameCommonOptions, Range, StartInventoryPool, Toggle
 
 
-class Powers(Choice):
+class PowerStartingMode(Choice):
     """
-    Determines how Power Items are shuffled into the pool.
-    Full: Start with all Power Items
-    Thunderbolt: Start with one Thunderbolt Power
-    Dash: Start with one Dash Power
-    ThunderboltDash: Start with one Thunderbolt and Dash Power (Default)
-    None: Start with no Powers (Thunderbolt and Dash unusable)
+    Determines which Power Items are added to the starting inventory.
+
+    For fully custom starting inventories, set this to 'None' and use the StartInventoryPool option instead
+
+    Full: Start with all available Power Items
+    None: Start with no Power Items
+    Vanilla: Start with one Thunderbolt and one Dash (default)
+    Thunderbolt: Start with one Thunderbolt
+    Dash: Start with one Dash
+    IronTail: Start with one Iron Tail
+    Randomize: Starting Power Items are randomized
     """
-    display_name = "Powers"
+    display_name = "Power starting mode"
     option_full = 0
-    option_thunderbolt = 1
-    option_dash = 2
-    option_thunderbolt_dash = 3
-    option_none = 4
+    option_none = 2
+    option_vanilla = 3
+    option_thunderbolt = 4
+    option_dash = 5
+    option_iron_tail = 6
+    option_randomize = 7
     default = 3
 
 
@@ -242,7 +249,8 @@ class ShowClientTextInGame(Toggle):
 
 @dataclass
 class PokeparkOptions(PerGameCommonOptions):
-    power_randomizer: Powers
+    start_inventory_from_pool: StartInventoryPool
+    power_starting_mode: PowerStartingMode
     start_fast_travel: StartFastTravel
     goal: Goal
     num_required_battle_count: NumRequiredBattleCount
@@ -306,7 +314,8 @@ pokepark_option_groups = [
         ]
     ),
     OptionGroup("Misc", [
-        Powers,
+        PowerStartingMode,
+        StartInventoryPool,
         StartFastTravel,
         NumRequiredBattleCount,
         NumRequiredPrismaCountSkygarden,
