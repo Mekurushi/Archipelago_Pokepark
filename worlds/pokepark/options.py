@@ -240,6 +240,13 @@ class ShowClientTextInGame(Toggle):
     """
     default = True
 
+
+class FpsEnhancementPatch(Toggle):
+    """
+    Unlocks frame rate up to 60 FPS
+    """
+    default = False
+
 @dataclass
 class PokeparkOptions(PerGameCommonOptions):
     power_randomizer: Powers
@@ -269,6 +276,7 @@ class PokeparkOptions(PerGameCommonOptions):
     unlock_fast_travel_with_taxi_stop: UnlockFastTravelWithTaxiStop
     death_link: DeathLink
     show_client_text_ingame: ShowClientTextInGame
+    fps_enhancement_patch: FpsEnhancementPatch
 
     def get_output_dict(self) -> dict[str, Any]:
         """
@@ -288,7 +296,8 @@ class PokeparkOptions(PerGameCommonOptions):
             "harder_enemy_ai",
             "each_zone",
             "unlock_fast_travel_with_taxi_stop",
-            "show_client_text_ingame"
+            "show_client_text_ingame",
+            "fps_enhancement_patch"
         )
 
 
@@ -313,7 +322,8 @@ pokepark_option_groups = [
         InZoneRoadBlocks,
         HarderEnemyAI,
         UnlockFastTravelWithTaxiStop,
-        ShowClientTextInGame
+        ShowClientTextInGame,
+        FpsEnhancementPatch
     ]
                 ),
     OptionGroup(

@@ -108,6 +108,13 @@ class PokeparkCommandProcessor(ClientCommandProcessor):
 
             logger.info(f"In-game client text is now {'enabled' if not current else 'disabled'}")
 
+    def _cmd_fps(self):
+        """Toggle client text ingame. Overrides default setting."""
+        if isinstance(self.ctx, PokeparkContext):
+            current: bytes = dme.read_byte(self.ctx.addresses.FPS_ENHANCEMENT)
+            dme.write_byte(self.ctx.addresses.FPS_ENHANCEMENT, int(not current))
+
+            logger.info(f"FPS enhancement is now {'enabled' if not current else 'disabled'}")
 
 class PokeparkContext(SuperContext):
     tags = {"AP"}
