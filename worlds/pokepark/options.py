@@ -315,7 +315,6 @@ pokepark_option_groups = [
     ),
     OptionGroup("Misc", [
         PowerStartingMode,
-        StartInventoryPool,
         StartFastTravel,
         NumRequiredBattleCount,
         NumRequiredPrismaCountSkygarden,
