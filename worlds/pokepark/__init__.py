@@ -38,13 +38,7 @@ class PokeparkWebWorld(WebWorld):
         "setup/en",
         [""]
     )]
-    options_presets = {
-        "Default": {
-            "power_randomizer": 3,
-            "start_fast_travel": 0,
-            "goal": 0
-        }
-    }
+    options_presets = {}
     option_groups = pokepark_option_groups
 
 
