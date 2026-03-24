@@ -477,7 +477,7 @@ class PokeparkWorld(World):
         slot_data = {
             "options": {
                 **self.options.as_dict(
-                    "power_randomizer",
+                    "power_starting_mode",
                     "start_fast_travel",
                     "goal",
                     "each_zone",
