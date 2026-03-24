@@ -1092,11 +1092,13 @@ option_to_progression: dict[tuple[str, int], (int, list[str])] = {
         "Progressive Health",
         "Progressive Iron Tail",
         "Progressive Thunderbolt",
-        "Progressive Dash"
+        "Progressive Dash",
+        "Double Dash"
     ]),
     ("remove_power_training_locations", 0): (0, [
         "Golem Unlock",
-        "Progressive Dash"
+        "Progressive Dash",
+        "Double Dash"
     ]),
     ("remove_battle_power_comp_locations", 0): (60, [
         "Lotad Unlock",
@@ -1140,7 +1142,8 @@ option_to_progression: dict[tuple[str, int], (int, list[str])] = {
         "Progressive Health",
         "Progressive Iron Tail",
         "Progressive Thunderbolt",
-        "Progressive Dash"
+        "Progressive Dash",
+        "Double Dash"
     ]),
     ("remove_chase_power_comp_locations", 0): (100, [
         "Pachirisu Unlock",
@@ -1163,7 +1166,8 @@ option_to_progression: dict[tuple[str, int], (int, list[str])] = {
         "Gastly Unlock",
         "Gastly 2 Unlock",
         "Jolteon Unlock",
-        "Progressive Dash"
+        "Progressive Dash",
+        "Double Dash"
     ]),
     ("remove_hide_and_seek_power_comp_locations", 0): (0, [
         "Bonsly Unlock",
@@ -1185,7 +1189,8 @@ option_to_progression: dict[tuple[str, int], (int, list[str])] = {
         "Smoochum Unlock",
         "Glalie Unlock",
         "Progressive Thunderbolt",
-        "Progressive Dash"
+        "Progressive Dash",
+        "Double Dash"
     ]),
     ("remove_misc_power_comp_locations", 0): (80, [
         "Magnemite Unlock",
@@ -1198,7 +1203,8 @@ option_to_progression: dict[tuple[str, int], (int, list[str])] = {
         "Diglett Unlock",
         "Dusknoir Unlock",
         "Rayquaza Unlock",
-        "Progressive Dash"
+        "Progressive Dash",
+        "Double Dash"
 
     ]),
     ("goal", 1): (193, []),  # option postgame
@@ -1206,7 +1212,8 @@ option_to_progression: dict[tuple[str, int], (int, list[str])] = {
         "Progressive Health",
         "Progressive Iron Tail",
         "Progressive Thunderbolt",
-        "Progressive Dash"
+        "Progressive Dash",
+        "Double Dash"
     ]),
     ("remove_attraction_locations", 0): (80, [
         "Turtwig Friendship",
@@ -1462,6 +1469,7 @@ option_to_progression: dict[tuple[str, int], (int, list[str])] = {
     ]),
     ("remove_pokemon_unlock_locations", 0): (85, [
         "Progressive Dash",
+        "Double Dash",
         "Progressive Thunderbolt"
     ]),
     ("remove_quiz_power_comp_locations", 0): (85, [
