@@ -39,10 +39,11 @@ class PointerTableOffsets:
     ARCHIPELAGO_TEXT_BUFFER_OFFSET = 0x10
     IS_DEATH_OFFSET = 0x14
     DEATH_TRIGGER_OFFSET = 0x18
-    GLOBAL_MANAGER_DATA_OFFSET = 0x1C
-    IS_IN_TITLE_SCREEN_OFFSET = 0x20
-    GAME_BOOTED_UP_OFFSET = 0x24
-    ATTRACTION_ID_OFFSET = 0x28
+    FPS_ENHANCEMENT_OFFSET = 0x1C
+    GLOBAL_MANAGER_DATA_OFFSET = 0x20
+    IS_IN_TITLE_SCREEN_OFFSET = 0x24
+    GAME_BOOTED_UP_OFFSET = 0x28
+    ATTRACTION_ID_OFFSET = 0x2C
     POINTER_TABLE_ADDR = {
         b"R8AJ99": 0x80366348,
         b"R8AE99": 0x80366348,
@@ -60,6 +61,7 @@ class ClientAddresses:
         self.ARCHIPELAGO_TEXT_BUFFER_ADDRESS = dme.read_word(base + PointerTableOffsets.ARCHIPELAGO_TEXT_BUFFER_OFFSET)
         self.IS_DEATH_ADDRESS = dme.read_word(base + PointerTableOffsets.IS_DEATH_OFFSET)
         self.DEATH_TRIGGER_ADDRESS = dme.read_word(base + PointerTableOffsets.DEATH_TRIGGER_OFFSET)
+        self.FPS_ENHANCEMENT = dme.read_word(base + PointerTableOffsets.FPS_ENHANCEMENT_OFFSET)
         self.GLOBAL_MANAGER_DATA_ADDRESS = dme.read_word(base + PointerTableOffsets.GLOBAL_MANAGER_DATA_OFFSET)
         self.IS_IN_TITLE_SCREEN_ADDRESS = dme.read_word(base + PointerTableOffsets.IS_IN_TITLE_SCREEN_OFFSET)
         self.GAME_BOOTED_UP_ADDRESS = dme.read_word(base + PointerTableOffsets.GAME_BOOTED_UP_OFFSET)
