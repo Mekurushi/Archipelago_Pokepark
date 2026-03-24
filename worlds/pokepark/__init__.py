@@ -38,7 +38,37 @@ class PokeparkWebWorld(WebWorld):
         "setup/en",
         [""]
     )]
-    options_presets = {}
+    options_presets = {
+        "Default": {
+            "power_starting_mode": 3,
+            "start_fast_travel": 0,
+            "goal": 0,
+            "num_required_battle_count": 5,
+            "num_required_prisma_count_skygarden": 14,
+            "remove_battle_power_comp_locations": False,
+            "remove_chase_power_comp_locations": False,
+            "remove_quiz_power_comp_locations": True,
+            "remove_hide_and_seek_power_comp_locations": False,
+            "remove_errand_power_comp_locations": False,
+            "remove_misc_power_comp_locations": False,
+            "remove_legendary_pokemon_power_comp_locations": False,
+            "remove_power_training_locations": False,
+            "remove_attraction_locations": True,
+            "remove_attraction_prisma_locations": False,
+            "remove_pokemon_unlock_locations": False,
+            "harder_enemy_ai": False,
+            "randomize_attraction_entrances": False,
+            "randomize_fast_travel_entrances": False,
+            "randomize_treehouse_gates_entrances": False,
+            "randomize_general_entrances": False,
+            "mix_entrance_pools": False,
+            "each_zone": False,
+            "in_zone_road_blocks": True,
+            "unlock_fast_travel_with_taxi_stop": True,
+            "death_link": False,
+            "show_client_text_ingame": True,
+        }
+    }
     option_groups = pokepark_option_groups
 
 
