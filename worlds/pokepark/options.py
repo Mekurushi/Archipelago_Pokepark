@@ -1,24 +1,31 @@
 from dataclasses import dataclass
 from typing import Any
 
-from Options import PerGameCommonOptions, Choice, OptionGroup, Range, Toggle
+from Options import Choice, OptionGroup, PerGameCommonOptions, Range, StartInventoryPool, Toggle
 
 
-class Powers(Choice):
+class PowerStartingMode(Choice):
     """
-    Determines how Power Items are shuffled into the pool.
-    Full: Start with all Power Items
-    Thunderbolt: Start with one Thunderbolt Power
-    Dash: Start with one Dash Power
-    ThunderboltDash: Start with one Thunderbolt and Dash Power (Default)
-    None: Start with no Powers (Thunderbolt and Dash unusable)
+    Determines which Power Items are added to the starting inventory.
+
+    For fully custom starting Powers, set this to 'None' and use the StartInventoryPool option instead
+
+    Full: Start with all available Power Items
+    None: Start with no Power Items
+    Vanilla: Start with one Thunderbolt and one Dash (default)
+    Thunderbolt: Start with one Thunderbolt
+    Dash: Start with one Dash
+    IronTail: Start with one Iron Tail
+    Randomize: Starting Power Items are randomized
     """
-    display_name = "Powers"
+    display_name = "Power starting mode"
     option_full = 0
-    option_thunderbolt = 1
-    option_dash = 2
-    option_thunderbolt_dash = 3
-    option_none = 4
+    option_none = 2
+    option_vanilla = 3
+    option_thunderbolt = 4
+    option_dash = 5
+    option_iron_tail = 6
+    option_randomize = 7
     default = 3
 
 
@@ -233,9 +240,24 @@ class DeathLink(Toggle):
     display_name = "Death Link"
     rich_text_doc = True
 
+
+class ShowClientTextInGame(Toggle):
+    """
+    Toggles whether client text is displayed in-game.
+    """
+    default = True
+
+
+class FpsEnhancementPatch(Toggle):
+    """
+    Unlocks frame rate up to 60 FPS
+    """
+    default = False
+
 @dataclass
 class PokeparkOptions(PerGameCommonOptions):
-    power_randomizer: Powers
+    start_inventory_from_pool: StartInventoryPool
+    power_starting_mode: PowerStartingMode
     start_fast_travel: StartFastTravel
     goal: Goal
     num_required_battle_count: NumRequiredBattleCount
@@ -261,6 +283,8 @@ class PokeparkOptions(PerGameCommonOptions):
     harder_enemy_ai: HarderEnemyAI
     unlock_fast_travel_with_taxi_stop: UnlockFastTravelWithTaxiStop
     death_link: DeathLink
+    show_client_text_ingame: ShowClientTextInGame
+    fps_enhancement_patch: FpsEnhancementPatch
 
     def get_output_dict(self) -> dict[str, Any]:
         """
@@ -279,7 +303,9 @@ class PokeparkOptions(PerGameCommonOptions):
             "remove_errand_power_comp_locations",
             "harder_enemy_ai",
             "each_zone",
-            "unlock_fast_travel_with_taxi_stop"
+            "unlock_fast_travel_with_taxi_stop",
+            "show_client_text_ingame",
+            "fps_enhancement_patch"
         )
 
 
@@ -297,13 +323,15 @@ pokepark_option_groups = [
         ]
     ),
     OptionGroup("Misc", [
-        Powers,
+        PowerStartingMode,
         StartFastTravel,
         NumRequiredBattleCount,
         NumRequiredPrismaCountSkygarden,
         InZoneRoadBlocks,
         HarderEnemyAI,
-        UnlockFastTravelWithTaxiStop
+        UnlockFastTravelWithTaxiStop,
+        ShowClientTextInGame,
+        FpsEnhancementPatch
     ]
                 ),
     OptionGroup(

@@ -24,7 +24,7 @@ from .regions import ALL_ENTRANCES, ALL_EXITS, EntranceRandomizer
 from .rules import set_rules
 from ..Files import APPlayerContainer
 
-VERSION: tuple[int, int, int] = (1, 1, 3)
+VERSION: tuple[int, int, int] = (1, 2, 0)
 
 
 class PokeparkWebWorld(WebWorld):
@@ -40,9 +40,33 @@ class PokeparkWebWorld(WebWorld):
     )]
     options_presets = {
         "Default": {
-            "power_randomizer": 3,
+            "power_starting_mode": 3,
             "start_fast_travel": 0,
-            "goal": 0
+            "goal": 0,
+            "num_required_battle_count": 5,
+            "num_required_prisma_count_skygarden": 14,
+            "remove_battle_power_comp_locations": False,
+            "remove_chase_power_comp_locations": False,
+            "remove_quiz_power_comp_locations": True,
+            "remove_hide_and_seek_power_comp_locations": False,
+            "remove_errand_power_comp_locations": False,
+            "remove_misc_power_comp_locations": False,
+            "remove_legendary_pokemon_power_comp_locations": False,
+            "remove_power_training_locations": False,
+            "remove_attraction_locations": True,
+            "remove_attraction_prisma_locations": False,
+            "remove_pokemon_unlock_locations": False,
+            "harder_enemy_ai": False,
+            "randomize_attraction_entrances": False,
+            "randomize_fast_travel_entrances": False,
+            "randomize_treehouse_gates_entrances": False,
+            "randomize_general_entrances": False,
+            "mix_entrance_pools": False,
+            "each_zone": False,
+            "in_zone_road_blocks": True,
+            "unlock_fast_travel_with_taxi_stop": True,
+            "death_link": False,
+            "show_client_text_ingame": True,
         }
     }
     option_groups = pokepark_option_groups
@@ -211,22 +235,32 @@ class PokeparkWorld(World):
     def _update_pool_with_precollected_items(self):
         """Move items to precollected pool based on game options."""
         options = self.options
-        if options.power_randomizer.value == options.power_randomizer.option_dash:
+        if options.power_starting_mode.value == options.power_starting_mode.option_iron_tail:
+            self._precollect_item("Progressive Iron Tail", 1)
+
+        if options.power_starting_mode.value == options.power_starting_mode.option_dash:
             self._precollect_item("Progressive Dash", 1)
 
-        if options.power_randomizer.value == options.power_randomizer.option_thunderbolt:
+        if options.power_starting_mode.value == options.power_starting_mode.option_thunderbolt:
             self._precollect_item("Progressive Thunderbolt", 1)
 
-        if options.power_randomizer.value == options.power_randomizer.option_thunderbolt_dash:
+        if options.power_starting_mode.value == options.power_starting_mode.option_vanilla:
             self._precollect_item("Progressive Thunderbolt", 1)
             self._precollect_item("Progressive Dash", 1)
 
-        if options.power_randomizer.value == options.power_randomizer.option_full:
+        if options.power_starting_mode.value == options.power_starting_mode.option_full:
             self._precollect_item("Progressive Thunderbolt", 4)
             self._precollect_item("Progressive Dash", 4)
             self._precollect_item("Progressive Iron Tail", 3)
             self._precollect_item("Progressive Health", 3)
             self._precollect_item("Double Dash", 1)
+
+        if options.power_starting_mode.value == options.power_starting_mode.option_randomize:
+            self._precollect_item("Progressive Thunderbolt", self.random.randint(0, 4))
+            self._precollect_item("Progressive Dash", self.random.randint(0, 4))
+            self._precollect_item("Progressive Iron Tail", self.random.randint(0, 3))
+            self._precollect_item("Progressive Health", self.random.randint(0, 3))
+            self._precollect_item("Double Dash", self.random.randint(0, 1))
 
         if options.start_fast_travel.value == options.start_fast_travel.option_one:
             self.random.shuffle(fast_travel_items)
@@ -443,7 +477,7 @@ class PokeparkWorld(World):
         slot_data = {
             "options": {
                 **self.options.as_dict(
-                    "power_randomizer",
+                    "power_starting_mode",
                     "start_fast_travel",
                     "goal",
                     "each_zone",
@@ -466,7 +500,8 @@ class PokeparkWorld(World):
                     "randomize_treehouse_gates_entrances",
                     "randomize_general_entrances",
                     "mix_entrance_pools",
-                    "harder_enemy_ai"
+                    "harder_enemy_ai",
+                    "death_link"
                 )
             },
             "entrances": {},

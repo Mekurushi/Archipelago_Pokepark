@@ -951,7 +951,7 @@ def set_rules(world: "PokeparkWorld") -> None:
 
     set_rule_if_exists(
         "Ice Zone Lower Lift Area - Quagsire Errand -- Friendship",
-        lambda state: can_destroy_objects_overworld(state, player)
+        lambda state: can_dash(state, player)  # crate is not destroyable by thunderbolt
     )
     set_rule_if_exists(
         "Ice Zone Main Area - Starly Chase Power Competition -- Friendship",
@@ -1995,7 +1995,7 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     set_rule_if_exists(
         "Granite Zone Main Area - Flygon Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
+        lambda state: can_play_catch_advanced(state, player, options)
     )
     set_rule_if_exists(
         "Granite Zone Main Area - Staraptor Battle Power Competition -- Friendship",
@@ -2012,11 +2012,11 @@ def set_rules(world: "PokeparkWorld") -> None:
     )
     set_rule_if_exists(
         "Granite Zone Main Area - Arcanine Chase Power Competition -- Friendship",
-        lambda state: can_play_catch_intermediate(state, player, options)
+        lambda state: can_play_catch_advanced(state, player, options)
     )
     set_rule_if_exists(
         "Granite Zone Main Area - Jolteon Chase Power Competition -- Friendship",
-        lambda state: can_play_catch_intermediate(state, player, options) and
+        lambda state: can_play_catch_advanced(state, player, options) and
                       has_friendship_count(state, player, 90) and
                       state.has("Jolteon Unlock", player)
     )
