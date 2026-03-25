@@ -12,14 +12,15 @@ The story has been removed, and some changes were made to the game’s logic to 
 ### Trigger
 
 Deathlink can be currently only triggered by Power Competition (except Quizzes).  
-Losing a Power Competition (Battle, Chase, Hide and Seek) sends Deathlink.
+Losing a Power Competition (Battle, Chase, Hide and Seek) sends Death.
 
 ### Receiving Death
 
 Death can be received in:
 
-- Overworld (respawning at the last used Entrance, also during the Power Competition)
-- Attraction (returned to the Character Selection; in the Character Selection returned to the Overworld)
+- Overworld (respawning at the last used Entrance, also during Power Competition)
+- Attraction (spawning back at the overworld)
+- Loading Screen (triggering a second loading screen)
 
 ## Other Pages
 
