@@ -951,7 +951,7 @@ def set_rules(world: "PokeparkWorld") -> None:
 
     set_rule_if_exists(
         "Ice Zone Lower Lift Area - Quagsire Errand -- Friendship",
-        lambda state: can_destroy_objects_overworld(state, player)
+        lambda state: can_dash(state, player)  # crate is not destroyable by thunderbolt
     )
     set_rule_if_exists(
         "Ice Zone Main Area - Starly Chase Power Competition -- Friendship",
