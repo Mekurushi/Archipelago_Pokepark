@@ -60,7 +60,7 @@ class NumRequiredBattleCount(Range):
     """
     display = "Number of Battle Count"
     range_start = 0
-    range_end = 10
+    range_end = 7
     default = 5
 
 
