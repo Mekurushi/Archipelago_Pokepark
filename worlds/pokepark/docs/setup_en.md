@@ -38,7 +38,7 @@ files. Your patch file should have a .appkprk extension.
 ## Using Universal Tracker
 
 Pokepark has full UT support, including yamlless and maps. There is one thing you need for the map integration, and
-that is to download the poptracker pack (starting from v1.2.2) and select it when UT/Pokepark Client asks for the
+that is to download the poptracker pack (starting from v1.2.1) and select it when UT/Pokepark Client asks for the
 pack. A compatibility list is maintained on the poptracker side.
 
 ### Good to know
