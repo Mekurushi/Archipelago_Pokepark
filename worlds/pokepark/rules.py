@@ -15,2397 +15,8 @@ def set_rules(world: "PokeparkWorld") -> None:
     player = world.player
     options = world.options
 
-    # Treehouse
-    set_rule_if_exists("Treehouse - Burmy - Friendship", lambda state: True)
-    set_rule_if_exists("Treehouse - Mime Jr. - Friendship", lambda state: True)
-    set_rule_if_exists("Treehouse - Abra - Friendship", lambda state: can_beat_treehouse_abra(state, player, options))
-    set_rule_if_exists(
-        "Treehouse - Drifblim - Friendship", lambda state: can_fast_travel(state, player)
-    )
-    set_rule_if_exists("Treehouse - Power Up - Thunderbolt Upgrade 1", lambda state: can_farm_berries(state, player))
-    set_rule_if_exists(
-        "Treehouse - Power Up - Thunderbolt Upgrade 2",
-        lambda state: can_farm_berries(state, player) and
-                      can_farm_berries_intermediate(state, player)
-    )
-    set_rule_if_exists(
-        "Treehouse - Power Up - Thunderbolt Upgrade 3",
-        lambda state: can_farm_berries(state, player) and
-                      can_farm_berries_intermediate(state, player) and
-                      can_farm_berries_advanced(state, player)
-    )
-    set_rule_if_exists(
-        "Treehouse - Power Up - Dash Upgrade 1",
-        lambda state: can_farm_berries(state, player) and
-                      state.has("Pelipper Prisma", player)
-    )
-    set_rule_if_exists(
-        "Treehouse - Power Up - Dash Upgrade 2",
-        lambda state: can_farm_berries(state, player) and
-                      state.has("Pelipper Prisma", player) and
-                      can_farm_berries_intermediate(state, player)
-    )
-    set_rule_if_exists(
-        "Treehouse - Power Up - Ponyta Unlocked",
-        lambda state: can_farm_berries(state, player) and
-                      state.has("Pelipper Prisma", player) and
-                      can_farm_berries_intermediate(state, player)
-    )
-    set_rule_if_exists(
-        "Treehouse - Power Up - Dash Upgrade 3",
-        lambda state: can_farm_berries(state, player) and
-                      state.has("Pelipper Prisma", player) and
-                      can_farm_berries_intermediate(state, player) and
-                      can_farm_berries_advanced(state, player)
-    )
-    set_rule_if_exists(
-        "Treehouse - Power Up - Double Dash Upgrade",
-        lambda state: state.has("Pelipper Prisma", player)
-    )
-    set_rule_if_exists(
-        "Treehouse - Power Up - Health Upgrade 1",
-        lambda state: can_farm_berries(state, player) and
-                      state.has("Venusaur Prisma", player)
-    )
-    set_rule_if_exists(
-        "Treehouse - Power Up - Health Upgrade 2",
-        lambda state: can_farm_berries(state, player) and
-                      state.has("Venusaur Prisma", player) and
-                      can_farm_berries_intermediate(state, player)
-    )
-    set_rule_if_exists(
-        "Treehouse - Power Up - Health Upgrade 3",
-        lambda state: can_farm_berries(state, player) and
-                      state.has("Venusaur Prisma", player) and
-                      can_farm_berries_intermediate(state, player) and
-                      can_farm_berries_advanced(state, player)
-    )
-    set_rule_if_exists(
-        "Treehouse - Power Up - Iron Tail Upgrade 1",
-        lambda state: can_farm_berries(state, player) and
-                      state.has("Empoleon Prisma", player)
-    )
-    set_rule_if_exists(
-        "Treehouse - Power Up - Iron Tail Upgrade 2",
-        lambda state: can_farm_berries(state, player) and
-                      state.has("Empoleon Prisma", player) and
-                      can_farm_berries_intermediate(state, player)
-    )
-    set_rule_if_exists(
-        "Treehouse - Power Up - Iron Tail Upgrade 3",
-        lambda state: state.has("Empoleon Prisma", player) and
-                      can_farm_berries(state, player) and
-                      can_farm_berries_intermediate(state, player) and
-                      can_farm_berries_advanced(state, player)
-    )
-
-    # Meadow Zone
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Turtwig Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Turtwig Chase Power Competition -- Pachirisu Unlocked",
-        lambda state: can_play_catch(state, player, options)
-
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Turtwig Chase Power Competition -- Bonsly Unlocked",
-        lambda state: can_play_catch(state, player, options)
-
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Bulbasaur -- Friendship",
-        lambda state: state.has("Bulbasaur Prisma", player) and can_enter_attraction_via_bulbasaur()
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Buneary Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Buneary Chase Power Competition -- Lotad Unlocked",
-        lambda state: can_play_catch(state, player, options)
-
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Buneary Chase Power Competition -- Shinx Unlocked",
-        lambda state: can_play_catch(state, player, options)
-
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Munchlax Errand -- Friendship",
-        lambda state: state.has("Bulbasaur Prisma", player) and
-                      can_dash(state, player)  # crate is not destroyable by thunderbolt
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Munchlax Errand -- Tropius Unlocked",
-        lambda state: state.has("Bulbasaur Prisma", player) and
-                      can_dash(state, player)  # crate is not destroyable by thunderbolt
-
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Tropius Errand -- Friendship",
-        lambda state: state.has("Bulbasaur Prisma", player) and
-                      state.has("Tropius Unlock", player) and
-                      can_dash(state, player)  # crate is not destroyable by thunderbolt
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Pachirisu Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options) and
-                      state.has("Pachirisu Unlock", player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Shinx Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options) and
-                      state.has("Shinx Unlock", player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Mankey Battle Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Mankey Battle Power Competition -- Chimchar Unlocked",
-        lambda state: can_battle(state, player, options)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Spearow Battle Power Competition -- Friendship",
-        lambda state: can_beat_meadow_spearow(state, player, options)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Croagunk Battle Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Croagunk Battle Power Competition -- Scyther Unlocked",
-        lambda state: can_battle(state, player, options)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Lotad Battle Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options) and
-                      state.has("Lotad Unlock", player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Treecko Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Caterpie Tree -- Caterpie Unlocked",
-        lambda state: can_dash_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Caterpie Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options) and
-                      state.has("Caterpie Unlock", player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Caterpie Chase Power Competition -- Butterfree Unlocked",
-        lambda state: can_play_catch(state, player, options) and
-                      state.has("Caterpie Unlock", player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Butterfree Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options) and
-                      state.has("Butterfree Unlock", player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Weedle Tree -- Weedle Unlocked",
-        lambda state: can_dash_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Weedle Battle Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options) and
-                      state.has("Weedle Unlock", player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Shroomish Crate -- Shroomish Unlocked",
-        lambda state: can_destroy_objects_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Shroomish Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options) and
-                      state.has("Shroomish Unlock", player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Magikarp Rescue -- Magikarp Unlocked",
-        lambda state: can_thunderbolt_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Oddish Hide and Seek Power Competition -- Friendship",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Magikarp Chase Power Competition -- Friendship",
-        lambda state: state.has("Magikarp Unlock", player) and can_play_catch(state, player, options)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Bidoof Housing -- Stage 1",
-        lambda state: state.has("Mankey Friendship", player) and
-                      can_destroy_objects_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Bidoof Housing -- Bidoof 1 Unlocked",
-        lambda state: state.has("Mankey Friendship", player) and
-                      can_destroy_objects_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Bidoof Housing -- Stage 2",
-        lambda state: state.has("Mankey Friendship", player) and
-                      can_destroy_objects_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Bidoof Housing -- Bidoof 2 Unlocked",
-        lambda state: state.has("Mankey Friendship", player) and
-                      can_destroy_objects_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Bidoof Housing -- Stage 3",
-        lambda state: state.has("Mankey Friendship", player) and
-                      can_destroy_objects_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Bidoof Housing -- Bidoof 3 Unlocked",
-        lambda state: state.has("Mankey Friendship", player) and
-                      can_destroy_objects_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Bidoof Housing -- Stage 4",
-        lambda state: state.has("Mankey Friendship", player) and
-                      can_destroy_objects_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Bidoof Housing -- Bibarel Unlocked",
-        lambda state: state.has("Mankey Friendship", player) and
-                      can_destroy_objects_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Bidoof Housing Completed -- Friendship",
-        lambda state: state.has("Mankey Friendship", player) and
-                      can_destroy_objects_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Bidoof Housing -- Beach Bidoof Unlocked",
-        lambda state: state.has("Mankey Friendship", player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Bibarel Battle Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options) and
-                      state.has("Bibarel Unlock", player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Leafeon Chase Power Competition -- Friendship",
-        lambda state: can_play_catch_intermediate(state, player, options) and
-                      has_friendship_count(state, player, 20)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Torterra Battle Power Competition -- Friendship",
-        lambda state: state.has("Torterra Unlock", player) and
-                      can_battle_thunderbolt_immune_intermediate(state, player, options)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Scyther Battle Power Competition -- Friendship",
-        lambda state: state.has("Scyther Unlock", player) and
-                      can_battle_intermediate(state, player, options)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Starly Chase Power Competition -- Friendship",
-        lambda state: can_beat_meadow_starly(state, player, options)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Bonsly Hide and Seek Power Competition -- Friendship",
-        lambda state: can_beat_meadow_bonsly(state, player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Bonsly Hide and Seek Power Competition -- Sudowoodo Unlocked",
-        lambda state: can_beat_meadow_bonsly(state, player)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Chimchar Battle Power Competition -- Friendship",
-        lambda state: can_beat_meadow_chimchar(state, player, options)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Sudowoodo Hide and Seek Power Competition -- Friendship",
-        lambda state: can_beat_meadow_sudowoodo(state, player, options)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Aipom Chase Power Competition -- Friendship",
-        lambda state: can_beat_meadow_aipom(state, player, options)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Aipom Chase Power Competition -- Ambipom Unlocked",
-        lambda state: can_beat_meadow_aipom(state, player, options)
-    )
-    set_rule_if_exists(
-        "Meadow Zone Main Area - Ambipom Battle Power Competition -- Friendship",
-        lambda state: can_beat_meadow_ambipom(state, player, options)
-    )
-
-    # Bulbasaur Daring Dash Minigame
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Prisma",
-        lambda state: can_beat_any_bulbasaur_daring_dash_record(state, player, options)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Pikachu",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Turtwig",
-        lambda state: state.has("Turtwig Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Munchlax",
-        lambda state: state.has("Munchlax Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Chimchar",
-        lambda state: state.has("Chimchar Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Treecko",
-        lambda state: state.has("Treecko Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Bibarel",
-        lambda state: state.has("Bibarel Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Bulbasaur",
-        lambda state: state.has("Bulbasaur Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Bidoof",
-        lambda state: state.has("Bidoof Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Oddish",
-        lambda state: state.has("Oddish Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Shroomish",
-        lambda state: state.has("Shroomish Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Bonsly",
-        lambda state: state.has("Bonsly Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Lotad",
-        lambda state: state.has("Lotad Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Weedle",
-        lambda state: state.has("Weedle Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Caterpie",
-        lambda state: state.has("Caterpie Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Magikarp",
-        lambda state: state.has("Magikarp Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Jolteon",
-        lambda state: state.has("Jolteon Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Arcanine",
-        lambda state: state.has("Arcanine Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Leafeon",
-        lambda state: state.has("Leafeon Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Scyther",
-        lambda state: state.has("Scyther Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Ponyta",
-        lambda state: state.has("Ponyta Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Shinx",
-        lambda state: state.has("Shinx Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Eevee",
-        lambda state: state.has("Eevee Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Pachirisu",
-        lambda state: state.has("Pachirisu Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Buneary",
-        lambda state: state.has("Buneary Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Croagunk",
-        lambda state: state.has("Croagunk Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bulbasaur's Daring Dash Attraction -- Mew",
-        lambda state: state.has("Mew Friendship", player)
-    )
-    # Venusaur
-    set_rule_if_exists(
-        "Meadow Zone Venusaur Area - Venusaur -- Friendship",
-        lambda state: state.has("Venusaur Prisma", player) and
-                      state.has("Empoleon Prisma", player) and
-                      state.has("Blaziken Prisma", player) and
-                      can_enter_attraction_via_venusaur()
-    )
-
-    # Venusaur's Vine Swing
-    set_rule_if_exists(
-        "Venusaur's Vine Swing Attraction -- Prisma",
-        lambda state: can_beat_any_venusaur_vine_swing_record(state, player, options)
-    )
-    set_rule_if_exists(
-        "Venusaur's Vine Swing Attraction -- Pikachu",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Venusaur's Vine Swing Attraction -- Munchlax",
-        lambda state: state.has("Munchlax Friendship", player)
-    )
-    set_rule_if_exists(
-        "Venusaur's Vine Swing Attraction -- Magikarp",
-        lambda state: state.has("Magikarp Friendship", player)
-    )
-    set_rule_if_exists(
-        "Venusaur's Vine Swing Attraction -- Blaziken",
-        lambda state: state.has("Blaziken Friendship", player)
-    )
-    set_rule_if_exists(
-        "Venusaur's Vine Swing Attraction -- Infernape",
-        lambda state: state.has("Infernape Friendship", player)
-    )
-    set_rule_if_exists(
-        "Venusaur's Vine Swing Attraction -- Lucario",
-        lambda state: state.has("Lucario Friendship", player)
-    )
-    set_rule_if_exists(
-        "Venusaur's Vine Swing Attraction -- Primeape",
-        lambda state: state.has("Primeape Friendship", player)
-    )
-    set_rule_if_exists(
-        "Venusaur's Vine Swing Attraction -- Tangrowth",
-        lambda state: state.has("Tangrowth Friendship", player)
-    )
-    set_rule_if_exists(
-        "Venusaur's Vine Swing Attraction -- Ambipom",
-        lambda state: state.has("Ambipom Friendship", player)
-    )
-    set_rule_if_exists(
-        "Venusaur's Vine Swing Attraction -- Croagunk",
-        lambda state: state.has("Croagunk Friendship", player)
-    )
-    set_rule_if_exists(
-        "Venusaur's Vine Swing Attraction -- Mankey",
-        lambda state: state.has("Mankey Friendship", player)
-    )
-    set_rule_if_exists(
-        "Venusaur's Vine Swing Attraction -- Aipom",
-        lambda state: state.has("Aipom Friendship", player)
-    )
-    set_rule_if_exists(
-        "Venusaur's Vine Swing Attraction -- Chimchar",
-        lambda state: state.has("Chimchar Friendship", player)
-    )
-    set_rule_if_exists(
-        "Venusaur's Vine Swing Attraction -- Treecko",
-        lambda state: state.has("Treecko Friendship", player)
-    )
-    set_rule_if_exists(
-        "Venusaur's Vine Swing Attraction -- Pachirisu",
-        lambda state: state.has("Pachirisu Friendship", player)
-    )
-    set_rule_if_exists(
-        "Venusaur's Vine Swing Attraction -- Jirachi",
-        lambda state: state.has("Jirachi Friendship", player)
-    )
-    set_rule_if_exists(
-        "Venusaur's Vine Swing Attraction -- Jirachi Friendship",
-        lambda state: can_beat_all_venusaur_vine_swing_records(state, player)
-    )
-    # Beach Zone
-    set_rule_if_exists(
-        "Beach Zone Main Area - Buizel Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
-    )
-    set_rule_if_exists(
-        "Beach Zone Main Area - Buizel Chase Power Competition -- Floatzel Unlocked",
-        lambda state: can_play_catch(state, player, options)
-    )
-    set_rule_if_exists(
-        "Beach Zone Main Area - Psyduck Hide and Seek Power Competition -- Friendship",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Beach Zone Main Area - Psyduck Hide and Seek Power Competition -- Golduck Unlocked",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Beach Zone Main Area - Slowpoke Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
-    )
-    set_rule_if_exists(
-        "Beach Zone Main Area - Slowpoke Chase Power Competition -- Mudkip Unlocked",
-        lambda state: can_play_catch(state, player, options)
-    )
-    set_rule_if_exists(
-        "Beach Zone Main Area - Azurill Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
-    )
-    set_rule_if_exists(
-        "Beach Zone Main Area - Azurill Chase Power Competition -- Totodile Unlocked",
-        lambda state: can_play_catch(state, player, options)
-    )
-    set_rule_if_exists(
-        "Beach Zone Main Area - Totodile Battle Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options) and
-                      state.has("Totodile Unlock", player)
-    )
-    set_rule_if_exists(
-        "Beach Zone Main Area - Pidgeotto Battle Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options)
-    )
-    set_rule_if_exists(
-        "Beach Zone Main Area - Corsola Quiz Power Competition -- Friendship",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Beach Zone Main Area - Floatzel Battle Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options) and
-                      state.has("Floatzel Unlock", player)
-    )
-    set_rule_if_exists(
-        "Beach Zone Main Area - Vaporeon Chase Power Competition -- Friendship",
-        lambda state: can_play_catch_intermediate(state, player, options) and
-                      has_friendship_count(state, player, 30)
-    )
-    set_rule_if_exists(
-        "Beach Zone Main Area - Golduck Battle Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options) and
-                      state.has("Golduck Unlock", player)
-    )
-    set_rule_if_exists(
-        "Beach Zone Main Area - Wailord Errand -- Friendship",
-        lambda state: state.can_reach_region("Beach Zone Recycle Area", player)
-    )
-    set_rule_if_exists(
-        "Beach Zone Main Area - Feraligatr Battle Power Competition -- Friendship",
-        lambda state: can_battle_intermediate(state, player, options)
-    )
-    set_rule_if_exists(
-        "Beach Zone Main Area - Spearow Battle Power Competition -- Friendship",
-        lambda state: can_beat_beach_spearow(state, player, options)
-    )
-    set_rule_if_exists(
-        "Beach Zone Main Area - Blastoise Battle Power Competition -- Friendship",
-        lambda state: can_battle_intermediate(state, player, options) and
-                      state.has("Blastoise Unlock", player)
-    )
-    set_rule_if_exists(
-        "Beach Zone Recycle Area - Bottle Recycling -- Stage 1",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Beach Zone Recycle Area - Bottle Recycling -- Stage 2",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Beach Zone Recycle Area - Bottle Recycling -- Stage 2 --- Krabby Unlocked",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Beach Zone Recycle Area - Bottle Recycling -- Stage 3",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Beach Zone Recycle Area - Bottle Recycling -- Stage 4",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Beach Zone Recycle Area - Bottle Recycling -- Stage 4 --- Corphish Unlocked",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Beach Zone Recycle Area - Bottle Recycling -- Stage 5",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Beach Zone Recycle Area - Bottle Recycling -- Stage 6",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Beach Zone Main Area - Krabby Chase Power Competition -- Friendship",
-        lambda state: can_beat_beach_krabby(state, player, options)
-    )
-    set_rule_if_exists(
-        "Beach Zone Main Area - Starly Chase Power Competition -- Friendship",
-        lambda state: can_beat_beach_starly(state, player, options)
-    )
-    set_rule_if_exists(
-        "Beach Zone Main Area - Mudkip Hide and Seek Power Competition -- Friendship",
-        lambda state: can_beat_beach_mudkip(state, player, options)
-    )
-    set_rule_if_exists(
-        "Beach Zone Main Area - Taillow Chase Power Competition -- Friendship",
-        lambda state: can_beat_beach_taillow(state, player, options)
-    )
-    set_rule_if_exists(
-        "Beach Zone Main Area - Staravia Battle Power Competition -- Friendship",
-        lambda state: can_beat_beach_staravia(state, player, options)
-    )
-    set_rule_if_exists(
-        "Beach Zone Main Area - Wingull Chase Power Competition -- Friendship",
-        lambda state: can_beat_beach_wingull(state, player, options)
-    )
-    set_rule_if_exists(
-        "Beach Zone Middle Isle - Piplup Battle Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options)
-    )
-    set_rule_if_exists(
-        "Beach Zone Main Area - Corphish Battle Power Competition -- Friendship",
-        lambda state: can_beat_beach_corphish(state, player, options)
-    )
-
-    set_rule_if_exists(
-        "Beach Zone Main Area - Pelipper -- Friendship",
-        lambda state: state.has("Pelipper Prisma", player) and can_enter_attraction_via_pelipper()
-    )
-
-    set_rule_if_exists(
-        "Beach Zone Recycle Area - Gyarados -- Friendship",
-        lambda state: state.has("Gyarados Prisma", player) and can_enter_attraction_via_gyarados()
-    )
-
-    # Pelipper's Circle Circuit Attraction
-    set_rule_if_exists(
-        "Pelipper's Circle Circuit Attraction -- Prisma",
-        lambda state: can_beat_any_pelipper_circle_circuit_record(state, player, options)
-    )
-    set_rule_if_exists(
-        "Pelipper's Circle Circuit Attraction -- Pikachu",
-        lambda state: state.has("Pikachu Balloon", player)
-    )
-    set_rule_if_exists(
-        "Pelipper's Circle Circuit Attraction -- Staraptor",
-        lambda state: state.has("Staraptor Friendship", player)
-    )
-    set_rule_if_exists(
-        "Pelipper's Circle Circuit Attraction -- Togekiss",
-        lambda state: state.has("Togekiss Friendship", player)
-    )
-    set_rule_if_exists(
-        "Pelipper's Circle Circuit Attraction -- Honchkrow",
-        lambda state: state.has("Honchkrow Friendship", player)
-    )
-    set_rule_if_exists(
-        "Pelipper's Circle Circuit Attraction -- Gliscor",
-        lambda state: state.has("Gliscor Friendship", player)
-    )
-    set_rule_if_exists(
-        "Pelipper's Circle Circuit Attraction -- Pelipper",
-        lambda state: state.has("Pelipper Friendship", player)
-    )
-    set_rule_if_exists(
-        "Pelipper's Circle Circuit Attraction -- Staravia",
-        lambda state: state.has("Staravia Friendship", player)
-    )
-    set_rule_if_exists(
-        "Pelipper's Circle Circuit Attraction -- Pidgeotto",
-        lambda state: state.has("Pidgeotto Friendship", player)
-    )
-    set_rule_if_exists(
-        "Pelipper's Circle Circuit Attraction -- Butterfree",
-        lambda state: state.has("Butterfree Friendship", player)
-    )
-    set_rule_if_exists(
-        "Pelipper's Circle Circuit Attraction -- Tropius",
-        lambda state: state.has("Tropius Friendship", player)
-    )
-    set_rule_if_exists(
-        "Pelipper's Circle Circuit Attraction -- Murkrow",
-        lambda state: state.has("Murkrow Friendship", player)
-    )
-    set_rule_if_exists(
-        "Pelipper's Circle Circuit Attraction -- Taillow",
-        lambda state: state.has("Taillow Friendship", player)
-    )
-    set_rule_if_exists(
-        "Pelipper's Circle Circuit Attraction -- Spearow",
-        lambda state: state.has("Spearow Friendship", player)
-    )
-    set_rule_if_exists(
-        "Pelipper's Circle Circuit Attraction -- Starly",
-        lambda state: state.has("Starly Friendship", player)
-    )
-    set_rule_if_exists(
-        "Pelipper's Circle Circuit Attraction -- Wingull",
-        lambda state: state.has("Wingull Friendship", player)
-    )
-    set_rule_if_exists(
-        "Pelipper's Circle Circuit Attraction -- Latias",
-        lambda state: state.has("Latias Friendship", player)
-    )
-    set_rule_if_exists(
-        "Pelipper's Circle Circuit Attraction -- Latias Friendship",
-        lambda state: can_beat_all_pelipper_circle_circuit_records(state, player)
-    )
-
-    # Gyarados' Aqua Dash
-    set_rule_if_exists(
-        "Gyarados' Aqua Dash Attraction -- Prisma",
-        lambda state: can_beat_any_gyarados_aqua_dash_record(state, player, options)
-    )
-    set_rule_if_exists(
-        "Gyarados' Aqua Dash Attraction -- Pikachu",
-        lambda state: state.has("Pikachu Surfboard", player)
-    )
-    set_rule_if_exists(
-        "Gyarados' Aqua Dash Attraction -- Psyduck",
-        lambda state: state.has("Psyduck Friendship", player)
-    )
-    set_rule_if_exists(
-        "Gyarados' Aqua Dash Attraction -- Azurill",
-        lambda state: state.has("Azurill Friendship", player)
-    )
-    set_rule_if_exists(
-        "Gyarados' Aqua Dash Attraction -- Slowpoke",
-        lambda state: state.has("Slowpoke Friendship", player)
-    )
-    set_rule_if_exists(
-        "Gyarados' Aqua Dash Attraction -- Empoleon",
-        lambda state: state.has("Empoleon Friendship", player)
-    )
-    set_rule_if_exists(
-        "Gyarados' Aqua Dash Attraction -- Floatzel",
-        lambda state: state.has("Floatzel Friendship", player)
-    )
-    set_rule_if_exists(
-        "Gyarados' Aqua Dash Attraction -- Feraligatr",
-        lambda state: state.has("Feraligatr Friendship", player)
-    )
-    set_rule_if_exists(
-        "Gyarados' Aqua Dash Attraction -- Golduck",
-        lambda state: state.has("Golduck Friendship", player)
-    )
-    set_rule_if_exists(
-        "Gyarados' Aqua Dash Attraction -- Vaporeon",
-        lambda state: state.has("Vaporeon Friendship", player)
-    )
-    set_rule_if_exists(
-        "Gyarados' Aqua Dash Attraction -- Prinplup",
-        lambda state: state.has("Prinplup Friendship", player)
-    )
-    set_rule_if_exists(
-        "Gyarados' Aqua Dash Attraction -- Bibarel",
-        lambda state: state.has("Bibarel Friendship", player)
-    )
-    set_rule_if_exists(
-        "Gyarados' Aqua Dash Attraction -- Buizel",
-        lambda state: state.has("Buizel Friendship", player)
-    )
-    set_rule_if_exists(
-        "Gyarados' Aqua Dash Attraction -- Corsola",
-        lambda state: state.has("Corsola Friendship", player)
-    )
-    set_rule_if_exists(
-        "Gyarados' Aqua Dash Attraction -- Piplup",
-        lambda state: state.has("Piplup Friendship", player)
-    )
-    set_rule_if_exists(
-        "Gyarados' Aqua Dash Attraction -- Lotad",
-        lambda state: state.has("Lotad Friendship", player)
-    )
-    set_rule_if_exists(
-        "Gyarados' Aqua Dash Attraction -- Manaphy",
-        lambda state: state.has("Manaphy Friendship", player)
-    )
-    set_rule_if_exists(
-        "Gyarados' Aqua Dash Attraction -- Manaphy Friendship",
-        lambda state: can_beat_all_gyarados_aqua_dash_records(state, player)
-    )
-    # Ice Zone
-    set_rule_if_exists(
-        "Ice Zone Main Area - Lapras -- Friendship",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Spheal Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Octillery Battle Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Delibird Quiz Power Competition -- Friendship",
-        lambda state: can_befriend_delibird(state, player, options)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Smoochum Battle Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options) and
-                      state.has("Smoochum Unlock", player)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Squirtle Battle Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options) and
-                      state.has("Squirtle Unlock", player)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Glaceon Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options) and
-                      has_friendship_count(state, player, 50)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Prinplup Battle Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Sneasel Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options) and
-                      state.has("Sneasel Unlock", player)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Piloswine Battle Power Competition -- Friendship",
-        lambda state: can_battle_thunderbolt_immune(state, player, options)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Glalie Battle Power Competition -- Friendship",
-        lambda state: state.has("Glalie Unlock", player)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Primeape Battle Power Competition -- Friendship",
-        lambda state: can_battle_intermediate(state, player, options) and
-                      state.has("Primeape Unlock", player)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Ursaring Battle Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options) and
-                      state.has("Ursaring Unlock", player)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Mamoswine Battle Power Competition -- Friendship",
-        lambda state: can_battle_thunderbolt_immune_intermediate(state, player, options) and
-                      state.has("Mamoswine Unlock", player)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Kirlia Errand -- Friendship",
-        lambda state: can_clear_christmas_tree_stage4(state, player)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Igloo Housing -- Stage 1",
-        lambda state: state.has("Glalie Unlock", player)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Igloo Housing -- Stage 1 -- Primeape Unlocked",
-        lambda state: state.has("Glalie Unlock", player)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Igloo Housing -- Stage 2",
-        lambda state: state.has("Glalie Unlock", player)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Igloo Housing -- Stage 2 -- Ursaring Unlocked",
-        lambda state: state.has("Glalie Unlock", player)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Igloo Housing -- Stage 3",
-        lambda state: state.has("Glalie Unlock", player)
-    )
-
-    set_rule_if_exists(
-        "Ice Zone Main Area - Christmas Tree Present -- Stage 1",
-        lambda state: can_clear_christmas_tree_stage1(state, player)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Christmas Tree Present -- Stage 2",
-        lambda state: can_clear_christmas_tree_stage2(state, player)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Christmas Tree Present -- Stage 3",
-        lambda state: can_clear_christmas_tree_stage3(state, player)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Christmas Tree Present -- Stage 4",
-        lambda state: can_clear_christmas_tree_stage4(state, player)
-    )
-    set_rule_if_exists(
-        "Ice Zone Frozen Lake Area - Frozen Mamoswine -- Ice Rescue",
-        lambda state: state.has("Ice Zone Frozen Lake Unlock", player) and
-                      can_dash_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Ice Zone Lower Lift Area - Froslass Battle Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options)
-    )
-    set_rule_if_exists(
-        "Ice Zone Empoleon Area - Empoleon -- Friendship",
-        lambda state: state.has("Empoleon Prisma", player) and can_enter_attraction_via_empoleon()
-    )
-
-    set_rule_if_exists(
-        "Ice Zone Lower Lift Area - Quagsire Errand -- Friendship",
-        lambda state: can_dash(state, player)  # crate is not destroyable by thunderbolt
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Starly Chase Power Competition -- Friendship",
-        lambda state: can_beat_ice_starly(state, player, options)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Krabby Chase Power Competition -- Friendship",
-        lambda state: can_beat_ice_krabby(state, player, options)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Corphish Battle Power Competition -- Friendship",
-        lambda state: can_beat_ice_corphish(state, player, options)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Mudkip Hide and Seek Power Competition -- Friendship",
-        lambda state: can_beat_ice_mudkip(state, player, options)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Taillow Chase Power Competition -- Friendship",
-        lambda state: can_beat_ice_taillow(state, player, options)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Staravia Battle Power Competition -- Friendship",
-        lambda state: can_beat_ice_staravia(state, player, options)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Teddiursa Chase Power Competition -- Friendship",
-        lambda state: can_beat_ice_teddiursa(state, player, options)
-    )
-    set_rule_if_exists(
-        "Ice Zone Main Area - Wingull Chase Power Competition -- Friendship",
-        lambda state: can_beat_ice_wingull(state, player, options)
-    )
-    # Empoleon's Snow Slide
-    set_rule_if_exists(
-        "Empoleon's Snow Slide Attraction -- Prisma",
-        lambda state: can_beat_any_empoleon_snow_slide_record(state, player, options)
-    )
-    set_rule_if_exists(
-        "Empoleon's Snow Slide Attraction -- Pikachu",
-        lambda state: state.has("Pikachu Snowboard", player)
-    )
-    set_rule_if_exists(
-        "Empoleon's Snow Slide Attraction -- Teddiursa",
-        lambda state: state.has("Teddiursa Friendship", player)
-    )
-    set_rule_if_exists(
-        "Empoleon's Snow Slide Attraction -- Magikarp",
-        lambda state: state.has("Magikarp Friendship", player)
-    )
-    set_rule_if_exists(
-        "Empoleon's Snow Slide Attraction -- Empoleon",
-        lambda state: state.has("Empoleon Friendship", player)
-    )
-    set_rule_if_exists(
-        "Empoleon's Snow Slide Attraction -- Glaceon",
-        lambda state: state.has("Glaceon Friendship", player)
-    )
-    set_rule_if_exists(
-        "Empoleon's Snow Slide Attraction -- Blastoise",
-        lambda state: state.has("Blastoise Friendship", player)
-    )
-    set_rule_if_exists(
-        "Empoleon's Snow Slide Attraction -- Glalie",
-        lambda state: state.has("Glalie Friendship", player)
-    )
-    set_rule_if_exists(
-        "Empoleon's Snow Slide Attraction -- Lapras",
-        lambda state: state.has("Lapras Friendship", player)
-    )
-    set_rule_if_exists(
-        "Empoleon's Snow Slide Attraction -- Delibird",
-        lambda state: state.has("Delibird Friendship", player)
-    )
-    set_rule_if_exists(
-        "Empoleon's Snow Slide Attraction -- Piloswine",
-        lambda state: state.has("Piloswine Friendship", player)
-    )
-    set_rule_if_exists(
-        "Empoleon's Snow Slide Attraction -- Prinplup",
-        lambda state: state.has("Prinplup Friendship", player)
-    )
-    set_rule_if_exists(
-        "Empoleon's Snow Slide Attraction -- Squirtle",
-        lambda state: state.has("Squirtle Friendship", player)
-    )
-    set_rule_if_exists(
-        "Empoleon's Snow Slide Attraction -- Piplup",
-        lambda state: state.has("Piplup Friendship", player)
-    )
-    set_rule_if_exists(
-        "Empoleon's Snow Slide Attraction -- Quagsire",
-        lambda state: state.has("Quagsire Friendship", player)
-    )
-
-    set_rule_if_exists(
-        "Empoleon's Snow Slide Attraction -- Spheal",
-        lambda state: state.has("Spheal Friendship", player)
-    )
-    set_rule_if_exists(
-        "Empoleon's Snow Slide Attraction -- Suicune",
-        lambda state: state.has("Suicune Friendship", player)
-    )
-    set_rule_if_exists(
-        "Empoleon's Snow Slide Attraction -- Suicune Friendship",
-        lambda state: can_beat_all_empoleon_snow_slide_records(state, player)
-    )
-    # Cavern Zone
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Magnemite -- Friendship",
-        lambda state: state.has("Magnemite Unlock", player) or
-                      state.has("Magnemite 2 Unlock", player) or
-                      state.has("Magnemite 3 Unlock", player)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Machamp -- Friendship",
-        lambda state: True
-    )
-
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Machamp -- Machamp Unlocked",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Cranidos Battle Power Competition -- Friendship",
-        lambda state: can_battle_intermediate(state, player, options)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Zubat Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Golbat Chase Power Competition -- Friendship",
-        lambda state: can_play_catch_intermediate(state, player, options)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Magnezone Battle Power Competition -- Friendship",
-        lambda state: state.has("Magnezone Unlock", player) and
-                      can_battle_thunderbolt_immune_intermediate(state, player, options)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Scizor Battle Power Competition -- Friendship",
-        lambda state: can_battle_intermediate(state, player, options)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Dugtrio -- Friendship",
-        lambda state: state.has("Bastiodon Prisma", player)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Diglett -- Friendship",
-        lambda state: state.has("Bastiodon Prisma", player) and
-                      state.has("Diglett Unlock", player)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Gible Battle Power Competition -- Friendship",
-        lambda state: can_battle_thunderbolt_immune(state, player, options)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Phanpy Errand -- Friendship",
-        lambda state: can_destroy_objects_overworld(state, player) and
-                      state.has("Phanpy Unlock", player)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Hitmonlee Battle Power Competition -- Friendship",
-        lambda state: can_battle_intermediate(state, player, options) and
-                      state.has("Hitmonlee Unlock", player)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Electivire Battle Power Competition -- Friendship",
-        lambda state: can_battle_thunderbolt_immune_advanced(state, player, options) and
-                      state.has("Electivire Unlock", player)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Magnemite Crate Entrance -- Magnemite Unlocked",
-        lambda state: can_destroy_objects_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Magnemite Crate Magma Zone Entrance -- Magnemite Unlocked",
-        lambda state: can_destroy_objects_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Magnemite Crate Deep Inside -- Magnemite Unlocked",
-        lambda state: can_destroy_objects_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Diglett Crate -- Diglett Unlocked",
-        lambda state: can_destroy_objects_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Bonsly Hide and Seek Power Competition -- Friendship",
-        lambda state: can_beat_cavern_bonsly(state, player)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Bonsly Hide and Seek Power Competition -- Sudowoodo Unlocked",
-        lambda state: can_beat_cavern_bonsly(state, player)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Teddiursa Quiz Power Competition -- Friendship",
-        lambda state: can_beat_cavern_teddiursa(state, player, options)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Chimchar Battle Power Competition -- Friendship",
-        lambda state: can_beat_cavern_chimchar(state, player, options)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Sudowoodo Hide and Seek Power Competition -- Friendship",
-        lambda state: can_beat_cavern_sudowoodo(state, player, options)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Aron Errand -- Friendship",
-        lambda state: can_beat_cavern_aron(state, player, options)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Torchic Battle Power Competition -- Friendship",
-        lambda state: can_beat_cavern_torchic(state, player, options)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Geodude Hide and Seek Power Competition -- Friendship",
-        lambda state: can_beat_cavern_geodude(state, player, options)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Raichu Chase Power Competition -- Friendship",
-        lambda state: can_beat_cavern_raichu(state, player, options)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Meowth Quiz Power Competition -- Friendship",
-        lambda state: can_beat_cavern_meowth(state, player, options)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Marowak Battle Power Competition -- Friendship",
-        lambda state: can_beat_cavern_marowak(state, player, options)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Mawile Chase Power Competition -- Friendship",
-        lambda state: can_play_catch_intermediate(state, player, options)
-    )
-    set_rule_if_exists(
-        "Cavern Zone Main Area - Bastiodon -- Friendship",
-        lambda state: state.has("Bastiodon Prisma", player) and
-                      can_enter_attraction_via_bastiodon(state, player)
-    )
-    # Bastiodon's Panel Crush
-
-    set_rule_if_exists(
-        "Bastiodon's Panel Crush Attraction -- Prisma",
-        lambda state: can_beat_any_bastiodon_panel_crush_record(state, player, options)
-    )
-    set_rule_if_exists(
-        "Bastiodon's Panel Crush Attraction -- Pikachu",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Bastiodon's Panel Crush Attraction -- Sableye",
-        lambda state: state.has("Sableye Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bastiodon's Panel Crush Attraction -- Meowth",
-        lambda state: state.has("Meowth Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bastiodon's Panel Crush Attraction -- Torchic",
-        lambda state: state.has("Torchic Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bastiodon's Panel Crush Attraction -- Electivire",
-        lambda state: state.has("Electivire Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bastiodon's Panel Crush Attraction -- Magmortar",
-        lambda state: state.has("Magmortar Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bastiodon's Panel Crush Attraction -- Hitmonlee",
-        lambda state: state.has("Hitmonlee Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bastiodon's Panel Crush Attraction -- Ursaring",
-        lambda state: state.has("Ursaring Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bastiodon's Panel Crush Attraction -- Mr. Mime",
-        lambda state: state.has("Mr. Mime Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bastiodon's Panel Crush Attraction -- Raichu",
-        lambda state: state.has("Raichu Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bastiodon's Panel Crush Attraction -- Sudowoodo",
-        lambda state: state.has("Sudowoodo Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bastiodon's Panel Crush Attraction -- Charmander",
-        lambda state: state.has("Charmander Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bastiodon's Panel Crush Attraction -- Gible",
-        lambda state: state.has("Gible Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bastiodon's Panel Crush Attraction -- Chimchar",
-        lambda state: state.has("Chimchar Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bastiodon's Panel Crush Attraction -- Magby",
-        lambda state: state.has("Magby Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bastiodon's Panel Crush Attraction -- Metagross",
-        lambda state: state.has("Metagross Friendship", player)
-    )
-    set_rule_if_exists(
-        "Bastiodon's Panel Crush Attraction -- Metagross Friendship",
-        lambda state: can_beat_all_bastiodon_panel_crush_records(state, player)
-    )
-
-    # Magma Zone
-    set_rule_if_exists(
-        "Magma Zone Main Area - Camerupt Battle Power Competition -- Friendship",
-        lambda state: can_battle_thunderbolt_immune_intermediate(state, player, options)
-    )
-
-    set_rule_if_exists(
-        "Magma Zone Main Area - Magby Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
-    )
-    set_rule_if_exists(
-        "Magma Zone Main Area - Vulpix Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
-    )
-    set_rule_if_exists(
-        "Magma Zone Main Area - Vulpix Chase Power Competition -- Ninetales Unlocked",
-        lambda state: can_play_catch(state, player, options)
-    )
-    set_rule_if_exists(
-        "Magma Zone Main Area - Drill -- Torkoal Unlocked",
-        lambda state: can_dash_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Magma Zone Main Area - Furnace -- Golem Unlocked",
-        lambda state: can_dash_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Magma Zone Circle Area - Charmander Battle Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options)
-    )
-    set_rule_if_exists(
-        "Magma Zone Circle Area - Ninetales Chase Power Competition -- Friendship",
-        lambda state: can_play_catch_intermediate(state, player, options) and
-                      state.has("Ninetales Unlock", player)
-    )
-    set_rule_if_exists(
-        "Magma Zone Circle Area - Quilava Battle Power Competition -- Friendship",
-        lambda state: can_battle_intermediate(state, player, options)
-    )
-    set_rule_if_exists(
-        "Magma Zone Circle Area - Flareon Battle Power Competition -- Friendship",
-        lambda state: can_battle_intermediate(state, player, options) and
-                      has_friendship_count(state, player, 60)
-    )
-    set_rule_if_exists(
-        "Magma Zone Circle Area - Infernape Battle Power Competition -- Friendship",
-        lambda state: can_battle_intermediate(state, player, options) and
-                      state.has("Infernape Unlock", player)
-    )
-    set_rule_if_exists(
-        "Magma Zone Circle Area - Farfetch'd Battle Power Competition -- Friendship",
-        lambda state: can_battle_intermediate(state, player, options)
-    )
-    set_rule_if_exists(
-        "Magma Zone Circle Area - Ponyta Chase Power Competition -- Friendship",
-        lambda state: can_play_catch_intermediate(state, player, options) and
-                      state.has("Ponyta Unlock", player)
-    )
-    set_rule_if_exists(
-        "Magma Zone Main Area - Torkoal Battle Power Competition -- Friendship",
-        lambda state: can_battle_intermediate(state, player, options) and
-                      state.has("Torkoal Unlock", player)
-    )
-    set_rule_if_exists(
-        "Magma Zone Main Area - Golem -- Friendship",
-        lambda state: state.has("Golem Unlock", player)
-    )
-    set_rule_if_exists(
-        "Magma Zone Circle Area - Hitmonchan Battle Power Competition -- Friendship",
-        lambda state: can_battle_intermediate(state, player, options) and
-                      state.has("Hitmonchan Unlock", player)
-    )
-    set_rule_if_exists(
-        "Magma Zone Circle Area - Hitmonchan Battle Power Competition -- Hitmonlee Unlocked",
-        lambda state: can_battle_intermediate(state, player, options) and
-                      state.has("Hitmonchan Unlock", player)
-    )
-    set_rule_if_exists(
-        "Magma Zone Main Area - Hitmontop Errand -- Friendship",
-        lambda state: can_dash_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Magma Zone Circle Area - Magmortar Battle Power Competition -- Friendship",
-        lambda state: can_battle_advanced(state, player, options) and
-                      state.has("Magmortar Unlock", player)
-    )
-    set_rule_if_exists(
-        "Magma Zone Blaziken Area - Blaziken -- Friendship",
-        lambda state: state.has("Rayquaza Prisma", player)
-    )
-    set_rule_if_exists(
-        "Magma Zone Circle Area - Magcargo -- Friendship",
-        lambda state: state.has("Rhyperior Prisma", player) and
-                      state.has("Bastiodon Prisma", player)
-    )
-    set_rule_if_exists(
-        "Magma Zone Circle Area - Rhyperior Iron Disc -- Errand",
-        lambda state: can_dash_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Magma Zone Circle Area - Rhyperior -- Friendship",
-        lambda state: state.has("Rhyperior Prisma", player) and can_enter_attraction_via_rhyperior()
-    )
-    set_rule_if_exists(
-        "Magma Zone Main Area - Baltoy Crate -- Baltoy Unlocked",
-        lambda state: can_destroy_objects_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Magma Zone Main Area - Bonsly Hide and Seek Power Competition -- Friendship",
-        lambda state: can_beat_magma_bonsly(state, player)
-    )
-    set_rule_if_exists(
-        "Magma Zone Main Area - Chimchar Battle Power Competition -- Friendship",
-        lambda state: can_battle(state, player, options)
-    )
-    set_rule_if_exists(
-        "Magma Zone Main Area - Chimchar Battle Power Competition -- Infernape Unlocked",
-        lambda state: can_beat_magma_chimchar(state, player, options)
-    )
-    set_rule_if_exists(
-        "Magma Zone Main Area - Aron Errand -- Friendship",
-        lambda state: can_beat_magma_aron(state, player, options)
-    )
-    set_rule_if_exists(
-        "Magma Zone Main Area - Torchic Battle Power Competition -- Friendship",
-        lambda state: can_beat_magma_torchic(state, player, options)
-    )
-    set_rule_if_exists(
-        "Magma Zone Main Area - Geodude Hide and Seek Power Competition -- Friendship",
-        lambda state: can_beat_magma_geodude(state, player, options)
-    )
-    set_rule_if_exists(
-        "Magma Zone Main Area - Baltoy Battle Power Competition -- Friendship",
-        lambda state: can_beat_magma_baltoy(state, player, options)
-    )
-    set_rule_if_exists(
-        "Magma Zone Main Area - Baltoy Battle Power Competition -- Claydol Unlocked",
-        lambda state: can_beat_magma_baltoy(state, player, options)
-    )
-    set_rule_if_exists(
-        "Magma Zone Main Area - Claydol Battle Power Competition -- Friendship",
-        lambda state: can_beat_magma_claydol(state, player, options)
-    ),
-
-    set_rule_if_exists(
-        "Magma Zone Circle Area - Meditite Quiz Power Competition -- Friendship",
-        lambda state: can_beat_magma_meditite(state, player, options)
-    )
-
-    # Rhyperior's Bumper Burn
-    set_rule_if_exists(
-        "Rhyperior's Bumper Burn Attraction -- Prisma",
-        lambda state: can_beat_any_rhyperior_bumper_burn_record(state, player, options)
-    )
-    set_rule_if_exists(
-        "Rhyperior's Bumper Burn Attraction -- Pikachu",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Rhyperior's Bumper Burn Attraction -- Magnemite",
-        lambda state: state.has("Magnemite Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rhyperior's Bumper Burn Attraction -- Rhyperior",
-        lambda state: state.has("Rhyperior Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rhyperior's Bumper Burn Attraction -- Tyranitar",
-        lambda state: state.has("Tyranitar Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rhyperior's Bumper Burn Attraction -- Hitmontop",
-        lambda state: state.has("Hitmontop Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rhyperior's Bumper Burn Attraction -- Flareon",
-        lambda state: state.has("Flareon Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rhyperior's Bumper Burn Attraction -- Venusaur",
-        lambda state: state.has("Venusaur Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rhyperior's Bumper Burn Attraction -- Snorlax",
-        lambda state: state.has("Snorlax Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rhyperior's Bumper Burn Attraction -- Torterra",
-        lambda state: state.has("Torterra Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rhyperior's Bumper Burn Attraction -- Magnezone",
-        lambda state: state.has("Magnezone Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rhyperior's Bumper Burn Attraction -- Claydol",
-        lambda state: state.has("Claydol Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rhyperior's Bumper Burn Attraction -- Quilava",
-        lambda state: state.has("Quilava Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rhyperior's Bumper Burn Attraction -- Torkoal",
-        lambda state: state.has("Torkoal Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rhyperior's Bumper Burn Attraction -- Baltoy",
-        lambda state: state.has("Baltoy Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rhyperior's Bumper Burn Attraction -- Bonsly",
-        lambda state: state.has("Bonsly Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rhyperior's Bumper Burn Attraction -- Heatran",
-        lambda state: state.has("Heatran Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rhyperior's Bumper Burn Attraction -- Heatran Friendship",
-        lambda state: can_beat_all_rhyperior_bumper_burn_records(state, player)
-    )
-
-    # Blaziken's Boulder Bash
-    set_rule_if_exists(
-        "Blaziken's Boulder Bash Attraction -- Prisma",
-        lambda state: can_beat_any_blaziken_boulder_bash_record(state, player, options)
-    )
-    set_rule_if_exists(
-        "Blaziken's Boulder Bash Attraction -- Pikachu",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Blaziken's Boulder Bash Attraction -- Geodude",
-        lambda state: state.has("Geodude Friendship", player)
-    )
-    set_rule_if_exists(
-        "Blaziken's Boulder Bash Attraction -- Phanpy",
-        lambda state: state.has("Phanpy Friendship", player)
-    )
-    set_rule_if_exists(
-        "Blaziken's Boulder Bash Attraction -- Blaziken",
-        lambda state: state.has("Blaziken Friendship", player)
-    )
-    set_rule_if_exists(
-        "Blaziken's Boulder Bash Attraction -- Garchomp",
-        lambda state: state.has("Garchomp Friendship", player)
-    )
-    set_rule_if_exists(
-        "Blaziken's Boulder Bash Attraction -- Scizor",
-        lambda state: state.has("Scizor Friendship", player)
-    )
-    set_rule_if_exists(
-        "Blaziken's Boulder Bash Attraction -- Magmortar",
-        lambda state: state.has("Magmortar Friendship", player)
-    )
-    set_rule_if_exists(
-        "Blaziken's Boulder Bash Attraction -- Hitmonchan",
-        lambda state: state.has("Hitmonchan Friendship", player)
-    )
-    set_rule_if_exists(
-        "Blaziken's Boulder Bash Attraction -- Machamp",
-        lambda state: state.has("Machamp Friendship", player)
-    )
-    set_rule_if_exists(
-        "Blaziken's Boulder Bash Attraction -- Marowak",
-        lambda state: state.has("Marowak Friendship", player)
-    )
-    set_rule_if_exists(
-        "Blaziken's Boulder Bash Attraction -- Farfetch'd",
-        lambda state: state.has("Farfetch'd Friendship", player)
-    )
-    set_rule_if_exists(
-        "Blaziken's Boulder Bash Attraction -- Cranidos",
-        lambda state: state.has("Cranidos Friendship", player)
-    )
-    set_rule_if_exists(
-        "Blaziken's Boulder Bash Attraction -- Camerupt",
-        lambda state: state.has("Camerupt Friendship", player)
-    )
-    set_rule_if_exists(
-        "Blaziken's Boulder Bash Attraction -- Bastiodon",
-        lambda state: state.has("Bastiodon Friendship", player)
-    )
-    set_rule_if_exists(
-        "Blaziken's Boulder Bash Attraction -- Mawile",
-        lambda state: state.has("Mawile Friendship", player)
-    )
-    set_rule_if_exists(
-        "Blaziken's Boulder Bash Attraction -- Groudon",
-        lambda state: state.has("Groudon Friendship", player)
-    )
-    set_rule_if_exists(
-        "Blaziken's Boulder Bash Attraction -- Groudon Friendship",
-        lambda state: can_beat_all_blaziken_boulder_bash_records(state, player)
-    )
-
-    # Haunted Zone
-    set_rule_if_exists(
-        "Haunted Zone Main Area - Murkrow Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Main Area - Murkrow Chase Power Competition -- Honchkrow Unlocked",
-        lambda state: can_play_catch(state, player, options)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Main Area - Honchkrow Battle Power Competition -- Friendship",
-        lambda state: can_battle_intermediate(state, player, options) and
-                      state.has("Honchkrow Unlock", player)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Main Area - Gliscor Battle Power Competition -- Friendship",
-        lambda state: can_battle_thunderbolt_immune_intermediate(state, player, options)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Main Area - Metapod -- Friendship",
-        lambda state: state.has("Rotom Prisma", player) and
-                      state.has("Metapod Unlock", player)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Main Area - Kakuna -- Friendship",
-        lambda state: state.has("Rotom Prisma", player) and
-                      state.has("Kakuna Unlock", player)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Main Area - Metapod Left Tree -- Metapod Unlocked",
-        lambda state: can_dash_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Main Area - Kakuna Right Tree -- Kakuna Unlocked",
-        lambda state: can_dash_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Main Area - Raichu Chase Power Competition -- Friendship",
-        lambda state: can_beat_haunted_raichu(state, player, options)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Main Area - Meowth Quiz Power Competition -- Friendship",
-        lambda state: can_beat_haunted_meowth(state, player, options)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Main Area - Aipom Chase Power Competition -- Friendship",
-        lambda state: can_beat_haunted_aipom(state, player, options)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Main Area - Aipom Chase Power Competition -- Ambipom Unlocked",
-        lambda state: can_beat_haunted_aipom(state, player, options)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Main Area - Ambipom Battle Power Competition -- Friendship",
-        lambda state: can_beat_haunted_ambipom(state, player, options)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Main Area - Drifloon -- Friendship",
-        lambda state: can_beat_haunted_drifloon(state, player, options)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Main Area - Tangrowth -- Friendship",
-        lambda state: state.has("Tangrowth Prisma", player) and can_enter_attraction_via_tangrowth()
-    )
-    # Tangrowth's Swing-Along
-    set_rule_if_exists(
-        "Tangrowth's Swing-Along Attraction -- Prisma",
-        lambda state: can_beat_any_tangrowth_swing_along_record(state, player, options)
-    )
-    set_rule_if_exists(
-        "Tangrowth's Swing-Along Attraction -- Pikachu",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Tangrowth's Swing-Along Attraction -- Meowth",
-        lambda state: state.has("Meowth Friendship", player)
-    )
-    set_rule_if_exists(
-        "Tangrowth's Swing-Along Attraction -- Pichu",
-        lambda state: state.has("Pichu Friendship", player)
-    )
-    set_rule_if_exists(
-        "Tangrowth's Swing-Along Attraction -- Lucario",
-        lambda state: state.has("Lucario Friendship", player)
-    )
-    set_rule_if_exists(
-        "Tangrowth's Swing-Along Attraction -- Infernape",
-        lambda state: state.has("Infernape Friendship", player)
-    )
-    set_rule_if_exists(
-        "Tangrowth's Swing-Along Attraction -- Blaziken",
-        lambda state: state.has("Blaziken Friendship", player)
-    )
-    set_rule_if_exists(
-        "Tangrowth's Swing-Along Attraction -- Riolu",
-        lambda state: state.has("Riolu Friendship", player)
-    )
-    set_rule_if_exists(
-        "Tangrowth's Swing-Along Attraction -- Sneasel",
-        lambda state: state.has("Sneasel Friendship", player)
-    )
-    set_rule_if_exists(
-        "Tangrowth's Swing-Along Attraction -- Raichu",
-        lambda state: state.has("Raichu Friendship", player)
-    )
-    set_rule_if_exists(
-        "Tangrowth's Swing-Along Attraction -- Ambipom",
-        lambda state: state.has("Ambipom Friendship", player)
-    )
-    set_rule_if_exists(
-        "Tangrowth's Swing-Along Attraction -- Primeape",
-        lambda state: state.has("Primeape Friendship", player)
-    )
-    set_rule_if_exists(
-        "Tangrowth's Swing-Along Attraction -- Aipom",
-        lambda state: state.has("Aipom Friendship", player)
-    )
-    set_rule_if_exists(
-        "Tangrowth's Swing-Along Attraction -- Electabuzz",
-        lambda state: state.has("Electabuzz Friendship", player)
-    )
-    set_rule_if_exists(
-        "Tangrowth's Swing-Along Attraction -- Chimchar",
-        lambda state: state.has("Chimchar Friendship", player)
-    )
-    set_rule_if_exists(
-        "Tangrowth's Swing-Along Attraction -- Croagunk",
-        lambda state: state.has("Croagunk Friendship", player)
-    )
-    set_rule_if_exists(
-        "Tangrowth's Swing-Along Attraction -- Celebi",
-        lambda state: state.has("Celebi Friendship", player)
-    )
-    set_rule_if_exists(
-        "Tangrowth's Swing-Along Attraction -- Celebi Friendship",
-        lambda state: can_beat_all_tangrowth_swing_along_records(state, player)
-    )
-    # Haunted Zone Mansion
-
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Duskull Chase Power Competition -- Friendship",
-        lambda state: state.has("Dusknoir Prisma", player)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Misdreavus Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Pichu Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Umbreon Chase Power Competition -- Friendship",
-        lambda state: can_play_catch_intermediate(state, player, options) and
-                      has_friendship_count(state, player, 75)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Umbreon Chase Power Competition -- Espeon Unlocked",
-        lambda state: can_play_catch_intermediate(state, player, options) and
-                      has_friendship_count(state, player, 75)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Espeon Chase Power Competition -- Friendship",
-        lambda state: can_play_catch_intermediate(state, player, options) and
-                      state.has("Espeon Unlock", player)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Spinarak -- Friendship",
-        lambda state: state.has("Rotom Prisma", player)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Main Area - Riolu Battle Power Competition -- Friendship",
-        lambda state: can_battle_intermediate(state, player, options)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Voltorb Battle Power Competition -- Friendship",
-        lambda state: can_battle_thunderbolt_immune(state, player, options) and
-                      state.has("Voltorb Unlock", player)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Elekid Hide and Seek Power Competition -- Friendship",
-        lambda state: state.has("Elekid Unlock", player)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Elekid Hide and Seek Power Competition -- Electabuzz Unlocked",
-        lambda state: state.has("Elekid Unlock", player)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Electabuzz Battle Power Competition -- Friendship",
-        lambda state: can_battle_thunderbolt_immune_intermediate(state, player, options) and
-                      state.has("Electabuzz Unlock", player)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Luxray Chase Power Competition -- Friendship",
-        lambda state: can_play_catch_intermediate(state, player, options) and
-                      state.has("Luxray Unlock", player)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Stunky Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options) and
-                      state.has("Stunky Unlock", player)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Stunky Chase Power Competition -- Skuntank Unlocked",
-        lambda state: can_play_catch(state, player, options) and
-                      state.has("Stunky Unlock", player)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Skuntank Battle Power Competition -- Friendship",
-        lambda state: can_battle_intermediate(state, player, options) and
-                      state.has("Skuntank Unlock", player)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Breloom Battle Power Competition -- Friendship",
-        lambda state: can_battle_thunderbolt_immune_intermediate(state, player, options) and
-                      state.has("Breloom Unlock", player)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Mismagius Battle Power Competition -- Friendship",
-        lambda state: can_battle_intermediate(state, player, options) and
-                      state.has("Mismagius Unlock", player)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Electrode -- Friendship",
-        lambda state: state.has("Rotom Prisma", player) and
-                      state.has("Electrode Unlock", player)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Haunter Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options) and
-                      state.has("Haunter Unlock", player)
-    )
-
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Gastly Chase Power Competition -- Friendship",
-        lambda state: state.has("Gastly Unlock", player) or
-                      state.has("Gastly 2 Unlock", player)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Gengar Battle Power Competition -- Friendship",
-        lambda state: can_battle_intermediate(state, player, options) and
-                      state.has("Gengar Unlock", player)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Gengar Painting -- Gengar Unlocked",
-        lambda state: has_friendship_count(state, player, 85)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Voltorb Vase -- Voltorb Unlocked",
-        lambda state: can_destroy_objects_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Abra -- Friendship",
-        lambda state: can_beat_haunted_abra(state, player, options)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Dusknoir -- Friendship",
-        lambda state: state.has("Dusknoir Prisma", player) and
-                      can_enter_attraction_via_dusknoir(state, player)
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Sableye Quiz Power Competition -- Friendship",
-        lambda state: True
-    )
-    # Dusknoir's Speed Slam
-    set_rule_if_exists(
-        "Dusknoir's Speed Slam Attraction -- Prisma",
-        lambda state: can_beat_any_dusknoir_speed_slam_record(state, player, options)
-    )
-    set_rule_if_exists(
-        "Dusknoir's Speed Slam Attraction -- Pikachu",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Dusknoir's Speed Slam Attraction -- Stunky",
-        lambda state: state.has("Stunky Friendship", player)
-    )
-    set_rule_if_exists(
-        "Dusknoir's Speed Slam Attraction -- Gengar",
-        lambda state: state.has("Gengar Friendship", player)
-    )
-    set_rule_if_exists(
-        "Dusknoir's Speed Slam Attraction -- Mismagius",
-        lambda state: state.has("Mismagius Friendship", player)
-    )
-    set_rule_if_exists(
-        "Dusknoir's Speed Slam Attraction -- Scizor",
-        lambda state: state.has("Scizor Friendship", player)
-    )
-    set_rule_if_exists(
-        "Dusknoir's Speed Slam Attraction -- Espeon",
-        lambda state: state.has("Espeon Friendship", player)
-    )
-    set_rule_if_exists(
-        "Dusknoir's Speed Slam Attraction -- Dusknoir",
-        lambda state: state.has("Dusknoir Friendship", player)
-    )
-    set_rule_if_exists(
-        "Dusknoir's Speed Slam Attraction -- Umbreon",
-        lambda state: state.has("Umbreon Friendship", player)
-    )
-    set_rule_if_exists(
-        "Dusknoir's Speed Slam Attraction -- Cranidos",
-        lambda state: state.has("Cranidos Friendship", player)
-    )
-    set_rule_if_exists(
-        "Dusknoir's Speed Slam Attraction -- Skuntank",
-        lambda state: state.has("Skuntank Friendship", player)
-    )
-    set_rule_if_exists(
-        "Dusknoir's Speed Slam Attraction -- Voltorb",
-        lambda state: state.has("Voltorb Friendship", player)
-    )
-    set_rule_if_exists(
-        "Dusknoir's Speed Slam Attraction -- Gastly",
-        lambda state: state.has("Gastly Friendship", player)
-    )
-    set_rule_if_exists(
-        "Dusknoir's Speed Slam Attraction -- Duskull",
-        lambda state: state.has("Duskull Friendship", player)
-    )
-    set_rule_if_exists(
-        "Dusknoir's Speed Slam Attraction -- Misdreavus",
-        lambda state: state.has("Misdreavus Friendship", player)
-    )
-    set_rule_if_exists(
-        "Dusknoir's Speed Slam Attraction -- Krabby",
-        lambda state: state.has("Krabby Friendship", player)
-    )
-    set_rule_if_exists(
-        "Dusknoir's Speed Slam Attraction -- Darkrai",
-        lambda state: state.has("Darkrai Friendship", player)
-    )
-    set_rule_if_exists(
-        "Dusknoir's Speed Slam Attraction -- Darkrai Friendship",
-        lambda state: can_beat_all_dusknoir_speed_slam_records(state, player)
-    )
-    # Rotom's Spooky Shoot-'em-Up
-    set_rule_if_exists(
-        "Rotom's Spooky Shoot-'em-Up Attraction -- Prisma",
-        lambda state: can_beat_any_rotom_spooky_shoot_record(state, player, options)
-    )
-    set_rule_if_exists(
-        "Rotom's Spooky Shoot-'em-Up Attraction -- Pikachu",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Rotom's Spooky Shoot-'em-Up Attraction -- Magnemite",
-        lambda state: state.has("Magnemite Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rotom's Spooky Shoot-'em-Up Attraction -- Porygon-Z",
-        lambda state: state.has("Porygon-Z Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rotom's Spooky Shoot-'em-Up Attraction -- Magnezone",
-        lambda state: state.has("Magnezone Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rotom's Spooky Shoot-'em-Up Attraction -- Gengar",
-        lambda state: state.has("Gengar Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rotom's Spooky Shoot-'em-Up Attraction -- Magmortar",
-        lambda state: state.has("Magmortar Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rotom's Spooky Shoot-'em-Up Attraction -- Electivire",
-        lambda state: state.has("Electivire Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rotom's Spooky Shoot-'em-Up Attraction -- Mismagius",
-        lambda state: state.has("Mismagius Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rotom's Spooky Shoot-'em-Up Attraction -- Claydol",
-        lambda state: state.has("Claydol Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rotom's Spooky Shoot-'em-Up Attraction -- Electabuzz",
-        lambda state: state.has("Electabuzz Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rotom's Spooky Shoot-'em-Up Attraction -- Haunter",
-        lambda state: state.has("Haunter Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rotom's Spooky Shoot-'em-Up Attraction -- Abra",
-        lambda state: state.has("Abra Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rotom's Spooky Shoot-'em-Up Attraction -- Elekid",
-        lambda state: state.has("Elekid Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rotom's Spooky Shoot-'em-Up Attraction -- Mr. Mime",
-        lambda state: state.has("Mr. Mime Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rotom's Spooky Shoot-'em-Up Attraction -- Baltoy",
-        lambda state: state.has("Baltoy Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rotom's Spooky Shoot-'em-Up Attraction -- Rotom",
-        lambda state: state.has("Rotom Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rotom's Spooky Shoot-'em-Up Attraction -- Rotom Friendship",
-        lambda state: can_beat_all_rotom_spooky_shoot_records(state, player)
-    )
-
-    # Granite Zone
-    set_rule_if_exists(
-        "Granite Zone Main Area - Lopunny Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
-    )
-    set_rule_if_exists(
-        "Granite Zone Main Area - Eevee Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
-    )
-    set_rule_if_exists(
-        "Granite Zone Main Area - Eevee Chase Power Competition -- Jolteon Unlocked",
-        lambda state: can_play_catch(state, player, options)
-    )
-    set_rule_if_exists(
-        "Granite Zone Main Area - Charizard Battle Power Competition -- Friendship",
-        lambda state: can_battle_advanced(state, player, options)
-    )
-    set_rule_if_exists(
-        "Granite Zone Main Area - Flygon Chase Power Competition -- Friendship",
-        lambda state: can_play_catch_advanced(state, player, options)
-    )
-    set_rule_if_exists(
-        "Granite Zone Main Area - Staraptor Battle Power Competition -- Friendship",
-        lambda state: can_battle_advanced(state, player, options)
-    )
-    set_rule_if_exists(
-        "Granite Zone Main Area - Staraptor Battle Power Competition -- Aerodactyl Unlocked",
-        lambda state: can_battle_advanced(state, player, options)
-    )
-    set_rule_if_exists(
-        "Granite Zone Main Area - Aerodactyl Battle Power Competition -- Friendship",
-        lambda state: can_battle_advanced(state, player, options) and
-                      state.has("Aerodactyl Unlock", player)
-    )
-    set_rule_if_exists(
-        "Granite Zone Main Area - Arcanine Chase Power Competition -- Friendship",
-        lambda state: can_play_catch_advanced(state, player, options)
-    )
-    set_rule_if_exists(
-        "Granite Zone Main Area - Jolteon Chase Power Competition -- Friendship",
-        lambda state: can_play_catch_advanced(state, player, options) and
-                      has_friendship_count(state, player, 90) and
-                      state.has("Jolteon Unlock", player)
-    )
-    set_rule_if_exists(
-        "Granite Zone Main Area - Skorupi -- Friendship",
-        lambda state: can_dash_overworld(state, player)
-    )
-    set_rule_if_exists(
-        "Granite Zone Main Area - Porygon-Z Quiz Power Competition -- Friendship",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Granite Zone Main Area - Tyranitar Battle Power Competition -- Friendship",
-        lambda state: can_battle_advanced(state, player, options) and
-                      state.has("Tyranitar Unlock", player)
-    )
-    set_rule_if_exists(
-        "Granite Zone Main Area - Garchomp Battle Power Competition -- Friendship",
-        lambda state: can_battle_thunderbolt_immune_advanced(state, player, options) and
-                      state.has("Garchomp Unlock", player)
-    )
-    set_rule_if_exists(
-        "Granite Zone Main Area - Taillow Chase Power Competition -- Friendship",
-        lambda state: can_beat_granite_taillow(state, player, options)
-    )
-    set_rule_if_exists(
-        "Granite Zone Main Area - Drifloon -- Friendship",
-        lambda state: can_beat_granite_drifloon(state, player, options)
-    )
-    set_rule_if_exists(
-        "Granite Zone Main Area - Marowak Battle Power Competition -- Friendship",
-        lambda state: can_beat_granite_marowak(state, player, options)
-    )
-    set_rule_if_exists(
-        "Granite Zone Main Area - Baltoy Battle Power Competition -- Friendship",
-        lambda state: can_beat_granite_baltoy(state, player, options)
-    )
-    set_rule_if_exists(
-        "Granite Zone Main Area - Baltoy Battle Power Competition -- Claydol Unlocked",
-        lambda state: can_beat_granite_baltoy(state, player, options)
-    )
-    set_rule_if_exists(
-        "Granite Zone Main Area - Claydol Battle Power Competition -- Friendship",
-        lambda state: can_beat_granite_claydol(state, player, options)
-    )
-    set_rule_if_exists(
-        "Granite Zone Main Area - Furret Hide and Seek Power Competition -- Friendship",
-        lambda state: can_beat_granite_furret(state, player, options)
-    )
-
-    set_rule_if_exists(
-        "Granite Zone Salamence Area - Salamence -- Friendship",
-        lambda state: state.has("Salamence Prisma", player) and
-                      can_enter_attraction_via_salamence(state, player)
-    )
-    set_rule_if_exists(
-        "Granite Zone Main Area - Absol -- Friendship",
-        lambda state: state.has("Absol Prisma", player) and can_enter_attraction_via_absol()
-    )
-    set_rule_if_exists(
-        "Granite Zone Togekiss Area - Togekiss -- Friendship",
-        lambda state: can_dash_overworld(state, player)
-    )
-    # Absol Hurdle Dash
-    set_rule_if_exists(
-        "Absol's Hurdle Bounce Attraction -- Prisma",
-        lambda state: can_beat_any_absol_hurdle_bounde_record(state, player, options)
-    )
-    set_rule_if_exists(
-        "Absol's Hurdle Bounce Attraction -- Pikachu",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Absol's Hurdle Bounce Attraction -- Chikorita",
-        lambda state: state.has("Chikorita Friendship", player)
-    )
-    set_rule_if_exists(
-        "Absol's Hurdle Bounce Attraction -- Absol",
-        lambda state: state.has("Absol Friendship", player)
-    )
-    set_rule_if_exists(
-        "Absol's Hurdle Bounce Attraction -- Lucario",
-        lambda state: state.has("Lucario Friendship", player)
-    )
-    set_rule_if_exists(
-        "Absol's Hurdle Bounce Attraction -- Ponyta",
-        lambda state: state.has("Ponyta Friendship", player)
-    )
-    set_rule_if_exists(
-        "Absol's Hurdle Bounce Attraction -- Ninetales",
-        lambda state: state.has("Ninetales Friendship", player)
-    )
-    set_rule_if_exists(
-        "Absol's Hurdle Bounce Attraction -- Lopunny",
-        lambda state: state.has("Lopunny Friendship", player)
-    )
-    set_rule_if_exists(
-        "Absol's Hurdle Bounce Attraction -- Espeon",
-        lambda state: state.has("Espeon Friendship", player)
-    )
-    set_rule_if_exists(
-        "Absol's Hurdle Bounce Attraction -- Infernape",
-        lambda state: state.has("Infernape Friendship", player)
-    )
-    set_rule_if_exists(
-        "Absol's Hurdle Bounce Attraction -- Breloom",
-        lambda state: state.has("Breloom Friendship", player)
-    )
-    set_rule_if_exists(
-        "Absol's Hurdle Bounce Attraction -- Riolu",
-        lambda state: state.has("Riolu Friendship", player)
-    )
-    set_rule_if_exists(
-        "Absol's Hurdle Bounce Attraction -- Furret",
-        lambda state: state.has("Furret Friendship", player)
-    )
-    set_rule_if_exists(
-        "Absol's Hurdle Bounce Attraction -- Mareep",
-        lambda state: state.has("Mareep Friendship", player)
-    )
-    set_rule_if_exists(
-        "Absol's Hurdle Bounce Attraction -- Eevee",
-        lambda state: state.has("Eevee Friendship", player)
-    )
-    set_rule_if_exists(
-        "Absol's Hurdle Bounce Attraction -- Vulpix",
-        lambda state: state.has("Vulpix Friendship", player)
-    )
-    set_rule_if_exists(
-        "Absol's Hurdle Bounce Attraction -- Shaymin",
-        lambda state: state.has("Shaymin Friendship", player)
-    )
-    set_rule_if_exists(
-        "Absol's Hurdle Bounce Attraction -- Shaymin Friendship",
-        lambda state: can_beat_all_absol_hurdle_bounde_records(state, player)
-    )
-
-    # Salamence's Sky Race
-    set_rule_if_exists(
-        "Salamence's Sky Race Attraction -- Prisma",
-        lambda state: can_beat_any_salamence_sky_race_record(state, player, options)
-    )
-    set_rule_if_exists(
-        "Salamence's Sky Race Attraction -- Pikachu",
-        lambda state: state.has("Pikachu Balloon", player)
-    )
-    set_rule_if_exists(
-        "Salamence's Sky Race Attraction -- Salamence",
-        lambda state: state.has("Salamence Friendship", player)
-    )
-    set_rule_if_exists(
-        "Salamence's Sky Race Attraction -- Charizard",
-        lambda state: state.has("Charizard Friendship", player)
-    )
-    set_rule_if_exists(
-        "Salamence's Sky Race Attraction -- Dragonite",
-        lambda state: state.has("Dragonite Friendship", player)
-    )
-    set_rule_if_exists(
-        "Salamence's Sky Race Attraction -- Flygon",
-        lambda state: state.has("Flygon Friendship", player)
-    )
-    set_rule_if_exists(
-        "Salamence's Sky Race Attraction -- Aerodactyl",
-        lambda state: state.has("Aerodactyl Friendship", player)
-    )
-    set_rule_if_exists(
-        "Salamence's Sky Race Attraction -- Staraptor",
-        lambda state: state.has("Staraptor Friendship", player)
-    )
-    set_rule_if_exists(
-        "Salamence's Sky Race Attraction -- Honchkrow",
-        lambda state: state.has("Honchkrow Friendship", player)
-    )
-    set_rule_if_exists(
-        "Salamence's Sky Race Attraction -- Gliscor",
-        lambda state: state.has("Gliscor Friendship", player)
-    )
-    set_rule_if_exists(
-        "Salamence's Sky Race Attraction -- Pidgeotto",
-        lambda state: state.has("Pidgeotto Friendship", player)
-    )
-    set_rule_if_exists(
-        "Salamence's Sky Race Attraction -- Togekiss",
-        lambda state: state.has("Togekiss Friendship", player)
-    )
-    set_rule_if_exists(
-        "Salamence's Sky Race Attraction -- Golbat",
-        lambda state: state.has("Golbat Friendship", player)
-    )
-    set_rule_if_exists(
-        "Salamence's Sky Race Attraction -- Taillow",
-        lambda state: state.has("Taillow Friendship", player)
-    )
-    set_rule_if_exists(
-        "Salamence's Sky Race Attraction -- Murkrow",
-        lambda state: state.has("Murkrow Friendship", player)
-    )
-    set_rule_if_exists(
-        "Salamence's Sky Race Attraction -- Zubat",
-        lambda state: state.has("Zubat Friendship", player)
-    )
-    set_rule_if_exists(
-        "Salamence's Sky Race Attraction -- Latios",
-        lambda state: state.has("Latios Friendship", player)
-    )
-    set_rule_if_exists(
-        "Salamence's Sky Race Attraction -- Latios Friendship",
-        lambda state: can_beat_all_salamence_sky_race_records(state, player)
-    )
-    # Flower Zone
-
-    set_rule_if_exists(
-        "Flower Zone Main Area - Skiploom -- Friendship",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Flower Zone Main Area - Budew -- Friendship",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Flower Zone Main Area - Cyndaquil Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
-    )
-    set_rule_if_exists(
-        "Flower Zone Main Area - Lucario Chase Power Competition -- Friendship",
-        lambda state: can_play_catch_intermediate(state, player, options) and
-                      has_friendship_count(state, player, 100)
-    )
-    set_rule_if_exists(
-        "Flower Zone Main Area - Dragonite Chase Power Competition -- Friendship",
-        lambda state: can_play_catch_intermediate(state, player, options)
-    )
-    set_rule_if_exists(
-        "Flower Zone Main Area - Mareep Chase Power Competition -- Friendship",
-        lambda state: can_play_catch(state, player, options)
-    )
-    set_rule_if_exists(
-        "Flower Zone Main Area - Bellossom Errand -- Friendship",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Flower Zone Main Area - Teddiursa Chase Power Competition -- Friendship",
-        lambda state: can_beat_flower_teddiursa(state, player, options)
-    )
-    set_rule_if_exists(
-        "Flower Zone Main Area - Furret Hide and Seek Power Competition -- Friendship",
-        lambda state: can_beat_flower_furret(state, player, options)
-    )
-    set_rule_if_exists(
-        "Flower Zone Main Area - Meditite Quiz Power Competition -- Friendship",
-        lambda state: can_beat_flower_meditite(state, player, options)
-    )
-
-    set_rule_if_exists(
-        "Flower Zone Main Area - Rayquaza -- Friendship",
-        lambda state: state.has("Rayquaza Prisma", player) and
-                      can_enter_attraction_via_rayquaza(state, player)
-    )
-
-    # Rayquaza's Balloon Panic
-    set_rule_if_exists(
-        "Rayquaza's Balloon Panic Attraction -- Prisma",
-        lambda state: can_beat_any_rayquaza_balloon_panic_record(state, player, options)
-    )
-    set_rule_if_exists(
-        "Rayquaza's Balloon Panic Attraction -- Pikachu",
-        lambda state: True
-    )
-    set_rule_if_exists(
-        "Rayquaza's Balloon Panic Attraction -- Lucario",
-        lambda state: state.has("Lucario Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rayquaza's Balloon Panic Attraction -- Glaceon",
-        lambda state: state.has("Glaceon Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rayquaza's Balloon Panic Attraction -- Luxray",
-        lambda state: state.has("Luxray Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rayquaza's Balloon Panic Attraction -- Mamoswine",
-        lambda state: state.has("Mamoswine Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rayquaza's Balloon Panic Attraction -- Infernape",
-        lambda state: state.has("Infernape Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rayquaza's Balloon Panic Attraction -- Floatzel",
-        lambda state: state.has("Floatzel Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rayquaza's Balloon Panic Attraction -- Rhyperior",
-        lambda state: state.has("Rhyperior Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rayquaza's Balloon Panic Attraction -- Absol",
-        lambda state: state.has("Absol Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rayquaza's Balloon Panic Attraction -- Breloom",
-        lambda state: state.has("Breloom Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rayquaza's Balloon Panic Attraction -- Mareep",
-        lambda state: state.has("Mareep Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rayquaza's Balloon Panic Attraction -- Cyndaquil",
-        lambda state: state.has("Cyndaquil Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rayquaza's Balloon Panic Attraction -- Totodile",
-        lambda state: state.has("Totodile Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rayquaza's Balloon Panic Attraction -- Chikorita",
-        lambda state: state.has("Chikorita Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rayquaza's Balloon Panic Attraction -- Mime Jr.",
-        lambda state: state.has("Mime Jr. Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rayquaza's Balloon Panic Attraction -- Deoxys",
-        lambda state: state.has("Deoxys Friendship", player)
-    )
-    set_rule_if_exists(
-        "Rayquaza's Balloon Panic Attraction -- Deoxys Friendship",
-        lambda state: can_beat_all_rayquaza_balloon_panic_records(state, player)
-    )
-    # Skygarden
-    set_rule_if_exists(
-        "Skygarden - Mew Power Competition -- Stage 1",
-        lambda state: can_clear_mew_power_competition_stage1(state, player)
-    )
-    set_rule_if_exists(
-        "Skygarden - Mew Power Competition -- Stage 2",
-        lambda state: can_clear_mew_power_competition_stage2(state, player, options)
-    )
-    set_rule_if_exists(
-        "Skygarden - Mew Power Competition -- Stage 3",
-        lambda state: can_clear_mew_power_competition_stage3(state, player, options)
-    )
-    set_rule_if_exists(
-        "Skygarden - Mew Power Competition -- Stage 4",
-        lambda state: can_clear_mew_power_competition_stage4(state, player, options)
-    )
-    set_rule_if_exists(
-        "Skygarden - Mew Power Competition -- Friendship",
-        lambda state: can_beat_mew(state, player, options)
-    )
-    set_rule_if_exists(
-        "Skygarden - Prisma Completion -- Stage 1",
-        lambda state: has_friendship_count(state, player, 100)
-    )
-    set_rule_if_exists(
-        "Skygarden - Prisma Completion -- Stage 2",
-        lambda state: has_friendship_count(state, player, 150)
-    )
-    set_rule_if_exists(
-        "Skygarden - Prisma Completion -- Completed",
-        lambda state: has_friendship_count(state, player, 193)
-    )
-
-    set_rule_if_exists(
-        "Pokepark Entrance - Celebi Chase Power Competition -- Friendship",
-        lambda state: state.has("Celebi Unlock", player) and can_play_catch_advanced(state, player, options)
-    )
-    set_rule_if_exists(
-        "Magma Zone Main Area - Groudon Battle Power Competition -- Friendship",
-        lambda state: state.has("Groudon Unlock", player) and can_battle_thunderbolt_immune_advanced(
-            state, player, options
-        )
-    )
-    set_rule_if_exists(
-        "Haunted Zone Mansion Area - Darkrai Battle Power Competition -- Friendship",
-        lambda state: state.has("Darkrai Unlock", player) and can_battle_advanced(
-            state, player, options
-        )
-    )
-    set_rule_if_exists(
-        "Granite Zone Main Area - Jirachi Chase Power Competition -- Friendship",
-        lambda state: state.has("Jirachi Unlock", player) and can_play_catch_advanced(
-            state, player, options
-        )
-    )
+    for loc_name, rule in get_location_rules(player, options).items():
+        set_rule_if_exists(loc_name, rule)
     world.multiworld.completion_condition[player] = lambda state: state.has("Victory", player)
 
 
@@ -4195,3 +1806,1199 @@ def get_entrance_rules_dict(player: int, options: "PokeparkOptions"):
 
     }
     return entrance_rules
+
+
+# We need to access the rules outside the set_rules function for the events. opted for a dict function to
+# centralize logic and don't hinder the future migration to rule builder
+def get_location_rules(player: int, options: "PokeparkOptions") -> dict[str, Callable[[CollectionState], bool]]:
+    return {
+        # Treehouse
+        "Treehouse - Burmy - Friendship": lambda state: True,
+        "Treehouse - Mime Jr. - Friendship": lambda state: True,
+        "Treehouse - Abra - Friendship": lambda state: can_beat_treehouse_abra(state, player, options),
+        "Treehouse - Drifblim - Friendship": lambda state: can_fast_travel(state, player),
+        "Treehouse - Power Up - Thunderbolt Upgrade 1": lambda state: can_farm_berries(state, player),
+        "Treehouse - Power Up - Thunderbolt Upgrade 2": lambda state: can_farm_berries(
+            state, player
+        ) and can_farm_berries_intermediate(
+            state, player
+        ),
+        "Treehouse - Power Up - Thunderbolt Upgrade 3": lambda state: can_farm_berries(
+            state, player
+        ) and can_farm_berries_intermediate(
+            state, player
+        ) and can_farm_berries_advanced(state, player),
+        "Treehouse - Power Up - Dash Upgrade 1": lambda state: can_farm_berries(state, player) and state.has(
+            "Pelipper Prisma", player
+        ),
+        "Treehouse - Power Up - Dash Upgrade 2": lambda state: can_farm_berries(state, player) and state.has(
+            "Pelipper Prisma", player
+        ) and can_farm_berries_intermediate(state, player),
+        "Treehouse - Power Up - Ponyta Unlocked": lambda state: can_farm_berries(state, player) and state.has(
+            "Pelipper Prisma", player
+        ) and can_farm_berries_intermediate(state, player),
+        "Treehouse - Power Up - Dash Upgrade 3": lambda state: can_farm_berries(state, player) and state.has(
+            "Pelipper Prisma", player
+        ) and can_farm_berries_intermediate(state, player) and can_farm_berries_advanced(state, player),
+        "Treehouse - Power Up - Double Dash Upgrade": lambda state: state.has("Pelipper Prisma", player),
+        "Treehouse - Power Up - Health Upgrade 1": lambda state: can_farm_berries(state, player) and state.has(
+            "Venusaur Prisma", player
+        ),
+        "Treehouse - Power Up - Health Upgrade 2": lambda state: can_farm_berries(state, player) and state.has(
+            "Venusaur Prisma", player
+        ) and can_farm_berries_intermediate(state, player),
+        "Treehouse - Power Up - Health Upgrade 3": lambda state: can_farm_berries(state, player) and state.has(
+            "Venusaur Prisma", player
+        ) and can_farm_berries_intermediate(state, player) and can_farm_berries_advanced(state, player),
+        "Treehouse - Power Up - Iron Tail Upgrade 1": lambda state: can_farm_berries(state, player) and state.has(
+            "Empoleon Prisma", player
+        ),
+        "Treehouse - Power Up - Iron Tail Upgrade 2": lambda state: can_farm_berries(state, player) and state.has(
+            "Empoleon Prisma", player
+        ) and can_farm_berries_intermediate(state, player),
+        "Treehouse - Power Up - Iron Tail Upgrade 3": lambda state: state.has(
+            "Empoleon Prisma", player
+        ) and can_farm_berries(
+            state, player
+        ) and can_farm_berries_intermediate(
+            state, player
+        ) and can_farm_berries_advanced(state, player),
+
+        # Meadow Zone
+        "Meadow Zone Main Area - Turtwig Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Meadow Zone Main Area - Turtwig Chase Power Competition -- Pachirisu Unlocked": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Meadow Zone Main Area - Turtwig Chase Power Competition -- Bonsly Unlocked": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Meadow Zone Main Area - Bulbasaur -- Friendship": lambda state: state.has(
+            "Bulbasaur Prisma", player
+        ) and can_enter_attraction_via_bulbasaur(),
+        "Meadow Zone Main Area - Buneary Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Meadow Zone Main Area - Buneary Chase Power Competition -- Lotad Unlocked": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Meadow Zone Main Area - Buneary Chase Power Competition -- Shinx Unlocked": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Meadow Zone Main Area - Munchlax Errand -- Friendship": lambda state: state.has(
+            "Bulbasaur Prisma", player
+        ) and can_dash(state, player),
+        "Meadow Zone Main Area - Munchlax Errand -- Tropius Unlocked": lambda state: state.has(
+            "Bulbasaur Prisma", player
+        ) and can_dash(
+            state, player
+        ),
+        "Meadow Zone Main Area - Tropius Errand -- Friendship": lambda state: state.has(
+            "Bulbasaur Prisma", player
+        ) and state.has(
+            "Tropius Unlock", player
+        ) and can_dash(state, player),
+        "Meadow Zone Main Area - Pachirisu Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ) and state.has(
+            "Pachirisu Unlock", player
+        ),
+        "Meadow Zone Main Area - Shinx Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ) and state.has(
+            "Shinx Unlock", player
+        ),
+        "Meadow Zone Main Area - Mankey Battle Power Competition -- Friendship": lambda state: can_battle(
+            state, player, options
+        ),
+        "Meadow Zone Main Area - Mankey Battle Power Competition -- Chimchar Unlocked": lambda state: can_battle(
+            state, player, options
+        ),
+        "Meadow Zone Main Area - Spearow Battle Power Competition -- Friendship": lambda state: can_beat_meadow_spearow(
+            state, player, options
+        ),
+        "Meadow Zone Main Area - Croagunk Battle Power Competition -- Friendship": lambda state: can_battle(
+            state, player, options
+        ),
+        "Meadow Zone Main Area - Croagunk Battle Power Competition -- Scyther Unlocked": lambda state: can_battle(
+            state, player, options
+        ),
+        "Meadow Zone Main Area - Lotad Battle Power Competition -- Friendship": lambda state: can_battle(
+            state, player, options
+        ) and state.has(
+            "Lotad Unlock", player
+        ),
+        "Meadow Zone Main Area - Treecko Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Meadow Zone Main Area - Caterpie Tree -- Caterpie Unlocked": lambda state: can_dash_overworld(state, player),
+        "Meadow Zone Main Area - Caterpie Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ) and state.has(
+            "Caterpie Unlock", player
+        ),
+        "Meadow Zone Main Area - Caterpie Chase Power Competition -- Butterfree Unlocked": lambda state: can_play_catch(
+            state, player, options
+        ) and state.has("Caterpie Unlock", player),
+        "Meadow Zone Main Area - Butterfree Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ) and state.has(
+            "Butterfree Unlock", player
+        ),
+        "Meadow Zone Main Area - Weedle Tree -- Weedle Unlocked": lambda state: can_dash_overworld(state, player),
+        "Meadow Zone Main Area - Weedle Battle Power Competition -- Friendship": lambda state: can_battle(
+            state, player, options
+        ) and state.has(
+            "Weedle Unlock", player
+        ),
+        "Meadow Zone Main Area - Shroomish Crate -- Shroomish Unlocked": lambda state: can_destroy_objects_overworld(
+            state, player
+        ),
+        "Meadow Zone Main Area - Shroomish Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ) and state.has(
+            "Shroomish Unlock", player
+        ),
+        "Meadow Zone Main Area - Magikarp Rescue -- Magikarp Unlocked": lambda state: can_thunderbolt_overworld(
+            state, player
+        ),
+        "Meadow Zone Main Area - Oddish Hide and Seek Power Competition -- Friendship": lambda state: True,
+        "Meadow Zone Main Area - Magikarp Chase Power Competition -- Friendship": lambda state: state.has(
+            "Magikarp Unlock", player
+        ) and can_play_catch(state, player, options),
+        "Meadow Zone Main Area - Bidoof Housing -- Stage 1": lambda state: state.has(
+            "Mankey Friendship", player
+        ) and can_destroy_objects_overworld(
+            state, player
+        ),
+        "Meadow Zone Main Area - Bidoof Housing -- Bidoof 1 Unlocked": lambda state: state.has(
+            "Mankey Friendship", player
+        ) and can_destroy_objects_overworld(
+            state, player
+        ),
+        "Meadow Zone Main Area - Bidoof Housing -- Stage 2": lambda state: state.has(
+            "Mankey Friendship", player
+        ) and can_destroy_objects_overworld(
+            state, player
+        ),
+        "Meadow Zone Main Area - Bidoof Housing -- Bidoof 2 Unlocked": lambda state: state.has(
+            "Mankey Friendship", player
+        ) and can_destroy_objects_overworld(
+            state, player
+        ),
+        "Meadow Zone Main Area - Bidoof Housing -- Stage 3": lambda state: state.has(
+            "Mankey Friendship", player
+        ) and can_destroy_objects_overworld(
+            state, player
+        ),
+        "Meadow Zone Main Area - Bidoof Housing -- Bidoof 3 Unlocked": lambda state: state.has(
+            "Mankey Friendship", player
+        ) and can_destroy_objects_overworld(
+            state, player
+        ),
+        "Meadow Zone Main Area - Bidoof Housing -- Stage 4": lambda state: state.has(
+            "Mankey Friendship", player
+        ) and can_destroy_objects_overworld(
+            state, player
+        ),
+        "Meadow Zone Main Area - Bidoof Housing -- Bibarel Unlocked": lambda state: state.has(
+            "Mankey Friendship", player
+        ) and can_destroy_objects_overworld(
+            state, player
+        ),
+        "Meadow Zone Main Area - Bidoof Housing Completed -- Friendship": lambda state: state.has(
+            "Mankey Friendship", player
+        ) and can_destroy_objects_overworld(
+            state, player
+        ),
+        "Meadow Zone Main Area - Bidoof Housing -- Beach Bidoof Unlocked": lambda state: state.has(
+            "Mankey Friendship", player
+        ),
+        "Meadow Zone Main Area - Bibarel Battle Power Competition -- Friendship": lambda state: can_battle(
+            state, player, options
+        ) and state.has(
+            "Bibarel Unlock", player
+        ),
+        "Meadow Zone Main Area - Leafeon Chase Power Competition -- Friendship": lambda
+            state: can_play_catch_intermediate(state, player, options) and has_friendship_count(state, player, 20),
+        "Meadow Zone Main Area - Torterra Battle Power Competition -- Friendship": lambda state: state.has(
+            "Torterra Unlock", player
+        ) and can_battle_thunderbolt_immune_intermediate(state, player, options),
+        "Meadow Zone Main Area - Scyther Battle Power Competition -- Friendship": lambda state: state.has(
+            "Scyther Unlock", player
+        ) and can_battle_intermediate(state, player, options),
+        "Meadow Zone Main Area - Starly Chase Power Competition -- Friendship": lambda state: can_beat_meadow_starly(
+            state, player, options
+        ),
+        "Meadow Zone Main Area - Bonsly Hide and Seek Power Competition -- Friendship": lambda
+            state: can_beat_meadow_bonsly(state, player),
+        "Meadow Zone Main Area - Bonsly Hide and Seek Power Competition -- Sudowoodo Unlocked": lambda
+            state: can_beat_meadow_bonsly(state, player),
+        "Meadow Zone Main Area - Chimchar Battle Power Competition -- Friendship": lambda
+            state: can_beat_meadow_chimchar(state, player, options),
+        "Meadow Zone Main Area - Sudowoodo Hide and Seek Power Competition -- Friendship": lambda
+            state: can_beat_meadow_sudowoodo(state, player, options),
+        "Meadow Zone Main Area - Aipom Chase Power Competition -- Friendship": lambda state: can_beat_meadow_aipom(
+            state, player, options
+        ),
+        "Meadow Zone Main Area - Aipom Chase Power Competition -- Ambipom Unlocked": lambda
+            state: can_beat_meadow_aipom(state, player, options),
+        "Meadow Zone Main Area - Ambipom Battle Power Competition -- Friendship": lambda state: can_beat_meadow_ambipom(
+            state, player, options
+        ),
+
+        # Bulbasaur's Daring Dash
+        "Bulbasaur's Daring Dash Attraction -- Prisma": lambda state: can_beat_any_bulbasaur_daring_dash_record(
+            state, player, options
+        ),
+        "Bulbasaur's Daring Dash Attraction -- Pikachu": lambda state: True,
+        "Bulbasaur's Daring Dash Attraction -- Turtwig": lambda state: state.has("Turtwig Friendship", player),
+        "Bulbasaur's Daring Dash Attraction -- Munchlax": lambda state: state.has("Munchlax Friendship", player),
+        "Bulbasaur's Daring Dash Attraction -- Chimchar": lambda state: state.has("Chimchar Friendship", player),
+        "Bulbasaur's Daring Dash Attraction -- Treecko": lambda state: state.has("Treecko Friendship", player),
+        "Bulbasaur's Daring Dash Attraction -- Bibarel": lambda state: state.has("Bibarel Friendship", player),
+        "Bulbasaur's Daring Dash Attraction -- Bulbasaur": lambda state: state.has("Bulbasaur Friendship", player),
+        "Bulbasaur's Daring Dash Attraction -- Bidoof": lambda state: state.has("Bidoof Friendship", player),
+        "Bulbasaur's Daring Dash Attraction -- Oddish": lambda state: state.has("Oddish Friendship", player),
+        "Bulbasaur's Daring Dash Attraction -- Shroomish": lambda state: state.has("Shroomish Friendship", player),
+        "Bulbasaur's Daring Dash Attraction -- Bonsly": lambda state: state.has("Bonsly Friendship", player),
+        "Bulbasaur's Daring Dash Attraction -- Lotad": lambda state: state.has("Lotad Friendship", player),
+        "Bulbasaur's Daring Dash Attraction -- Weedle": lambda state: state.has("Weedle Friendship", player),
+        "Bulbasaur's Daring Dash Attraction -- Caterpie": lambda state: state.has("Caterpie Friendship", player),
+        "Bulbasaur's Daring Dash Attraction -- Magikarp": lambda state: state.has("Magikarp Friendship", player),
+        "Bulbasaur's Daring Dash Attraction -- Jolteon": lambda state: state.has("Jolteon Friendship", player),
+        "Bulbasaur's Daring Dash Attraction -- Arcanine": lambda state: state.has("Arcanine Friendship", player),
+        "Bulbasaur's Daring Dash Attraction -- Leafeon": lambda state: state.has("Leafeon Friendship", player),
+        "Bulbasaur's Daring Dash Attraction -- Scyther": lambda state: state.has("Scyther Friendship", player),
+        "Bulbasaur's Daring Dash Attraction -- Ponyta": lambda state: state.has("Ponyta Friendship", player),
+        "Bulbasaur's Daring Dash Attraction -- Shinx": lambda state: state.has("Shinx Friendship", player),
+        "Bulbasaur's Daring Dash Attraction -- Eevee": lambda state: state.has("Eevee Friendship", player),
+        "Bulbasaur's Daring Dash Attraction -- Pachirisu": lambda state: state.has("Pachirisu Friendship", player),
+        "Bulbasaur's Daring Dash Attraction -- Buneary": lambda state: state.has("Buneary Friendship", player),
+        "Bulbasaur's Daring Dash Attraction -- Croagunk": lambda state: state.has("Croagunk Friendship", player),
+        "Bulbasaur's Daring Dash Attraction -- Mew": lambda state: state.has("Mew Friendship", player),
+
+        # Venusaur
+        "Meadow Zone Venusaur Area - Venusaur -- Friendship": lambda state: state.has(
+            "Venusaur Prisma", player
+        ) and state.has(
+            "Empoleon Prisma", player
+        ) and state.has(
+            "Blaziken Prisma", player
+        ) and can_enter_attraction_via_venusaur(),
+
+        # Venusaur's Vine Swing
+        "Venusaur's Vine Swing Attraction -- Prisma": lambda state: can_beat_any_venusaur_vine_swing_record(
+            state, player, options
+        ),
+        "Venusaur's Vine Swing Attraction -- Pikachu": lambda state: True,
+        "Venusaur's Vine Swing Attraction -- Munchlax": lambda state: state.has("Munchlax Friendship", player),
+        "Venusaur's Vine Swing Attraction -- Magikarp": lambda state: state.has("Magikarp Friendship", player),
+        "Venusaur's Vine Swing Attraction -- Blaziken": lambda state: state.has("Blaziken Friendship", player),
+        "Venusaur's Vine Swing Attraction -- Infernape": lambda state: state.has("Infernape Friendship", player),
+        "Venusaur's Vine Swing Attraction -- Lucario": lambda state: state.has("Lucario Friendship", player),
+        "Venusaur's Vine Swing Attraction -- Primeape": lambda state: state.has("Primeape Friendship", player),
+        "Venusaur's Vine Swing Attraction -- Tangrowth": lambda state: state.has("Tangrowth Friendship", player),
+        "Venusaur's Vine Swing Attraction -- Ambipom": lambda state: state.has("Ambipom Friendship", player),
+        "Venusaur's Vine Swing Attraction -- Croagunk": lambda state: state.has("Croagunk Friendship", player),
+        "Venusaur's Vine Swing Attraction -- Mankey": lambda state: state.has("Mankey Friendship", player),
+        "Venusaur's Vine Swing Attraction -- Aipom": lambda state: state.has("Aipom Friendship", player),
+        "Venusaur's Vine Swing Attraction -- Chimchar": lambda state: state.has("Chimchar Friendship", player),
+        "Venusaur's Vine Swing Attraction -- Treecko": lambda state: state.has("Treecko Friendship", player),
+        "Venusaur's Vine Swing Attraction -- Pachirisu": lambda state: state.has("Pachirisu Friendship", player),
+        "Venusaur's Vine Swing Attraction -- Jirachi": lambda state: state.has("Jirachi Friendship", player),
+        "Venusaur's Vine Swing Attraction -- Jirachi Friendship": lambda
+            state: can_beat_all_venusaur_vine_swing_records(state, player),
+
+        # Beach Zone
+        "Beach Zone Main Area - Buizel Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Beach Zone Main Area - Buizel Chase Power Competition -- Floatzel Unlocked": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Beach Zone Main Area - Psyduck Hide and Seek Power Competition -- Friendship": lambda state: True,
+        "Beach Zone Main Area - Psyduck Hide and Seek Power Competition -- Golduck Unlocked": lambda state: True,
+        "Beach Zone Main Area - Slowpoke Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Beach Zone Main Area - Slowpoke Chase Power Competition -- Mudkip Unlocked": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Beach Zone Main Area - Azurill Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Beach Zone Main Area - Azurill Chase Power Competition -- Totodile Unlocked": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Beach Zone Main Area - Totodile Battle Power Competition -- Friendship": lambda state: can_battle(
+            state, player, options
+        ) and state.has(
+            "Totodile Unlock", player
+        ),
+        "Beach Zone Main Area - Pidgeotto Battle Power Competition -- Friendship": lambda state: can_battle(
+            state, player, options
+        ),
+        "Beach Zone Main Area - Corsola Quiz Power Competition -- Friendship": lambda state: True,
+        "Beach Zone Main Area - Floatzel Battle Power Competition -- Friendship": lambda state: can_battle(
+            state, player, options
+        ) and state.has(
+            "Floatzel Unlock", player
+        ),
+        "Beach Zone Main Area - Vaporeon Chase Power Competition -- Friendship": lambda
+            state: can_play_catch_intermediate(state, player, options) and has_friendship_count(state, player, 30),
+        "Beach Zone Main Area - Golduck Battle Power Competition -- Friendship": lambda state: can_battle(
+            state, player, options
+        ) and state.has(
+            "Golduck Unlock", player
+        ),
+        "Beach Zone Main Area - Wailord Errand -- Friendship": lambda state: state.can_reach_region(
+            "Beach Zone Recycle Area", player
+        ),
+        "Beach Zone Main Area - Feraligatr Battle Power Competition -- Friendship": lambda
+            state: can_battle_intermediate(state, player, options),
+        "Beach Zone Main Area - Spearow Battle Power Competition -- Friendship": lambda state: can_beat_beach_spearow(
+            state, player, options
+        ),
+        "Beach Zone Main Area - Blastoise Battle Power Competition -- Friendship": lambda
+            state: can_battle_intermediate(state, player, options) and state.has("Blastoise Unlock", player),
+        "Beach Zone Recycle Area - Bottle Recycling -- Stage 1": lambda state: True,
+        "Beach Zone Recycle Area - Bottle Recycling -- Stage 2": lambda state: True,
+        "Beach Zone Recycle Area - Bottle Recycling -- Stage 2 --- Krabby Unlocked": lambda state: True,
+        "Beach Zone Recycle Area - Bottle Recycling -- Stage 3": lambda state: True,
+        "Beach Zone Recycle Area - Bottle Recycling -- Stage 4": lambda state: True,
+        "Beach Zone Recycle Area - Bottle Recycling -- Stage 4 --- Corphish Unlocked": lambda state: True,
+        "Beach Zone Recycle Area - Bottle Recycling -- Stage 5": lambda state: True,
+        "Beach Zone Recycle Area - Bottle Recycling -- Stage 6": lambda state: True,
+        "Beach Zone Main Area - Krabby Chase Power Competition -- Friendship": lambda state: can_beat_beach_krabby(
+            state, player, options
+        ),
+        "Beach Zone Main Area - Starly Chase Power Competition -- Friendship": lambda state: can_beat_beach_starly(
+            state, player, options
+        ),
+        "Beach Zone Main Area - Mudkip Hide and Seek Power Competition -- Friendship": lambda
+            state: can_beat_beach_mudkip(state, player, options),
+        "Beach Zone Main Area - Taillow Chase Power Competition -- Friendship": lambda state: can_beat_beach_taillow(
+            state, player, options
+        ),
+        "Beach Zone Main Area - Staravia Battle Power Competition -- Friendship": lambda state: can_beat_beach_staravia(
+            state, player, options
+        ),
+        "Beach Zone Main Area - Wingull Chase Power Competition -- Friendship": lambda state: can_beat_beach_wingull(
+            state, player, options
+        ),
+        "Beach Zone Middle Isle - Piplup Battle Power Competition -- Friendship": lambda state: can_battle(
+            state, player, options
+        ),
+        "Beach Zone Main Area - Corphish Battle Power Competition -- Friendship": lambda state: can_beat_beach_corphish(
+            state, player, options
+        ),
+        "Beach Zone Main Area - Pelipper -- Friendship": lambda state: state.has(
+            "Pelipper Prisma", player
+        ) and can_enter_attraction_via_pelipper(),
+        "Beach Zone Recycle Area - Gyarados -- Friendship": lambda state: state.has(
+            "Gyarados Prisma", player
+        ) and can_enter_attraction_via_gyarados(),
+
+        # Pelipper's Circle Circuit
+        "Pelipper's Circle Circuit Attraction -- Prisma": lambda state: can_beat_any_pelipper_circle_circuit_record(
+            state, player, options
+        ),
+        "Pelipper's Circle Circuit Attraction -- Pikachu": lambda state: state.has("Pikachu Balloon", player),
+        "Pelipper's Circle Circuit Attraction -- Staraptor": lambda state: state.has("Staraptor Friendship", player),
+        "Pelipper's Circle Circuit Attraction -- Togekiss": lambda state: state.has("Togekiss Friendship", player),
+        "Pelipper's Circle Circuit Attraction -- Honchkrow": lambda state: state.has("Honchkrow Friendship", player),
+        "Pelipper's Circle Circuit Attraction -- Gliscor": lambda state: state.has("Gliscor Friendship", player),
+        "Pelipper's Circle Circuit Attraction -- Pelipper": lambda state: state.has("Pelipper Friendship", player),
+        "Pelipper's Circle Circuit Attraction -- Staravia": lambda state: state.has("Staravia Friendship", player),
+        "Pelipper's Circle Circuit Attraction -- Pidgeotto": lambda state: state.has("Pidgeotto Friendship", player),
+        "Pelipper's Circle Circuit Attraction -- Butterfree": lambda state: state.has("Butterfree Friendship", player),
+        "Pelipper's Circle Circuit Attraction -- Tropius": lambda state: state.has("Tropius Friendship", player),
+        "Pelipper's Circle Circuit Attraction -- Murkrow": lambda state: state.has("Murkrow Friendship", player),
+        "Pelipper's Circle Circuit Attraction -- Taillow": lambda state: state.has("Taillow Friendship", player),
+        "Pelipper's Circle Circuit Attraction -- Spearow": lambda state: state.has("Spearow Friendship", player),
+        "Pelipper's Circle Circuit Attraction -- Starly": lambda state: state.has("Starly Friendship", player),
+        "Pelipper's Circle Circuit Attraction -- Wingull": lambda state: state.has("Wingull Friendship", player),
+        "Pelipper's Circle Circuit Attraction -- Latias": lambda state: state.has("Latias Friendship", player),
+        "Pelipper's Circle Circuit Attraction -- Latias Friendship": lambda
+            state: can_beat_all_pelipper_circle_circuit_records(state, player),
+
+        # Gyarados' Aqua Dash
+        "Gyarados' Aqua Dash Attraction -- Prisma": lambda state: can_beat_any_gyarados_aqua_dash_record(
+            state, player, options
+        ),
+        "Gyarados' Aqua Dash Attraction -- Pikachu": lambda state: state.has("Pikachu Surfboard", player),
+        "Gyarados' Aqua Dash Attraction -- Psyduck": lambda state: state.has("Psyduck Friendship", player),
+        "Gyarados' Aqua Dash Attraction -- Azurill": lambda state: state.has("Azurill Friendship", player),
+        "Gyarados' Aqua Dash Attraction -- Slowpoke": lambda state: state.has("Slowpoke Friendship", player),
+        "Gyarados' Aqua Dash Attraction -- Empoleon": lambda state: state.has("Empoleon Friendship", player),
+        "Gyarados' Aqua Dash Attraction -- Floatzel": lambda state: state.has("Floatzel Friendship", player),
+        "Gyarados' Aqua Dash Attraction -- Feraligatr": lambda state: state.has("Feraligatr Friendship", player),
+        "Gyarados' Aqua Dash Attraction -- Golduck": lambda state: state.has("Golduck Friendship", player),
+        "Gyarados' Aqua Dash Attraction -- Vaporeon": lambda state: state.has("Vaporeon Friendship", player),
+        "Gyarados' Aqua Dash Attraction -- Prinplup": lambda state: state.has("Prinplup Friendship", player),
+        "Gyarados' Aqua Dash Attraction -- Bibarel": lambda state: state.has("Bibarel Friendship", player),
+        "Gyarados' Aqua Dash Attraction -- Buizel": lambda state: state.has("Buizel Friendship", player),
+        "Gyarados' Aqua Dash Attraction -- Corsola": lambda state: state.has("Corsola Friendship", player),
+        "Gyarados' Aqua Dash Attraction -- Piplup": lambda state: state.has("Piplup Friendship", player),
+        "Gyarados' Aqua Dash Attraction -- Lotad": lambda state: state.has("Lotad Friendship", player),
+        "Gyarados' Aqua Dash Attraction -- Manaphy": lambda state: state.has("Manaphy Friendship", player),
+        "Gyarados' Aqua Dash Attraction -- Manaphy Friendship": lambda state: can_beat_all_gyarados_aqua_dash_records(
+            state, player
+        ),
+
+        # Ice Zone
+        "Ice Zone Main Area - Lapras -- Friendship": lambda state: True,
+        "Ice Zone Main Area - Spheal Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Ice Zone Main Area - Octillery Battle Power Competition -- Friendship": lambda state: can_battle(
+            state, player, options
+        ),
+        "Ice Zone Main Area - Delibird Quiz Power Competition -- Friendship": lambda state: can_befriend_delibird(
+            state, player, options
+        ),
+        "Ice Zone Main Area - Smoochum Battle Power Competition -- Friendship": lambda state: can_battle(
+            state, player, options
+        ) and state.has(
+            "Smoochum Unlock", player
+        ),
+        "Ice Zone Main Area - Squirtle Battle Power Competition -- Friendship": lambda state: can_battle(
+            state, player, options
+        ) and state.has(
+            "Squirtle Unlock", player
+        ),
+        "Ice Zone Main Area - Glaceon Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ) and has_friendship_count(
+            state, player, 50
+        ),
+        "Ice Zone Main Area - Prinplup Battle Power Competition -- Friendship": lambda state: can_battle(
+            state, player, options
+        ),
+        "Ice Zone Main Area - Sneasel Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ) and state.has(
+            "Sneasel Unlock", player
+        ),
+        "Ice Zone Main Area - Piloswine Battle Power Competition -- Friendship": lambda
+            state: can_battle_thunderbolt_immune(state, player, options),
+        "Ice Zone Main Area - Glalie Battle Power Competition -- Friendship": lambda state: state.has(
+            "Glalie Unlock", player
+        ),
+        "Ice Zone Main Area - Primeape Battle Power Competition -- Friendship": lambda state: can_battle_intermediate(
+            state, player, options
+        ) and state.has("Primeape Unlock", player),
+        "Ice Zone Main Area - Ursaring Battle Power Competition -- Friendship": lambda state: can_battle(
+            state, player, options
+        ) and state.has(
+            "Ursaring Unlock", player
+        ),
+        "Ice Zone Main Area - Mamoswine Battle Power Competition -- Friendship": lambda
+            state: can_battle_thunderbolt_immune_intermediate(state, player, options) and state.has(
+            "Mamoswine Unlock", player
+        ),
+        "Ice Zone Main Area - Kirlia Errand -- Friendship": lambda state: can_clear_christmas_tree_stage4(
+            state, player
+        ),
+        "Ice Zone Main Area - Igloo Housing -- Stage 1": lambda state: state.has("Glalie Unlock", player),
+        "Ice Zone Main Area - Igloo Housing -- Stage 1 -- Primeape Unlocked": lambda state: state.has(
+            "Glalie Unlock", player
+        ),
+        "Ice Zone Main Area - Igloo Housing -- Stage 2": lambda state: state.has("Glalie Unlock", player),
+        "Ice Zone Main Area - Igloo Housing -- Stage 2 -- Ursaring Unlocked": lambda state: state.has(
+            "Glalie Unlock", player
+        ),
+        "Ice Zone Main Area - Igloo Housing -- Stage 3": lambda state: state.has("Glalie Unlock", player),
+        "Ice Zone Main Area - Christmas Tree Present -- Stage 1": lambda state: can_clear_christmas_tree_stage1(
+            state, player
+        ),
+        "Ice Zone Main Area - Christmas Tree Present -- Stage 2": lambda state: can_clear_christmas_tree_stage2(
+            state, player
+        ),
+        "Ice Zone Main Area - Christmas Tree Present -- Stage 3": lambda state: can_clear_christmas_tree_stage3(
+            state, player
+        ),
+        "Ice Zone Main Area - Christmas Tree Present -- Stage 4": lambda state: can_clear_christmas_tree_stage4(
+            state, player
+        ),
+        "Ice Zone Frozen Lake Area - Frozen Mamoswine -- Ice Rescue": lambda state: state.has(
+            "Ice Zone Frozen Lake Unlock", player
+        ) and can_dash_overworld(state, player),
+        "Ice Zone Lower Lift Area - Froslass Battle Power Competition -- Friendship": lambda state: can_battle(
+            state, player, options
+        ),
+        "Ice Zone Empoleon Area - Empoleon -- Friendship": lambda state: state.has(
+            "Empoleon Prisma", player
+        ) and can_enter_attraction_via_empoleon(),
+        "Ice Zone Lower Lift Area - Quagsire Errand -- Friendship": lambda state: can_dash(state, player),
+        "Ice Zone Main Area - Starly Chase Power Competition -- Friendship": lambda state: can_beat_ice_starly(
+            state, player, options
+        ),
+        "Ice Zone Main Area - Krabby Chase Power Competition -- Friendship": lambda state: can_beat_ice_krabby(
+            state, player, options
+        ),
+        "Ice Zone Main Area - Corphish Battle Power Competition -- Friendship": lambda state: can_beat_ice_corphish(
+            state, player, options
+        ),
+        "Ice Zone Main Area - Mudkip Hide and Seek Power Competition -- Friendship": lambda state: can_beat_ice_mudkip(
+            state, player, options
+        ),
+        "Ice Zone Main Area - Taillow Chase Power Competition -- Friendship": lambda state: can_beat_ice_taillow(
+            state, player, options
+        ),
+        "Ice Zone Main Area - Staravia Battle Power Competition -- Friendship": lambda state: can_beat_ice_staravia(
+            state, player, options
+        ),
+        "Ice Zone Main Area - Teddiursa Chase Power Competition -- Friendship": lambda state: can_beat_ice_teddiursa(
+            state, player, options
+        ),
+        "Ice Zone Lower Lift Area - Wingull Chase Power Competition -- Friendship": lambda state: can_beat_ice_wingull(
+            state, player, options
+        ),
+
+        # Empoleon's Snow Slide
+        "Empoleon's Snow Slide Attraction -- Prisma": lambda state: can_beat_any_empoleon_snow_slide_record(
+            state, player, options
+        ),
+        "Empoleon's Snow Slide Attraction -- Pikachu": lambda state: state.has("Pikachu Snowboard", player),
+        "Empoleon's Snow Slide Attraction -- Teddiursa": lambda state: state.has("Teddiursa Friendship", player),
+        "Empoleon's Snow Slide Attraction -- Magikarp": lambda state: state.has("Magikarp Friendship", player),
+        "Empoleon's Snow Slide Attraction -- Empoleon": lambda state: state.has("Empoleon Friendship", player),
+        "Empoleon's Snow Slide Attraction -- Glaceon": lambda state: state.has("Glaceon Friendship", player),
+        "Empoleon's Snow Slide Attraction -- Blastoise": lambda state: state.has("Blastoise Friendship", player),
+        "Empoleon's Snow Slide Attraction -- Glalie": lambda state: state.has("Glalie Friendship", player),
+        "Empoleon's Snow Slide Attraction -- Lapras": lambda state: state.has("Lapras Friendship", player),
+        "Empoleon's Snow Slide Attraction -- Delibird": lambda state: state.has("Delibird Friendship", player),
+        "Empoleon's Snow Slide Attraction -- Piloswine": lambda state: state.has("Piloswine Friendship", player),
+        "Empoleon's Snow Slide Attraction -- Prinplup": lambda state: state.has("Prinplup Friendship", player),
+        "Empoleon's Snow Slide Attraction -- Squirtle": lambda state: state.has("Squirtle Friendship", player),
+        "Empoleon's Snow Slide Attraction -- Piplup": lambda state: state.has("Piplup Friendship", player),
+        "Empoleon's Snow Slide Attraction -- Quagsire": lambda state: state.has("Quagsire Friendship", player),
+        "Empoleon's Snow Slide Attraction -- Spheal": lambda state: state.has("Spheal Friendship", player),
+        "Empoleon's Snow Slide Attraction -- Suicune": lambda state: state.has("Suicune Friendship", player),
+        "Empoleon's Snow Slide Attraction -- Suicune Friendship": lambda
+            state: can_beat_all_empoleon_snow_slide_records(state, player),
+
+        # Cavern Zone
+        "Cavern Zone Main Area - Magnemite -- Friendship": lambda state: state.has(
+            "Magnemite Unlock", player
+        ) or state.has(
+            "Magnemite 2 Unlock", player
+        ) or state.has(
+            "Magnemite 3 Unlock", player
+        ),
+        "Cavern Zone Main Area - Machamp -- Friendship": lambda state: True,
+        "Cavern Zone Main Area - Machamp -- Machamp Unlocked": lambda state: True,
+        "Cavern Zone Main Area - Cranidos Battle Power Competition -- Friendship": lambda
+            state: can_battle_intermediate(state, player, options),
+        "Cavern Zone Main Area - Zubat Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Cavern Zone Main Area - Golbat Chase Power Competition -- Friendship": lambda
+            state: can_play_catch_intermediate(state, player, options),
+        "Cavern Zone Main Area - Magnezone Battle Power Competition -- Friendship": lambda state: state.has(
+            "Magnezone Unlock", player
+        ) and can_battle_thunderbolt_immune_intermediate(state, player, options),
+        "Cavern Zone Main Area - Scizor Battle Power Competition -- Friendship": lambda state: can_battle_intermediate(
+            state, player, options
+        ),
+        "Cavern Zone Main Area - Dugtrio -- Friendship": lambda state: state.has("Bastiodon Prisma", player),
+        "Cavern Zone Main Area - Diglett -- Friendship": lambda state: state.has(
+            "Bastiodon Prisma", player
+        ) and state.has(
+            "Diglett Unlock", player
+        ),
+        "Cavern Zone Main Area - Gible Battle Power Competition -- Friendship": lambda
+            state: can_battle_thunderbolt_immune(state, player, options),
+        "Cavern Zone Main Area - Phanpy Errand -- Friendship": lambda state: can_destroy_objects_overworld(
+            state, player
+        ) and state.has(
+            "Phanpy Unlock", player
+        ),
+        "Cavern Zone Main Area - Hitmonlee Battle Power Competition -- Friendship": lambda
+            state: can_battle_intermediate(state, player, options) and state.has("Hitmonlee Unlock", player),
+        "Cavern Zone Main Area - Electivire Battle Power Competition -- Friendship": lambda
+            state: can_battle_thunderbolt_immune_advanced(state, player, options) and state.has(
+            "Electivire Unlock", player
+        ),
+        "Cavern Zone Main Area - Magnemite Crate Entrance -- Magnemite Unlocked": lambda
+            state: can_destroy_objects_overworld(state, player),
+        "Cavern Zone Main Area - Magnemite Crate Magma Zone Entrance -- Magnemite Unlocked": lambda
+            state: can_destroy_objects_overworld(state, player),
+        "Cavern Zone Main Area - Magnemite Crate Deep Inside -- Magnemite Unlocked": lambda
+            state: can_destroy_objects_overworld(state, player),
+        "Cavern Zone Main Area - Diglett Crate -- Diglett Unlocked": lambda state: can_destroy_objects_overworld(
+            state, player
+        ),
+        "Cavern Zone Main Area - Bonsly Hide and Seek Power Competition -- Friendship": lambda
+            state: can_beat_cavern_bonsly(state, player),
+        "Cavern Zone Main Area - Bonsly Hide and Seek Power Competition -- Sudowoodo Unlocked": lambda
+            state: can_beat_cavern_bonsly(state, player),
+        "Cavern Zone Main Area - Teddiursa Quiz Power Competition -- Friendship": lambda
+            state: can_beat_cavern_teddiursa(state, player, options),
+        "Cavern Zone Main Area - Chimchar Battle Power Competition -- Friendship": lambda
+            state: can_beat_cavern_chimchar(state, player, options),
+        "Cavern Zone Main Area - Sudowoodo Hide and Seek Power Competition -- Friendship": lambda
+            state: can_beat_cavern_sudowoodo(state, player, options),
+        "Cavern Zone Main Area - Aron Errand -- Friendship": lambda state: can_beat_cavern_aron(state, player, options),
+        "Cavern Zone Main Area - Torchic Battle Power Competition -- Friendship": lambda state: can_beat_cavern_torchic(
+            state, player, options
+        ),
+        "Cavern Zone Main Area - Geodude Hide and Seek Power Competition -- Friendship": lambda
+            state: can_beat_cavern_geodude(state, player, options),
+        "Cavern Zone Main Area - Raichu Chase Power Competition -- Friendship": lambda state: can_beat_cavern_raichu(
+            state, player, options
+        ),
+        "Cavern Zone Main Area - Meowth Quiz Power Competition -- Friendship": lambda state: can_beat_cavern_meowth(
+            state, player, options
+        ),
+        "Cavern Zone Main Area - Marowak Battle Power Competition -- Friendship": lambda state: can_beat_cavern_marowak(
+            state, player, options
+        ),
+        "Cavern Zone Main Area - Mawile Chase Power Competition -- Friendship": lambda
+            state: can_play_catch_intermediate(state, player, options),
+        "Cavern Zone Main Area - Bastiodon -- Friendship": lambda state: state.has(
+            "Bastiodon Prisma", player
+        ) and can_enter_attraction_via_bastiodon(
+            state, player
+        ),
+
+        # Bastiodon's Panel Crush
+        "Bastiodon's Panel Crush Attraction -- Prisma": lambda state: can_beat_any_bastiodon_panel_crush_record(
+            state, player, options
+        ),
+        "Bastiodon's Panel Crush Attraction -- Pikachu": lambda state: True,
+        "Bastiodon's Panel Crush Attraction -- Sableye": lambda state: state.has("Sableye Friendship", player),
+        "Bastiodon's Panel Crush Attraction -- Meowth": lambda state: state.has("Meowth Friendship", player),
+        "Bastiodon's Panel Crush Attraction -- Torchic": lambda state: state.has("Torchic Friendship", player),
+        "Bastiodon's Panel Crush Attraction -- Electivire": lambda state: state.has("Electivire Friendship", player),
+        "Bastiodon's Panel Crush Attraction -- Magmortar": lambda state: state.has("Magmortar Friendship", player),
+        "Bastiodon's Panel Crush Attraction -- Hitmonlee": lambda state: state.has("Hitmonlee Friendship", player),
+        "Bastiodon's Panel Crush Attraction -- Ursaring": lambda state: state.has("Ursaring Friendship", player),
+        "Bastiodon's Panel Crush Attraction -- Mr. Mime": lambda state: state.has("Mr. Mime Friendship", player),
+        "Bastiodon's Panel Crush Attraction -- Raichu": lambda state: state.has("Raichu Friendship", player),
+        "Bastiodon's Panel Crush Attraction -- Sudowoodo": lambda state: state.has("Sudowoodo Friendship", player),
+        "Bastiodon's Panel Crush Attraction -- Charmander": lambda state: state.has("Charmander Friendship", player),
+        "Bastiodon's Panel Crush Attraction -- Gible": lambda state: state.has("Gible Friendship", player),
+        "Bastiodon's Panel Crush Attraction -- Chimchar": lambda state: state.has("Chimchar Friendship", player),
+        "Bastiodon's Panel Crush Attraction -- Magby": lambda state: state.has("Magby Friendship", player),
+        "Bastiodon's Panel Crush Attraction -- Metagross": lambda state: state.has("Metagross Friendship", player),
+        "Bastiodon's Panel Crush Attraction -- Metagross Friendship": lambda
+            state: can_beat_all_bastiodon_panel_crush_records(state, player),
+
+        # Magma Zone
+        "Magma Zone Main Area - Camerupt Battle Power Competition -- Friendship": lambda
+            state: can_battle_thunderbolt_immune_intermediate(state, player, options),
+        "Magma Zone Main Area - Magby Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Magma Zone Main Area - Vulpix Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Magma Zone Main Area - Vulpix Chase Power Competition -- Ninetales Unlocked": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Magma Zone Main Area - Drill -- Torkoal Unlocked": lambda state: can_dash_overworld(state, player),
+        "Magma Zone Main Area - Furnace -- Golem Unlocked": lambda state: can_dash_overworld(state, player),
+        "Magma Zone Circle Area - Charmander Battle Power Competition -- Friendship": lambda state: can_battle(
+            state, player, options
+        ),
+        "Magma Zone Circle Area - Ninetales Chase Power Competition -- Friendship": lambda
+            state: can_play_catch_intermediate(state, player, options) and state.has("Ninetales Unlock", player),
+        "Magma Zone Circle Area - Quilava Battle Power Competition -- Friendship": lambda
+            state: can_battle_intermediate(state, player, options),
+        "Magma Zone Circle Area - Flareon Battle Power Competition -- Friendship": lambda
+            state: can_battle_intermediate(state, player, options) and has_friendship_count(state, player, 60),
+        "Magma Zone Circle Area - Infernape Battle Power Competition -- Friendship": lambda
+            state: can_battle_intermediate(state, player, options) and state.has("Infernape Unlock", player),
+        "Magma Zone Circle Area - Farfetch'd Battle Power Competition -- Friendship": lambda
+            state: can_battle_intermediate(state, player, options),
+        "Magma Zone Circle Area - Ponyta Chase Power Competition -- Friendship": lambda
+            state: can_play_catch_intermediate(state, player, options) and state.has("Ponyta Unlock", player),
+        "Magma Zone Main Area - Torkoal Battle Power Competition -- Friendship": lambda state: can_battle_intermediate(
+            state, player, options
+        ) and state.has("Torkoal Unlock", player),
+        "Magma Zone Main Area - Golem -- Friendship": lambda state: state.has("Golem Unlock", player),
+        "Magma Zone Circle Area - Hitmonchan Battle Power Competition -- Friendship": lambda
+            state: can_battle_intermediate(state, player, options) and state.has("Hitmonchan Unlock", player),
+        "Magma Zone Circle Area - Hitmonchan Battle Power Competition -- Hitmonlee Unlocked": lambda
+            state: can_battle_intermediate(state, player, options) and state.has("Hitmonchan Unlock", player),
+        "Magma Zone Main Area - Hitmontop Errand -- Friendship": lambda state: can_dash_overworld(state, player),
+        "Magma Zone Circle Area - Magmortar Battle Power Competition -- Friendship": lambda state: can_battle_advanced(
+            state, player, options
+        ) and state.has("Magmortar Unlock", player),
+        "Magma Zone Blaziken Area - Blaziken -- Friendship": lambda state: state.has("Rayquaza Prisma", player),
+        "Magma Zone Circle Area - Magcargo -- Friendship": lambda state: state.has(
+            "Rhyperior Prisma", player
+        ) and state.has(
+            "Bastiodon Prisma", player
+        ),
+        "Magma Zone Circle Area - Rhyperior Iron Disc -- Errand": lambda state: can_dash_overworld(state, player),
+        "Magma Zone Circle Area - Rhyperior -- Friendship": lambda state: state.has(
+            "Rhyperior Prisma", player
+        ) and can_enter_attraction_via_rhyperior(),
+        "Magma Zone Main Area - Baltoy Crate -- Baltoy Unlocked": lambda state: can_destroy_objects_overworld(
+            state, player
+        ),
+        "Magma Zone Main Area - Bonsly Hide and Seek Power Competition -- Friendship": lambda
+            state: can_beat_magma_bonsly(state, player),
+        "Magma Zone Main Area - Chimchar Battle Power Competition -- Friendship": lambda state: can_battle(
+            state, player, options
+        ),
+        "Magma Zone Main Area - Chimchar Battle Power Competition -- Infernape Unlocked": lambda
+            state: can_beat_magma_chimchar(state, player, options),
+        "Magma Zone Main Area - Aron Errand -- Friendship": lambda state: can_beat_magma_aron(state, player, options),
+        "Magma Zone Main Area - Torchic Battle Power Competition -- Friendship": lambda state: can_beat_magma_torchic(
+            state, player, options
+        ),
+        "Magma Zone Main Area - Geodude Hide and Seek Power Competition -- Friendship": lambda
+            state: can_beat_magma_geodude(state, player, options),
+        "Magma Zone Main Area - Baltoy Battle Power Competition -- Friendship": lambda state: can_beat_magma_baltoy(
+            state, player, options
+        ),
+        "Magma Zone Main Area - Baltoy Battle Power Competition -- Claydol Unlocked": lambda
+            state: can_beat_magma_baltoy(state, player, options),
+        "Magma Zone Main Area - Claydol Battle Power Competition -- Friendship": lambda state: can_beat_magma_claydol(
+            state, player, options
+        ),
+        "Magma Zone Circle Area - Meditite Quiz Power Competition -- Friendship": lambda state: can_beat_magma_meditite(
+            state, player, options
+        ),
+
+        # Rhyperior's Bumper Burn
+        "Rhyperior's Bumper Burn Attraction -- Prisma": lambda state: can_beat_any_rhyperior_bumper_burn_record(
+            state, player, options
+        ),
+        "Rhyperior's Bumper Burn Attraction -- Pikachu": lambda state: True,
+        "Rhyperior's Bumper Burn Attraction -- Magnemite": lambda state: state.has("Magnemite Friendship", player),
+        "Rhyperior's Bumper Burn Attraction -- Rhyperior": lambda state: state.has("Rhyperior Friendship", player),
+        "Rhyperior's Bumper Burn Attraction -- Tyranitar": lambda state: state.has("Tyranitar Friendship", player),
+        "Rhyperior's Bumper Burn Attraction -- Hitmontop": lambda state: state.has("Hitmontop Friendship", player),
+        "Rhyperior's Bumper Burn Attraction -- Flareon": lambda state: state.has("Flareon Friendship", player),
+        "Rhyperior's Bumper Burn Attraction -- Venusaur": lambda state: state.has("Venusaur Friendship", player),
+        "Rhyperior's Bumper Burn Attraction -- Snorlax": lambda state: state.has("Snorlax Friendship", player),
+        "Rhyperior's Bumper Burn Attraction -- Torterra": lambda state: state.has("Torterra Friendship", player),
+        "Rhyperior's Bumper Burn Attraction -- Magnezone": lambda state: state.has("Magnezone Friendship", player),
+        "Rhyperior's Bumper Burn Attraction -- Claydol": lambda state: state.has("Claydol Friendship", player),
+        "Rhyperior's Bumper Burn Attraction -- Quilava": lambda state: state.has("Quilava Friendship", player),
+        "Rhyperior's Bumper Burn Attraction -- Torkoal": lambda state: state.has("Torkoal Friendship", player),
+        "Rhyperior's Bumper Burn Attraction -- Baltoy": lambda state: state.has("Baltoy Friendship", player),
+        "Rhyperior's Bumper Burn Attraction -- Bonsly": lambda state: state.has("Bonsly Friendship", player),
+        "Rhyperior's Bumper Burn Attraction -- Heatran": lambda state: state.has("Heatran Friendship", player),
+        "Rhyperior's Bumper Burn Attraction -- Heatran Friendship": lambda
+            state: can_beat_all_rhyperior_bumper_burn_records(state, player),
+
+        # Blaziken's Boulder Bash
+        "Blaziken's Boulder Bash Attraction -- Prisma": lambda state: can_beat_any_blaziken_boulder_bash_record(
+            state, player, options
+        ),
+        "Blaziken's Boulder Bash Attraction -- Pikachu": lambda state: True,
+        "Blaziken's Boulder Bash Attraction -- Geodude": lambda state: state.has("Geodude Friendship", player),
+        "Blaziken's Boulder Bash Attraction -- Phanpy": lambda state: state.has("Phanpy Friendship", player),
+        "Blaziken's Boulder Bash Attraction -- Blaziken": lambda state: state.has("Blaziken Friendship", player),
+        "Blaziken's Boulder Bash Attraction -- Garchomp": lambda state: state.has("Garchomp Friendship", player),
+        "Blaziken's Boulder Bash Attraction -- Scizor": lambda state: state.has("Scizor Friendship", player),
+        "Blaziken's Boulder Bash Attraction -- Magmortar": lambda state: state.has("Magmortar Friendship", player),
+        "Blaziken's Boulder Bash Attraction -- Hitmonchan": lambda state: state.has("Hitmonchan Friendship", player),
+        "Blaziken's Boulder Bash Attraction -- Machamp": lambda state: state.has("Machamp Friendship", player),
+        "Blaziken's Boulder Bash Attraction -- Marowak": lambda state: state.has("Marowak Friendship", player),
+        "Blaziken's Boulder Bash Attraction -- Farfetch'd": lambda state: state.has("Farfetch'd Friendship", player),
+        "Blaziken's Boulder Bash Attraction -- Cranidos": lambda state: state.has("Cranidos Friendship", player),
+        "Blaziken's Boulder Bash Attraction -- Camerupt": lambda state: state.has("Camerupt Friendship", player),
+        "Blaziken's Boulder Bash Attraction -- Bastiodon": lambda state: state.has("Bastiodon Friendship", player),
+        "Blaziken's Boulder Bash Attraction -- Mawile": lambda state: state.has("Mawile Friendship", player),
+        "Blaziken's Boulder Bash Attraction -- Groudon": lambda state: state.has("Groudon Friendship", player),
+        "Blaziken's Boulder Bash Attraction -- Groudon Friendship": lambda
+            state: can_beat_all_blaziken_boulder_bash_records(state, player),
+
+        # Haunted Zone
+        "Haunted Zone Main Area - Murkrow Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Haunted Zone Main Area - Murkrow Chase Power Competition -- Honchkrow Unlocked": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Haunted Zone Main Area - Honchkrow Battle Power Competition -- Friendship": lambda
+            state: can_battle_intermediate(state, player, options) and state.has("Honchkrow Unlock", player),
+        "Haunted Zone Main Area - Gliscor Battle Power Competition -- Friendship": lambda
+            state: can_battle_thunderbolt_immune_intermediate(state, player, options),
+        "Haunted Zone Main Area - Metapod -- Friendship": lambda state: state.has("Rotom Prisma", player) and state.has(
+            "Metapod Unlock", player
+        ),
+        "Haunted Zone Main Area - Kakuna -- Friendship": lambda state: state.has("Rotom Prisma", player) and state.has(
+            "Kakuna Unlock", player
+        ),
+        "Haunted Zone Main Area - Metapod Left Tree -- Metapod Unlocked": lambda state: can_dash_overworld(
+            state, player
+        ),
+        "Haunted Zone Main Area - Kakuna Right Tree -- Kakuna Unlocked": lambda state: can_dash_overworld(
+            state, player
+        ),
+        "Haunted Zone Main Area - Raichu Chase Power Competition -- Friendship": lambda state: can_beat_haunted_raichu(
+            state, player, options
+        ),
+        "Haunted Zone Main Area - Meowth Quiz Power Competition -- Friendship": lambda state: can_beat_haunted_meowth(
+            state, player, options
+        ),
+        "Haunted Zone Main Area - Aipom Chase Power Competition -- Friendship": lambda state: can_beat_haunted_aipom(
+            state, player, options
+        ),
+        "Haunted Zone Main Area - Aipom Chase Power Competition -- Ambipom Unlocked": lambda
+            state: can_beat_haunted_aipom(state, player, options),
+        "Haunted Zone Main Area - Ambipom Battle Power Competition -- Friendship": lambda
+            state: can_beat_haunted_ambipom(state, player, options),
+        "Haunted Zone Main Area - Drifloon -- Friendship": lambda state: can_beat_haunted_drifloon(
+            state, player, options
+        ),
+        "Haunted Zone Main Area - Tangrowth -- Friendship": lambda state: state.has(
+            "Tangrowth Prisma", player
+        ) and can_enter_attraction_via_tangrowth(),
+
+        # Tangrowth's Swing-Along
+        "Tangrowth's Swing-Along Attraction -- Prisma": lambda state: can_beat_any_tangrowth_swing_along_record(
+            state, player, options
+        ),
+        "Tangrowth's Swing-Along Attraction -- Pikachu": lambda state: True,
+        "Tangrowth's Swing-Along Attraction -- Meowth": lambda state: state.has("Meowth Friendship", player),
+        "Tangrowth's Swing-Along Attraction -- Pichu": lambda state: state.has("Pichu Friendship", player),
+        "Tangrowth's Swing-Along Attraction -- Lucario": lambda state: state.has("Lucario Friendship", player),
+        "Tangrowth's Swing-Along Attraction -- Infernape": lambda state: state.has("Infernape Friendship", player),
+        "Tangrowth's Swing-Along Attraction -- Blaziken": lambda state: state.has("Blaziken Friendship", player),
+        "Tangrowth's Swing-Along Attraction -- Riolu": lambda state: state.has("Riolu Friendship", player),
+        "Tangrowth's Swing-Along Attraction -- Sneasel": lambda state: state.has("Sneasel Friendship", player),
+        "Tangrowth's Swing-Along Attraction -- Raichu": lambda state: state.has("Raichu Friendship", player),
+        "Tangrowth's Swing-Along Attraction -- Ambipom": lambda state: state.has("Ambipom Friendship", player),
+        "Tangrowth's Swing-Along Attraction -- Primeape": lambda state: state.has("Primeape Friendship", player),
+        "Tangrowth's Swing-Along Attraction -- Aipom": lambda state: state.has("Aipom Friendship", player),
+        "Tangrowth's Swing-Along Attraction -- Electabuzz": lambda state: state.has("Electabuzz Friendship", player),
+        "Tangrowth's Swing-Along Attraction -- Chimchar": lambda state: state.has("Chimchar Friendship", player),
+        "Tangrowth's Swing-Along Attraction -- Croagunk": lambda state: state.has("Croagunk Friendship", player),
+        "Tangrowth's Swing-Along Attraction -- Celebi": lambda state: state.has("Celebi Friendship", player),
+        "Tangrowth's Swing-Along Attraction -- Celebi Friendship": lambda
+            state: can_beat_all_tangrowth_swing_along_records(state, player),
+
+        # Haunted Zone Mansion
+        "Haunted Zone Mansion Area - Duskull Chase Power Competition -- Friendship": lambda state: state.has(
+            "Dusknoir Prisma", player
+        ),
+        "Haunted Zone Mansion Area - Misdreavus Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Haunted Zone Mansion Area - Pichu Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Haunted Zone Mansion Area - Umbreon Chase Power Competition -- Friendship": lambda
+            state: can_play_catch_intermediate(state, player, options) and has_friendship_count(state, player, 75),
+        "Haunted Zone Mansion Area - Umbreon Chase Power Competition -- Espeon Unlocked": lambda
+            state: can_play_catch_intermediate(state, player, options) and has_friendship_count(state, player, 75),
+        "Haunted Zone Mansion Area - Espeon Chase Power Competition -- Friendship": lambda
+            state: can_play_catch_intermediate(state, player, options) and state.has("Espeon Unlock", player),
+        "Haunted Zone Mansion Area - Spinarak -- Friendship": lambda state: state.has("Rotom Prisma", player),
+        "Haunted Zone Main Area - Riolu Battle Power Competition -- Friendship": lambda state: can_battle_intermediate(
+            state, player, options
+        ),
+        "Haunted Zone Mansion Area - Voltorb Battle Power Competition -- Friendship": lambda
+            state: can_battle_thunderbolt_immune(state, player, options) and state.has("Voltorb Unlock", player),
+        "Haunted Zone Mansion Area - Elekid Hide and Seek Power Competition -- Friendship": lambda state: state.has(
+            "Elekid Unlock", player
+        ),
+        "Haunted Zone Mansion Area - Elekid Hide and Seek Power Competition -- Electabuzz Unlocked": lambda
+            state: state.has("Elekid Unlock", player),
+        "Haunted Zone Mansion Area - Electabuzz Battle Power Competition -- Friendship": lambda
+            state: can_battle_thunderbolt_immune_intermediate(state, player, options) and state.has(
+            "Electabuzz Unlock", player
+        ),
+        "Haunted Zone Mansion Area - Luxray Chase Power Competition -- Friendship": lambda
+            state: can_play_catch_intermediate(state, player, options) and state.has("Luxray Unlock", player),
+        "Haunted Zone Mansion Area - Stunky Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ) and state.has(
+            "Stunky Unlock", player
+        ),
+        "Haunted Zone Mansion Area - Stunky Chase Power Competition -- Skuntank Unlocked": lambda state: can_play_catch(
+            state, player, options
+        ) and state.has("Stunky Unlock", player),
+        "Haunted Zone Mansion Area - Skuntank Battle Power Competition -- Friendship": lambda
+            state: can_battle_intermediate(state, player, options) and state.has("Skuntank Unlock", player),
+        "Haunted Zone Mansion Area - Breloom Battle Power Competition -- Friendship": lambda
+            state: can_battle_thunderbolt_immune_intermediate(state, player, options) and state.has(
+            "Breloom Unlock", player
+        ),
+        "Haunted Zone Mansion Area - Mismagius Battle Power Competition -- Friendship": lambda
+            state: can_battle_intermediate(state, player, options) and state.has("Mismagius Unlock", player),
+        "Haunted Zone Mansion Area - Electrode -- Friendship": lambda state: state.has(
+            "Rotom Prisma", player
+        ) and state.has(
+            "Electrode Unlock", player
+        ),
+        "Haunted Zone Mansion Area - Haunter Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ) and state.has(
+            "Haunter Unlock", player
+        ),
+        "Haunted Zone Mansion Area - Gastly Chase Power Competition -- Friendship": lambda state: state.has(
+            "Gastly Unlock", player
+        ) or state.has("Gastly 2 Unlock", player),
+        "Haunted Zone Mansion Area - Gengar Battle Power Competition -- Friendship": lambda
+            state: can_battle_intermediate(state, player, options) and state.has("Gengar Unlock", player),
+        "Haunted Zone Mansion Area - Gengar Painting -- Gengar Unlocked": lambda state: has_friendship_count(
+            state, player, 85
+        ),
+        "Haunted Zone Mansion Area - Voltorb Vase -- Voltorb Unlocked": lambda state: can_destroy_objects_overworld(
+            state, player
+        ),
+        "Haunted Zone Mansion Area - Abra -- Friendship": lambda state: can_beat_haunted_abra(state, player, options),
+        "Haunted Zone Mansion Area - Dusknoir -- Friendship": lambda state: state.has(
+            "Dusknoir Prisma", player
+        ) and can_enter_attraction_via_dusknoir(
+            state, player
+        ),
+        "Haunted Zone Mansion Area - Sableye Quiz Power Competition -- Friendship": lambda state: True,
+
+        # Dusknoir's Speed Slam
+        "Dusknoir's Speed Slam Attraction -- Prisma": lambda state: can_beat_any_dusknoir_speed_slam_record(
+            state, player, options
+        ),
+        "Dusknoir's Speed Slam Attraction -- Pikachu": lambda state: True,
+        "Dusknoir's Speed Slam Attraction -- Stunky": lambda state: state.has("Stunky Friendship", player),
+        "Dusknoir's Speed Slam Attraction -- Gengar": lambda state: state.has("Gengar Friendship", player),
+        "Dusknoir's Speed Slam Attraction -- Mismagius": lambda state: state.has("Mismagius Friendship", player),
+        "Dusknoir's Speed Slam Attraction -- Scizor": lambda state: state.has("Scizor Friendship", player),
+        "Dusknoir's Speed Slam Attraction -- Espeon": lambda state: state.has("Espeon Friendship", player),
+        "Dusknoir's Speed Slam Attraction -- Dusknoir": lambda state: state.has("Dusknoir Friendship", player),
+        "Dusknoir's Speed Slam Attraction -- Umbreon": lambda state: state.has("Umbreon Friendship", player),
+        "Dusknoir's Speed Slam Attraction -- Cranidos": lambda state: state.has("Cranidos Friendship", player),
+        "Dusknoir's Speed Slam Attraction -- Skuntank": lambda state: state.has("Skuntank Friendship", player),
+        "Dusknoir's Speed Slam Attraction -- Voltorb": lambda state: state.has("Voltorb Friendship", player),
+        "Dusknoir's Speed Slam Attraction -- Gastly": lambda state: state.has("Gastly Friendship", player),
+        "Dusknoir's Speed Slam Attraction -- Duskull": lambda state: state.has("Duskull Friendship", player),
+        "Dusknoir's Speed Slam Attraction -- Misdreavus": lambda state: state.has("Misdreavus Friendship", player),
+        "Dusknoir's Speed Slam Attraction -- Krabby": lambda state: state.has("Krabby Friendship", player),
+        "Dusknoir's Speed Slam Attraction -- Darkrai": lambda state: state.has("Darkrai Friendship", player),
+        "Dusknoir's Speed Slam Attraction -- Darkrai Friendship": lambda
+            state: can_beat_all_dusknoir_speed_slam_records(state, player),
+
+        # Rotom's Spooky Shoot-'em-Up
+        "Rotom's Spooky Shoot-'em-Up Attraction -- Prisma": lambda state: can_beat_any_rotom_spooky_shoot_record(
+            state, player, options
+        ),
+        "Rotom's Spooky Shoot-'em-Up Attraction -- Pikachu": lambda state: True,
+        "Rotom's Spooky Shoot-'em-Up Attraction -- Magnemite": lambda state: state.has("Magnemite Friendship", player),
+        "Rotom's Spooky Shoot-'em-Up Attraction -- Porygon-Z": lambda state: state.has("Porygon-Z Friendship", player),
+        "Rotom's Spooky Shoot-'em-Up Attraction -- Magnezone": lambda state: state.has("Magnezone Friendship", player),
+        "Rotom's Spooky Shoot-'em-Up Attraction -- Gengar": lambda state: state.has("Gengar Friendship", player),
+        "Rotom's Spooky Shoot-'em-Up Attraction -- Magmortar": lambda state: state.has("Magmortar Friendship", player),
+        "Rotom's Spooky Shoot-'em-Up Attraction -- Electivire": lambda state: state.has(
+            "Electivire Friendship", player
+        ),
+        "Rotom's Spooky Shoot-'em-Up Attraction -- Mismagius": lambda state: state.has("Mismagius Friendship", player),
+        "Rotom's Spooky Shoot-'em-Up Attraction -- Claydol": lambda state: state.has("Claydol Friendship", player),
+        "Rotom's Spooky Shoot-'em-Up Attraction -- Electabuzz": lambda state: state.has(
+            "Electabuzz Friendship", player
+        ),
+        "Rotom's Spooky Shoot-'em-Up Attraction -- Haunter": lambda state: state.has("Haunter Friendship", player),
+        "Rotom's Spooky Shoot-'em-Up Attraction -- Abra": lambda state: state.has("Abra Friendship", player),
+        "Rotom's Spooky Shoot-'em-Up Attraction -- Elekid": lambda state: state.has("Elekid Friendship", player),
+        "Rotom's Spooky Shoot-'em-Up Attraction -- Mr. Mime": lambda state: state.has("Mr. Mime Friendship", player),
+        "Rotom's Spooky Shoot-'em-Up Attraction -- Baltoy": lambda state: state.has("Baltoy Friendship", player),
+        "Rotom's Spooky Shoot-'em-Up Attraction -- Rotom": lambda state: state.has("Rotom Friendship", player),
+        "Rotom's Spooky Shoot-'em-Up Attraction -- Rotom Friendship": lambda
+            state: can_beat_all_rotom_spooky_shoot_records(state, player),
+
+        # Granite Zone
+        "Granite Zone Main Area - Lopunny Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Granite Zone Main Area - Eevee Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Granite Zone Main Area - Eevee Chase Power Competition -- Jolteon Unlocked": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Granite Zone Main Area - Charizard Battle Power Competition -- Friendship": lambda state: can_battle_advanced(
+            state, player, options
+        ),
+        "Granite Zone Main Area - Flygon Chase Power Competition -- Friendship": lambda state: can_play_catch_advanced(
+            state, player, options
+        ),
+        "Granite Zone Main Area - Staraptor Battle Power Competition -- Friendship": lambda state: can_battle_advanced(
+            state, player, options
+        ),
+        "Granite Zone Main Area - Staraptor Battle Power Competition -- Aerodactyl Unlocked": lambda
+            state: can_battle_advanced(state, player, options),
+        "Granite Zone Main Area - Aerodactyl Battle Power Competition -- Friendship": lambda state: can_battle_advanced(
+            state, player, options
+        ) and state.has("Aerodactyl Unlock", player),
+        "Granite Zone Main Area - Arcanine Chase Power Competition -- Friendship": lambda
+            state: can_play_catch_advanced(state, player, options),
+        "Granite Zone Main Area - Jolteon Chase Power Competition -- Friendship": lambda state: can_play_catch_advanced(
+            state, player, options
+        ) and has_friendship_count(state, player, 90) and state.has("Jolteon Unlock", player),
+        "Granite Zone Main Area - Skorupi -- Friendship": lambda state: can_dash_overworld(state, player),
+        "Granite Zone Main Area - Porygon-Z Quiz Power Competition -- Friendship": lambda state: True,
+        "Granite Zone Main Area - Tyranitar Battle Power Competition -- Friendship": lambda state: can_battle_advanced(
+            state, player, options
+        ) and state.has("Tyranitar Unlock", player),
+        "Granite Zone Main Area - Garchomp Battle Power Competition -- Friendship": lambda
+            state: can_battle_thunderbolt_immune_advanced(state, player, options) and state.has(
+            "Garchomp Unlock", player
+        ),
+        "Granite Zone Main Area - Taillow Chase Power Competition -- Friendship": lambda
+            state: can_beat_granite_taillow(state, player, options),
+        "Granite Zone Main Area - Drifloon -- Friendship": lambda state: can_beat_granite_drifloon(
+            state, player, options
+        ),
+        "Granite Zone Main Area - Marowak Battle Power Competition -- Friendship": lambda
+            state: can_beat_granite_marowak(state, player, options),
+        "Granite Zone Main Area - Baltoy Battle Power Competition -- Friendship": lambda state: can_beat_granite_baltoy(
+            state, player, options
+        ),
+        "Granite Zone Main Area - Baltoy Battle Power Competition -- Claydol Unlocked": lambda
+            state: can_beat_granite_baltoy(state, player, options),
+        "Granite Zone Main Area - Claydol Battle Power Competition -- Friendship": lambda
+            state: can_beat_granite_claydol(state, player, options),
+        "Granite Zone Main Area - Furret Hide and Seek Power Competition -- Friendship": lambda
+            state: can_beat_granite_furret(state, player, options),
+        "Granite Zone Salamence Area - Salamence -- Friendship": lambda state: state.has(
+            "Salamence Prisma", player
+        ) and can_enter_attraction_via_salamence(
+            state, player
+        ),
+        "Granite Zone Main Area - Absol -- Friendship": lambda state: state.has(
+            "Absol Prisma", player
+        ) and can_enter_attraction_via_absol(),
+        "Granite Zone Togekiss Area - Togekiss -- Friendship": lambda state: can_dash_overworld(state, player),
+
+        # Absol's Hurdle Bounce
+        "Absol's Hurdle Bounce Attraction -- Prisma": lambda state: can_beat_any_absol_hurdle_bounde_record(
+            state, player, options
+        ),
+        "Absol's Hurdle Bounce Attraction -- Pikachu": lambda state: True,
+        "Absol's Hurdle Bounce Attraction -- Chikorita": lambda state: state.has("Chikorita Friendship", player),
+        "Absol's Hurdle Bounce Attraction -- Absol": lambda state: state.has("Absol Friendship", player),
+        "Absol's Hurdle Bounce Attraction -- Lucario": lambda state: state.has("Lucario Friendship", player),
+        "Absol's Hurdle Bounce Attraction -- Ponyta": lambda state: state.has("Ponyta Friendship", player),
+        "Absol's Hurdle Bounce Attraction -- Ninetales": lambda state: state.has("Ninetales Friendship", player),
+        "Absol's Hurdle Bounce Attraction -- Lopunny": lambda state: state.has("Lopunny Friendship", player),
+        "Absol's Hurdle Bounce Attraction -- Espeon": lambda state: state.has("Espeon Friendship", player),
+        "Absol's Hurdle Bounce Attraction -- Infernape": lambda state: state.has("Infernape Friendship", player),
+        "Absol's Hurdle Bounce Attraction -- Breloom": lambda state: state.has("Breloom Friendship", player),
+        "Absol's Hurdle Bounce Attraction -- Riolu": lambda state: state.has("Riolu Friendship", player),
+        "Absol's Hurdle Bounce Attraction -- Furret": lambda state: state.has("Furret Friendship", player),
+        "Absol's Hurdle Bounce Attraction -- Mareep": lambda state: state.has("Mareep Friendship", player),
+        "Absol's Hurdle Bounce Attraction -- Eevee": lambda state: state.has("Eevee Friendship", player),
+        "Absol's Hurdle Bounce Attraction -- Vulpix": lambda state: state.has("Vulpix Friendship", player),
+        "Absol's Hurdle Bounce Attraction -- Shaymin": lambda state: state.has("Shaymin Friendship", player),
+        "Absol's Hurdle Bounce Attraction -- Shaymin Friendship": lambda
+            state: can_beat_all_absol_hurdle_bounde_records(state, player),
+
+        # Salamence's Sky Race
+        "Salamence's Sky Race Attraction -- Prisma": lambda state: can_beat_any_salamence_sky_race_record(
+            state, player, options
+        ),
+        "Salamence's Sky Race Attraction -- Pikachu": lambda state: state.has("Pikachu Balloon", player),
+        "Salamence's Sky Race Attraction -- Salamence": lambda state: state.has("Salamence Friendship", player),
+        "Salamence's Sky Race Attraction -- Charizard": lambda state: state.has("Charizard Friendship", player),
+        "Salamence's Sky Race Attraction -- Dragonite": lambda state: state.has("Dragonite Friendship", player),
+        "Salamence's Sky Race Attraction -- Flygon": lambda state: state.has("Flygon Friendship", player),
+        "Salamence's Sky Race Attraction -- Aerodactyl": lambda state: state.has("Aerodactyl Friendship", player),
+        "Salamence's Sky Race Attraction -- Staraptor": lambda state: state.has("Staraptor Friendship", player),
+        "Salamence's Sky Race Attraction -- Honchkrow": lambda state: state.has("Honchkrow Friendship", player),
+        "Salamence's Sky Race Attraction -- Gliscor": lambda state: state.has("Gliscor Friendship", player),
+        "Salamence's Sky Race Attraction -- Pidgeotto": lambda state: state.has("Pidgeotto Friendship", player),
+        "Salamence's Sky Race Attraction -- Togekiss": lambda state: state.has("Togekiss Friendship", player),
+        "Salamence's Sky Race Attraction -- Golbat": lambda state: state.has("Golbat Friendship", player),
+        "Salamence's Sky Race Attraction -- Taillow": lambda state: state.has("Taillow Friendship", player),
+        "Salamence's Sky Race Attraction -- Murkrow": lambda state: state.has("Murkrow Friendship", player),
+        "Salamence's Sky Race Attraction -- Zubat": lambda state: state.has("Zubat Friendship", player),
+        "Salamence's Sky Race Attraction -- Latios": lambda state: state.has("Latios Friendship", player),
+        "Salamence's Sky Race Attraction -- Latios Friendship": lambda state: can_beat_all_salamence_sky_race_records(
+            state, player
+        ),
+
+        # Flower Zone
+        "Flower Zone Main Area - Skiploom -- Friendship": lambda state: True,
+        "Flower Zone Main Area - Budew -- Friendship": lambda state: True,
+        "Flower Zone Main Area - Cyndaquil Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Flower Zone Main Area - Lucario Chase Power Competition -- Friendship": lambda
+            state: can_play_catch_intermediate(state, player, options) and has_friendship_count(state, player, 100),
+        "Flower Zone Main Area - Dragonite Chase Power Competition -- Friendship": lambda
+            state: can_play_catch_intermediate(state, player, options),
+        "Flower Zone Main Area - Mareep Chase Power Competition -- Friendship": lambda state: can_play_catch(
+            state, player, options
+        ),
+        "Flower Zone Main Area - Bellossom Errand -- Friendship": lambda state: True,
+        "Flower Zone Main Area - Teddiursa Chase Power Competition -- Friendship": lambda
+            state: can_beat_flower_teddiursa(state, player, options),
+        "Flower Zone Main Area - Furret Hide and Seek Power Competition -- Friendship": lambda
+            state: can_beat_flower_furret(state, player, options),
+        "Flower Zone Main Area - Meditite Quiz Power Competition -- Friendship": lambda state: can_beat_flower_meditite(
+            state, player, options
+        ),
+        "Flower Zone Main Area - Rayquaza -- Friendship": lambda state: state.has(
+            "Rayquaza Prisma", player
+        ) and can_enter_attraction_via_rayquaza(
+            state, player
+        ),
+
+        # Rayquaza's Balloon Panic
+        "Rayquaza's Balloon Panic Attraction -- Prisma": lambda state: can_beat_any_rayquaza_balloon_panic_record(
+            state, player, options
+        ),
+        "Rayquaza's Balloon Panic Attraction -- Pikachu": lambda state: True,
+        "Rayquaza's Balloon Panic Attraction -- Lucario": lambda state: state.has("Lucario Friendship", player),
+        "Rayquaza's Balloon Panic Attraction -- Glaceon": lambda state: state.has("Glaceon Friendship", player),
+        "Rayquaza's Balloon Panic Attraction -- Luxray": lambda state: state.has("Luxray Friendship", player),
+        "Rayquaza's Balloon Panic Attraction -- Mamoswine": lambda state: state.has("Mamoswine Friendship", player),
+        "Rayquaza's Balloon Panic Attraction -- Infernape": lambda state: state.has("Infernape Friendship", player),
+        "Rayquaza's Balloon Panic Attraction -- Floatzel": lambda state: state.has("Floatzel Friendship", player),
+        "Rayquaza's Balloon Panic Attraction -- Rhyperior": lambda state: state.has("Rhyperior Friendship", player),
+        "Rayquaza's Balloon Panic Attraction -- Absol": lambda state: state.has("Absol Friendship", player),
+        "Rayquaza's Balloon Panic Attraction -- Breloom": lambda state: state.has("Breloom Friendship", player),
+        "Rayquaza's Balloon Panic Attraction -- Mareep": lambda state: state.has("Mareep Friendship", player),
+        "Rayquaza's Balloon Panic Attraction -- Cyndaquil": lambda state: state.has("Cyndaquil Friendship", player),
+        "Rayquaza's Balloon Panic Attraction -- Totodile": lambda state: state.has("Totodile Friendship", player),
+        "Rayquaza's Balloon Panic Attraction -- Chikorita": lambda state: state.has("Chikorita Friendship", player),
+        "Rayquaza's Balloon Panic Attraction -- Mime Jr.": lambda state: state.has("Mime Jr. Friendship", player),
+        "Rayquaza's Balloon Panic Attraction -- Deoxys": lambda state: state.has("Deoxys Friendship", player),
+        "Rayquaza's Balloon Panic Attraction -- Deoxys Friendship": lambda
+            state: can_beat_all_rayquaza_balloon_panic_records(state, player),
+
+        # Skygarden
+        "Skygarden - Mew Power Competition -- Stage 1": lambda state: can_clear_mew_power_competition_stage1(
+            state, player
+        ),
+        "Skygarden - Mew Power Competition -- Stage 2": lambda state: can_clear_mew_power_competition_stage2(
+            state, player, options
+        ),
+        "Skygarden - Mew Power Competition -- Stage 3": lambda state: can_clear_mew_power_competition_stage3(
+            state, player, options
+        ),
+        "Skygarden - Mew Power Competition -- Stage 4": lambda state: can_clear_mew_power_competition_stage4(
+            state, player, options
+        ),
+        "Skygarden - Mew Power Competition -- Friendship": lambda state: can_beat_mew(state, player, options),
+        "Skygarden - Prisma Completion -- Stage 1": lambda state: has_friendship_count(state, player, 100),
+        "Skygarden - Prisma Completion -- Stage 2": lambda state: has_friendship_count(state, player, 150),
+        "Skygarden - Prisma Completion -- Completed": lambda state: has_friendship_count(state, player, 193),
+
+        # Legendaries
+        "Pokepark Entrance - Celebi Chase Power Competition -- Friendship": lambda state: state.has(
+            "Celebi Unlock", player
+        ) and can_play_catch_advanced(
+            state, player, options
+        ),
+        "Magma Zone Main Area - Groudon Battle Power Competition -- Friendship": lambda state: state.has(
+            "Groudon Unlock", player
+        ) and can_battle_thunderbolt_immune_advanced(state, player, options),
+        "Haunted Zone Mansion Area - Darkrai Battle Power Competition -- Friendship": lambda state: state.has(
+            "Darkrai Unlock", player
+        ) and can_battle_advanced(state, player, options),
+        "Granite Zone Main Area - Jirachi Chase Power Competition -- Friendship": lambda state: state.has(
+            "Jirachi Unlock", player
+        ) and can_play_catch_advanced(state, player, options),
+    }

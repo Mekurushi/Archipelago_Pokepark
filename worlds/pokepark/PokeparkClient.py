@@ -15,7 +15,7 @@ from worlds.pokepark.client_utils import (
     PointerTableOffsets, STAGE_NAME_MAP, wrap_line)
 from worlds.pokepark.dme_helper import read_memory
 from worlds.pokepark.items import ITEM_TABLE, LOOKUP_ID_TO_NAME
-from worlds.pokepark.locations import MEW_GOAL_CODE, POSTGAME_PRISMA_GOAL_CODE
+from worlds.pokepark.locations import MEW_GOAL_CODE, MultiZoneFlag, POSTGAME_PRISMA_GOAL_CODE
 from worlds.pokepark.options import Goal
 
 ModuleUpdate.update()
@@ -62,7 +62,8 @@ CONNECTION_LOST_STATUS = (
 CONNECTION_CONNECTED_STATUS = "Dolphin connected successfully."
 CONNECTION_INITIAL_STATUS = "Dolphin connection has not been initiated."
 AP_VISITED_STAGE_NAMES_KEY_FORMAT = "pokepark_visited_stages_%i"
-
+EVENT_LOCATIONS_KEY_FORMAT = "pokepark_event_location_%i_%i"
+UT_MAP_PAGE_KEY_FORMAT = "pokepark_map_%i_%i"
 
 class IngameJSONParser(JSONtoTextParser):
     def _handle_color(self, node):
@@ -143,6 +144,8 @@ class PokeparkContext(SuperContext):
         self.ingame_json_parser = IngameJSONParser(self)
         self.is_text_buffer_empty = True
 
+        self.checked_event_locations: set[str] = set()
+
     async def disconnect(self, allow_autoreconnect: bool = False) -> None:
         """
         Disconnect the client from the server and reset game state variables.
@@ -207,6 +210,15 @@ class PokeparkContext(SuperContext):
                         visited_stage_names.add(current_stage_name)
                         Utils.async_start(self.update_visited_stages(current_stage_name))
                     self.visited_stage_names = visited_stage_names
+
+                event_locations_key = EVENT_LOCATIONS_KEY_FORMAT % (self.team, self.slot)
+                if event_locations_key in requested_keys_dict:
+                    checked_event_locations = requested_keys_dict[event_locations_key]
+                    # If it has not been set before, the value in the response will be `None`.
+                    checked_event_location_names = set() if checked_event_locations is None else set(
+                        checked_event_locations.keys()
+                    )
+                    self.checked_event_locations = checked_event_location_names
 
     def make_gui(self) -> Type["kvui.GameManager"]:
         from kvui import GameManager
@@ -436,20 +448,47 @@ async def check_current_stage_changed(ctx: PokeparkContext) -> None:
         current_stage_name = ctx.current_stage_name
         if new_stage_name != current_stage_name:
             ctx.current_stage_name = new_stage_name
-            # Send a Bounced message containing the new stage name to all trackers connected to the current slot.
-            data_to_send = {"pokepark_stage_name": new_stage_name}
-            message = {
+            # Send a Bounced message containing the new stage name to all trackers (poptracker) connected to the
+            # current slot.
+            bounce_message = {
                 "cmd": "Bounce",
                 "slots": [ctx.slot],
-                "data": data_to_send,
+                "data": {"pokepark_stage_name": new_stage_name},
             }
-            await ctx.send_msgs([message])
+            # Send a Set message to update the current stage name in the universal tracker for the current slot.
+            key = UT_MAP_PAGE_KEY_FORMAT % (ctx.team, ctx.slot)
+            ut_message = {
+                "cmd": "Set",
+                "key": key,
+                "default": {},
+                "operations": [{"operation": "replace", "value": new_stage_name}],
+            }
+            await ctx.send_msgs([bounce_message, ut_message])
             # If the stage has never been visited before, update the server's data storage to indicate that it has been
             # visited.
             visited_stage_names = ctx.visited_stage_names
             if visited_stage_names is not None and new_stage_name not in visited_stage_names:
                 visited_stage_names.add(new_stage_name)
                 await ctx.update_visited_stages(new_stage_name)
+
+
+async def check_events(ctx: PokeparkContext, key: str) -> None:
+    if ctx.slot is None or LOCATION_TABLE[key].each_zone != MultiZoneFlag.SINGLE or key in ctx.checked_event_locations:
+        return
+    checked_event_locations = EVENT_LOCATIONS_KEY_FORMAT % (ctx.team, ctx.slot)
+    await ctx.send_msgs(
+        [
+            {
+                "cmd": "Set",
+                "key": checked_event_locations,
+                "default": {},
+                "want_reply": False,
+                "operations": [{"operation": "update", "value": {key: True}}],
+            }
+        ]
+    )
+    ctx.checked_event_locations.add(key)
+
 
 
 async def check_locations(ctx: PokeparkContext) -> None:
@@ -483,6 +522,7 @@ async def check_locations(ctx: PokeparkContext) -> None:
                     ctx.victory = True
             else:
                 ctx.locations_checked.add(PokeparkItem.get_apid(data.code))
+                await check_events(ctx, location)
 
     # Send the list of newly-checked locations to the server.
     locations_checked = ctx.locations_checked.difference(ctx.checked_locations)

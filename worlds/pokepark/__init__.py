@@ -4,6 +4,7 @@ Archipelago init file for Pokepark
 import os
 import zipfile
 from base64 import b64encode
+from dataclasses import replace
 from itertools import chain
 from typing import Any, ClassVar, Dict, Optional
 
@@ -11,6 +12,7 @@ import yaml
 
 from BaseClasses import ItemClassification as IC, Region, Tutorial
 from Options import Option, OptionError
+from settings import FilePath, Group
 from worlds.AutoWorld import WebWorld, World
 from worlds.LauncherComponents import Component, Type, components, icon_paths, \
     launch_subprocess
@@ -18,10 +20,13 @@ from .items import ITEM_TABLE, PokeparkItem, PokeparkItemData, TOTAL_FRIENDSHIP_
     item_name_groups, \
     option_to_progression, \
     road_block_items, static_progressive_items, static_useful_items
-from .locations import LOCATION_TABLE, MultiZoneFlag, PokeparkFlag, PokeparkLocation
+from .locations import LOCATION_TABLE, LOCATION_TO_EVENTS, MultiZoneFlag, PokeparkBaseClientLocationData, PokeparkFlag, \
+    PokeparkLocation, \
+    PokeparkLocationData
 from .options import PokeparkOptions, RemoveBattlePowerCompLocations, pokepark_option_groups
 from .regions import ALL_ENTRANCES, ALL_EXITS, EntranceRandomizer
-from .rules import set_rules
+from .rules import can_beat_meadow_aipom, get_location_rules, set_rules
+from .ut_stuff import UTStuff
 from ..Files import APPlayerContainer
 
 VERSION: tuple[int, int, int] = (1, 2, 1)
@@ -97,7 +102,16 @@ class PokeparkContainer(APPlayerContainer):
         opened_zipfile.writestr("plando", b64encode(bytes(yaml.safe_dump(self.data, sort_keys=False), "utf-8")))
 
 
-class PokeparkWorld(World):
+class PokeparkSettings(Group):
+
+    class UTPoptrackerPath(FilePath):
+        description = "Pokepark Poptracker Pack Zip File"
+        required = False
+
+    ut_poptracker_path: UTPoptrackerPath | str = UTPoptrackerPath()
+
+
+class PokeparkWorld(UTStuff, World):
     """
     The first Pokepark game featuring 3D Gameplay controlling Pokemon.
     Lot of Minigames in the mission to save the Pokepark through the collection of Prism Shards.
@@ -107,6 +121,10 @@ class PokeparkWorld(World):
     options_dataclass = PokeparkOptions
     options: PokeparkOptions
     topology_present: bool = True
+
+    settings_key = "pokepark_settings"
+    settings: ClassVar[PokeparkSettings]
+
     web = PokeparkWebWorld()
     required_client_version: tuple[int, int, int] = (0, 5, 1)
 
@@ -120,14 +138,10 @@ class PokeparkWorld(World):
 
     item_name_groups: ClassVar[dict[str, set[str]]] = item_name_groups
 
-    glitches_item_name = "Glitched Item"
-    ut_can_gen_without_yaml = True
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.locations: set[str] = set()
-
         self.all_items: list[str] = list()
         self.progressive_pool: list[str] = list()
         self.useful_pool: list[str] = list()
@@ -414,6 +428,33 @@ class PokeparkWorld(World):
 
             region.locations.append(location)
 
+        if not self.options.each_zone.value:
+            if self.ut_active and str(self.multiworld.__getattribute__("enforce_deferred_connections")) != "off":
+                for loc_name, events in LOCATION_TO_EVENTS.items():
+                    for event_name in events:
+                        event_data = LOCATION_TABLE[event_name]
+                        event_region = Region(
+                            f"Event Region: {event_name}", self.player, self
+                            .multiworld
+                        )
+                        event_exit = self.get_region(event_data.region).create_exit(
+                            f"Get event: {event_name}"
+                        )
+                        event_exit.access_rule = get_location_rules(self.player, self.options)[event_name]
+                        event_exit.connect(event_region)
+                        modified_event_data = replace(event_data, code=None)
+                        event = PokeparkLocation(
+                            player, event_name, event_region, modified_event_data
+                        )
+                        # events are only marked as passed through the deferred entrance mechanic, so this rule will
+                        # be changed when the actual location is checked
+                        event.access_rule = lambda state: False
+                        event.place_locked_item(
+                            PokeparkItem(event_name, player, PokeparkItemData("Event", IC.progression, None, 1, 0))
+                        )
+                        event_region.locations.append(event)
+                        self.multiworld.regions.append(event_region)
+
     def set_rules(self) -> None:
         set_rules(self)
 
@@ -518,6 +559,19 @@ class PokeparkWorld(World):
     def interpret_slot_data(slot_data: dict[str, Any]) -> dict[str, Any]:
         return slot_data
 
+    def reconnect_found_entrances(self, found_key: str, data_storage_value):
+        # Check event locations when the same location can be reached from different regions.
+        # Only needed when the each_zone option is disabled, as each_zone creates separate locations per region, so no shared event locations exist.
+        if not self.options.each_zone and data_storage_value and found_key.startswith("pokepark_event_location"):
+            origin = self.get_region(self.origin_region_name)
+            always_accessible = lambda state: True
+
+            for key in data_storage_value:
+                for loc_name in LOCATION_TO_EVENTS.get(key, []):
+                    loc = self.get_location(loc_name)
+                    loc.access_rule = always_accessible
+                    # Workaround: re-parent to origin so the event-location is marked as passed even if the other region the location is in is not reachable
+                    loc.parent_region = origin
 
 def launch_client():
     print("Running Pokepark Client")
