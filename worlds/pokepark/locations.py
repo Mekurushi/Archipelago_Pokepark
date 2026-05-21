@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Flag, auto
-from typing import Optional
+from typing import List, Optional
 
 from BaseClasses import Location, Region
 from worlds.pokepark.client_utils import MemoryRange
@@ -4058,4 +4058,126 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
             structure_position=7
         ),
     ),
+}
+LOCATION_TO_EVENTS: dict[str, List[str]] = {
+    "Abra - Friendship": [
+        "Treehouse - Abra - Friendship",
+        "Haunted Zone Mansion Area - Abra -- Friendship"
+    ],
+    "Spearow Battle Power Competition -- Friendship": [
+        "Meadow Zone Main Area - Spearow Battle Power Competition -- Friendship",
+        "Beach Zone Main Area - Spearow Battle Power Competition -- Friendship"
+    ],
+    "Starly Chase Power Competition -- Friendship": [
+        "Meadow Zone Main Area - Starly Chase Power Competition -- Friendship",
+        "Beach Zone Main Area - Starly Chase Power Competition -- Friendship",
+        "Ice Zone Main Area - Starly Chase Power Competition -- Friendship"
+    ],
+    "Bonsly Hide and Seek Power Competition -- Friendship": [
+        "Meadow Zone Main Area - Bonsly Hide and Seek Power Competition -- Friendship",
+        "Cavern Zone Main Area - Bonsly Hide and Seek Power Competition -- Friendship",
+        "Magma Zone Main Area - Bonsly Hide and Seek Power Competition -- Friendship"
+    ],
+    "Bonsly Hide and Seek Power Competition -- Sudowoodo Unlocked": [
+        "Meadow Zone Main Area - Bonsly Hide and Seek Power Competition -- Sudowoodo Unlocked",
+        "Cavern Zone Main Area - Bonsly Hide and Seek Power Competition -- Sudowoodo Unlocked"
+    ],
+    "Chimchar Battle Power Competition -- Friendship": [
+        "Meadow Zone Main Area - Chimchar Battle Power Competition -- Friendship",
+        "Cavern Zone Main Area - Chimchar Battle Power Competition -- Friendship",
+        "Magma Zone Main Area - Chimchar Battle Power Competition -- Friendship"
+    ],
+    "Sudowoodo Hide and Seek Power Competition -- Friendship": [
+        "Meadow Zone Main Area - Sudowoodo Hide and Seek Power Competition -- Friendship",
+        "Cavern Zone Main Area - Sudowoodo Hide and Seek Power Competition -- Friendship"
+    ],
+    "Aipom Chase Power Competition -- Friendship": [
+        "Meadow Zone Main Area - Aipom Chase Power Competition -- Friendship",
+        "Haunted Zone Main Area - Aipom Chase Power Competition -- Friendship"
+    ],
+    "Aipom Chase Power Competition -- Ambipom Unlocked": [
+        "Meadow Zone Main Area - Aipom Chase Power Competition -- Ambipom Unlocked",
+        "Haunted Zone Main Area - Aipom Chase Power Competition -- Ambipom Unlocked"
+    ],
+    "Ambipom Battle Power Competition -- Friendship": [
+        "Meadow Zone Main Area - Ambipom Battle Power Competition -- Friendship",
+        "Haunted Zone Main Area - Ambipom Battle Power Competition -- Friendship"
+    ],
+    "Krabby Chase Power Competition -- Friendship": [
+        "Beach Zone Main Area - Krabby Chase Power Competition -- Friendship",
+        "Ice Zone Main Area - Krabby Chase Power Competition -- Friendship"
+    ],
+    "Mudkip Hide and Seek Power Competition -- Friendship": [
+        "Beach Zone Main Area - Mudkip Hide and Seek Power Competition -- Friendship",
+        "Ice Zone Main Area - Mudkip Hide and Seek Power Competition -- Friendship"
+    ],
+    "Taillow Chase Power Competition -- Friendship": [
+        "Beach Zone Main Area - Taillow Chase Power Competition -- Friendship",
+        "Ice Zone Main Area - Taillow Chase Power Competition -- Friendship",
+        "Granite Zone Main Area - Taillow Chase Power Competition -- Friendship"
+    ],
+    "Staravia Battle Power Competition -- Friendship": [
+        "Beach Zone Main Area - Staravia Battle Power Competition -- Friendship",
+        "Ice Zone Main Area - Staravia Battle Power Competition -- Friendship"
+    ],
+    "Wingull Chase Power Competition -- Friendship": [
+        "Beach Zone Main Area - Wingull Chase Power Competition -- Friendship",
+        "Ice Zone Lower Lift Area - Wingull Chase Power Competition -- Friendship"
+    ],
+    "Corphish Battle Power Competition -- Friendship": [
+        "Beach Zone Main Area - Corphish Battle Power Competition -- Friendship",
+        "Ice Zone Main Area - Corphish Battle Power Competition -- Friendship"
+    ],
+    "Teddiursa Chase Power Competition -- Friendship": [
+        "Ice Zone Main Area - Teddiursa Chase Power Competition -- Friendship",
+        "Flower Zone Main Area - Teddiursa Chase Power Competition -- Friendship"
+    ],
+    "Aron Errand -- Friendship": [
+        "Cavern Zone Main Area - Aron Errand -- Friendship",
+        "Magma Zone Main Area - Aron Errand -- Friendship"
+    ],
+    "Torchic Battle Power Competition -- Friendship": [
+        "Cavern Zone Main Area - Torchic Battle Power Competition -- Friendship",
+        "Magma Zone Main Area - Torchic Battle Power Competition -- Friendship"
+    ],
+    "Geodude Hide and Seek Power Competition -- Friendship": [
+        "Cavern Zone Main Area - Geodude Hide and Seek Power Competition -- Friendship",
+        "Magma Zone Main Area - Geodude Hide and Seek Power Competition -- Friendship"
+    ],
+    "Raichu Chase Power Competition -- Friendship": [
+        "Cavern Zone Main Area - Raichu Chase Power Competition -- Friendship",
+        "Haunted Zone Main Area - Raichu Chase Power Competition -- Friendship"
+    ],
+    "Meowth Quiz Power Competition -- Friendship": [
+        "Cavern Zone Main Area - Meowth Quiz Power Competition -- Friendship",
+        "Haunted Zone Main Area - Meowth Quiz Power Competition -- Friendship"
+    ],
+    "Marowak Battle Power Competition -- Friendship": [
+        "Cavern Zone Main Area - Marowak Battle Power Competition -- Friendship",
+        "Granite Zone Main Area - Marowak Battle Power Competition -- Friendship"
+    ],
+    "Baltoy Battle Power Competition -- Friendship": [
+        "Magma Zone Main Area - Baltoy Battle Power Competition -- Friendship",
+        "Granite Zone Main Area - Baltoy Battle Power Competition -- Friendship"
+    ],
+    "Baltoy Battle Power Competition -- Claydol Unlocked": [
+        "Magma Zone Main Area - Baltoy Battle Power Competition -- Claydol Unlocked",
+        "Granite Zone Main Area - Baltoy Battle Power Competition -- Claydol Unlocked"
+    ],
+    "Meditite Quiz Power Competition -- Friendship": [
+        "Magma Zone Circle Area - Meditite Quiz Power Competition -- Friendship",
+        "Flower Zone Main Area - Meditite Quiz Power Competition -- Friendship"
+    ],
+    "Drifloon -- Friendship": [
+        "Haunted Zone Main Area - Drifloon -- Friendship",
+        "Granite Zone Main Area - Drifloon -- Friendship"
+    ],
+    "Furret Hide and Seek Power Competition -- Friendship": [
+        "Granite Zone Main Area - Furret Hide and Seek Power Competition -- Friendship",
+        "Flower Zone Main Area - Furret Hide and Seek Power Competition -- Friendship"
+    ],
+    "Claydol Battle Power Competition -- Friendship": [
+        "Magma Zone Main Area - Claydol Battle Power Competition -- Friendship",
+        "Granite Zone Main Area - Claydol Battle Power Competition -- Friendship"
+    ],
 }

@@ -895,3 +895,5 @@ class EntranceRandomizer:
                 entrance_name,
                 self.entrances_rules[entrance.name]
             )
+            # update entrance for UT Maps
+            self.world.tracker_world['poptracker_entrance_mapping'][entrance.name] = entrance_name
