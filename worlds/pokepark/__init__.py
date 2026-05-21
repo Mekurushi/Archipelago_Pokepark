@@ -29,7 +29,7 @@ from .rules import can_beat_meadow_aipom, get_location_rules, set_rules
 from .ut_stuff import UTStuff
 from ..Files import APPlayerContainer
 
-VERSION: tuple[int, int, int] = (1, 2, 1)
+VERSION: tuple[int, int, int] = (1, 2, 2)
 
 
 class PokeparkWebWorld(WebWorld):
