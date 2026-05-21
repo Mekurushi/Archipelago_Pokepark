@@ -2269,7 +2269,7 @@ def get_location_rules(player: int, options: "PokeparkOptions") -> dict[str, Cal
         ) and state.has(
             "Squirtle Unlock", player
         ),
-        "Ice Zone Main Area - Glaceon Chase Power Competition -- Friendship": lambda state: can_play_catch(
+        "Ice Zone Main Area - Glaceon Chase Power Competition -- Friendship": lambda state: can_play_catch_intermediate(
             state, player, options
         ) and has_friendship_count(
             state, player, 50
