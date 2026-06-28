@@ -4044,7 +4044,7 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
         ),
     ),
     "Magma Zone Main Area - Groudon Battle Power Competition -- Friendship": PokeparkLocationData(
-        584, PokeparkFlag.LEGENDARY, "Pokepark Entrance", Pokepark13AttractionClientData(
+        584, PokeparkFlag.LEGENDARY, "Magma Zone Main Area", Pokepark13AttractionClientData(
             structure_position=5
         ),
     ),
