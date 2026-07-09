@@ -179,6 +179,7 @@ def can_beat_all_rotom_spooky_shoot_records(state: CollectionState, player: int)
             state.has("Mismagius Friendship", player) and
             state.has("Claydol Friendship", player) and
             state.has("Electabuzz Friendship", player) and
+            state.has("Haunter Friendship", player) and
             state.has("Abra Friendship", player) and
             state.has("Elekid Friendship", player) and
             state.has("Mr. Mime Friendship", player) and
@@ -207,6 +208,7 @@ def can_beat_any_rotom_spooky_shoot_record(state: CollectionState, player: int, 
                 state.has("Mismagius Friendship", player) or
                 state.has("Claydol Friendship", player) or
                 state.has("Electabuzz Friendship", player) or
+                state.has("Haunter Friendship", player) or
                 state.has("Abra Friendship", player) or
                 state.has("Elekid Friendship", player) or
                 state.has("Mr. Mime Friendship", player) or
