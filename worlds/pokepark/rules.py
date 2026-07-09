@@ -461,6 +461,7 @@ def can_beat_all_empoleon_snow_slide_records(state: CollectionState, player: int
             state.has("Glaceon Friendship", player) and
             state.has("Blastoise Friendship", player) and
             state.has("Glalie Friendship", player) and
+            state.has("Lapras Friendship", player) and
             state.has("Delibird Friendship", player) and
             state.has("Piloswine Friendship", player) and
             state.has("Prinplup Friendship", player) and
@@ -483,6 +484,7 @@ def can_beat_any_empoleon_snow_slide_record(state: CollectionState, player: int,
                 state.has("Glaceon Friendship", player) or
                 state.has("Blastoise Friendship", player) or
                 state.has("Glalie Friendship", player) or
+                state.has("Lapras Friendship", player) or
                 state.has("Delibird Friendship", player) or
                 state.has("Piloswine Friendship", player) or
                 state.has("Prinplup Friendship", player) or
