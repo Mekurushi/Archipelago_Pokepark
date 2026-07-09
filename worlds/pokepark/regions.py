@@ -487,7 +487,8 @@ EACH_ZONE_EXITS: list[Exit] = [
     # additional
     Exit("Haunted Drifloon - Friendship", "Drifloon"),
     Exit("Mansion Drifloon - Friendship", "Drifloon"),
-
+    Exit("Haunted Drifloon - Friendship", "Haunted Drifloon"),
+    Exit("Mansion Drifloon - Friendship", "Haunted Drifloon"),
     Exit("Haunted Riolu - Battle Power Competition", "Riolu"),
     Exit("Mansion Riolu - Battle Power Competition", "Riolu"),
 ]

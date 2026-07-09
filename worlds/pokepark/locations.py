@@ -2779,7 +2779,7 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
         each_zone=MultiZoneFlag.MULTI
     ),
     "Haunted Zone Main Area - Drifloon -- Friendship": PokeparkLocationData(
-        374, PokeparkFlag.FRIENDSHIP, "Drifloon", PokeparkFriendshipClientLocationData(
+        374, PokeparkFlag.FRIENDSHIP, "Haunted Drifloon", PokeparkFriendshipClientLocationData(
             structure_position=175
         ),
         each_zone=MultiZoneFlag.MULTI
