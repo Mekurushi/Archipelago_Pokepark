@@ -76,7 +76,6 @@ def can_beat_any_rayquaza_balloon_panic_record(state: CollectionState, player: i
 def can_beat_all_salamence_sky_race_records(state: CollectionState, player: int):
 
     return (
-            state.has("Pikachu Balloon", player) and
             state.has("Salamence Friendship", player) and
             state.has("Charizard Friendship", player) and
             state.has("Dragonite Friendship", player) and
@@ -456,7 +455,6 @@ def can_beat_any_bastiodon_panel_crush_record(state: CollectionState, player: in
 
 def can_beat_all_empoleon_snow_slide_records(state: CollectionState, player: int):
     return (
-            state.has("Pikachu Snowboard", player) and
             state.has("Teddiursa Friendship", player) and
             state.has("Magikarp Friendship", player) and
             state.has("Empoleon Friendship", player) and
@@ -500,7 +498,6 @@ def can_beat_any_empoleon_snow_slide_record(state: CollectionState, player: int,
 
 def can_beat_all_gyarados_aqua_dash_records(state: CollectionState, player: int):
     return (
-            state.has("Pikachu Surfboard", player) and
             state.has("Psyduck Friendship", player) and
             state.has("Azurill Friendship", player) and
             state.has("Slowpoke Friendship", player) and
@@ -549,7 +546,6 @@ def can_beat_any_gyarados_aqua_dash_record(state: CollectionState, player: int, 
 
 def can_beat_all_pelipper_circle_circuit_records(state: CollectionState, player: int):
     return (
-            state.has("Pikachu Balloon", player) and
             state.has("Staraptor Friendship", player) and
             state.has("Togekiss Friendship", player) and
             state.has("Honchkrow Friendship", player) and
