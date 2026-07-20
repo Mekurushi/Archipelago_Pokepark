@@ -27,18 +27,19 @@ from CommonClient import gui_enabled, logger, get_base_parser, ClientCommandProc
 
 
 def _check_universal_tracker_version() -> bool:
-    import re
-    if tracker_loaded:
-        match = re.search(r"v\d+.(\d+).(\d+)", UT_VERSION)
-        if len(match.groups()) < 2:
-            return False
-        if int(match.groups()[0]) < 2:
-            return False
-        if int(match.groups()[1]) < 12:
-            return False
-        return True
-    return False
-
+    if not tracker_loaded:
+        return False
+    # split the version string into its components, removing any leading 'v' and taking only the first three parts to
+    # sanitize 4 part versions
+    version_parts = UT_VERSION.strip("v").split(".")[:3]
+    # remove any trailing characters from each part to sanitize suffixed versions
+    version_parts = [p.split()[0].split("-")[0].split("_")[0] for p in version_parts]
+    # UT_VERSION is used as a free-form string not designed for structured parsing, so this extraction is inherently
+    # fragile and relies on assumptions about its format. Those assumptions hold for all currently released and
+    # historic UT versions, but aren't guaranteed to hold for future ones.
+    ut_version = Utils.tuplize_version(".".join(version_parts))
+    # needs at least v0.2.12 to support integrated clients
+    return ut_version >= Utils.Version(0, 2, 12)
 
 tracker_loaded = False
 try:
