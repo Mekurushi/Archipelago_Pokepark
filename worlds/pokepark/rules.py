@@ -1320,6 +1320,12 @@ def can_enter_attraction_via_rayquaza(state: CollectionState, player: int):
     return state.has("Rayquaza Unlock", player)
 
 
+def can_open_porygon_entrance(state: CollectionState, player: int):
+    # UT glitched logic
+    if state.has("Glitched Item", player):
+        return True
+    return can_dash_overworld(state, player)
+
 def get_entrance_rules_dict(player: int, options: "PokeparkOptions"):
     entrance_rules: dict[str, Callable[[CollectionState], bool]] = {
         "Meadow Zone Main Area - Pokepark Entrance Gate": lambda state: True,
@@ -2836,8 +2842,9 @@ def get_location_rules(player: int, options: "PokeparkOptions") -> dict[str, Cal
         "Granite Zone Main Area - Jolteon Chase Power Competition -- Friendship": lambda state: can_play_catch_advanced(
             state, player, options
         ) and has_friendship_count(state, player, 90) and state.has("Jolteon Unlock", player),
-        "Granite Zone Main Area - Skorupi -- Friendship": lambda state: can_dash_overworld(state, player),
-        "Granite Zone Main Area - Porygon-Z Quiz Power Competition -- Friendship": lambda state: True,
+        "Granite Zone Main Area - Skorupi -- Friendship": lambda state: can_open_porygon_entrance(state, player),
+        "Granite Zone Main Area - Porygon-Z Quiz Power Competition -- Friendship": lambda state:
+        can_open_porygon_entrance(state, player),
         "Granite Zone Main Area - Tyranitar Battle Power Competition -- Friendship": lambda state: can_battle_advanced(
             state, player, options
         ) and state.has("Tyranitar Unlock", player),
