@@ -2384,7 +2384,7 @@ LOCATION_TABLE: dict[str, PokeparkLocationData] = {
         )
     ),
     "Magma Zone Circle Area - Rhyperior -- Friendship": PokeparkLocationData(
-        310, PokeparkFlag.ERRAND, "Magma Zone Circle Area", PokeparkFriendshipClientLocationData(
+        310, PokeparkFlag.FRIENDSHIP, "Magma Zone Circle Area", PokeparkFriendshipClientLocationData(
             structure_position=114
         ),
     ),
