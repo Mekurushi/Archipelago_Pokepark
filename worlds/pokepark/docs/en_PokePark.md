@@ -44,11 +44,12 @@ Death can be received in:
 
 ### Meadow Zone
 
-| Location / Entrance | Condition         |
-|---------------------|-------------------|
-| Venusaur Gate       | Bulbasaur Prisma  |
-| Big Berry Crate     | Bulbasaur Prisma  |
-| Bidoof Quest        | Mankey Friendship |
+| Location / Entrance | Condition                                             |
+|---------------------|-------------------------------------------------------|
+| Venusaur Gate       | Bulbasaur Prisma                                      |
+| Venusaur Friendship | Venusaur Prisma, Empoleon Prisma, and Blaziken Prisma |
+| Big Berry Crate     | Bulbasaur Prisma                                      |
+| Bidoof Housing      | Mankey Friendship and an object-breaking move         |
 
 ### Beach Zone
 
@@ -106,9 +107,7 @@ Death can be received in:
 
 ## Feature Roadmap
 
-- In-game client messages
 - In-game hints
-- Entrance randomizer
 - Model randomizer
 - Locations of missing Pokemon
 
