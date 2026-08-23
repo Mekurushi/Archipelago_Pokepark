@@ -11,8 +11,8 @@ The story has been removed, and some changes were made to the game’s logic to 
 
 ### Trigger
 
-Deathlink can be currently only triggered by Power Competition (except Quizzes).  
-Losing a Power Competition (Battle, Chase, Hide and Seek) sends Death.
+Deathlink can be currently only triggered by Power Competition.  
+Losing a Power Competition sends Death.
 
 ### Receiving Death
 
