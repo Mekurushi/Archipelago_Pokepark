@@ -516,11 +516,6 @@ def can_beat_all_gyarados_aqua_dash_records(state: CollectionState, player: int)
 
 
 def can_beat_any_gyarados_aqua_dash_record(state: CollectionState, player: int, options: "PokeparkOptions"):
-    # UT glitched logic
-    if state.has("Glitched Item", player):
-        return True
-
-    # in-logic rule
     if options.remove_attraction_locations.value == options.remove_attraction_locations.option_true:
         return state.has("Pikachu Surfboard", player)
     else:
