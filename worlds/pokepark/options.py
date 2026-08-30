@@ -17,7 +17,7 @@ class PowerStartingMode(Choice):
     IronTail: Start with one Iron Tail.
     Randomize: Start with a random number of each Power Item, including Double Dash.
     """
-    display_name = "Power starting mode"
+    display_name = "Starting Power Item Preset"
     option_full = 0
     option_none = 2
     option_vanilla = 3
@@ -36,7 +36,7 @@ class StartFastTravel(Choice):
     One: Start with one random Fast Travel Item.
     All: Start with all Fast Travel Items.
     """
-    display = "Precollect Fast Travel"
+    display_name = "Starting Fast Travel Items"
     option_none = 0
     option_one = 1
     option_all = 2
@@ -50,7 +50,7 @@ class Goal(Choice):
     Mew: Complete Mew's Power Competition (default).
     Postgame: Complete the postgame Prisma completion, which requires all Friendships.
     """
-    display = "Goal Condition"
+    display_name = "Goal"
     option_mew = 0
     option_postgame = 1
 
@@ -61,7 +61,7 @@ class NumRequiredBattleCount(Range):
 
     Set this to 0 to remove the consecutive Battle requirement.
     """
-    display = "Number of Battle Count"
+    display_name = "Required Battle Win Streak"
     range_start = 0
     range_end = 7
     default = 5
@@ -71,7 +71,7 @@ class NumRequiredPrismaCountSkygarden(Range):
     """
     Determines how many Prisma Shards are required to travel to Skygarden with Piplup in the Treehouse.
     """
-    display = "Number of required Prismas"
+    display_name = "Skygarden Prisma Requirement"
     range_start = 1
     range_end = 14
     default = 14
@@ -84,6 +84,7 @@ class RemoveBattlePowerCompLocations(Toggle):
 
     WARNING: Removing too many Location types may leave too few Locations for the required progression Items.
     """
+    display_name = "Remove Battle Power Competition Locations"
     default = False
 
 
@@ -94,6 +95,7 @@ class RemoveChasePowerCompLocations(Toggle):
 
     WARNING: Removing too many Location types may leave too few Locations for the required progression Items.
     """
+    display_name = "Remove Chase Power Competition Locations"
     default = False
 
 
@@ -104,6 +106,7 @@ class RemoveQuizPowerCompLocations(Toggle):
 
     WARNING: Removing too many Location types may leave too few Locations for the required progression Items.
     """
+    display_name = "Remove Quiz Power Competition Locations"
     default = True
 
 
@@ -114,6 +117,7 @@ class RemoveHideAndSeekPowerCompLocations(Toggle):
 
     WARNING: Removing too many Location types may leave too few Locations for the required progression Items.
     """
+    display_name = "Remove Hide-and-Seek Power Competition Locations"
     default = False
 
 
@@ -123,16 +127,18 @@ class RemoveErrandPowerCompLocations(Toggle):
 
     WARNING: Removing too many Location types may leave too few Locations for the required progression Items.
     """
+    display_name = "Remove Errand Locations"
     default = False
 
 
 class RemoveLegendaryPokemonPowerCompLocations(Toggle):
     """
-    Removes Legendary Pokémon Power Competition Locations, such as Celebi. These competitions can still be played to
+    Removes Legendary Pokemon Power Competition Locations, such as Celebi. These competitions can still be played to
     gain Berries but will no longer send Location Checks.
 
     WARNING: Removing too many Location types may leave too few Locations for the required progression Items.
     """
+    display_name = "Remove Legendary Pokemon Locations"
     default = False
 
 
@@ -143,6 +149,7 @@ class RemoveMiscPowerCompLocations(Toggle):
 
     WARNING: Removing too many Location types may leave too few Locations for the required progression Items.
     """
+    display_name = "Remove Miscellaneous Friendship Locations"
     default = False
 
 
@@ -152,48 +159,54 @@ class RemovePowerUpLocations(Toggle):
 
     WARNING: Removing too many Location types may leave too few Locations for the required progression Items.
     """
+    display_name = "Remove Power Training Locations"
     default = False
 
 class RemoveAttractionLocations(Toggle):
     """
-    Removes the individual Pokémon Record Locations from Attractions. Attractions can still be played to gain Berries,
+    Removes the individual Pokemon Record Locations from Attractions. Attractions can still be played to gain Berries,
     and their Prisma Locations are not removed by this option.
 
     WARNING: Removing too many Location types may leave too few Locations for the required progression Items.
     """
+    display_name = "Remove Attraction Record Locations"
     default = True
 
 
 class RemoveAttractionPrismaLocations(Toggle):
     """
     Removes the Prisma Location from each Attraction. Attractions can still be played to gain Berries, and their
-    individual Pokémon Record Locations are not removed by this option.
+    individual Pokemon Record Locations are not removed by this option.
 
     WARNING: Removing too many Location types may leave too few Locations for the required progression Items.
     """
+    display_name = "Remove Attraction Prisma Locations"
     default = False
 
 
 class RemovePokemonUnlockLocations(Toggle):
     """
-    Removes Locations for unlocking Pokémon in the overworld, such as Caterpie's Tree and Shroomish's Crate.
+    Removes Locations for unlocking Pokemon in the overworld, such as Caterpie's Tree and Shroomish's Crate.
 
     WARNING: Removing too many Location types may leave too few Locations for the required progression Items.
     """
+    display_name = "Remove Pokemon Unlock Locations"
     default = False
 
 
 class HarderEnemyAI(Toggle):
     """
-    Pokémon always use their harder AI during Power Competitions. Logic requirements are increased to account for the
+    Pokemon always use their harder AI during Power Competitions. Logic requirements are increased to account for the
     additional difficulty, but individual matchups may still be harder depending on player skill and know-how.
     """
+    display_name = "Harder Power Competition AI"
     default = False
 
 class RandomizeAttractionEntrances(Toggle):
     """
     Randomizes Attraction Entrances among themselves. Entering an Attraction may lead to a different Attraction.
     """
+    display_name = "Randomize Attraction Entrances"
     default = False
 
 
@@ -207,6 +220,7 @@ class RandomizeFastTravelEntrances(Toggle):
 
     Enabling this option automatically disables unlocking Fast Travel through Taxi Stops.
     """
+    display_name = "Randomize Fast Travel Routes"
     default = False
 
 
@@ -214,6 +228,7 @@ class RandomizeTreehouseGatesEntrances(Toggle):
     """
     Randomizes the Zone Gates in the Treehouse among themselves. Entering a Gate may lead to a different Zone.
     """
+    display_name = "Randomize Treehouse Gates"
     default = False
 
 
@@ -222,6 +237,7 @@ class RandomizeGeneralEntrances(Toggle):
     Randomizes general overworld Entrances, such as the connection between the Meadow Zone Main Area and the Venusaur
     Area.
     """
+    display_name = "Randomize General Entrances"
     default = False
 
 
@@ -230,15 +246,17 @@ class MixRandomizedEntrancePools(Toggle):
     Combines all enabled Treehouse Gate, Fast Travel, and General Entrance pools into one randomized pool. Attraction
     Entrances remain in their own pool.
     """
+    display_name = "Mix Entrance Randomization Pools"
     default = False
 
 class EachZone(Toggle):
     """
-    Pokémon that appear in multiple Zones become separate Locations for each Zone.
+    Pokemon that appear in multiple Zones become separate Locations for each Zone.
 
     For example, Bonsly in the Meadow, Cavern, and Magma Zones becomes three separate Locations instead of one shared
     Location.
     """
+    display_name = "Separate Pokemon Locations by Zone"
     default = False
 
 
@@ -248,6 +266,7 @@ class InZoneRoadBlocks(Toggle):
 
     When disabled, all affected Roadblock Items are added to the starting inventory.
     """
+    display_name = "In-Zone Roadblock Items"
     default = True
 
 
@@ -257,6 +276,7 @@ class UnlockFastTravelWithTaxiStop(Toggle):
 
     This option is automatically disabled when Fast Travel Entrances are randomized.
     """
+    display_name = "Unlock Fast Travel at Taxi Stops"
     default = True
 
 
@@ -276,6 +296,7 @@ class ShowClientTextInGame(Toggle):
     """
     Displays Archipelago Client messages inside the game. This can also be toggled from the PokePark Client.
     """
+    display_name = "Show Client Messages In-Game"
     default = True
 
 
@@ -283,6 +304,7 @@ class FpsEnhancementPatch(Toggle):
     """
     Unlocks the frame rate up to 60 FPS.
     """
+    display_name = "60 FPS Patch"
     default = False
 
 @dataclass
