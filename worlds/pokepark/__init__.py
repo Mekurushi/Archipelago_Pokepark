@@ -277,7 +277,6 @@ class PokeparkWorld(UTStuff, World):
             self._precollect_item("Double Dash", self.random.randint(0, 1))
 
         if options.start_fast_travel.value == options.start_fast_travel.option_one:
-            self.random.shuffle(fast_travel_items)
             precollected_fast_travel = self.random.choice(fast_travel_items)
             self._precollect_item(precollected_fast_travel, 1)
 
@@ -510,7 +509,6 @@ class PokeparkWorld(UTStuff, World):
             )]
         )
 
-        self.random.shuffle(self.progressive_pool)
         for item in self.progressive_pool:
             self.multiworld.itempool.append(self.create_item(item))
 
