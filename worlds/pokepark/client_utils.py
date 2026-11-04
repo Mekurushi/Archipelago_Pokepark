@@ -137,21 +137,27 @@ def visible_len(s: str) -> int:
 def wrap_line(line: str, max_width: int) -> list[str]:
     result = []
     current = ""
-    active_color = ""
+    color_at_start = ""
+
+    def color_after(text: str, initial_color: str) -> str:
+        color = initial_color
+        for match in CONTROL_SEQ.finditer(text):
+            color = "" if match.group(0) == COLOR_RESET else match.group(0)
+        return color
 
     for word in line.split(' '):
         # control sequences shouldn't count to the width
         width = visible_len(current) + visible_len(word) + 1
         if current and width > max_width:
-            result.append(active_color + current + (COLOR_RESET if active_color else ""))
-            # find the current active color for the width forced line break
-            for m in CONTROL_SEQ.finditer(current):
-                active_color = "" if m.group(0) == COLOR_RESET else m.group(0)
+            color_at_end = color_after(current, color_at_start)
+            result.append(color_at_start + current + (COLOR_RESET if color_at_end else ""))
+            color_at_start = color_at_end
             current = word
         else:
             current = (current + ' ' + word).lstrip(' ')
 
     if current:
-        result.append(active_color + current + (COLOR_RESET if active_color else ""))
+        color_at_end = color_after(current, color_at_start)
+        result.append(color_at_start + current + (COLOR_RESET if color_at_end else ""))
 
     return result
